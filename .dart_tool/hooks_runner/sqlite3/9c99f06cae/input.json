@@ -1,0 +1,29 @@
+{
+  "assets": {},
+  "config": {
+    "build_asset_types": [
+      "code_assets/code"
+    ],
+    "extensions": {
+      "code_assets": {
+        "android": {
+          "target_ndk_api": 24
+        },
+        "c_compiler": {
+          "ar": "/home/rgukt/Android/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar",
+          "cc": "/home/rgukt/Android/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+          "ld": "/home/rgukt/Android/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/ld.lld"
+        },
+        "link_mode_preference": "dynamic",
+        "target_architecture": "x64",
+        "target_os": "android"
+      }
+    },
+    "linking_enabled": true
+  },
+  "out_dir_shared": "/home/rgukt/Github/SR-Foods/.dart_tool/hooks_runner/shared/sqlite3/build/",
+  "out_file": "/home/rgukt/Github/SR-Foods/.dart_tool/hooks_runner/sqlite3/9c99f06cae/output.json",
+  "package_name": "sqlite3",
+  "package_root": "/home/rgukt/.pub-cache/hosted/pub.dev/sqlite3-3.3.4/",
+  "user_defines": {}
+}

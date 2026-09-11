@@ -1,0 +1,41 @@
+Analyzing SR-Foods...                                           
+
+  error • The function 'StateNotifierProvider' isn't defined. Try importing the library that defines 'StateNotifierProvider', correcting the name to the name of an existing function, or defining a function named 'StateNotifierProvider' • lib/core/network/connectivity_provider.dart:4:30 • undefined_function
+  error • Classes can only extend other classes. Try specifying a different superclass, or removing the extends clause • lib/core/network/connectivity_provider.dart:8:36 • extends_non_class
+  error • Too many positional arguments: 0 expected, but 1 found. Try removing the extra arguments • lib/core/network/connectivity_provider.dart:9:34 • extra_positional_arguments
+  error • Undefined name 'state'. Try correcting the name to one that is defined, or defining the name • lib/core/network/connectivity_provider.dart:15:5 • undefined_identifier
+  error • Undefined name 'state'. Try correcting the name to one that is defined, or defining the name • lib/core/network/connectivity_provider.dart:19:9 • undefined_identifier
+  error • Undefined name 'state'. Try correcting the name to one that is defined, or defining the name • lib/core/network/connectivity_provider.dart:24:24 • undefined_identifier
+  error • The function 'StateProvider' isn't defined. Try importing the library that defines 'StateProvider', correcting the name to the name of an existing function, or defining a function named 'StateProvider' • lib/features/customers/presentation/screens/customers_screen.dart:21:32 • undefined_function
+warning • The type argument(s) of the function 'watch' can't be inferred. Use explicit type argument(s) for 'watch' • lib/features/customers/presentation/screens/customers_screen.dart:41:29 • inference_failure_on_function_invocation
+warning • The type argument(s) of the function 'read' can't be inferred. Use explicit type argument(s) for 'read' • lib/features/customers/presentation/screens/customers_screen.dart:60:23 • inference_failure_on_function_invocation
+  error • Conditions must have a static type of 'bool'. Try changing the condition • lib/features/customers/presentation/screens/customers_screen.dart:71:29 • non_bool_condition
+warning • The type argument(s) of the function 'read' can't be inferred. Use explicit type argument(s) for 'read' • lib/features/customers/presentation/screens/customers_screen.dart:76:31 • inference_failure_on_function_invocation
+  error • Conditions must have a static type of 'bool'. Try changing the condition • lib/features/customers/presentation/screens/customers_screen.dart:88:34 • non_bool_condition
+  error • The argument type 'dynamic' can't be assigned to the parameter type 'Pattern'.  • lib/features/customers/presentation/screens/customers_screen.dart:92:66 • argument_type_not_assignable
+  error • The argument type 'dynamic' can't be assigned to the parameter type 'Pattern'.  • lib/features/customers/presentation/screens/customers_screen.dart:93:64 • argument_type_not_assignable
+  error • The argument type 'dynamic' can't be assigned to the parameter type 'Pattern'.  • lib/features/customers/presentation/screens/customers_screen.dart:94:60 • argument_type_not_assignable
+  error • The function 'StateProvider' isn't defined. Try importing the library that defines 'StateProvider', correcting the name to the name of an existing function, or defining a function named 'StateProvider' • lib/features/orders/presentation/screens/orders_screen.dart:16:29 • undefined_function
+warning • The type argument(s) of the function 'watch' can't be inferred. Use explicit type argument(s) for 'watch' • lib/features/orders/presentation/screens/orders_screen.dart:36:29 • inference_failure_on_function_invocation
+warning • The type argument(s) of the function 'read' can't be inferred. Use explicit type argument(s) for 'read' • lib/features/orders/presentation/screens/orders_screen.dart:55:23 • inference_failure_on_function_invocation
+  error • Conditions must have a static type of 'bool'. Try changing the condition • lib/features/orders/presentation/screens/orders_screen.dart:66:29 • non_bool_condition
+warning • The type argument(s) of the function 'read' can't be inferred. Use explicit type argument(s) for 'read' • lib/features/orders/presentation/screens/orders_screen.dart:71:31 • inference_failure_on_function_invocation
+  error • Conditions must have a static type of 'bool'. Try changing the condition • lib/features/orders/presentation/screens/orders_screen.dart:83:34 • non_bool_condition
+  error • The argument type 'dynamic' can't be assigned to the parameter type 'Pattern'.  • lib/features/orders/presentation/screens/orders_screen.dart:89:73 • argument_type_not_assignable
+  error • The argument type 'dynamic' can't be assigned to the parameter type 'Pattern'.  • lib/features/orders/presentation/screens/orders_screen.dart:90:72 • argument_type_not_assignable
+  error • Conditions must have a static type of 'bool'. Try changing the condition • lib/features/orders/presentation/screens/orders_screen.dart:103:29 • non_bool_condition
+  error • Conditions must have a static type of 'bool'. Try changing the condition • lib/features/orders/presentation/screens/orders_screen.dart:109:29 • non_bool_condition
+  error • The function 'StateProvider' isn't defined. Try importing the library that defines 'StateProvider', correcting the name to the name of an existing function, or defining a function named 'StateProvider' • lib/features/products/presentation/screens/products_screen.dart:23:31 • undefined_function
+warning • The type argument(s) of the function 'watch' can't be inferred. Use explicit type argument(s) for 'watch' • lib/features/products/presentation/screens/products_screen.dart:61:29 • inference_failure_on_function_invocation
+warning • The type argument(s) of the function 'read' can't be inferred. Use explicit type argument(s) for 'read' • lib/features/products/presentation/screens/products_screen.dart:83:23 • inference_failure_on_function_invocation
+  error • Conditions must have a static type of 'bool'. Try changing the condition • lib/features/products/presentation/screens/products_screen.dart:94:29 • non_bool_condition
+warning • The type argument(s) of the function 'read' can't be inferred. Use explicit type argument(s) for 'read' • lib/features/products/presentation/screens/products_screen.dart:99:31 • inference_failure_on_function_invocation
+  error • Conditions must have a static type of 'bool'. Try changing the condition • lib/features/products/presentation/screens/products_screen.dart:111:34 • non_bool_condition
+  error • The argument type 'dynamic' can't be assigned to the parameter type 'Pattern'.  • lib/features/products/presentation/screens/products_screen.dart:115:62 • argument_type_not_assignable
+  error • The argument type 'dynamic' can't be assigned to the parameter type 'Pattern'.  • lib/features/products/presentation/screens/products_screen.dart:116:58 • argument_type_not_assignable
+  error • The argument type 'dynamic' can't be assigned to the parameter type 'Pattern'.  • lib/features/products/presentation/screens/products_screen.dart:117:65 • argument_type_not_assignable
+  error • Target of URI doesn't exist: 'package:sqlite3/open.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist • lib/main.dart:7:8 • uri_does_not_exist
+  error • Undefined name 'open'. Try correcting the name to one that is defined, or defining the name • lib/main.dart:15:7 • undefined_identifier
+  error • Undefined name 'OperatingSystem'. Try correcting the name to one that is defined, or defining the name • lib/main.dart:15:24 • undefined_identifier
+   info • Unnecessary use of double quotes. Try using single quotes unless the string contains single quotes • lib/main.dart:23:31 • prefer_single_quotes
+

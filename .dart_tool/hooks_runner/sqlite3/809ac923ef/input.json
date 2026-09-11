@@ -1,0 +1,26 @@
+{
+  "assets": {},
+  "config": {
+    "build_asset_types": [
+      "code_assets/code"
+    ],
+    "extensions": {
+      "code_assets": {
+        "c_compiler": {
+          "ar": "/snap/flutter/current/usr/bin/ar",
+          "cc": "/snap/flutter/149/usr/lib/llvm-10/bin/clang",
+          "ld": "/snap/flutter/current/usr/bin/ld"
+        },
+        "link_mode_preference": "dynamic",
+        "target_architecture": "x64",
+        "target_os": "linux"
+      }
+    },
+    "linking_enabled": false
+  },
+  "out_dir_shared": "/home/rgukt/Github/SR-Foods/.dart_tool/hooks_runner/shared/sqlite3/build/",
+  "out_file": "/home/rgukt/Github/SR-Foods/.dart_tool/hooks_runner/sqlite3/809ac923ef/output.json",
+  "package_name": "sqlite3",
+  "package_root": "/home/rgukt/.pub-cache/hosted/pub.dev/sqlite3-3.3.4/",
+  "user_defines": {}
+}
