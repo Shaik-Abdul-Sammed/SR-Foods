@@ -8,6 +8,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/utils/communication_utils.dart';
+import '../../../../core/services/whatsapp_service.dart';
 
 final customerDetailProvider =
     FutureProvider.family<Customer?, int>((ref, id) async {
@@ -86,6 +87,27 @@ class CustomerDetailScreen extends ConsumerWidget {
                             style: AppTextStyles.labelMedium.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF25D366),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 10),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
+                            elevation: 2,
+                          ),
+                          onPressed: () => WhatsAppService.sharePaymentReminder(
+                            context: context,
+                            customer: customer,
+                          ),
+                          icon: const Icon(Icons.send_rounded, size: 18, color: Colors.white),
+                          label: const Text(
+                            'Send WhatsApp Reminder',
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

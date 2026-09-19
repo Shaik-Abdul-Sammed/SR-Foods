@@ -10,6 +10,7 @@ import '../../../../core/database/database_provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/services/whatsapp_service.dart';
 
 // Providers
 final productsProvider = StreamProvider<List<Product>>((ref) {
@@ -70,6 +71,18 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
       appBar: AppBar(
         title: const Text('Products'),
         actions: [
+          IconButton(
+            tooltip: 'Share Price List on WhatsApp',
+            icon: const Icon(Icons.chat_bubble_outline_rounded, color: Color(0xFF25D366)),
+            onPressed: () {
+              productsAsync.whenData((products) {
+                WhatsAppService.shareProductCatalog(
+                  context: context,
+                  products: products,
+                );
+              });
+            },
+          ),
           if (_isAdmin)
             IconButton(
               onPressed: () => context.push('/products/create'),

@@ -11,6 +11,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/theme/app_assets.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/services/whatsapp_service.dart';
 import '../widgets/dashboard_stat_card.dart';
 import '../widgets/quick_action_card.dart';
 import '../widgets/revenue_chart.dart';
@@ -486,6 +487,18 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
         label: 'Record Payment',
         color: const Color(0xFF7B1FA2),
         onTap: () => context.push(AppRoutes.paymentCreate),
+      ),
+      _QuickAction(
+        icon: Icons.share_rounded,
+        label: 'Share Catalog',
+        color: const Color(0xFF25D366),
+        onTap: () async {
+          final db = ref.read(databaseProvider);
+          final products = await (db.select(db.products)..where((p) => p.isActive.equals(true))).get();
+          if (context.mounted) {
+            WhatsAppService.shareProductCatalog(context: context, products: products);
+          }
+        },
       ),
     ];
 

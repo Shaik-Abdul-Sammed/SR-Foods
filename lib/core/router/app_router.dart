@@ -32,6 +32,7 @@ import '../../features/reports/presentation/screens/reports_screen.dart';
 import '../../features/analytics/presentation/screens/analytics_screen.dart';
 import '../../features/backup/presentation/screens/backup_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
+import '../../features/catalog/presentation/screens/public_catalog_screen.dart';
 import '../widgets/main_shell.dart';
 
 /// App routes
@@ -70,6 +71,7 @@ class AppRoutes {
   static const String analytics = '/analytics';
   static const String backup = '/backup';
   static const String settings = '/settings';
+  static const String catalog = '/catalog';
 }
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -81,6 +83,10 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: AppRoutes.splash,
     debugLogDiagnostics: false,
     routes: [
+      GoRoute(
+        path: AppRoutes.catalog,
+        builder: (context, state) => const PublicCatalogScreen(),
+      ),
       GoRoute(
         path: AppRoutes.splash,
         builder: (context, state) => const SplashScreen(),

@@ -79,6 +79,18 @@
       ]
     },
     {
+      "name": "flutter",
+      "version": "0.0.0",
+      "dependencies": [
+        "characters",
+        "collection",
+        "material_color_utilities",
+        "meta",
+        "sky_engine",
+        "vector_math"
+      ]
+    },
+    {
       "name": "mocktail",
       "version": "1.0.5",
       "dependencies": [
@@ -488,7 +500,7 @@
     },
     {
       "name": "intl",
-      "version": "0.20.2",
+      "version": "0.20.3",
       "dependencies": [
         "clock",
         "meta",
@@ -824,20 +836,18 @@
       ]
     },
     {
-      "name": "flutter",
+      "name": "sky_engine",
       "version": "0.0.0",
-      "dependencies": [
-        "characters",
-        "collection",
-        "material_color_utilities",
-        "meta",
-        "sky_engine",
-        "vector_math"
-      ]
+      "dependencies": []
+    },
+    {
+      "name": "characters",
+      "version": "1.4.1",
+      "dependencies": []
     },
     {
       "name": "test_api",
-      "version": "0.7.11",
+      "version": "0.7.12",
       "dependencies": [
         "async",
         "boolean_selector",
@@ -852,7 +862,7 @@
     },
     {
       "name": "matcher",
-      "version": "0.12.19",
+      "version": "0.12.20",
       "dependencies": [
         "async",
         "meta",
@@ -875,11 +885,6 @@
         "source_span",
         "yaml"
       ]
-    },
-    {
-      "name": "meta",
-      "version": "1.18.0",
-      "dependencies": []
     },
     {
       "name": "dart_style",
@@ -995,6 +1000,20 @@
         "meta",
         "path",
         "source_gen"
+      ]
+    },
+    {
+      "name": "riverpod",
+      "version": "3.3.2",
+      "dependencies": [
+        "async",
+        "clock",
+        "collection",
+        "meta",
+        "stack_trace",
+        "state_notifier",
+        "test",
+        "uuid"
       ]
     },
     {
@@ -1221,11 +1240,6 @@
         "matcher",
         "meta"
       ]
-    },
-    {
-      "name": "vector_math",
-      "version": "2.2.0",
-      "dependencies": []
     },
     {
       "name": "stack_trace",
@@ -1933,20 +1947,6 @@
       ]
     },
     {
-      "name": "riverpod",
-      "version": "3.3.2",
-      "dependencies": [
-        "async",
-        "clock",
-        "collection",
-        "meta",
-        "stack_trace",
-        "state_notifier",
-        "test",
-        "uuid"
-      ]
-    },
-    {
       "name": "state_notifier",
       "version": "1.0.0",
       "dependencies": [
@@ -2088,16 +2088,6 @@
         "http",
         "vector_graphics_codec"
       ]
-    },
-    {
-      "name": "sky_engine",
-      "version": "0.0.0",
-      "dependencies": []
-    },
-    {
-      "name": "characters",
-      "version": "1.4.1",
-      "dependencies": []
     },
     {
       "name": "term_glyph",
@@ -2243,37 +2233,6 @@
       ]
     },
     {
-      "name": "test",
-      "version": "1.31.0",
-      "dependencies": [
-        "analyzer",
-        "async",
-        "boolean_selector",
-        "collection",
-        "coverage",
-        "http_multi_server",
-        "io",
-        "matcher",
-        "node_preamble",
-        "package_config",
-        "path",
-        "pool",
-        "shelf",
-        "shelf_packages_handler",
-        "shelf_static",
-        "shelf_web_socket",
-        "source_span",
-        "stack_trace",
-        "stream_channel",
-        "test_api",
-        "test_core",
-        "typed_data",
-        "web_socket_channel",
-        "webkit_inspection_protocol",
-        "yaml"
-      ]
-    },
-    {
       "name": "file_selector_windows",
       "version": "0.9.3+5",
       "dependencies": [
@@ -2328,15 +2287,95 @@
       "dependencies": []
     },
     {
-      "name": "webkit_inspection_protocol",
-      "version": "1.2.1",
+      "name": "sqflite_common",
+      "version": "2.5.11",
       "dependencies": [
-        "logging"
+        "meta",
+        "path",
+        "synchronized"
+      ]
+    },
+    {
+      "name": "sqflite_platform_interface",
+      "version": "2.4.1",
+      "dependencies": [
+        "flutter",
+        "meta",
+        "platform",
+        "plugin_platform_interface",
+        "sqflite_common"
+      ]
+    },
+    {
+      "name": "sqflite_darwin",
+      "version": "2.4.3+1",
+      "dependencies": [
+        "flutter",
+        "meta",
+        "path",
+        "sqflite_common",
+        "sqflite_platform_interface"
+      ]
+    },
+    {
+      "name": "sqflite_android",
+      "version": "2.4.3",
+      "dependencies": [
+        "flutter",
+        "path",
+        "sqflite_common",
+        "sqflite_platform_interface"
+      ]
+    },
+    {
+      "name": "synchronized",
+      "version": "3.4.1",
+      "dependencies": []
+    },
+    {
+      "name": "meta",
+      "version": "1.19.0",
+      "dependencies": []
+    },
+    {
+      "name": "vector_math",
+      "version": "2.4.3",
+      "dependencies": []
+    },
+    {
+      "name": "test",
+      "version": "1.31.1",
+      "dependencies": [
+        "analyzer",
+        "async",
+        "boolean_selector",
+        "collection",
+        "coverage",
+        "http_multi_server",
+        "io",
+        "matcher",
+        "node_preamble",
+        "package_config",
+        "path",
+        "pool",
+        "shelf",
+        "shelf_packages_handler",
+        "shelf_static",
+        "shelf_web_socket",
+        "source_span",
+        "stack_trace",
+        "stream_channel",
+        "test_api",
+        "test_core",
+        "typed_data",
+        "web_socket_channel",
+        "webkit_inspection_protocol",
+        "yaml"
       ]
     },
     {
       "name": "test_core",
-      "version": "0.6.17",
+      "version": "0.6.18",
       "dependencies": [
         "analyzer",
         "args",
@@ -2359,6 +2398,13 @@
         "test_api",
         "vm_service",
         "yaml"
+      ]
+    },
+    {
+      "name": "webkit_inspection_protocol",
+      "version": "1.2.1",
+      "dependencies": [
+        "logging"
       ]
     },
     {
@@ -2404,47 +2450,6 @@
       ]
     },
     {
-      "name": "sqflite_common",
-      "version": "2.5.11",
-      "dependencies": [
-        "meta",
-        "path",
-        "synchronized"
-      ]
-    },
-    {
-      "name": "sqflite_platform_interface",
-      "version": "2.4.1",
-      "dependencies": [
-        "flutter",
-        "meta",
-        "platform",
-        "plugin_platform_interface",
-        "sqflite_common"
-      ]
-    },
-    {
-      "name": "sqflite_darwin",
-      "version": "2.4.3+1",
-      "dependencies": [
-        "flutter",
-        "meta",
-        "path",
-        "sqflite_common",
-        "sqflite_platform_interface"
-      ]
-    },
-    {
-      "name": "sqflite_android",
-      "version": "2.4.3",
-      "dependencies": [
-        "flutter",
-        "path",
-        "sqflite_common",
-        "sqflite_platform_interface"
-      ]
-    },
-    {
       "name": "source_maps",
       "version": "0.10.13",
       "dependencies": [
@@ -2475,11 +2480,6 @@
         "args",
         "yaml"
       ]
-    },
-    {
-      "name": "synchronized",
-      "version": "3.4.1",
-      "dependencies": []
     }
   ],
   "configVersion": 1

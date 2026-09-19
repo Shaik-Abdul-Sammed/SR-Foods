@@ -7,6 +7,7 @@ import 'package:printing/printing.dart';
 
 import '../../../../core/database/app_database.dart';
 import '../../../../core/database/database_provider.dart';
+import '../../../../core/services/whatsapp_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
@@ -48,10 +49,48 @@ class InvoiceDetailScreen extends ConsumerWidget {
         final List<OrderItem> items = (data['items'] as List).cast<OrderItem>();
 
         return Scaffold(
-          appBar: AppBar(title: Text(invoice.invoiceNumber), actions: [
-            IconButton(icon: const Icon(Icons.print_outlined), onPressed: () => _printPdf(invoice, customer, items)),
-            IconButton(icon: const Icon(Icons.share_outlined), onPressed: () => _sharePdf(invoice, customer, items)),
-          ]),
+          appBar: AppBar(
+            title: Text(invoice.invoiceNumber),
+            actions: [
+              IconButton(
+                tooltip: 'Send on WhatsApp',
+                icon: const Icon(Icons.chat_bubble_outline_rounded, color: Color(0xFF25D366)),
+                onPressed: () => WhatsAppService.shareInvoice(
+                  context: context,
+                  invoice: invoice,
+                  customer: customer,
+                  items: items,
+                ),
+              ),
+              IconButton(icon: const Icon(Icons.print_outlined), onPressed: () => _printPdf(invoice, customer, items)),
+              IconButton(icon: const Icon(Icons.share_outlined), onPressed: () => _sharePdf(invoice, customer, items)),
+            ],
+          ),
+          bottomNavigationBar: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF25D366),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  elevation: 2,
+                ),
+                onPressed: () => WhatsAppService.shareInvoice(
+                  context: context,
+                  invoice: invoice,
+                  customer: customer,
+                  items: items,
+                ),
+                icon: const Icon(Icons.send_rounded, color: Colors.white),
+                label: const Text(
+                  'Send Bill via WhatsApp',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(children: [
