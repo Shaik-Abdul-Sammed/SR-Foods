@@ -123,28 +123,39 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
+
+    // Vertical-specific input validation
+    final catLower = _category.toLowerCase();
+    if (catLower.contains('dairy') || catLower.contains('milk')) {
+      final fat = double.tryParse(_fatExpectedCtrl.text);
+      if (fat != null && (fat < 0 || fat > 100)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Dairy Error: Fat % must be between 0 and 100')),
+        );
+        return;
+      }
+      final snf = double.tryParse(_snfExpectedCtrl.text);
+      if (snf != null && (snf < 0 || snf > 100)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Dairy Error: SNF % must be between 0 and 100')),
+        );
+        return;
+      }
+    }
+
+    if (catLower.contains('bakery') || catLower.contains('bread')) {
+      final freshHours = int.tryParse(_freshnessWindowHoursCtrl.text);
+      if (freshHours != null && freshHours <= 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Bakery Error: Freshness window must be greater than 0 hours')),
+        );
+        return;
+      }
+    }
+
     setState(() => _isLoading = true);
     try {
       final db = ref.read(databaseProvider);
-
-      // Build metadata json for vertical-specific extended fields
-      final metadataMap = <String, dynamic>{
-        'storageType': _storageType,
-        'shelfLifeDays': int.tryParse(_shelfLifeCtrl.text) ?? 7,
-        'packsPerMasterCarton': int.tryParse(_packsPerCartonCtrl.text) ?? 20,
-        'milkType': _milkType,
-        'procurementSlot': _procurementSlot,
-        'fatPercentExpected': double.tryParse(_fatExpectedCtrl.text) ?? 4.5,
-        'snfPercentExpected': double.tryParse(_snfExpectedCtrl.text) ?? 8.5,
-        'isPasteurized': _isPasteurized,
-        'isCultured': _isCultured,
-        'bakeDateRequired': _bakeDateRequired,
-        'proofingMinutes': int.tryParse(_proofingMinutesCtrl.text) ?? 45,
-        'ovenType': _ovenType,
-        'freshnessWindowHours': int.tryParse(_freshnessWindowHoursCtrl.text) ?? 24,
-        'dayOldDiscountPercent': double.tryParse(_dayOldDiscountCtrl.text) ?? 25.0,
-        'isCustomOrder': _isCustomOrder,
-      };
 
       final companion = ProductsCompanion(
         name: drift.Value(_nameCtrl.text.trim()),
@@ -161,6 +172,18 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
         packsPerMasterCarton: drift.Value(int.tryParse(_packsPerCartonCtrl.text) ?? 20),
         isActive: drift.Value(_isActive),
         isAvailable: drift.Value(_isAvailable),
+        fatPercentExpected: drift.Value(double.tryParse(_fatExpectedCtrl.text)),
+        snfPercentExpected: drift.Value(double.tryParse(_snfExpectedCtrl.text)),
+        milkType: drift.Value(_milkType),
+        procurementSlot: drift.Value(_procurementSlot),
+        isPasteurized: drift.Value(_isPasteurized),
+        isCultured: drift.Value(_isCultured),
+        bakeDateRequired: drift.Value(_bakeDateRequired),
+        proofingMinutes: drift.Value(int.tryParse(_proofingMinutesCtrl.text)),
+        ovenType: drift.Value(_ovenType),
+        freshnessWindowHours: drift.Value(int.tryParse(_freshnessWindowHoursCtrl.text)),
+        dayOldDiscountPercent: drift.Value(double.tryParse(_dayOldDiscountCtrl.text)),
+        isCustomOrder: drift.Value(_isCustomOrder),
         updatedAt: drift.Value(DateTime.now()),
       );
 
