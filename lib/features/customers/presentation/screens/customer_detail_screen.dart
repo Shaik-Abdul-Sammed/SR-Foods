@@ -9,6 +9,7 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/utils/communication_utils.dart';
 import '../../../../core/services/whatsapp_service.dart';
+import 'hotel_360_screen.dart';
 
 final customerDetailProvider =
     FutureProvider.family<Customer?, int>((ref, id) async {
@@ -37,6 +38,14 @@ class CustomerDetailScreen extends ConsumerWidget {
           appBar: AppBar(
             title: Text(customer.shopName),
             actions: [
+              IconButton(
+                tooltip: 'Hotel 360° Intelligence',
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(builder: (_) => Hotel360Screen(customerId: id)),
+                ),
+                icon: const Icon(Icons.analytics_outlined),
+              ),
               IconButton(
                 onPressed: () => context.push('/customers/$id/edit'),
                 icon: const Icon(Icons.edit_outlined),
