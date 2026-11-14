@@ -11,6 +11,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/communication_utils.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/services/quantum_optimization_engine.dart';
 
 // Riverpod Providers for AI Expert Engine outputs
 final aiProductionForecastProvider =
@@ -193,6 +194,9 @@ class _AiAdvisorScreenState extends ConsumerState<AiAdvisorScreen>
                   ],
                 ),
               ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 16),
+              _buildQuantumMachineSchedulerCard(recommendations),
 
               const SizedBox(height: 16),
               Text(
@@ -468,6 +472,165 @@ class _AiAdvisorScreenState extends ConsumerState<AiAdvisorScreen>
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildQuantumMachineSchedulerCard(List<ProductionRecommendation> recommendations) {
+    final demandMap = <String, int>{
+      for (final r in recommendations)
+        r.product.sku: r.recommendedBatchUnits > 0 ? r.recommendedBatchUnits : 100,
+    };
+    final schedule = QuantumOptimizationEngine.instance.optimizeProductionSchedule(
+      demandPacksBySku: demandMap,
+    );
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.accent.withValues(alpha: 0.6), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.accent.withValues(alpha: 0.08),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.accent.withValues(alpha: 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.auto_awesome, color: AppColors.accentDark, size: 20),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Quantum Multi-Machine Scheduler',
+                      style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'QUBO-balanced energy & runtime allocation',
+                      style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  '${schedule.overallMachineUtilizationPct.toStringAsFixed(1)}% Load',
+                  style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Expanded(
+                child: _buildSchedulerMetric(
+                  label: 'Machine Runtime',
+                  value: '${schedule.totalProductionHours} hrs',
+                  icon: Icons.timer_outlined,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _buildSchedulerMetric(
+                  label: 'Power Draw',
+                  value: '${schedule.totalEnergyKwh} kWh',
+                  icon: Icons.electric_bolt_rounded,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _buildSchedulerMetric(
+                  label: 'Packs Scheduled',
+                  value: '${schedule.totalPacksScheduled}',
+                  icon: Icons.inventory_2_outlined,
+                ),
+              ),
+            ],
+          ),
+          const Divider(height: 24),
+          Text(
+            'Optimal Machine Line Sequences:',
+            style: AppTextStyles.labelMedium.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          ...schedule.assignments.map(
+            (a) => Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(
+                children: [
+                  const Icon(Icons.check_circle_outline_rounded, size: 16, color: AppColors.success),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      '${a.machineName} → ${a.packCount} pcs of ${a.productName}',
+                      style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  Text(
+                    '${a.estimatedHours}h (${a.energyKwh} kWh)',
+                    style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSchedulerMetric({required String label, required String value, required IconData icon}) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, size: 14, color: AppColors.textSecondary),
+              const SizedBox(width: 4),
+              Expanded(
+                child: Text(
+                  label,
+                  style: const TextStyle(fontSize: 10, color: AppColors.textSecondary),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            value,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+          ),
+        ],
       ),
     );
   }

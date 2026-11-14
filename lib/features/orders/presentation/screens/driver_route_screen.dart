@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/services/delivery_route_service.dart';
+import '../../../../core/services/quantum_optimization_engine.dart';
 
 final deliveryRoutesProvider = FutureProvider.autoDispose<List<DeliveryRouteSummary>>((ref) async {
   final db = ref.watch(databaseProvider);
@@ -20,6 +21,8 @@ class DriverRouteScreen extends ConsumerStatefulWidget {
 
 class _DriverRouteScreenState extends ConsumerState<DriverRouteScreen> {
   int _selectedRouteIndex = 0;
+  bool _isQuantumOptimized = false;
+  QuantumRouteOptimizationResult? _quantumResult;
 
   void _showDeliveryDialog(BuildContext context, RouteDeliveryStop stop) {
     final cashCtrl = TextEditingController(text: stop.pendingAmount.toStringAsFixed(0));
@@ -175,7 +178,11 @@ class _DriverRouteScreenState extends ConsumerState<DriverRouteScreen> {
                       child: FilterChip(
                         selected: isSelected,
                         label: Text('${r.routeName} (${r.completedStops}/${r.totalStops})'),
-                        onSelected: (_) => setState(() => _selectedRouteIndex = i),
+                        onSelected: (_) => setState(() {
+                          _selectedRouteIndex = i;
+                          _isQuantumOptimized = false;
+                          _quantumResult = null;
+                        }),
                       ),
                     );
                   },
@@ -214,29 +221,113 @@ class _DriverRouteScreenState extends ConsumerState<DriverRouteScreen> {
                         Text(CurrencyFormatter.format(currentRoute.totalCashToCollect), style: AppTextStyles.titleSmall.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
                       ],
                     ),
+                    const Divider(color: Colors.white24, height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: AppColors.primary,
+                          elevation: 0,
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                        icon: const Icon(Icons.auto_awesome, size: 18),
+                        label: Text(
+                          _isQuantumOptimized ? 'Re-Anneal Route (QSA)' : '⚡ Quantum Anneal Route',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: currentRoute.stops.length < 2
+                            ? null
+                            : () {
+                                final result = QuantumOptimizationEngine.instance.optimizeDeliveryRoute(
+                                  currentRoute.stops,
+                                );
+                                setState(() {
+                                  _isQuantumOptimized = true;
+                                  _quantumResult = result;
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: AppColors.primaryDark,
+                                    content: Text(
+                                      '⚡ Quantum Annealing: ${result.distanceSavedKm} km saved (${result.fuelSavedLiters} L diesel, ₹${result.costSavedRupees.toStringAsFixed(0)}) in ${result.executionTimeMs}ms with ${result.quantumTunnelingEvents} barrier flips!',
+                                    ),
+                                    duration: const Duration(seconds: 4),
+                                  ),
+                                );
+                              },
+                      ),
+                    ),
                   ],
                 ),
               ),
 
-              // Stops List
-              Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: currentRoute.stops.length,
-                  itemBuilder: (context, index) {
-                    final stop = currentRoute.stops[index];
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: stop.isDelivered
-                              ? AppColors.success.withValues(alpha: 0.5)
-                              : Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
-                          width: stop.isDelivered ? 1.5 : 1.0,
+              // Quantum Savings Banner (if optimized)
+              if (_isQuantumOptimized && _quantumResult != null)
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppColors.accent.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.accent),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.bolt_rounded, color: AppColors.accentDark, size: 24),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'QSA Optimized Sequence (${_quantumResult!.efficiencyGainPercentage.toStringAsFixed(1)}% Distance Saved)',
+                              style: AppTextStyles.labelMedium.copyWith(fontWeight: FontWeight.bold, color: AppColors.accentDark),
+                            ),
+                            Text(
+                              'Est. Fuel Saved: ${_quantumResult!.fuelSavedLiters} L (₹${_quantumResult!.costSavedRupees.toStringAsFixed(0)}) • ${_quantumResult!.quantumTunnelingEvents} Quantum Tunneling Flips',
+                              style: AppTextStyles.bodySmall,
+                            ),
+                          ],
                         ),
                       ),
+                      IconButton(
+                        icon: const Icon(Icons.close_rounded, size: 18),
+                        onPressed: () => setState(() {
+                          _isQuantumOptimized = false;
+                          _quantumResult = null;
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
+
+              // Stops List
+              Expanded(
+                child: Builder(
+                  builder: (context) {
+                    final displayStops = (_isQuantumOptimized && _quantumResult != null)
+                        ? _quantumResult!.optimizedStops
+                        : currentRoute.stops;
+
+                    return ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: displayStops.length,
+                      itemBuilder: (context, index) {
+                        final stop = displayStops[index];
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: stop.isDelivered
+                                  ? AppColors.success.withValues(alpha: 0.5)
+                                  : Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                              width: stop.isDelivered ? 1.5 : 1.0,
+                            ),
+                          ),
                       child: ListTile(
                         contentPadding: const EdgeInsets.all(14),
                         leading: CircleAvatar(
@@ -299,10 +390,12 @@ class _DriverRouteScreenState extends ConsumerState<DriverRouteScreen> {
                       ),
                     );
                   },
-                ),
-              ),
-            ],
-          );
+                );
+              },
+            ),
+          ),
+        ],
+      );
         },
       ),
     );
