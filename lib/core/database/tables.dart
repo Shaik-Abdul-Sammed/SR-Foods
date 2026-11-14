@@ -37,6 +37,12 @@ class Products extends Table {
   TextColumn get procurementSlot => text().nullable()();
   BoolColumn get isPasteurized => boolean().nullable()();
   BoolColumn get isCultured => boolean().nullable()();
+  BoolColumn get bakeDateRequired => boolean().nullable()();
+  IntColumn get proofingMinutes => integer().nullable()();
+  TextColumn get ovenType => text().nullable()();
+  IntColumn get freshnessWindowHours => integer().nullable()();
+  RealColumn get dayOldDiscountPercent => real().nullable()();
+  BoolColumn get isCustomOrder => boolean().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }

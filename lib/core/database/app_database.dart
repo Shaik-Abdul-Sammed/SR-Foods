@@ -125,6 +125,12 @@ class AppDatabase extends _$AppDatabase {
             await m.addColumn(products, products.procurementSlot);
             await m.addColumn(products, products.isPasteurized);
             await m.addColumn(products, products.isCultured);
+            await m.addColumn(products, products.bakeDateRequired);
+            await m.addColumn(products, products.proofingMinutes);
+            await m.addColumn(products, products.ovenType);
+            await m.addColumn(products, products.freshnessWindowHours);
+            await m.addColumn(products, products.dayOldDiscountPercent);
+            await m.addColumn(products, products.isCustomOrder);
             await m.addColumn(productionBatches, productionBatches.fatPercentActual);
             await m.addColumn(productionBatches, productionBatches.snfPercentActual);
             await m.addColumn(productionBatches, productionBatches.milkSupplierId);
