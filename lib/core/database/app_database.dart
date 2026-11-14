@@ -122,6 +122,12 @@ class AppDatabase extends _$AppDatabase {
             await m.addColumn(products, products.procurementSlot);
             await m.addColumn(products, products.isPasteurized);
             await m.addColumn(products, products.isCultured);
+            await m.addColumn(productionBatches, productionBatches.fatPercentActual);
+            await m.addColumn(productionBatches, productionBatches.snfPercentActual);
+            await m.addColumn(productionBatches, productionBatches.milkSupplierId);
+            await m.addColumn(productionBatches, productionBatches.chillingCenterId);
+            await m.addColumn(productionBatches, productionBatches.pasteurizationTempC);
+            await m.addColumn(productionBatches, productionBatches.pasteurizationDurationSec);
             await customStatement(
               'UPDATE app_settings SET '
               "active_verticals_json = '[\"frozen\"]', "

@@ -153,6 +153,12 @@ class ProductionBatches extends Table {
   TextColumn get status => text().withDefault(const Constant('completed'))();
   DateTimeColumn get manufacturingDate => dateTime()();
   DateTimeColumn get expiryDate => dateTime().nullable()();
+  RealColumn get fatPercentActual => real().nullable()();
+  RealColumn get snfPercentActual => real().nullable()();
+  TextColumn get milkSupplierId => text().nullable()();
+  TextColumn get chillingCenterId => text().nullable()();
+  RealColumn get pasteurizationTempC => real().nullable()();
+  IntColumn get pasteurizationDurationSec => integer().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
 
