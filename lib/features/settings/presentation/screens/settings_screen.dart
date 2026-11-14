@@ -6,6 +6,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/theme/app_assets.dart';
+import '../../../../core/services/vertical_scope_service.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -57,6 +58,9 @@ class SettingsScreen extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              _sectionHeader('BUSINESS VERTICALS'),
+              _verticalSelectionCard(context, ref),
+              const SizedBox(height: 12),
               _sectionHeader('BUSINESS'),
               _tile(context, 'Products', Icons.inventory_2_outlined, () => context.go(AppRoutes.products), color: AppColors.primary),
               _tile(context, 'Customers', Icons.people_outlined, () => context.go(AppRoutes.customers), color: AppColors.secondary),
@@ -111,6 +115,140 @@ class SettingsScreen extends ConsumerWidget {
           onTap: onTap,
         ),
       ),
+    );
+  }
+
+  Widget _verticalSelectionCard(BuildContext context, WidgetRef ref) {
+    final verticalScope = ref.watch(verticalScopeProvider);
+
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.15)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.category_rounded, size: 18, color: AppColors.primary),
+              const SizedBox(width: 8),
+              Text(
+                'Active Specializations',
+                style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Select the operational food verticals deployed on this instance:',
+            style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
+          ),
+          const SizedBox(height: 8),
+          _verticalCheckbox(
+            context,
+            ref,
+            label: 'Frozen Food (Parota, Chapathi, Flatbreads)',
+            vertical: Vertical.frozen,
+            icon: Icons.ac_unit_rounded,
+            color: const Color(0xFF0288D1),
+            isSelected: verticalScope.isEnabled(Vertical.frozen),
+            currentSet: verticalScope.activeVerticals(),
+          ),
+          _verticalCheckbox(
+            context,
+            ref,
+            label: 'Dairy (Fresh Milk, Curd, Ghee, Paneer)',
+            vertical: Vertical.dairy,
+            icon: Icons.water_drop_rounded,
+            color: const Color(0xFF00897B),
+            isSelected: verticalScope.isEnabled(Vertical.dairy),
+            currentSet: verticalScope.activeVerticals(),
+          ),
+          _verticalCheckbox(
+            context,
+            ref,
+            label: 'Bakery (Breads, Buns, Cakes, Pastries)',
+            vertical: Vertical.bakery,
+            icon: Icons.bakery_dining_rounded,
+            color: const Color(0xFFE65100),
+            isSelected: verticalScope.isEnabled(Vertical.bakery),
+            currentSet: verticalScope.activeVerticals(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _verticalCheckbox(
+    BuildContext context,
+    WidgetRef ref, {
+    required String label,
+    required Vertical vertical,
+    required IconData icon,
+    required Color color,
+    required bool isSelected,
+    required Set<Vertical> currentSet,
+  }) {
+    return CheckboxListTile(
+      contentPadding: EdgeInsets.zero,
+      dense: true,
+      activeColor: color,
+      value: isSelected,
+      secondary: Container(
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Icon(icon, color: color, size: 18),
+      ),
+      title: Text(label, style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600)),
+      onChanged: (bool? checked) {
+        if (checked == null) return;
+        final newSet = Set<Vertical>.from(currentSet);
+        if (checked) {
+          newSet.add(vertical);
+        } else {
+          if (newSet.length <= 1) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('At least one vertical must remain enabled.'),
+                backgroundColor: AppColors.error,
+              ),
+            );
+            return;
+          }
+          newSet.remove(vertical);
+        }
+
+        // Show confirmation dialog before applying change
+        showDialog<bool>(
+          context: context,
+          builder: (dialogCtx) => AlertDialog(
+            title: const Text('Update Business Verticals'),
+            content: const Text(
+              'Existing SKUs and orders are preserved. New forms will show fields for the selected verticals.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(dialogCtx).pop(false),
+                child: const Text('Cancel'),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.of(dialogCtx).pop(true),
+                child: const Text('Confirm'),
+              ),
+            ],
+          ),
+        ).then((confirmed) {
+          if (confirmed == true) {
+            ref.read(verticalScopeProvider.notifier).setActive(newSet);
+          }
+        });
+      },
     );
   }
 }
