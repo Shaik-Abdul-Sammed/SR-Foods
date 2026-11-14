@@ -39,6 +39,7 @@ class ProductsScreen extends ConsumerStatefulWidget {
 class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   final _searchController = TextEditingController();
   String _mobileNumber = '';
+  String _selectedVertical = 'All';
 
   @override
   void initState() {
@@ -60,6 +61,17 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  String _getVertical(Product p) {
+    final cat = p.category.toLowerCase();
+    if (cat.contains('dairy') || cat.contains('milk') || cat.contains('cheese') || cat.contains('paneer')) {
+      return 'Dairy';
+    }
+    if (cat.contains('bakery') || cat.contains('bread') || cat.contains('cake') || cat.contains('pastry') || cat.contains('bun')) {
+      return 'Bakery';
+    }
+    return 'Frozen';
   }
 
   @override
@@ -95,13 +107,13 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
         children: [
           // Search Bar
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: TextField(
               controller: _searchController,
               onChanged: (val) =>
                   ref.read(productSearchProvider.notifier).update(val),
               decoration: InputDecoration(
-                hintText: 'Search products...',
+                hintText: 'Search by name, SKU, or category...',
                 prefixIcon: const Icon(Icons.search_rounded),
                 filled: true,
                 fillColor: AppColors.surfaceVariant,
@@ -122,19 +134,48 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
               ),
             ),
           ),
+
+          // Vertical Filter Chips
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _filterChip('All Verticals', 'All', Icons.dashboard_outlined),
+                  const SizedBox(width: 8),
+                  _filterChip('Frozen Food', 'Frozen', Icons.ac_unit_rounded),
+                  const SizedBox(width: 8),
+                  _filterChip('Dairy', 'Dairy', Icons.water_drop_outlined),
+                  const SizedBox(width: 8),
+                  _filterChip('Bakery', 'Bakery', Icons.bakery_dining_outlined),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 6),
+
           Expanded(
             child: productsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (e, _) => Center(child: Text('Error: $e')),
               data: (products) {
-                final filtered = searchQuery.isEmpty
-                    ? products
-                    : products.where((p) {
-                        final q = searchQuery.toLowerCase();
-                        return p.name.toLowerCase().contains(q) ||
-                            p.sku.toLowerCase().contains(q) ||
-                            (p.category).toLowerCase().contains(q);
-                      }).toList();
+                final filtered = products.where((p) {
+                  // Filter by vertical
+                  if (_selectedVertical != 'All') {
+                    final v = _getVertical(p);
+                    if (v != _selectedVertical) return false;
+                  }
+
+                  // Filter by search query
+                  if (searchQuery.isNotEmpty) {
+                    final q = searchQuery.toLowerCase();
+                    return p.name.toLowerCase().contains(q) ||
+                        p.sku.toLowerCase().contains(q) ||
+                        (p.category).toLowerCase().contains(q);
+                  }
+                  return true;
+                }).toList();
 
                 if (filtered.isEmpty) {
                   return _buildEmptyState(context);
@@ -145,10 +186,14 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                   physics: const BouncingScrollPhysics(),
                   itemCount: filtered.length,
                   itemBuilder: (context, index) {
-                    return _ProductCard(product: filtered[index])
+                    final p = filtered[index];
+                    return _ProductCard(
+                      product: p,
+                      vertical: _getVertical(p),
+                    )
                         .animate()
-                        .fade(duration: 400.ms, delay: (index * 50).ms)
-                        .slideX(begin: 0.1, end: 0, duration: 400.ms, curve: Curves.easeOutQuad);
+                        .fade(duration: 400.ms, delay: (index * 40).ms)
+                        .slideX(begin: 0.05, end: 0, duration: 400.ms, curve: Curves.easeOutQuad);
                   },
                 );
               },
@@ -164,6 +209,25 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
     );
   }
 
+  Widget _filterChip(String label, String value, IconData icon) {
+    final isSelected = _selectedVertical == value;
+    return ChoiceChip(
+      avatar: Icon(
+        icon,
+        size: 15,
+        color: isSelected ? Colors.white : AppColors.textSecondary,
+      ),
+      label: Text(label, style: TextStyle(fontSize: 12, color: isSelected ? Colors.white : AppColors.textPrimary)),
+      selected: isSelected,
+      selectedColor: AppColors.primary,
+      onSelected: (selected) {
+        if (selected) {
+          setState(() => _selectedVertical = value);
+        }
+      },
+    );
+  }
+
   Widget _buildEmptyState(BuildContext context) {
     return Center(
       child: Column(
@@ -176,7 +240,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            'No products found',
+            'No ${_selectedVertical == "All" ? "" : "$_selectedVertical "}products found',
             style: AppTextStyles.titleMedium.copyWith(
               color: AppColors.textSecondary,
             ),
@@ -195,10 +259,38 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
 
 class _ProductCard extends StatelessWidget {
   final Product product;
-  const _ProductCard({required this.product});
+  final String vertical;
+
+  const _ProductCard({required this.product, required this.vertical});
+
+  IconData _getIcon() {
+    switch (vertical) {
+      case 'Dairy':
+        return Icons.water_drop_outlined;
+      case 'Bakery':
+        return Icons.bakery_dining_outlined;
+      case 'Frozen':
+      default:
+        return Icons.ac_unit_rounded;
+    }
+  }
+
+  Color _getBadgeColor() {
+    switch (vertical) {
+      case 'Dairy':
+        return Colors.blue;
+      case 'Bakery':
+        return Colors.brown;
+      case 'Frozen':
+      default:
+        return Colors.teal;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final badgeColor = _getBadgeColor();
+
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
@@ -224,17 +316,18 @@ class _ProductCard extends StatelessWidget {
             padding: const EdgeInsets.all(14),
             child: Row(
               children: [
-                // Product icon/image
+                // Product icon
                 Container(
                   width: 52,
                   height: 52,
                   decoration: BoxDecoration(
-                    gradient: AppColors.primaryGradient,
+                    color: badgeColor.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: badgeColor.withValues(alpha: 0.3)),
                   ),
-                  child: const Icon(
-                    Icons.fastfood_rounded,
-                    color: Colors.white,
+                  child: Icon(
+                    _getIcon(),
+                    color: badgeColor,
                     size: 26,
                   ),
                 ),
@@ -243,15 +336,37 @@ class _ProductCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        product.name,
-                        style: AppTextStyles.titleSmall,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              product.name,
+                              style: AppTextStyles.titleSmall,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
+                            decoration: BoxDecoration(
+                              color: badgeColor.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              vertical.toUpperCase(),
+                              style: TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.bold,
+                                color: badgeColor,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '${product.category} • ${product.piecesPerPack} pcs • ${product.weightGrams.toInt()}g',
+                        '${product.sku} • ${product.category} • ${product.piecesPerPack} pcs',
                         style: AppTextStyles.bodySmall,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -279,6 +394,13 @@ class _ProductCard extends StatelessWidget {
                               ),
                             ),
                           ),
+                          if (product.shelfLifeDays != null) ...[
+                            const SizedBox(width: 6),
+                            Text(
+                              'Shelf: ${product.shelfLifeDays}d',
+                              style: AppTextStyles.bodySmall.copyWith(fontSize: 10, color: AppColors.textSecondary),
+                            ),
+                          ],
                         ],
                       ),
                     ],
