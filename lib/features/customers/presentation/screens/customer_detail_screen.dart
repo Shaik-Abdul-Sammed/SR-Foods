@@ -9,6 +9,8 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/utils/communication_utils.dart';
 import '../../../../core/services/whatsapp_service.dart';
+import 'package:drift/drift.dart' show Variable;
+import '../../../../core/services/container_return_service.dart';
 import 'hotel_360_screen.dart';
 
 final customerDetailProvider =
@@ -142,6 +144,8 @@ class CustomerDetailScreen extends ConsumerWidget {
                   _row('Current Balance',
                       CurrencyFormatter.format(customer.currentBalance)),
                 ]),
+                const SizedBox(height: 12),
+                _containerTrackingCard(context, ref, id),
               ],
             ),
           ),
@@ -152,6 +156,190 @@ class CustomerDetailScreen extends ConsumerWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _containerTrackingCard(BuildContext context, WidgetRef ref, int customerId) {
+    final db = ref.watch(databaseProvider);
+
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: () async {
+        try {
+          final rows = await db.customSelect(
+            'SELECT * FROM returnable_containers WHERE customer_id = ? AND status = ?',
+            variables: [
+              Variable.withInt(customerId),
+              Variable.withString('with_customer'),
+            ],
+          ).get();
+          return rows.map((r) => r.data).toList();
+        } catch (_) {
+          return <Map<String, dynamic>>[];
+        }
+      }(),
+      builder: (ctx, snapshot) {
+        final containers = snapshot.data ?? [];
+        int totalDeposit = 0;
+        for (final c in containers) {
+          totalDeposit += (c['deposit_amount_minor'] as int? ?? 0);
+        }
+
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.inventory_rounded, size: 18, color: AppColors.primary),
+                      const SizedBox(width: 8),
+                      Text('Container Tracking', style: AppTextStyles.titleSmall),
+                    ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      '${containers.length} With Customer',
+                      style: AppTextStyles.labelSmall.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              _row(
+                'Security Deposit Held',
+                '₹${(totalDeposit / 100.0).toStringAsFixed(2)}',
+              ),
+              const SizedBox(height: 8),
+              if (containers.isEmpty)
+                Text(
+                  'No active crates, milk cans, or bakery trays currently issued.',
+                  style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
+                )
+              else
+                Column(
+                  children: containers.map((c) {
+                    final code = c['container_code'] ?? 'CRT-???';
+                    final type = c['container_type'] ?? 'crate';
+                    final dep = (c['deposit_amount_minor'] as int? ?? 0) / 100.0;
+
+                    return ListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      leading: const Icon(Icons.move_to_inbox, size: 20, color: AppColors.secondary),
+                      title: Text('$code (${type.toString().toUpperCase()})', style: AppTextStyles.bodyMedium),
+                      subtitle: Text('Deposit: ₹${dep.toStringAsFixed(0)}'),
+                      trailing: TextButton.icon(
+                        icon: const Icon(Icons.assignment_return_outlined, size: 16),
+                        label: const Text('Return'),
+                        onPressed: () => _showMarkReturnedDialog(context, ref, code.toString()),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              const SizedBox(height: 8),
+              OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 38),
+                ),
+                onPressed: () => _showMarkReturnedDialog(context, ref, null),
+                icon: const Icon(Icons.qr_code_scanner, size: 18),
+                label: const Text('Mark Container Returned'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showMarkReturnedDialog(BuildContext context, WidgetRef ref, String? defaultCode) {
+    final codeCtrl = TextEditingController(text: defaultCode ?? '');
+    String condition = 'good';
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Scan / Return Container'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: codeCtrl,
+              decoration: const InputDecoration(
+                labelText: 'Container Barcode / Code',
+                prefixIcon: Icon(Icons.qr_code_2),
+                hintText: 'e.g. CRT-048 or CAN-102',
+              ),
+            ),
+            const SizedBox(height: 12),
+            DropdownButtonFormField<String>(
+              initialValue: condition,
+              decoration: const InputDecoration(labelText: 'Physical Condition'),
+              items: const [
+                DropdownMenuItem(value: 'good', child: Text('Good / Reusable')),
+                DropdownMenuItem(value: 'damaged', child: Text('Damaged / Cracked')),
+              ],
+              onChanged: (v) => condition = v ?? 'good',
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () async {
+              final code = codeCtrl.text.trim();
+              if (code.isEmpty) return;
+              Navigator.of(ctx).pop();
+
+              try {
+                final db = ref.read(databaseProvider);
+                await const ContainerReturnService().returnContainer(
+                  db: db,
+                  containerCode: code,
+                  condition: condition,
+                );
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Container $code marked as returned!'),
+                      backgroundColor: AppColors.success,
+                    ),
+                  );
+                }
+              } catch (e) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Error: $e'), backgroundColor: AppColors.error),
+                  );
+                }
+              }
+            },
+            child: const Text('Mark Returned'),
+          ),
+        ],
+      ),
     );
   }
 
