@@ -31,6 +31,12 @@ class Products extends Table {
   TextColumn get nutritionPer100gJson => text().nullable()();
   TextColumn get primaryMarkets => text().nullable()();
   TextColumn get priceBandCurrency => text().withDefault(const Constant('INR'))();
+  RealColumn get fatPercentExpected => real().nullable()();
+  RealColumn get snfPercentExpected => real().nullable()();
+  TextColumn get milkType => text().nullable()();
+  TextColumn get procurementSlot => text().nullable()();
+  BoolColumn get isPasteurized => boolean().nullable()();
+  BoolColumn get isCultured => boolean().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }

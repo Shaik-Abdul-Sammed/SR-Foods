@@ -116,6 +116,12 @@ class AppDatabase extends _$AppDatabase {
           if (from < 6) {
             await m.addColumn(appSettings, appSettings.activeVerticalsJson);
             await m.addColumn(appSettings, appSettings.primaryVertical);
+            await m.addColumn(products, products.fatPercentExpected);
+            await m.addColumn(products, products.snfPercentExpected);
+            await m.addColumn(products, products.milkType);
+            await m.addColumn(products, products.procurementSlot);
+            await m.addColumn(products, products.isPasteurized);
+            await m.addColumn(products, products.isCultured);
             await customStatement(
               'UPDATE app_settings SET '
               "active_verticals_json = '[\"frozen\"]', "
