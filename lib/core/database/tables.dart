@@ -573,3 +573,19 @@ class FatPricingRules extends Table {
   DateTimeColumn get effectiveTo => dateTime().nullable()();
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();
 }
+
+/// Commercial bakery oven baking schedules
+class OvenSchedules extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get ovenId => text()();
+  TextColumn get ovenType => text().withDefault(const Constant('rotary'))();
+  IntColumn get batchId => integer().nullable().references(ProductionBatches, #id)();
+  DateTimeColumn get scheduledStart => dateTime()();
+  DateTimeColumn get scheduledEnd => dateTime()();
+  DateTimeColumn get actualStart => dateTime().nullable()();
+  DateTimeColumn get actualEnd => dateTime().nullable()();
+  IntColumn get productId => integer().references(Products, #id)();
+  IntColumn get quantity => integer()();
+  TextColumn get status => text().withDefault(const Constant('scheduled'))();
+  TextColumn get notes => text().nullable()();
+}
