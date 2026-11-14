@@ -7,6 +7,7 @@ import 'package:path/path.dart' as p;
 
 import 'tables.dart';
 import 'catalog_seed_100.dart';
+import 'catalog_seed_dairy.dart';
 
 part 'app_database.g.dart';
 
@@ -173,6 +174,19 @@ class AppDatabase extends _$AppDatabase {
           productId: productId,
           openingStock: const Value(50),
           currentStock: const Value(50),
+        ),
+      );
+    }
+
+    // Insert 40-SKU Dairy master catalog
+    final catalogDairy = get40DairySkus();
+    for (final product in catalogDairy) {
+      final productId = await into(products).insert(product);
+      await into(inventory).insert(
+        InventoryCompanion.insert(
+          productId: productId,
+          openingStock: const Value(30),
+          currentStock: const Value(30),
         ),
       );
     }
