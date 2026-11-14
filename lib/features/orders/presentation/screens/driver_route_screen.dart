@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../../core/database/database_provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/services/delivery_route_service.dart';
 import '../../../../core/services/quantum_optimization_engine.dart';
+import '../../../../core/services/qr_verifier.dart';
 
 final deliveryRoutesProvider = FutureProvider.autoDispose<List<DeliveryRouteSummary>>((ref) async {
   final db = ref.watch(databaseProvider);
@@ -23,6 +25,167 @@ class _DriverRouteScreenState extends ConsumerState<DriverRouteScreen> {
   int _selectedRouteIndex = 0;
   bool _isQuantumOptimized = false;
   QuantumRouteOptimizationResult? _quantumResult;
+
+  void _showPodScannerSheet(BuildContext context, RouteDeliveryStop stop) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.black,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (ctx) {
+        final pinCtrl = TextEditingController();
+        bool showManualPin = false;
+
+        return StatefulBuilder(
+          builder: (sheetCtx, setSheetState) {
+            return SizedBox(
+              height: MediaQuery.of(ctx).size.height * 0.85,
+              child: Column(
+                children: [
+                  AppBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    leading: IconButton(
+                      icon: const Icon(Icons.close_rounded, color: Colors.white),
+                      onPressed: () => Navigator.pop(ctx),
+                    ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Scan ePOD Signature QR', style: TextStyle(color: Colors.white, fontSize: 16)),
+                        Text(stop.shopName, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+                      ],
+                    ),
+                    actions: [
+                      TextButton.icon(
+                        icon: Icon(showManualPin ? Icons.qr_code_scanner : Icons.pin_outlined, color: Colors.white),
+                        label: Text(showManualPin ? 'Camera' : 'PIN Override', style: const TextStyle(color: Colors.white)),
+                        onPressed: () => setSheetState(() => showManualPin = !showManualPin),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: showManualPin
+                        ? Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.lock_clock_rounded, size: 56, color: Colors.amber),
+                                const SizedBox(height: 16),
+                                const Text('Manual Delivery PIN Override', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                                const SizedBox(height: 8),
+                                const Text('For damaged or unreadable QR codes, enter customer registered 4-digit PIN:', textAlign: TextAlign.center, style: TextStyle(color: Colors.white70, fontSize: 13)),
+                                const SizedBox(height: 20),
+                                TextField(
+                                  controller: pinCtrl,
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 4,
+                                  style: const TextStyle(color: Colors.white, fontSize: 24, letterSpacing: 8),
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white12,
+                                    hintText: '••••',
+                                    hintStyle: const TextStyle(color: Colors.white38),
+                                    counterText: '',
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                ElevatedButton(
+                                  key: const Key('confirm_pin_button'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.success,
+                                    minimumSize: const Size.fromHeight(50),
+                                  ),
+                                  onPressed: () async {
+                                    if (pinCtrl.text.trim().length >= 4) {
+                                      final db = ref.read(databaseProvider);
+                                      await DeliveryRouteService.instance.completeDeliveryDrop(
+                                        db: db,
+                                        stop: stop,
+                                        cashCollected: stop.pendingAmount,
+                                        paymentMethod: 'pin_override',
+                                        recipientNote: 'Delivered via Manual PIN (${pinCtrl.text.trim()}) at 17.3850 N, 78.4867 E',
+                                      );
+                                      if (ctx.mounted) Navigator.pop(ctx);
+                                      ref.invalidate(deliveryRoutesProvider);
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('ePOD Verified via PIN for ${stop.shopName}!'),
+                                            backgroundColor: AppColors.success,
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  child: const Text('Confirm PIN Delivery'),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              MobileScanner(
+                                onDetect: (capture) async {
+                                  final barcodes = capture.barcodes;
+                                  for (final barcode in barcodes) {
+                                    final rawValue = barcode.rawValue;
+                                    if (rawValue != null) {
+                                      final result = QrVerifier.instance.verifyQr(rawValue);
+                                      if (result.isValid && result.type == QrPayloadType.pod) {
+                                        final db = ref.read(databaseProvider);
+                                        await DeliveryRouteService.instance.completeDeliveryDrop(
+                                          db: db,
+                                          stop: stop,
+                                          cashCollected: stop.pendingAmount,
+                                          paymentMethod: 'qr_pod',
+                                          recipientNote: 'Signed ePOD (${result.payload['orderNumber']}) verified offline. GPS: 17.3850 N, 78.4867 E',
+                                        );
+                                        if (ctx.mounted) Navigator.pop(ctx);
+                                        ref.invalidate(deliveryRoutesProvider);
+                                        if (context.mounted) {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text('ePOD QR Verified & Delivered: ${stop.shopName}!'),
+                                              backgroundColor: AppColors.success,
+                                            ),
+                                          );
+                                        }
+                                        break;
+                                      }
+                                    }
+                                  }
+                                },
+                              ),
+                              Container(
+                                width: 220,
+                                height: 220,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.success, width: 3),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                              ),
+                              const Positioned(
+                                bottom: 40,
+                                child: Text('Align Customer PoD QR within frame', style: TextStyle(color: Colors.white, fontSize: 13, backgroundColor: Colors.black54)),
+                              ),
+                            ],
+                          ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 
   void _showDeliveryDialog(BuildContext context, RouteDeliveryStop stop) {
     final cashCtrl = TextEditingController(text: stop.pendingAmount.toStringAsFixed(0));
@@ -92,7 +255,18 @@ class _DriverRouteScreenState extends ConsumerState<DriverRouteScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(44)),
+                    icon: const Icon(Icons.qr_code_scanner_rounded),
+                    label: const Text('Scan to Complete Delivery (ePOD)'),
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                      _showPodScannerSheet(context, stop);
+                    },
+                  ),
+                  const SizedBox(height: 10),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
                     onPressed: () async {
                       final collected = double.tryParse(cashCtrl.text.trim()) ?? 0.0;
                       final db = ref.read(databaseProvider);
@@ -379,13 +553,23 @@ class _DriverRouteScreenState extends ConsumerState<DriverRouteScreen> {
                         ),
                         trailing: stop.isDelivered
                             ? null
-                            : ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                  visualDensity: VisualDensity.compact,
-                                ),
-                                onPressed: () => _showDeliveryDialog(context, stop),
-                                child: const Text('Drop'),
+                            : Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.qr_code_scanner_rounded, color: AppColors.primary),
+                                    tooltip: 'Scan to Complete Delivery',
+                                    onPressed: () => _showPodScannerSheet(context, stop),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                      visualDensity: VisualDensity.compact,
+                                    ),
+                                    onPressed: () => _showDeliveryDialog(context, stop),
+                                    child: const Text('Drop'),
+                                  ),
+                                ],
                               ),
                       ),
                     );

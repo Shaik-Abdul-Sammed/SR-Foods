@@ -179,14 +179,30 @@ class ExportLabelPdfService {
                       pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.end,
                         children: [
-                          pw.BarcodeWidget(
-                            barcode: pw.Barcode.code128(),
-                            data: '${data.sku}-${data.batchNumber}',
-                            width: 80,
-                            height: 20,
-                            drawText: false,
+                          pw.Row(
+                            mainAxisSize: pw.MainAxisSize.min,
+                            children: [
+                              pw.BarcodeWidget(
+                                barcode: pw.Barcode.dataMatrix(),
+                                data: '0108906000${data.sku.replaceAll(RegExp(r'[^0-9]'), '').padLeft(5, '0')}010${data.batchNumber}17${DateFormat('yyMMdd').format(data.expiryDate)}',
+                                width: 24,
+                                height: 24,
+                              ),
+                              pw.SizedBox(width: 4),
+                              pw.BarcodeWidget(
+                                barcode: pw.Barcode.code128(),
+                                data: '${data.sku}-${data.batchNumber}',
+                                width: 60,
+                                height: 20,
+                                drawText: false,
+                              ),
+                            ],
                           ),
-                          pw.Text(data.sku, style: const pw.TextStyle(fontSize: 6)),
+                          pw.SizedBox(height: 1),
+                          pw.Text(
+                            '(01)08906000${data.sku.replaceAll(RegExp(r'[^0-9]'), '').padLeft(5, '0')}0 (10)${data.batchNumber} (17)${DateFormat('yyMMdd').format(data.expiryDate)}',
+                            style: pw.TextStyle(fontSize: 4.8, fontWeight: pw.FontWeight.bold),
+                          ),
                         ],
                       ),
                     ],
