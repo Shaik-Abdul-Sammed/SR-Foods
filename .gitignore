@@ -35,6 +35,7 @@ build/
 **/build/
 android/build/
 **/android/build/
+untranslated_messages.json
 
 # Android related
 **/android/**/gradle-wrapper.jar

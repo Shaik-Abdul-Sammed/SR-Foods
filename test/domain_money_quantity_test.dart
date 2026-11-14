@@ -3,6 +3,8 @@ import 'package:drift/native.dart';
 import 'package:sr_foods/core/database/app_database.dart';
 import 'package:sr_foods/core/domain/money.dart';
 import 'package:sr_foods/core/domain/quantity.dart';
+import 'package:sr_foods/core/domain/weight_volume_count.dart';
+import 'package:sr_foods/core/i18n/locale_context.dart';
 
 void main() {
   group('Money Value Object Tests', () {
@@ -33,6 +35,45 @@ void main() {
       final money = Money.fromRupees(125000.50);
       expect(money.format().contains('1,25,000.50'), isTrue);
     });
+
+    test('Multi-currency Money v2 representation and minor units', () {
+      final aed = Money.fromMajor(45.50, currency: Currency.aed);
+      expect(aed.amountMinor, 4550);
+      expect(aed.inMajor, 45.50);
+      expect(aed.currency, Currency.aed);
+      expect(aed.format().contains('45.50'), isTrue);
+
+      final usd = Money.fromMajor(12.99, currency: Currency.usd);
+      expect(usd.amountMinor, 1299);
+      expect(usd.inMajor, 12.99);
+
+      final gbp = Money.fromMajor(100.00, currency: Currency.gbp);
+      expect(gbp.amountMinor, 10000);
+    });
+
+    test('FX conversion converts between currencies with rate', () {
+      final inr = Money.fromRupees(10000); // ₹10,000
+      // Assume 1 INR = 0.044 AED (or rate ~ 0.044)
+      final aed = inr.convertTo(Currency.aed, 0.044);
+      expect(aed.currency, Currency.aed);
+      expect(aed.inMajor, closeTo(440.0, 0.1));
+      expect(aed.fxRateToBase, 0.044);
+
+      final usd = Money.fromMajor(100, currency: Currency.usd);
+      // Assume 1 USD = 83.50 INR
+      final inrConverted = usd.convertTo(Currency.inr, 83.50);
+      expect(inrConverted.currency, Currency.inr);
+      expect(inrConverted.inMajor, 8350.0);
+    });
+
+    test('Mismatched currency arithmetic throws ArgumentError', () {
+      final inr = Money.fromRupees(100);
+      final usd = Money.fromMajor(100, currency: Currency.usd);
+
+      expect(() => inr + usd, throwsArgumentError);
+      expect(() => inr - usd, throwsArgumentError);
+      expect(() => inr < usd, throwsArgumentError);
+    });
   });
 
   group('Quantity Value Object Tests', () {
@@ -62,6 +103,99 @@ void main() {
       const volume = Quantity(1.0, ProductUnit.liter);
 
       expect(() => mass + volume, throwsArgumentError);
+    });
+  });
+
+  group('Weight Value Object Tests', () {
+    test('Weight metric and imperial conversions', () {
+      const wKg = Weight(2.5, WeightUnit.kg);
+      expect(wKg.inGrams, 2500.0);
+      expect(wKg.inKg, 2.5);
+      expect(wKg.inLb, closeTo(5.5115, 0.001));
+
+      final wG = wKg.convertTo(WeightUnit.g);
+      expect(wG.value, 2500.0);
+      expect(wG.unit, WeightUnit.g);
+
+      const wLb = Weight(10.0, WeightUnit.lb);
+      final wConvertedKg = wLb.convertTo(WeightUnit.kg);
+      expect(wConvertedKg.value, closeTo(4.5359, 0.001));
+    });
+
+    test('Weight arithmetic (+, -, *, /)', () {
+      const w1 = Weight(500, WeightUnit.g);
+      const w2 = Weight(1.5, WeightUnit.kg);
+      final sum = w1 + w2;
+      expect(sum.inGrams, 2000.0);
+      expect(sum.value, 2000.0); // same unit as w1 (g)
+
+      final diff = w2 - w1;
+      expect(diff.inGrams, 1000.0);
+
+      final multiplied = w1 * 4;
+      expect(multiplied.value, 2000.0);
+
+      final divided = w2 / 3;
+      expect(divided.value, 0.5);
+    });
+
+    test('Weight comparison and equality', () {
+      const a = Weight(1.0, WeightUnit.kg);
+      const b = Weight(1000.0, WeightUnit.g);
+      const c = Weight(1.2, WeightUnit.kg);
+
+      expect(a == b, isTrue);
+      expect(c > a, isTrue);
+      expect(a < c, isTrue);
+    });
+  });
+
+  group('Volume Value Object Tests', () {
+    test('Volume metric and US imperial conversions', () {
+      const vL = Volume(5.0, VolumeUnit.l);
+      expect(vL.inMl, 5000.0);
+      expect(vL.inLiters, 5.0);
+      expect(vL.inGallons, closeTo(1.3208, 0.001));
+
+      final vMl = vL.convertTo(VolumeUnit.ml);
+      expect(vMl.value, 5000.0);
+      expect(vMl.unit, VolumeUnit.ml);
+    });
+
+    test('Volume arithmetic and equality', () {
+      const v1 = Volume(250, VolumeUnit.ml);
+      const v2 = Volume(1.0, VolumeUnit.l);
+      final sum = v1 + v2;
+      expect(sum.inMl, 1250.0);
+
+      const vL1 = Volume(1.0, VolumeUnit.l);
+      const vMl1000 = Volume(1000.0, VolumeUnit.ml);
+      expect(vL1 == vMl1000, isTrue);
+    });
+  });
+
+  group('ItemCount Value Object Tests', () {
+    test('Count conversions between pieces, packs, dozen, and master cartons', () {
+      const pkts = ItemCount(240, CountUnit.packs);
+      final cartons = pkts.convertTo(CountUnit.cartons);
+      expect(cartons.amount, 10);
+      expect(cartons.unit, CountUnit.cartons);
+
+      const dozen = ItemCount(5, CountUnit.dozen);
+      expect(dozen.inPieces, 60);
+
+      final pcs = dozen.convertTo(CountUnit.pieces);
+      expect(pcs.amount, 60);
+    });
+
+    test('ItemCount arithmetic and comparison', () {
+      const c1 = ItemCount(2, CountUnit.cartons); // 48 pcs
+      const c2 = ItemCount(12, CountUnit.packs); // 12 pcs
+      final sum = c1 + c2;
+      expect(sum.inPieces, 60);
+
+      expect(c1 > c2, isTrue);
+      expect(c2 < c1, isTrue);
     });
   });
 
