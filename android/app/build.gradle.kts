@@ -27,7 +27,7 @@ android {
 
     defaultConfig {
         applicationId = "com.srfoods.sr_foods"
-        minSdk = 23
+        minSdk = flutter.minSdkVersion
         targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -51,15 +51,6 @@ android {
         }
     }
 
-    // ABI splits: produce smaller per-ABI APKs (arm64-v8a alone is ~5-8 MB)
-    splits {
-        abi {
-            isEnable = true
-            reset()
-            include("armeabi-v7a", "arm64-v8a", "x86_64")
-            isUniversalApk = false
-        }
-    }
 
     buildTypes {
         release {
