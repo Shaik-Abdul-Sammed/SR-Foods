@@ -1,0 +1,7 @@
+# Production Signing Configuration Example
+# Copy this file to android/key.properties and fill in your secure credentials.
+# NEVER commit android/key.properties or your .jks/.keystore file to version control.
+storePassword=your_keystore_password
+keyPassword=your_key_password
+keyAlias=sr_foods_release
+storeFile=../sr_foods_release_key.jks

@@ -8,6 +8,8 @@ import '../../../../core/database/database_provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/domain/recipe.dart';
+import '../../../../core/services/fefo_inventory_service.dart';
 import '../../../customers/presentation/screens/customers_screen.dart';
 import '../../../products/presentation/screens/products_screen.dart';
 
@@ -17,6 +19,12 @@ class _OrderItem {
   double discount;
   _OrderItem({required this.product}) : quantity = 1, discount = 0.0;
   double get total => (product.price - discount) * quantity;
+
+  double get marginPercentage {
+    final recipe = StandardRecipes.getRecipeFor(product.sku);
+    final effectivePrice = product.price - discount;
+    return recipe.computeGrossMargin(effectivePrice, 100);
+  }
 }
 
 class OrderFormScreen extends ConsumerStatefulWidget {
@@ -117,8 +125,19 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
       ));
 
 
-      // 2. Insert order items & reduce stock
+      // 2. Insert order items & reduce stock via FEFO
       for (final item in _items) {
+        // Allocate batches via FEFO (soonest expiry first)
+        final fefoResult = await FefoInventoryService.instance.allocateBatches(
+          db: db,
+          productId: item.product.id,
+          requestedPacks: item.quantity,
+        );
+
+        final batchAssigned = fefoResult.allocations.isNotEmpty
+            ? fefoResult.batchSummaryString
+            : 'Standard Lot';
+
         await db.into(db.orderItems).insert(OrderItemsCompanion(
           orderId: drift.Value(orderId),
           productId: drift.Value(item.product.id),
@@ -127,13 +146,36 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
           quantity: drift.Value(item.quantity),
           discount: drift.Value(item.discount),
           total: drift.Value(item.total),
+          batchNumber: drift.Value(batchAssigned),
         ));
-        // Decrease stock
+
+        // Decrease stock in products table
+        final newStock = item.product.currentStock - item.quantity;
         await (db.update(db.products)..where((p) => p.id.equals(item.product.id)))
             .write(ProductsCompanion(
-          currentStock: drift.Value(item.product.currentStock - item.quantity),
+          currentStock: drift.Value(newStock),
           updatedAt: drift.Value(DateTime.now()),
         ));
+
+        // Sync inventory table
+        await (db.update(db.inventory)..where((inv) => inv.productId.equals(item.product.id)))
+            .write(InventoryCompanion(
+          currentStock: drift.Value(newStock),
+          updatedAt: drift.Value(DateTime.now()),
+        ));
+
+        // Record inventory sale transaction
+        await db.into(db.inventoryTransactions).insert(
+          InventoryTransactionsCompanion.insert(
+            productId: item.product.id,
+            transactionType: 'sale',
+            quantity: -item.quantity,
+            balanceAfter: newStock,
+            referenceType: const drift.Value('order'),
+            referenceId: drift.Value(orderId),
+            notes: drift.Value('Order $orderNumber (FEFO: $batchAssigned)'),
+          ),
+        );
       }
 
       // 3. Auto-generate invoice
@@ -261,7 +303,27 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
               child: Row(children: [
                 Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(item.product.name, style: AppTextStyles.titleSmall),
-                  Text('${CurrencyFormatter.format(item.product.price)} each', style: AppTextStyles.bodySmall),
+                  Row(
+                    children: [
+                      Text('${CurrencyFormatter.format(item.product.price)} each', style: AppTextStyles.bodySmall),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: (item.marginPercentage < 20.0 ? AppColors.error : AppColors.success).withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          '${item.marginPercentage.toStringAsFixed(0)}% Margin',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: item.marginPercentage < 20.0 ? AppColors.error : AppColors.success,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ])),
                 Row(children: [
                   IconButton(

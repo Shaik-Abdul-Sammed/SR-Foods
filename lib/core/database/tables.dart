@@ -239,3 +239,42 @@ class ActivityLogs extends Table {
   TextColumn get userId => text().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
+
+/// Sync Queue table for offline-first resilient mutations and retries
+class SyncQueue extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get action => text()(); // insert | update | delete
+  TextColumn get entityType => text()(); // order | customer | payment | production
+  TextColumn get payload => text()(); // JSON payload
+  TextColumn get status => text().withDefault(const Constant('pending'))(); // pending | failed | completed
+  IntColumn get retryCount => integer().withDefault(const Constant(0))();
+  TextColumn get lastError => text().nullable()();
+  DateTimeColumn get nextRetryAt => dateTime().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Raw Materials table for BOM and factory stock tracking
+class RawMaterials extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text().unique()();
+  TextColumn get category => text()(); // flour | oil | salt | packaging | additive
+  RealColumn get currentStock => real().withDefault(const Constant(0.0))();
+  TextColumn get unit => text().withDefault(const Constant('kg'))(); // kg | L | pcs
+  RealColumn get minStock => real().withDefault(const Constant(50.0))();
+  RealColumn get lastPurchasePrice => real().withDefault(const Constant(0.0))();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Hygiene & Food Safety compliance inspection logs (FSSAI Schedule 4)
+class HygieneLogs extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  DateTimeColumn get inspectionDate => dateTime().withDefault(currentDateAndTime)();
+  TextColumn get inspectorName => text()();
+  RealColumn get doughChillingTemp => real()(); // Target: 2.0 to 4.0 °C
+  BoolColumn get surfacesSanitized => boolean().withDefault(const Constant(true))();
+  BoolColumn get personalHygienePassed => boolean().withDefault(const Constant(true))();
+  BoolColumn get pestActivityDetected => boolean().withDefault(const Constant(false))();
+  TextColumn get status => text().withDefault(const Constant('pass'))(); // pass | flag | fail
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}

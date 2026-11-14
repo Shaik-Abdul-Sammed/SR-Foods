@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../repositories/auth_repository.dart';
 import '../router/app_router.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
@@ -36,7 +37,10 @@ class _MainShellState extends ConsumerState<MainShell> {
     }
   }
 
-  bool get _isAdmin => _mobileNumber == '9440067933' || _mobileNumber == '9010150809';
+  bool get _isAdmin {
+    final authRepo = ref.watch(authRepositoryProvider);
+    return authRepo.isOwner || authRepo.isSupervisor || _mobileNumber.isEmpty || _mobileNumber == '9440067933' || _mobileNumber == '9010150809';
+  }
 
   List<_NavItem> get _navItems {
     if (_isAdmin || _mobileNumber.isEmpty) { // Admin or loading

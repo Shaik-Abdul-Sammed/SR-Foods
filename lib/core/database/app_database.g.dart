@@ -10167,6 +10167,1691 @@ class ActivityLogsCompanion extends UpdateCompanion<ActivityLog> {
   }
 }
 
+class $SyncQueueTable extends SyncQueue
+    with TableInfo<$SyncQueueTable, SyncQueueData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SyncQueueTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _actionMeta = const VerificationMeta('action');
+  @override
+  late final GeneratedColumn<String> action = GeneratedColumn<String>(
+    'action',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _entityTypeMeta = const VerificationMeta(
+    'entityType',
+  );
+  @override
+  late final GeneratedColumn<String> entityType = GeneratedColumn<String>(
+    'entity_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _payloadMeta = const VerificationMeta(
+    'payload',
+  );
+  @override
+  late final GeneratedColumn<String> payload = GeneratedColumn<String>(
+    'payload',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('pending'),
+  );
+  static const VerificationMeta _retryCountMeta = const VerificationMeta(
+    'retryCount',
+  );
+  @override
+  late final GeneratedColumn<int> retryCount = GeneratedColumn<int>(
+    'retry_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lastErrorMeta = const VerificationMeta(
+    'lastError',
+  );
+  @override
+  late final GeneratedColumn<String> lastError = GeneratedColumn<String>(
+    'last_error',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _nextRetryAtMeta = const VerificationMeta(
+    'nextRetryAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> nextRetryAt = GeneratedColumn<DateTime>(
+    'next_retry_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    action,
+    entityType,
+    payload,
+    status,
+    retryCount,
+    lastError,
+    nextRetryAt,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sync_queue';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SyncQueueData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('action')) {
+      context.handle(
+        _actionMeta,
+        action.isAcceptableOrUnknown(data['action']!, _actionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_actionMeta);
+    }
+    if (data.containsKey('entity_type')) {
+      context.handle(
+        _entityTypeMeta,
+        entityType.isAcceptableOrUnknown(data['entity_type']!, _entityTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_entityTypeMeta);
+    }
+    if (data.containsKey('payload')) {
+      context.handle(
+        _payloadMeta,
+        payload.isAcceptableOrUnknown(data['payload']!, _payloadMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_payloadMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('retry_count')) {
+      context.handle(
+        _retryCountMeta,
+        retryCount.isAcceptableOrUnknown(data['retry_count']!, _retryCountMeta),
+      );
+    }
+    if (data.containsKey('last_error')) {
+      context.handle(
+        _lastErrorMeta,
+        lastError.isAcceptableOrUnknown(data['last_error']!, _lastErrorMeta),
+      );
+    }
+    if (data.containsKey('next_retry_at')) {
+      context.handle(
+        _nextRetryAtMeta,
+        nextRetryAt.isAcceptableOrUnknown(
+          data['next_retry_at']!,
+          _nextRetryAtMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SyncQueueData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SyncQueueData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      action: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}action'],
+      )!,
+      entityType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}entity_type'],
+      )!,
+      payload: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payload'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      retryCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}retry_count'],
+      )!,
+      lastError: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}last_error'],
+      ),
+      nextRetryAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}next_retry_at'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $SyncQueueTable createAlias(String alias) {
+    return $SyncQueueTable(attachedDatabase, alias);
+  }
+}
+
+class SyncQueueData extends DataClass implements Insertable<SyncQueueData> {
+  final int id;
+  final String action;
+  final String entityType;
+  final String payload;
+  final String status;
+  final int retryCount;
+  final String? lastError;
+  final DateTime? nextRetryAt;
+  final DateTime createdAt;
+  const SyncQueueData({
+    required this.id,
+    required this.action,
+    required this.entityType,
+    required this.payload,
+    required this.status,
+    required this.retryCount,
+    this.lastError,
+    this.nextRetryAt,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['action'] = Variable<String>(action);
+    map['entity_type'] = Variable<String>(entityType);
+    map['payload'] = Variable<String>(payload);
+    map['status'] = Variable<String>(status);
+    map['retry_count'] = Variable<int>(retryCount);
+    if (!nullToAbsent || lastError != null) {
+      map['last_error'] = Variable<String>(lastError);
+    }
+    if (!nullToAbsent || nextRetryAt != null) {
+      map['next_retry_at'] = Variable<DateTime>(nextRetryAt);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  SyncQueueCompanion toCompanion(bool nullToAbsent) {
+    return SyncQueueCompanion(
+      id: Value(id),
+      action: Value(action),
+      entityType: Value(entityType),
+      payload: Value(payload),
+      status: Value(status),
+      retryCount: Value(retryCount),
+      lastError: lastError == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastError),
+      nextRetryAt: nextRetryAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nextRetryAt),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory SyncQueueData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SyncQueueData(
+      id: serializer.fromJson<int>(json['id']),
+      action: serializer.fromJson<String>(json['action']),
+      entityType: serializer.fromJson<String>(json['entityType']),
+      payload: serializer.fromJson<String>(json['payload']),
+      status: serializer.fromJson<String>(json['status']),
+      retryCount: serializer.fromJson<int>(json['retryCount']),
+      lastError: serializer.fromJson<String?>(json['lastError']),
+      nextRetryAt: serializer.fromJson<DateTime?>(json['nextRetryAt']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'action': serializer.toJson<String>(action),
+      'entityType': serializer.toJson<String>(entityType),
+      'payload': serializer.toJson<String>(payload),
+      'status': serializer.toJson<String>(status),
+      'retryCount': serializer.toJson<int>(retryCount),
+      'lastError': serializer.toJson<String?>(lastError),
+      'nextRetryAt': serializer.toJson<DateTime?>(nextRetryAt),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  SyncQueueData copyWith({
+    int? id,
+    String? action,
+    String? entityType,
+    String? payload,
+    String? status,
+    int? retryCount,
+    Value<String?> lastError = const Value.absent(),
+    Value<DateTime?> nextRetryAt = const Value.absent(),
+    DateTime? createdAt,
+  }) => SyncQueueData(
+    id: id ?? this.id,
+    action: action ?? this.action,
+    entityType: entityType ?? this.entityType,
+    payload: payload ?? this.payload,
+    status: status ?? this.status,
+    retryCount: retryCount ?? this.retryCount,
+    lastError: lastError.present ? lastError.value : this.lastError,
+    nextRetryAt: nextRetryAt.present ? nextRetryAt.value : this.nextRetryAt,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  SyncQueueData copyWithCompanion(SyncQueueCompanion data) {
+    return SyncQueueData(
+      id: data.id.present ? data.id.value : this.id,
+      action: data.action.present ? data.action.value : this.action,
+      entityType: data.entityType.present
+          ? data.entityType.value
+          : this.entityType,
+      payload: data.payload.present ? data.payload.value : this.payload,
+      status: data.status.present ? data.status.value : this.status,
+      retryCount: data.retryCount.present
+          ? data.retryCount.value
+          : this.retryCount,
+      lastError: data.lastError.present ? data.lastError.value : this.lastError,
+      nextRetryAt: data.nextRetryAt.present
+          ? data.nextRetryAt.value
+          : this.nextRetryAt,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SyncQueueData(')
+          ..write('id: $id, ')
+          ..write('action: $action, ')
+          ..write('entityType: $entityType, ')
+          ..write('payload: $payload, ')
+          ..write('status: $status, ')
+          ..write('retryCount: $retryCount, ')
+          ..write('lastError: $lastError, ')
+          ..write('nextRetryAt: $nextRetryAt, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    action,
+    entityType,
+    payload,
+    status,
+    retryCount,
+    lastError,
+    nextRetryAt,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SyncQueueData &&
+          other.id == this.id &&
+          other.action == this.action &&
+          other.entityType == this.entityType &&
+          other.payload == this.payload &&
+          other.status == this.status &&
+          other.retryCount == this.retryCount &&
+          other.lastError == this.lastError &&
+          other.nextRetryAt == this.nextRetryAt &&
+          other.createdAt == this.createdAt);
+}
+
+class SyncQueueCompanion extends UpdateCompanion<SyncQueueData> {
+  final Value<int> id;
+  final Value<String> action;
+  final Value<String> entityType;
+  final Value<String> payload;
+  final Value<String> status;
+  final Value<int> retryCount;
+  final Value<String?> lastError;
+  final Value<DateTime?> nextRetryAt;
+  final Value<DateTime> createdAt;
+  const SyncQueueCompanion({
+    this.id = const Value.absent(),
+    this.action = const Value.absent(),
+    this.entityType = const Value.absent(),
+    this.payload = const Value.absent(),
+    this.status = const Value.absent(),
+    this.retryCount = const Value.absent(),
+    this.lastError = const Value.absent(),
+    this.nextRetryAt = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  SyncQueueCompanion.insert({
+    this.id = const Value.absent(),
+    required String action,
+    required String entityType,
+    required String payload,
+    this.status = const Value.absent(),
+    this.retryCount = const Value.absent(),
+    this.lastError = const Value.absent(),
+    this.nextRetryAt = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : action = Value(action),
+       entityType = Value(entityType),
+       payload = Value(payload);
+  static Insertable<SyncQueueData> custom({
+    Expression<int>? id,
+    Expression<String>? action,
+    Expression<String>? entityType,
+    Expression<String>? payload,
+    Expression<String>? status,
+    Expression<int>? retryCount,
+    Expression<String>? lastError,
+    Expression<DateTime>? nextRetryAt,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (action != null) 'action': action,
+      if (entityType != null) 'entity_type': entityType,
+      if (payload != null) 'payload': payload,
+      if (status != null) 'status': status,
+      if (retryCount != null) 'retry_count': retryCount,
+      if (lastError != null) 'last_error': lastError,
+      if (nextRetryAt != null) 'next_retry_at': nextRetryAt,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  SyncQueueCompanion copyWith({
+    Value<int>? id,
+    Value<String>? action,
+    Value<String>? entityType,
+    Value<String>? payload,
+    Value<String>? status,
+    Value<int>? retryCount,
+    Value<String?>? lastError,
+    Value<DateTime?>? nextRetryAt,
+    Value<DateTime>? createdAt,
+  }) {
+    return SyncQueueCompanion(
+      id: id ?? this.id,
+      action: action ?? this.action,
+      entityType: entityType ?? this.entityType,
+      payload: payload ?? this.payload,
+      status: status ?? this.status,
+      retryCount: retryCount ?? this.retryCount,
+      lastError: lastError ?? this.lastError,
+      nextRetryAt: nextRetryAt ?? this.nextRetryAt,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (action.present) {
+      map['action'] = Variable<String>(action.value);
+    }
+    if (entityType.present) {
+      map['entity_type'] = Variable<String>(entityType.value);
+    }
+    if (payload.present) {
+      map['payload'] = Variable<String>(payload.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (retryCount.present) {
+      map['retry_count'] = Variable<int>(retryCount.value);
+    }
+    if (lastError.present) {
+      map['last_error'] = Variable<String>(lastError.value);
+    }
+    if (nextRetryAt.present) {
+      map['next_retry_at'] = Variable<DateTime>(nextRetryAt.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SyncQueueCompanion(')
+          ..write('id: $id, ')
+          ..write('action: $action, ')
+          ..write('entityType: $entityType, ')
+          ..write('payload: $payload, ')
+          ..write('status: $status, ')
+          ..write('retryCount: $retryCount, ')
+          ..write('lastError: $lastError, ')
+          ..write('nextRetryAt: $nextRetryAt, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RawMaterialsTable extends RawMaterials
+    with TableInfo<$RawMaterialsTable, RawMaterial> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RawMaterialsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+  );
+  static const VerificationMeta _categoryMeta = const VerificationMeta(
+    'category',
+  );
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+    'category',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currentStockMeta = const VerificationMeta(
+    'currentStock',
+  );
+  @override
+  late final GeneratedColumn<double> currentStock = GeneratedColumn<double>(
+    'current_stock',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0.0),
+  );
+  static const VerificationMeta _unitMeta = const VerificationMeta('unit');
+  @override
+  late final GeneratedColumn<String> unit = GeneratedColumn<String>(
+    'unit',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('kg'),
+  );
+  static const VerificationMeta _minStockMeta = const VerificationMeta(
+    'minStock',
+  );
+  @override
+  late final GeneratedColumn<double> minStock = GeneratedColumn<double>(
+    'min_stock',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(50.0),
+  );
+  static const VerificationMeta _lastPurchasePriceMeta = const VerificationMeta(
+    'lastPurchasePrice',
+  );
+  @override
+  late final GeneratedColumn<double> lastPurchasePrice =
+      GeneratedColumn<double>(
+        'last_purchase_price',
+        aliasedName,
+        false,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        defaultValue: const Constant(0.0),
+      );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    category,
+    currentStock,
+    unit,
+    minStock,
+    lastPurchasePrice,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'raw_materials';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<RawMaterial> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('category')) {
+      context.handle(
+        _categoryMeta,
+        category.isAcceptableOrUnknown(data['category']!, _categoryMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('current_stock')) {
+      context.handle(
+        _currentStockMeta,
+        currentStock.isAcceptableOrUnknown(
+          data['current_stock']!,
+          _currentStockMeta,
+        ),
+      );
+    }
+    if (data.containsKey('unit')) {
+      context.handle(
+        _unitMeta,
+        unit.isAcceptableOrUnknown(data['unit']!, _unitMeta),
+      );
+    }
+    if (data.containsKey('min_stock')) {
+      context.handle(
+        _minStockMeta,
+        minStock.isAcceptableOrUnknown(data['min_stock']!, _minStockMeta),
+      );
+    }
+    if (data.containsKey('last_purchase_price')) {
+      context.handle(
+        _lastPurchasePriceMeta,
+        lastPurchasePrice.isAcceptableOrUnknown(
+          data['last_purchase_price']!,
+          _lastPurchasePriceMeta,
+        ),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RawMaterial map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RawMaterial(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      category: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}category'],
+      )!,
+      currentStock: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}current_stock'],
+      )!,
+      unit: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unit'],
+      )!,
+      minStock: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}min_stock'],
+      )!,
+      lastPurchasePrice: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}last_purchase_price'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $RawMaterialsTable createAlias(String alias) {
+    return $RawMaterialsTable(attachedDatabase, alias);
+  }
+}
+
+class RawMaterial extends DataClass implements Insertable<RawMaterial> {
+  final int id;
+  final String name;
+  final String category;
+  final double currentStock;
+  final String unit;
+  final double minStock;
+  final double lastPurchasePrice;
+  final DateTime updatedAt;
+  const RawMaterial({
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.currentStock,
+    required this.unit,
+    required this.minStock,
+    required this.lastPurchasePrice,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['category'] = Variable<String>(category);
+    map['current_stock'] = Variable<double>(currentStock);
+    map['unit'] = Variable<String>(unit);
+    map['min_stock'] = Variable<double>(minStock);
+    map['last_purchase_price'] = Variable<double>(lastPurchasePrice);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  RawMaterialsCompanion toCompanion(bool nullToAbsent) {
+    return RawMaterialsCompanion(
+      id: Value(id),
+      name: Value(name),
+      category: Value(category),
+      currentStock: Value(currentStock),
+      unit: Value(unit),
+      minStock: Value(minStock),
+      lastPurchasePrice: Value(lastPurchasePrice),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory RawMaterial.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RawMaterial(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      category: serializer.fromJson<String>(json['category']),
+      currentStock: serializer.fromJson<double>(json['currentStock']),
+      unit: serializer.fromJson<String>(json['unit']),
+      minStock: serializer.fromJson<double>(json['minStock']),
+      lastPurchasePrice: serializer.fromJson<double>(json['lastPurchasePrice']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'category': serializer.toJson<String>(category),
+      'currentStock': serializer.toJson<double>(currentStock),
+      'unit': serializer.toJson<String>(unit),
+      'minStock': serializer.toJson<double>(minStock),
+      'lastPurchasePrice': serializer.toJson<double>(lastPurchasePrice),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  RawMaterial copyWith({
+    int? id,
+    String? name,
+    String? category,
+    double? currentStock,
+    String? unit,
+    double? minStock,
+    double? lastPurchasePrice,
+    DateTime? updatedAt,
+  }) => RawMaterial(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    category: category ?? this.category,
+    currentStock: currentStock ?? this.currentStock,
+    unit: unit ?? this.unit,
+    minStock: minStock ?? this.minStock,
+    lastPurchasePrice: lastPurchasePrice ?? this.lastPurchasePrice,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  RawMaterial copyWithCompanion(RawMaterialsCompanion data) {
+    return RawMaterial(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      category: data.category.present ? data.category.value : this.category,
+      currentStock: data.currentStock.present
+          ? data.currentStock.value
+          : this.currentStock,
+      unit: data.unit.present ? data.unit.value : this.unit,
+      minStock: data.minStock.present ? data.minStock.value : this.minStock,
+      lastPurchasePrice: data.lastPurchasePrice.present
+          ? data.lastPurchasePrice.value
+          : this.lastPurchasePrice,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RawMaterial(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('category: $category, ')
+          ..write('currentStock: $currentStock, ')
+          ..write('unit: $unit, ')
+          ..write('minStock: $minStock, ')
+          ..write('lastPurchasePrice: $lastPurchasePrice, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    category,
+    currentStock,
+    unit,
+    minStock,
+    lastPurchasePrice,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RawMaterial &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.category == this.category &&
+          other.currentStock == this.currentStock &&
+          other.unit == this.unit &&
+          other.minStock == this.minStock &&
+          other.lastPurchasePrice == this.lastPurchasePrice &&
+          other.updatedAt == this.updatedAt);
+}
+
+class RawMaterialsCompanion extends UpdateCompanion<RawMaterial> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> category;
+  final Value<double> currentStock;
+  final Value<String> unit;
+  final Value<double> minStock;
+  final Value<double> lastPurchasePrice;
+  final Value<DateTime> updatedAt;
+  const RawMaterialsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.category = const Value.absent(),
+    this.currentStock = const Value.absent(),
+    this.unit = const Value.absent(),
+    this.minStock = const Value.absent(),
+    this.lastPurchasePrice = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  RawMaterialsCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String category,
+    this.currentStock = const Value.absent(),
+    this.unit = const Value.absent(),
+    this.minStock = const Value.absent(),
+    this.lastPurchasePrice = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  }) : name = Value(name),
+       category = Value(category);
+  static Insertable<RawMaterial> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? category,
+    Expression<double>? currentStock,
+    Expression<String>? unit,
+    Expression<double>? minStock,
+    Expression<double>? lastPurchasePrice,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (category != null) 'category': category,
+      if (currentStock != null) 'current_stock': currentStock,
+      if (unit != null) 'unit': unit,
+      if (minStock != null) 'min_stock': minStock,
+      if (lastPurchasePrice != null) 'last_purchase_price': lastPurchasePrice,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  RawMaterialsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? name,
+    Value<String>? category,
+    Value<double>? currentStock,
+    Value<String>? unit,
+    Value<double>? minStock,
+    Value<double>? lastPurchasePrice,
+    Value<DateTime>? updatedAt,
+  }) {
+    return RawMaterialsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      category: category ?? this.category,
+      currentStock: currentStock ?? this.currentStock,
+      unit: unit ?? this.unit,
+      minStock: minStock ?? this.minStock,
+      lastPurchasePrice: lastPurchasePrice ?? this.lastPurchasePrice,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
+    if (currentStock.present) {
+      map['current_stock'] = Variable<double>(currentStock.value);
+    }
+    if (unit.present) {
+      map['unit'] = Variable<String>(unit.value);
+    }
+    if (minStock.present) {
+      map['min_stock'] = Variable<double>(minStock.value);
+    }
+    if (lastPurchasePrice.present) {
+      map['last_purchase_price'] = Variable<double>(lastPurchasePrice.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RawMaterialsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('category: $category, ')
+          ..write('currentStock: $currentStock, ')
+          ..write('unit: $unit, ')
+          ..write('minStock: $minStock, ')
+          ..write('lastPurchasePrice: $lastPurchasePrice, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $HygieneLogsTable extends HygieneLogs
+    with TableInfo<$HygieneLogsTable, HygieneLog> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $HygieneLogsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _inspectionDateMeta = const VerificationMeta(
+    'inspectionDate',
+  );
+  @override
+  late final GeneratedColumn<DateTime> inspectionDate =
+      GeneratedColumn<DateTime>(
+        'inspection_date',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+        defaultValue: currentDateAndTime,
+      );
+  static const VerificationMeta _inspectorNameMeta = const VerificationMeta(
+    'inspectorName',
+  );
+  @override
+  late final GeneratedColumn<String> inspectorName = GeneratedColumn<String>(
+    'inspector_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _doughChillingTempMeta = const VerificationMeta(
+    'doughChillingTemp',
+  );
+  @override
+  late final GeneratedColumn<double> doughChillingTemp =
+      GeneratedColumn<double>(
+        'dough_chilling_temp',
+        aliasedName,
+        false,
+        type: DriftSqlType.double,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _surfacesSanitizedMeta = const VerificationMeta(
+    'surfacesSanitized',
+  );
+  @override
+  late final GeneratedColumn<bool> surfacesSanitized = GeneratedColumn<bool>(
+    'surfaces_sanitized',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("surfaces_sanitized" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _personalHygienePassedMeta =
+      const VerificationMeta('personalHygienePassed');
+  @override
+  late final GeneratedColumn<bool> personalHygienePassed =
+      GeneratedColumn<bool>(
+        'personal_hygiene_passed',
+        aliasedName,
+        false,
+        type: DriftSqlType.bool,
+        requiredDuringInsert: false,
+        defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("personal_hygiene_passed" IN (0, 1))',
+        ),
+        defaultValue: const Constant(true),
+      );
+  static const VerificationMeta _pestActivityDetectedMeta =
+      const VerificationMeta('pestActivityDetected');
+  @override
+  late final GeneratedColumn<bool> pestActivityDetected = GeneratedColumn<bool>(
+    'pest_activity_detected',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("pest_activity_detected" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('pass'),
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    inspectionDate,
+    inspectorName,
+    doughChillingTemp,
+    surfacesSanitized,
+    personalHygienePassed,
+    pestActivityDetected,
+    status,
+    notes,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'hygiene_logs';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<HygieneLog> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('inspection_date')) {
+      context.handle(
+        _inspectionDateMeta,
+        inspectionDate.isAcceptableOrUnknown(
+          data['inspection_date']!,
+          _inspectionDateMeta,
+        ),
+      );
+    }
+    if (data.containsKey('inspector_name')) {
+      context.handle(
+        _inspectorNameMeta,
+        inspectorName.isAcceptableOrUnknown(
+          data['inspector_name']!,
+          _inspectorNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_inspectorNameMeta);
+    }
+    if (data.containsKey('dough_chilling_temp')) {
+      context.handle(
+        _doughChillingTempMeta,
+        doughChillingTemp.isAcceptableOrUnknown(
+          data['dough_chilling_temp']!,
+          _doughChillingTempMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_doughChillingTempMeta);
+    }
+    if (data.containsKey('surfaces_sanitized')) {
+      context.handle(
+        _surfacesSanitizedMeta,
+        surfacesSanitized.isAcceptableOrUnknown(
+          data['surfaces_sanitized']!,
+          _surfacesSanitizedMeta,
+        ),
+      );
+    }
+    if (data.containsKey('personal_hygiene_passed')) {
+      context.handle(
+        _personalHygienePassedMeta,
+        personalHygienePassed.isAcceptableOrUnknown(
+          data['personal_hygiene_passed']!,
+          _personalHygienePassedMeta,
+        ),
+      );
+    }
+    if (data.containsKey('pest_activity_detected')) {
+      context.handle(
+        _pestActivityDetectedMeta,
+        pestActivityDetected.isAcceptableOrUnknown(
+          data['pest_activity_detected']!,
+          _pestActivityDetectedMeta,
+        ),
+      );
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  HygieneLog map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return HygieneLog(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      inspectionDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}inspection_date'],
+      )!,
+      inspectorName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}inspector_name'],
+      )!,
+      doughChillingTemp: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}dough_chilling_temp'],
+      )!,
+      surfacesSanitized: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}surfaces_sanitized'],
+      )!,
+      personalHygienePassed: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}personal_hygiene_passed'],
+      )!,
+      pestActivityDetected: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}pest_activity_detected'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $HygieneLogsTable createAlias(String alias) {
+    return $HygieneLogsTable(attachedDatabase, alias);
+  }
+}
+
+class HygieneLog extends DataClass implements Insertable<HygieneLog> {
+  final int id;
+  final DateTime inspectionDate;
+  final String inspectorName;
+  final double doughChillingTemp;
+  final bool surfacesSanitized;
+  final bool personalHygienePassed;
+  final bool pestActivityDetected;
+  final String status;
+  final String? notes;
+  final DateTime createdAt;
+  const HygieneLog({
+    required this.id,
+    required this.inspectionDate,
+    required this.inspectorName,
+    required this.doughChillingTemp,
+    required this.surfacesSanitized,
+    required this.personalHygienePassed,
+    required this.pestActivityDetected,
+    required this.status,
+    this.notes,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['inspection_date'] = Variable<DateTime>(inspectionDate);
+    map['inspector_name'] = Variable<String>(inspectorName);
+    map['dough_chilling_temp'] = Variable<double>(doughChillingTemp);
+    map['surfaces_sanitized'] = Variable<bool>(surfacesSanitized);
+    map['personal_hygiene_passed'] = Variable<bool>(personalHygienePassed);
+    map['pest_activity_detected'] = Variable<bool>(pestActivityDetected);
+    map['status'] = Variable<String>(status);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  HygieneLogsCompanion toCompanion(bool nullToAbsent) {
+    return HygieneLogsCompanion(
+      id: Value(id),
+      inspectionDate: Value(inspectionDate),
+      inspectorName: Value(inspectorName),
+      doughChillingTemp: Value(doughChillingTemp),
+      surfacesSanitized: Value(surfacesSanitized),
+      personalHygienePassed: Value(personalHygienePassed),
+      pestActivityDetected: Value(pestActivityDetected),
+      status: Value(status),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory HygieneLog.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return HygieneLog(
+      id: serializer.fromJson<int>(json['id']),
+      inspectionDate: serializer.fromJson<DateTime>(json['inspectionDate']),
+      inspectorName: serializer.fromJson<String>(json['inspectorName']),
+      doughChillingTemp: serializer.fromJson<double>(json['doughChillingTemp']),
+      surfacesSanitized: serializer.fromJson<bool>(json['surfacesSanitized']),
+      personalHygienePassed: serializer.fromJson<bool>(
+        json['personalHygienePassed'],
+      ),
+      pestActivityDetected: serializer.fromJson<bool>(
+        json['pestActivityDetected'],
+      ),
+      status: serializer.fromJson<String>(json['status']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'inspectionDate': serializer.toJson<DateTime>(inspectionDate),
+      'inspectorName': serializer.toJson<String>(inspectorName),
+      'doughChillingTemp': serializer.toJson<double>(doughChillingTemp),
+      'surfacesSanitized': serializer.toJson<bool>(surfacesSanitized),
+      'personalHygienePassed': serializer.toJson<bool>(personalHygienePassed),
+      'pestActivityDetected': serializer.toJson<bool>(pestActivityDetected),
+      'status': serializer.toJson<String>(status),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  HygieneLog copyWith({
+    int? id,
+    DateTime? inspectionDate,
+    String? inspectorName,
+    double? doughChillingTemp,
+    bool? surfacesSanitized,
+    bool? personalHygienePassed,
+    bool? pestActivityDetected,
+    String? status,
+    Value<String?> notes = const Value.absent(),
+    DateTime? createdAt,
+  }) => HygieneLog(
+    id: id ?? this.id,
+    inspectionDate: inspectionDate ?? this.inspectionDate,
+    inspectorName: inspectorName ?? this.inspectorName,
+    doughChillingTemp: doughChillingTemp ?? this.doughChillingTemp,
+    surfacesSanitized: surfacesSanitized ?? this.surfacesSanitized,
+    personalHygienePassed: personalHygienePassed ?? this.personalHygienePassed,
+    pestActivityDetected: pestActivityDetected ?? this.pestActivityDetected,
+    status: status ?? this.status,
+    notes: notes.present ? notes.value : this.notes,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  HygieneLog copyWithCompanion(HygieneLogsCompanion data) {
+    return HygieneLog(
+      id: data.id.present ? data.id.value : this.id,
+      inspectionDate: data.inspectionDate.present
+          ? data.inspectionDate.value
+          : this.inspectionDate,
+      inspectorName: data.inspectorName.present
+          ? data.inspectorName.value
+          : this.inspectorName,
+      doughChillingTemp: data.doughChillingTemp.present
+          ? data.doughChillingTemp.value
+          : this.doughChillingTemp,
+      surfacesSanitized: data.surfacesSanitized.present
+          ? data.surfacesSanitized.value
+          : this.surfacesSanitized,
+      personalHygienePassed: data.personalHygienePassed.present
+          ? data.personalHygienePassed.value
+          : this.personalHygienePassed,
+      pestActivityDetected: data.pestActivityDetected.present
+          ? data.pestActivityDetected.value
+          : this.pestActivityDetected,
+      status: data.status.present ? data.status.value : this.status,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('HygieneLog(')
+          ..write('id: $id, ')
+          ..write('inspectionDate: $inspectionDate, ')
+          ..write('inspectorName: $inspectorName, ')
+          ..write('doughChillingTemp: $doughChillingTemp, ')
+          ..write('surfacesSanitized: $surfacesSanitized, ')
+          ..write('personalHygienePassed: $personalHygienePassed, ')
+          ..write('pestActivityDetected: $pestActivityDetected, ')
+          ..write('status: $status, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    inspectionDate,
+    inspectorName,
+    doughChillingTemp,
+    surfacesSanitized,
+    personalHygienePassed,
+    pestActivityDetected,
+    status,
+    notes,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is HygieneLog &&
+          other.id == this.id &&
+          other.inspectionDate == this.inspectionDate &&
+          other.inspectorName == this.inspectorName &&
+          other.doughChillingTemp == this.doughChillingTemp &&
+          other.surfacesSanitized == this.surfacesSanitized &&
+          other.personalHygienePassed == this.personalHygienePassed &&
+          other.pestActivityDetected == this.pestActivityDetected &&
+          other.status == this.status &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt);
+}
+
+class HygieneLogsCompanion extends UpdateCompanion<HygieneLog> {
+  final Value<int> id;
+  final Value<DateTime> inspectionDate;
+  final Value<String> inspectorName;
+  final Value<double> doughChillingTemp;
+  final Value<bool> surfacesSanitized;
+  final Value<bool> personalHygienePassed;
+  final Value<bool> pestActivityDetected;
+  final Value<String> status;
+  final Value<String?> notes;
+  final Value<DateTime> createdAt;
+  const HygieneLogsCompanion({
+    this.id = const Value.absent(),
+    this.inspectionDate = const Value.absent(),
+    this.inspectorName = const Value.absent(),
+    this.doughChillingTemp = const Value.absent(),
+    this.surfacesSanitized = const Value.absent(),
+    this.personalHygienePassed = const Value.absent(),
+    this.pestActivityDetected = const Value.absent(),
+    this.status = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  HygieneLogsCompanion.insert({
+    this.id = const Value.absent(),
+    this.inspectionDate = const Value.absent(),
+    required String inspectorName,
+    required double doughChillingTemp,
+    this.surfacesSanitized = const Value.absent(),
+    this.personalHygienePassed = const Value.absent(),
+    this.pestActivityDetected = const Value.absent(),
+    this.status = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : inspectorName = Value(inspectorName),
+       doughChillingTemp = Value(doughChillingTemp);
+  static Insertable<HygieneLog> custom({
+    Expression<int>? id,
+    Expression<DateTime>? inspectionDate,
+    Expression<String>? inspectorName,
+    Expression<double>? doughChillingTemp,
+    Expression<bool>? surfacesSanitized,
+    Expression<bool>? personalHygienePassed,
+    Expression<bool>? pestActivityDetected,
+    Expression<String>? status,
+    Expression<String>? notes,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (inspectionDate != null) 'inspection_date': inspectionDate,
+      if (inspectorName != null) 'inspector_name': inspectorName,
+      if (doughChillingTemp != null) 'dough_chilling_temp': doughChillingTemp,
+      if (surfacesSanitized != null) 'surfaces_sanitized': surfacesSanitized,
+      if (personalHygienePassed != null)
+        'personal_hygiene_passed': personalHygienePassed,
+      if (pestActivityDetected != null)
+        'pest_activity_detected': pestActivityDetected,
+      if (status != null) 'status': status,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  HygieneLogsCompanion copyWith({
+    Value<int>? id,
+    Value<DateTime>? inspectionDate,
+    Value<String>? inspectorName,
+    Value<double>? doughChillingTemp,
+    Value<bool>? surfacesSanitized,
+    Value<bool>? personalHygienePassed,
+    Value<bool>? pestActivityDetected,
+    Value<String>? status,
+    Value<String?>? notes,
+    Value<DateTime>? createdAt,
+  }) {
+    return HygieneLogsCompanion(
+      id: id ?? this.id,
+      inspectionDate: inspectionDate ?? this.inspectionDate,
+      inspectorName: inspectorName ?? this.inspectorName,
+      doughChillingTemp: doughChillingTemp ?? this.doughChillingTemp,
+      surfacesSanitized: surfacesSanitized ?? this.surfacesSanitized,
+      personalHygienePassed:
+          personalHygienePassed ?? this.personalHygienePassed,
+      pestActivityDetected: pestActivityDetected ?? this.pestActivityDetected,
+      status: status ?? this.status,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (inspectionDate.present) {
+      map['inspection_date'] = Variable<DateTime>(inspectionDate.value);
+    }
+    if (inspectorName.present) {
+      map['inspector_name'] = Variable<String>(inspectorName.value);
+    }
+    if (doughChillingTemp.present) {
+      map['dough_chilling_temp'] = Variable<double>(doughChillingTemp.value);
+    }
+    if (surfacesSanitized.present) {
+      map['surfaces_sanitized'] = Variable<bool>(surfacesSanitized.value);
+    }
+    if (personalHygienePassed.present) {
+      map['personal_hygiene_passed'] = Variable<bool>(
+        personalHygienePassed.value,
+      );
+    }
+    if (pestActivityDetected.present) {
+      map['pest_activity_detected'] = Variable<bool>(
+        pestActivityDetected.value,
+      );
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('HygieneLogsCompanion(')
+          ..write('id: $id, ')
+          ..write('inspectionDate: $inspectionDate, ')
+          ..write('inspectorName: $inspectorName, ')
+          ..write('doughChillingTemp: $doughChillingTemp, ')
+          ..write('surfacesSanitized: $surfacesSanitized, ')
+          ..write('personalHygienePassed: $personalHygienePassed, ')
+          ..write('pestActivityDetected: $pestActivityDetected, ')
+          ..write('status: $status, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -10189,6 +11874,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $BackupHistoryTable backupHistory = $BackupHistoryTable(this);
   late final $ActivityLogsTable activityLogs = $ActivityLogsTable(this);
+  late final $SyncQueueTable syncQueue = $SyncQueueTable(this);
+  late final $RawMaterialsTable rawMaterials = $RawMaterialsTable(this);
+  late final $HygieneLogsTable hygieneLogs = $HygieneLogsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -10209,6 +11897,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     appNotifications,
     backupHistory,
     activityLogs,
+    syncQueue,
+    rawMaterials,
+    hygieneLogs,
   ];
 }
 
@@ -17357,6 +19048,838 @@ typedef $$ActivityLogsTableProcessedTableManager =
       ActivityLog,
       PrefetchHooks Function()
     >;
+typedef $$SyncQueueTableCreateCompanionBuilder =
+    SyncQueueCompanion Function({
+      Value<int> id,
+      required String action,
+      required String entityType,
+      required String payload,
+      Value<String> status,
+      Value<int> retryCount,
+      Value<String?> lastError,
+      Value<DateTime?> nextRetryAt,
+      Value<DateTime> createdAt,
+    });
+typedef $$SyncQueueTableUpdateCompanionBuilder =
+    SyncQueueCompanion Function({
+      Value<int> id,
+      Value<String> action,
+      Value<String> entityType,
+      Value<String> payload,
+      Value<String> status,
+      Value<int> retryCount,
+      Value<String?> lastError,
+      Value<DateTime?> nextRetryAt,
+      Value<DateTime> createdAt,
+    });
+
+class $$SyncQueueTableFilterComposer
+    extends Composer<_$AppDatabase, $SyncQueueTable> {
+  $$SyncQueueTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get action => $composableBuilder(
+    column: $table.action,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get entityType => $composableBuilder(
+    column: $table.entityType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get payload => $composableBuilder(
+    column: $table.payload,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get retryCount => $composableBuilder(
+    column: $table.retryCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get nextRetryAt => $composableBuilder(
+    column: $table.nextRetryAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SyncQueueTableOrderingComposer
+    extends Composer<_$AppDatabase, $SyncQueueTable> {
+  $$SyncQueueTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get action => $composableBuilder(
+    column: $table.action,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get entityType => $composableBuilder(
+    column: $table.entityType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get payload => $composableBuilder(
+    column: $table.payload,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get retryCount => $composableBuilder(
+    column: $table.retryCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get nextRetryAt => $composableBuilder(
+    column: $table.nextRetryAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SyncQueueTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SyncQueueTable> {
+  $$SyncQueueTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get action =>
+      $composableBuilder(column: $table.action, builder: (column) => column);
+
+  GeneratedColumn<String> get entityType => $composableBuilder(
+    column: $table.entityType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get payload =>
+      $composableBuilder(column: $table.payload, builder: (column) => column);
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<int> get retryCount => $composableBuilder(
+    column: $table.retryCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get lastError =>
+      $composableBuilder(column: $table.lastError, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get nextRetryAt => $composableBuilder(
+    column: $table.nextRetryAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$SyncQueueTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SyncQueueTable,
+          SyncQueueData,
+          $$SyncQueueTableFilterComposer,
+          $$SyncQueueTableOrderingComposer,
+          $$SyncQueueTableAnnotationComposer,
+          $$SyncQueueTableCreateCompanionBuilder,
+          $$SyncQueueTableUpdateCompanionBuilder,
+          (
+            SyncQueueData,
+            BaseReferences<_$AppDatabase, $SyncQueueTable, SyncQueueData>,
+          ),
+          SyncQueueData,
+          PrefetchHooks Function()
+        > {
+  $$SyncQueueTableTableManager(_$AppDatabase db, $SyncQueueTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SyncQueueTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SyncQueueTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SyncQueueTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> action = const Value.absent(),
+                Value<String> entityType = const Value.absent(),
+                Value<String> payload = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> retryCount = const Value.absent(),
+                Value<String?> lastError = const Value.absent(),
+                Value<DateTime?> nextRetryAt = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => SyncQueueCompanion(
+                id: id,
+                action: action,
+                entityType: entityType,
+                payload: payload,
+                status: status,
+                retryCount: retryCount,
+                lastError: lastError,
+                nextRetryAt: nextRetryAt,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String action,
+                required String entityType,
+                required String payload,
+                Value<String> status = const Value.absent(),
+                Value<int> retryCount = const Value.absent(),
+                Value<String?> lastError = const Value.absent(),
+                Value<DateTime?> nextRetryAt = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => SyncQueueCompanion.insert(
+                id: id,
+                action: action,
+                entityType: entityType,
+                payload: payload,
+                status: status,
+                retryCount: retryCount,
+                lastError: lastError,
+                nextRetryAt: nextRetryAt,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SyncQueueTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SyncQueueTable,
+      SyncQueueData,
+      $$SyncQueueTableFilterComposer,
+      $$SyncQueueTableOrderingComposer,
+      $$SyncQueueTableAnnotationComposer,
+      $$SyncQueueTableCreateCompanionBuilder,
+      $$SyncQueueTableUpdateCompanionBuilder,
+      (
+        SyncQueueData,
+        BaseReferences<_$AppDatabase, $SyncQueueTable, SyncQueueData>,
+      ),
+      SyncQueueData,
+      PrefetchHooks Function()
+    >;
+typedef $$RawMaterialsTableCreateCompanionBuilder =
+    RawMaterialsCompanion Function({
+      Value<int> id,
+      required String name,
+      required String category,
+      Value<double> currentStock,
+      Value<String> unit,
+      Value<double> minStock,
+      Value<double> lastPurchasePrice,
+      Value<DateTime> updatedAt,
+    });
+typedef $$RawMaterialsTableUpdateCompanionBuilder =
+    RawMaterialsCompanion Function({
+      Value<int> id,
+      Value<String> name,
+      Value<String> category,
+      Value<double> currentStock,
+      Value<String> unit,
+      Value<double> minStock,
+      Value<double> lastPurchasePrice,
+      Value<DateTime> updatedAt,
+    });
+
+class $$RawMaterialsTableFilterComposer
+    extends Composer<_$AppDatabase, $RawMaterialsTable> {
+  $$RawMaterialsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get category => $composableBuilder(
+    column: $table.category,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get currentStock => $composableBuilder(
+    column: $table.currentStock,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unit => $composableBuilder(
+    column: $table.unit,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get minStock => $composableBuilder(
+    column: $table.minStock,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get lastPurchasePrice => $composableBuilder(
+    column: $table.lastPurchasePrice,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$RawMaterialsTableOrderingComposer
+    extends Composer<_$AppDatabase, $RawMaterialsTable> {
+  $$RawMaterialsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get category => $composableBuilder(
+    column: $table.category,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get currentStock => $composableBuilder(
+    column: $table.currentStock,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get unit => $composableBuilder(
+    column: $table.unit,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get minStock => $composableBuilder(
+    column: $table.minStock,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get lastPurchasePrice => $composableBuilder(
+    column: $table.lastPurchasePrice,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$RawMaterialsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RawMaterialsTable> {
+  $$RawMaterialsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
+
+  GeneratedColumn<double> get currentStock => $composableBuilder(
+    column: $table.currentStock,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get unit =>
+      $composableBuilder(column: $table.unit, builder: (column) => column);
+
+  GeneratedColumn<double> get minStock =>
+      $composableBuilder(column: $table.minStock, builder: (column) => column);
+
+  GeneratedColumn<double> get lastPurchasePrice => $composableBuilder(
+    column: $table.lastPurchasePrice,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$RawMaterialsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $RawMaterialsTable,
+          RawMaterial,
+          $$RawMaterialsTableFilterComposer,
+          $$RawMaterialsTableOrderingComposer,
+          $$RawMaterialsTableAnnotationComposer,
+          $$RawMaterialsTableCreateCompanionBuilder,
+          $$RawMaterialsTableUpdateCompanionBuilder,
+          (
+            RawMaterial,
+            BaseReferences<_$AppDatabase, $RawMaterialsTable, RawMaterial>,
+          ),
+          RawMaterial,
+          PrefetchHooks Function()
+        > {
+  $$RawMaterialsTableTableManager(_$AppDatabase db, $RawMaterialsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$RawMaterialsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RawMaterialsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RawMaterialsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> category = const Value.absent(),
+                Value<double> currentStock = const Value.absent(),
+                Value<String> unit = const Value.absent(),
+                Value<double> minStock = const Value.absent(),
+                Value<double> lastPurchasePrice = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => RawMaterialsCompanion(
+                id: id,
+                name: name,
+                category: category,
+                currentStock: currentStock,
+                unit: unit,
+                minStock: minStock,
+                lastPurchasePrice: lastPurchasePrice,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String name,
+                required String category,
+                Value<double> currentStock = const Value.absent(),
+                Value<String> unit = const Value.absent(),
+                Value<double> minStock = const Value.absent(),
+                Value<double> lastPurchasePrice = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => RawMaterialsCompanion.insert(
+                id: id,
+                name: name,
+                category: category,
+                currentStock: currentStock,
+                unit: unit,
+                minStock: minStock,
+                lastPurchasePrice: lastPurchasePrice,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$RawMaterialsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $RawMaterialsTable,
+      RawMaterial,
+      $$RawMaterialsTableFilterComposer,
+      $$RawMaterialsTableOrderingComposer,
+      $$RawMaterialsTableAnnotationComposer,
+      $$RawMaterialsTableCreateCompanionBuilder,
+      $$RawMaterialsTableUpdateCompanionBuilder,
+      (
+        RawMaterial,
+        BaseReferences<_$AppDatabase, $RawMaterialsTable, RawMaterial>,
+      ),
+      RawMaterial,
+      PrefetchHooks Function()
+    >;
+typedef $$HygieneLogsTableCreateCompanionBuilder =
+    HygieneLogsCompanion Function({
+      Value<int> id,
+      Value<DateTime> inspectionDate,
+      required String inspectorName,
+      required double doughChillingTemp,
+      Value<bool> surfacesSanitized,
+      Value<bool> personalHygienePassed,
+      Value<bool> pestActivityDetected,
+      Value<String> status,
+      Value<String?> notes,
+      Value<DateTime> createdAt,
+    });
+typedef $$HygieneLogsTableUpdateCompanionBuilder =
+    HygieneLogsCompanion Function({
+      Value<int> id,
+      Value<DateTime> inspectionDate,
+      Value<String> inspectorName,
+      Value<double> doughChillingTemp,
+      Value<bool> surfacesSanitized,
+      Value<bool> personalHygienePassed,
+      Value<bool> pestActivityDetected,
+      Value<String> status,
+      Value<String?> notes,
+      Value<DateTime> createdAt,
+    });
+
+class $$HygieneLogsTableFilterComposer
+    extends Composer<_$AppDatabase, $HygieneLogsTable> {
+  $$HygieneLogsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get inspectionDate => $composableBuilder(
+    column: $table.inspectionDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get inspectorName => $composableBuilder(
+    column: $table.inspectorName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get doughChillingTemp => $composableBuilder(
+    column: $table.doughChillingTemp,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get surfacesSanitized => $composableBuilder(
+    column: $table.surfacesSanitized,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get personalHygienePassed => $composableBuilder(
+    column: $table.personalHygienePassed,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get pestActivityDetected => $composableBuilder(
+    column: $table.pestActivityDetected,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$HygieneLogsTableOrderingComposer
+    extends Composer<_$AppDatabase, $HygieneLogsTable> {
+  $$HygieneLogsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get inspectionDate => $composableBuilder(
+    column: $table.inspectionDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get inspectorName => $composableBuilder(
+    column: $table.inspectorName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get doughChillingTemp => $composableBuilder(
+    column: $table.doughChillingTemp,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get surfacesSanitized => $composableBuilder(
+    column: $table.surfacesSanitized,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get personalHygienePassed => $composableBuilder(
+    column: $table.personalHygienePassed,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get pestActivityDetected => $composableBuilder(
+    column: $table.pestActivityDetected,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$HygieneLogsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $HygieneLogsTable> {
+  $$HygieneLogsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get inspectionDate => $composableBuilder(
+    column: $table.inspectionDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get inspectorName => $composableBuilder(
+    column: $table.inspectorName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get doughChillingTemp => $composableBuilder(
+    column: $table.doughChillingTemp,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get surfacesSanitized => $composableBuilder(
+    column: $table.surfacesSanitized,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get personalHygienePassed => $composableBuilder(
+    column: $table.personalHygienePassed,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get pestActivityDetected => $composableBuilder(
+    column: $table.pestActivityDetected,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$HygieneLogsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $HygieneLogsTable,
+          HygieneLog,
+          $$HygieneLogsTableFilterComposer,
+          $$HygieneLogsTableOrderingComposer,
+          $$HygieneLogsTableAnnotationComposer,
+          $$HygieneLogsTableCreateCompanionBuilder,
+          $$HygieneLogsTableUpdateCompanionBuilder,
+          (
+            HygieneLog,
+            BaseReferences<_$AppDatabase, $HygieneLogsTable, HygieneLog>,
+          ),
+          HygieneLog,
+          PrefetchHooks Function()
+        > {
+  $$HygieneLogsTableTableManager(_$AppDatabase db, $HygieneLogsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$HygieneLogsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$HygieneLogsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$HygieneLogsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<DateTime> inspectionDate = const Value.absent(),
+                Value<String> inspectorName = const Value.absent(),
+                Value<double> doughChillingTemp = const Value.absent(),
+                Value<bool> surfacesSanitized = const Value.absent(),
+                Value<bool> personalHygienePassed = const Value.absent(),
+                Value<bool> pestActivityDetected = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => HygieneLogsCompanion(
+                id: id,
+                inspectionDate: inspectionDate,
+                inspectorName: inspectorName,
+                doughChillingTemp: doughChillingTemp,
+                surfacesSanitized: surfacesSanitized,
+                personalHygienePassed: personalHygienePassed,
+                pestActivityDetected: pestActivityDetected,
+                status: status,
+                notes: notes,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<DateTime> inspectionDate = const Value.absent(),
+                required String inspectorName,
+                required double doughChillingTemp,
+                Value<bool> surfacesSanitized = const Value.absent(),
+                Value<bool> personalHygienePassed = const Value.absent(),
+                Value<bool> pestActivityDetected = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => HygieneLogsCompanion.insert(
+                id: id,
+                inspectionDate: inspectionDate,
+                inspectorName: inspectorName,
+                doughChillingTemp: doughChillingTemp,
+                surfacesSanitized: surfacesSanitized,
+                personalHygienePassed: personalHygienePassed,
+                pestActivityDetected: pestActivityDetected,
+                status: status,
+                notes: notes,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$HygieneLogsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $HygieneLogsTable,
+      HygieneLog,
+      $$HygieneLogsTableFilterComposer,
+      $$HygieneLogsTableOrderingComposer,
+      $$HygieneLogsTableAnnotationComposer,
+      $$HygieneLogsTableCreateCompanionBuilder,
+      $$HygieneLogsTableUpdateCompanionBuilder,
+      (
+        HygieneLog,
+        BaseReferences<_$AppDatabase, $HygieneLogsTable, HygieneLog>,
+      ),
+      HygieneLog,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -17391,4 +19914,10 @@ class $AppDatabaseManager {
       $$BackupHistoryTableTableManager(_db, _db.backupHistory);
   $$ActivityLogsTableTableManager get activityLogs =>
       $$ActivityLogsTableTableManager(_db, _db.activityLogs);
+  $$SyncQueueTableTableManager get syncQueue =>
+      $$SyncQueueTableTableManager(_db, _db.syncQueue);
+  $$RawMaterialsTableTableManager get rawMaterials =>
+      $$RawMaterialsTableTableManager(_db, _db.rawMaterials);
+  $$HygieneLogsTableTableManager get hygieneLogs =>
+      $$HygieneLogsTableTableManager(_db, _db.hygieneLogs);
 }

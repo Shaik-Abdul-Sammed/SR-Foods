@@ -30,9 +30,13 @@ import '../../features/expenses/presentation/screens/expenses_screen.dart';
 import '../../features/expenses/presentation/screens/expense_form_screen.dart';
 import '../../features/reports/presentation/screens/reports_screen.dart';
 import '../../features/analytics/presentation/screens/analytics_screen.dart';
+import '../../features/analytics/presentation/screens/ai_advisor_screen.dart';
 import '../../features/backup/presentation/screens/backup_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/catalog/presentation/screens/public_catalog_screen.dart';
+import '../../features/orders/presentation/screens/driver_route_screen.dart';
+import '../../features/production/presentation/screens/hygiene_compliance_screen.dart';
+import '../../features/inventory/presentation/screens/raw_materials_screen.dart';
 import '../widgets/main_shell.dart';
 
 /// App routes
@@ -69,9 +73,13 @@ class AppRoutes {
   static const String expenseCreate = '/expenses/create';
   static const String reports = '/reports';
   static const String analytics = '/analytics';
+  static const String aiAdvisor = '/ai-advisor';
   static const String backup = '/backup';
   static const String settings = '/settings';
   static const String catalog = '/catalog';
+  static const String rawMaterials = '/raw-materials';
+  static const String driverRoutes = '/driver-routes';
+  static const String hygiene = '/hygiene';
 }
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -202,7 +210,13 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: 'create',
                 parentNavigatorKey: _rootNavigatorKey,
-                builder: (context, state) => const ProductionFormScreen(),
+                builder: (context, state) {
+                  final extra = state.extra as Map<String, dynamic>?;
+                  return ProductionFormScreen(
+                    initialProductId: extra?['productId'] as int?,
+                    initialQuantity: extra?['quantity'] as int?,
+                  );
+                },
               ),
             ],
           ),
@@ -254,12 +268,28 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const AnalyticsScreen(),
           ),
           GoRoute(
+            path: AppRoutes.aiAdvisor,
+            builder: (context, state) => const AiAdvisorScreen(),
+          ),
+          GoRoute(
             path: AppRoutes.backup,
             builder: (context, state) => const BackupScreen(),
           ),
           GoRoute(
             path: AppRoutes.settings,
             builder: (context, state) => const SettingsScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.rawMaterials,
+            builder: (context, state) => const RawMaterialsScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.driverRoutes,
+            builder: (context, state) => const DriverRouteScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.hygiene,
+            builder: (context, state) => const HygieneComplianceScreen(),
           ),
         ],
       ),

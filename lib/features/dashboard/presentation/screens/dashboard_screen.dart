@@ -213,6 +213,88 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
                     // ============= Sales Target Goal =================
                     SalesGoalCard(currentSales: currentSales),
 
+                    const SizedBox(height: 16),
+
+                    // ============= AI Business Advisor Banner =================
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: InkWell(
+                        onTap: () => context.push(AppRoutes.aiAdvisor),
+                        borderRadius: BorderRadius.circular(16),
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF311B92), Color(0xFF512DA8)],
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFF512DA8).withValues(alpha: 0.3),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.15),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(Icons.auto_awesome, color: AppColors.accent, size: 24),
+                              ),
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'AI Production & Sales Advisor',
+                                          style: AppTextStyles.titleSmall.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.accent,
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                          child: const Text(
+                                            'EXPERT',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text(
+                                      'Daily demand forecast, restock radar & credit risk scores',
+                                      style: AppTextStyles.bodySmall.copyWith(
+                                        color: Colors.white.withValues(alpha: 0.85),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white70, size: 16),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
                     const SizedBox(height: 20),
   
                     // ============= Quick Actions =====================
@@ -469,6 +551,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
         label: 'New Order',
         color: AppColors.primary,
         onTap: () => context.push(AppRoutes.orderCreate),
+      ),
+      _QuickAction(
+        icon: Icons.auto_awesome,
+        label: 'AI Advisor',
+        color: const Color(0xFF6A1B9A),
+        onTap: () => context.push(AppRoutes.aiAdvisor),
       ),
       _QuickAction(
         icon: Icons.person_add_outlined,

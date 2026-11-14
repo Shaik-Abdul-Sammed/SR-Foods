@@ -1,12 +1,11 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 import '../../../../core/database/app_database.dart';
 import '../../../../core/database/database_provider.dart';
+import '../../../../core/services/gst_invoice_service.dart';
 import '../../../../core/services/whatsapp_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -62,8 +61,21 @@ class InvoiceDetailScreen extends ConsumerWidget {
                   items: items,
                 ),
               ),
-              IconButton(icon: const Icon(Icons.print_outlined), onPressed: () => _printPdf(invoice, customer, items)),
-              IconButton(icon: const Icon(Icons.share_outlined), onPressed: () => _sharePdf(invoice, customer, items)),
+              IconButton(
+                tooltip: 'Print Thermal Receipt (58mm/80mm)',
+                icon: const Icon(Icons.receipt_long_rounded),
+                onPressed: () => _printThermal(invoice, customer, items),
+              ),
+              IconButton(
+                tooltip: 'Print GST Tax Invoice (A4)',
+                icon: const Icon(Icons.print_outlined),
+                onPressed: () => _printPdf(invoice, customer, items),
+              ),
+              IconButton(
+                tooltip: 'Share GST PDF',
+                icon: const Icon(Icons.share_outlined),
+                onPressed: () => _sharePdf(invoice, customer, items),
+              ),
             ],
           ),
           bottomNavigationBar: SafeArea(
@@ -129,99 +141,36 @@ class InvoiceDetailScreen extends ConsumerWidget {
     ]));
   }
 
-  Future<Uint8List> _generatePdf(PdfPageFormat format, Invoice invoice, Customer? customer, List<OrderItem> items) async {
-    final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
-
-    pdf.addPage(
-      pw.Page(
-        pageFormat: format,
-        build: (context) {
-          return pw.Column(
-            crossAxisAlignment: pw.CrossAxisAlignment.start,
-            children: [
-              pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                children: [
-                  pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text('SR FOODS', style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold)),
-                      pw.Text('Smart Food Distribution'),
-                    ],
-                  ),
-                  pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.end,
-                    children: [
-                      pw.Text('INVOICE', style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold)),
-                      pw.Text(invoice.invoiceNumber),
-                      pw.Text(DateFormatter.toInvoiceDate(invoice.invoiceDate)),
-                    ],
-                  ),
-                ],
-              ),
-              pw.SizedBox(height: 20),
-              if (customer != null) ...[
-                pw.Text('Billed To:', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                pw.Text(customer.shopName),
-                pw.Text(customer.phone),
-                if (customer.address != null) pw.Text(customer.address!),
-                pw.SizedBox(height: 20),
-              ],
-              pw.TableHelper.fromTextArray(
-                context: context,
-                border: pw.TableBorder.all(width: 0.5),
-                headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                headerDecoration: const pw.BoxDecoration(color: PdfColors.grey200),
-                data: [
-                  ['Item', 'Qty', 'Price', 'Total'],
-                  ...items.map((i) => [
-                    i.productName,
-                    i.quantity.toString(),
-                    CurrencyFormatter.format(i.price),
-                    CurrencyFormatter.format(i.total),
-                  ]),
-                ],
-              ),
-              pw.SizedBox(height: 20),
-              pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.end,
-                children: [
-                  pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.end,
-                    children: [
-                      pw.Text('Subtotal: ${CurrencyFormatter.format(invoice.subtotal)}'),
-                      pw.Text('Discount: ${CurrencyFormatter.format(invoice.discount)}'),
-                      pw.Text('Tax: ${CurrencyFormatter.format(invoice.tax)}'),
-                      pw.Divider(),
-                      pw.Text('Grand Total: ${CurrencyFormatter.format(invoice.grandTotal)}', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                      pw.Text('Amount Paid: ${CurrencyFormatter.format(invoice.paidAmount)}'),
-                      pw.Text('Balance Due: ${CurrencyFormatter.format(invoice.pendingAmount)}', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                    ],
-                  ),
-                ],
-              ),
-              pw.Spacer(),
-              pw.Center(child: pw.Text('Thank you for your business!', style: const pw.TextStyle(fontSize: 12))),
-            ],
-          );
-        },
-      ),
-    );
-
-    return pdf.save();
-  }
-
   Future<void> _printPdf(Invoice invoice, Customer? customer, List<OrderItem> items) async {
     await Printing.layoutPdf(
-      onLayout: (PdfPageFormat format) async => _generatePdf(format, invoice, customer, items),
-      name: 'Invoice_${invoice.invoiceNumber}',
+      onLayout: (PdfPageFormat format) async => GstInvoiceService.instance.generateA4TaxInvoice(
+        invoice: invoice,
+        customer: customer,
+        items: items,
+      ),
+      name: 'GST_Invoice_${invoice.invoiceNumber}',
+    );
+  }
+
+  Future<void> _printThermal(Invoice invoice, Customer? customer, List<OrderItem> items) async {
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => GstInvoiceService.instance.generateThermalReceipt(
+        invoice: invoice,
+        customer: customer,
+        items: items,
+      ),
+      name: 'Thermal_${invoice.invoiceNumber}',
     );
   }
 
   Future<void> _sharePdf(Invoice invoice, Customer? customer, List<OrderItem> items) async {
     await Printing.sharePdf(
-      bytes: await _generatePdf(PdfPageFormat.a4, invoice, customer, items),
-      filename: 'Invoice_${invoice.invoiceNumber}.pdf',
+      bytes: await GstInvoiceService.instance.generateA4TaxInvoice(
+        invoice: invoice,
+        customer: customer,
+        items: items,
+      ),
+      filename: 'GST_Invoice_${invoice.invoiceNumber}.pdf',
     );
   }
 }

@@ -148,4 +148,18 @@ class WhatsAppService {
 
     await CommunicationUtils.launchWhatsApp(context, managerPhone, message: buffer.toString());
   }
+
+  /// Send a customized direct message to a customer's WhatsApp
+  static Future<void> sendCustomMessage({
+    required BuildContext context,
+    required String phone,
+    required String message,
+  }) async {
+    await CommunicationUtils.launchWhatsApp(context, phone, message: message);
+  }
+
+  /// Broadcast or share plain text to WhatsApp
+  static Future<void> shareCustomText(BuildContext context, String message, {String phone = ''}) async {
+    await CommunicationUtils.launchWhatsApp(context, phone, message: message);
+  }
 }

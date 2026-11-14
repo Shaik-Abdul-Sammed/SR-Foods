@@ -67,22 +67,66 @@ class _CustomerFormScreenState extends ConsumerState<CustomerFormScreen> {
   }
 
   Future<void> _pickContact() async {
-    if (await FlutterContacts.permissions.has(PermissionType.read) || 
-        await FlutterContacts.permissions.request(PermissionType.read) == PermissionStatus.granted) {
-      final contact = await FlutterContacts.native.showPicker(properties: {ContactProperty.phone});
-      if (contact != null && mounted) {
-        setState(() {
-          _ownerNameCtrl.text = contact.displayName ?? '';
-          if (contact.phones.isNotEmpty) {
-            // keep only digits
-            _phoneCtrl.text = contact.phones.first.number.replaceAll(RegExp(r'[^0-9]'), '');
-          }
-        });
+    final hasPerm = await FlutterContacts.permissions.has(PermissionType.read);
+    if (!hasPerm) {
+      if (!mounted) return;
+      final proceed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: const Row(
+            children: [
+              Icon(Icons.contacts_rounded, color: AppColors.primary),
+              SizedBox(width: 8),
+              Text('Import Contact'),
+            ],
+          ),
+          content: const Text(
+            'SR Foods needs contact permission so you can quickly choose a customer or shop owner from your phonebook without typing their phone number manually.\n\nYour contacts are processed locally on your device and are never uploaded or shared.',
+            style: TextStyle(fontSize: 14, height: 1.4),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: const Text('Allow & Select'),
+            ),
+          ],
+        ),
+      );
+      if (proceed != true) return;
+    }
+
+    final granted = hasPerm || (await FlutterContacts.permissions.request(PermissionType.read) == PermissionStatus.granted);
+    if (granted) {
+      try {
+        final contact = await FlutterContacts.native.showPicker(properties: {ContactProperty.phone});
+        if (contact != null && mounted) {
+          setState(() {
+            if (_ownerNameCtrl.text.isEmpty) {
+              _ownerNameCtrl.text = contact.displayName ?? '';
+            }
+            if (contact.phones.isNotEmpty) {
+              // keep only digits
+              _phoneCtrl.text = contact.phones.first.number.replaceAll(RegExp(r'[^0-9]'), '');
+            }
+          });
+        }
+      } catch (e) {
+        debugPrint('Contact picker error: $e');
       }
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Contact permission denied')),
+          const SnackBar(content: Text('Contact permission not granted. You can enter details manually.')),
         );
       }
     }

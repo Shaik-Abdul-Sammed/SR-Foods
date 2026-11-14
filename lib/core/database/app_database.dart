@@ -26,6 +26,9 @@ part 'app_database.g.dart';
     AppNotifications,
     BackupHistory,
     ActivityLogs,
+    SyncQueue,
+    RawMaterials,
+    HygieneLogs,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -33,7 +36,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -42,7 +45,13 @@ class AppDatabase extends _$AppDatabase {
           await _seedDefaultData();
         },
         onUpgrade: (Migrator m, int from, int to) async {
-          // Future migrations here
+          if (from < 2) {
+            await m.createTable(syncQueue);
+          }
+          if (from < 3) {
+            await m.createTable(rawMaterials);
+            await m.createTable(hygieneLogs);
+          }
         },
         beforeOpen: (details) async {
           await customStatement('PRAGMA foreign_keys = ON');
@@ -143,12 +152,63 @@ class AppDatabase extends _$AppDatabase {
       ('low_stock_threshold', '10'),
       ('auto_backup', 'true'),
       ('backup_frequency', 'daily'),
+      ('fssai_license_number', '10123999000123'),
+      ('fssai_license_valid_till', '2027-12-31'),
+      ('min_gross_margin_pct', '25.0'),
     ];
 
     for (final (key, value) in defaultSettings) {
       await into(appSettings).insert(
         AppSettingsCompanion.insert(key: key, value: value),
       );
+    }
+
+    // Insert default factory raw materials
+    final defaultMaterials = [
+      RawMaterialsCompanion.insert(
+        name: 'Maida Flour',
+        category: 'flour',
+        currentStock: const Value(500.0),
+        unit: const Value('kg'),
+        minStock: const Value(150.0),
+        lastPurchasePrice: const Value(38.0),
+      ),
+      RawMaterialsCompanion.insert(
+        name: 'Whole Wheat Atta',
+        category: 'flour',
+        currentStock: const Value(400.0),
+        unit: const Value('kg'),
+        minStock: const Value(120.0),
+        lastPurchasePrice: const Value(42.0),
+      ),
+      RawMaterialsCompanion.insert(
+        name: 'Refined Sunflower Oil',
+        category: 'oil',
+        currentStock: const Value(120.0),
+        unit: const Value('L'),
+        minStock: const Value(40.0),
+        lastPurchasePrice: const Value(135.0),
+      ),
+      RawMaterialsCompanion.insert(
+        name: 'Iodized Salt',
+        category: 'salt',
+        currentStock: const Value(60.0),
+        unit: const Value('kg'),
+        minStock: const Value(20.0),
+        lastPurchasePrice: const Value(18.0),
+      ),
+      RawMaterialsCompanion.insert(
+        name: 'Food Grade Pouches (50u)',
+        category: 'packaging',
+        currentStock: const Value(3500.0),
+        unit: const Value('pcs'),
+        minStock: const Value(800.0),
+        lastPurchasePrice: const Value(1.80),
+      ),
+    ];
+
+    for (final rm in defaultMaterials) {
+      await into(rawMaterials).insert(rm);
     }
   }
 
@@ -288,6 +348,115 @@ class AppDatabase extends _$AppDatabase {
       results.add({'month': month, 'revenue': revenue});
     }
     return results;
+  }
+
+  /// Log an activity for security, audit, and compliance
+  Future<void> logActivity({
+    required String action,
+    String? entityType,
+    int? entityId,
+    String? details,
+    String? userId,
+  }) async {
+    await into(activityLogs).insert(
+      ActivityLogsCompanion.insert(
+        action: action,
+        entityType: Value(entityType),
+        entityId: Value(entityId),
+        details: Value(details),
+        userId: Value(userId),
+        createdAt: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  /// Get recent activity logs for audit view (up to limit, default 200)
+  Future<List<ActivityLog>> getRecentActivityLogs({int limit = 200}) async {
+    return (select(activityLogs)
+          ..orderBy([(l) => OrderingTerm.desc(l.createdAt)])
+          ..limit(limit))
+        .get();
+  }
+
+  /// Enqueue an action into the offline-first sync queue
+  Future<int> enqueueSync({
+    required String action,
+    required String entityType,
+    required String payload,
+  }) async {
+    return into(syncQueue).insert(
+      SyncQueueCompanion.insert(
+        action: action,
+        entityType: entityType,
+        payload: payload,
+      ),
+    );
+  }
+
+  /// Get all raw materials
+  Future<List<RawMaterial>> getAllRawMaterials() async {
+    return (select(rawMaterials)..orderBy([(r) => OrderingTerm.asc(r.name)])).get();
+  }
+
+  /// Get raw materials with stock below minStock reorder point
+  Future<List<RawMaterial>> getLowStockRawMaterials() async {
+    return (select(rawMaterials)
+          ..where((r) => r.currentStock.isSmallerOrEqual(r.minStock))
+          ..orderBy([(r) => OrderingTerm.asc(r.currentStock)]))
+        .get();
+  }
+
+  /// Deduct or adjust raw material stock
+  Future<void> updateRawMaterialStock(int materialId, double newStock) async {
+    await (update(rawMaterials)..where((r) => r.id.equals(materialId))).write(
+      RawMaterialsCompanion(
+        currentStock: Value(newStock),
+        updatedAt: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  /// Record a daily hygiene & food safety inspection log
+  Future<int> recordHygieneLog({
+    required String inspectorName,
+    required double doughChillingTemp,
+    required bool surfacesSanitized,
+    required bool personalHygienePassed,
+    required bool pestActivityDetected,
+    String? notes,
+  }) async {
+    final status = (!pestActivityDetected && surfacesSanitized && personalHygienePassed && doughChillingTemp <= 6.0)
+        ? 'pass'
+        : 'flag';
+    return into(hygieneLogs).insert(
+      HygieneLogsCompanion.insert(
+        inspectorName: inspectorName,
+        doughChillingTemp: doughChillingTemp,
+        surfacesSanitized: Value(surfacesSanitized),
+        personalHygienePassed: Value(personalHygienePassed),
+        pestActivityDetected: Value(pestActivityDetected),
+        status: Value(status),
+        notes: Value(notes),
+        inspectionDate: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  /// Get recent hygiene logs for FSSAI compliance audit
+  Future<List<HygieneLog>> getRecentHygieneLogs({int limit = 30}) async {
+    return (select(hygieneLogs)
+          ..orderBy([(h) => OrderingTerm.desc(h.inspectionDate)])
+          ..limit(limit))
+        .get();
+  }
+
+  /// Get batches expiring within given number of days
+  Future<List<ProductionBatche>> getExpiringBatches({int days = 5}) async {
+    final threshold = DateTime.now().add(Duration(days: days));
+    return (select(productionBatches)
+          ..where((b) => b.expiryDate.isSmallerOrEqualValue(threshold) & b.status.equals('completed'))
+          ..orderBy([(b) => OrderingTerm.asc(b.expiryDate)]))
+        .get();
   }
 }
 

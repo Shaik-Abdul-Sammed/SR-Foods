@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Exclude local database and secure storage files from automatic cloud backup to protect customer PII -->
+        <exclude domain="database" path="sr_foods.db" />
+        <exclude domain="sharedpref" path="FlutterSecureStorage.xml" />
+    </cloud-backup>
+    <device-to-device-backup>
+        <!-- Allow direct encrypted transfer during official device migration -->
+        <include domain="database" path="sr_foods.db" />
+    </device-to-device-backup>
+</data-extraction-rules>
