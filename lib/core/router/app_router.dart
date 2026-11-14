@@ -38,6 +38,8 @@ import '../../features/orders/presentation/screens/driver_route_screen.dart';
 import '../../features/production/presentation/screens/hygiene_compliance_screen.dart';
 import '../../features/inventory/presentation/screens/raw_materials_screen.dart';
 import '../../features/purchases/presentation/screens/milk_procurement_screen.dart';
+import '../../features/production/presentation/screens/oven_schedule_screen.dart';
+import '../../features/orders/presentation/screens/custom_order_screen.dart';
 import '../widgets/main_shell.dart';
 
 /// App routes
@@ -82,6 +84,8 @@ class AppRoutes {
   static const String driverRoutes = '/driver-routes';
   static const String hygiene = '/hygiene';
   static const String milkProcurement = '/milk-procurement';
+  static const String ovenSchedule = '/oven-schedule';
+  static const String customOrders = '/custom-orders';
 }
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -296,6 +300,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.milkProcurement,
             builder: (context, state) => const MilkProcurementScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.ovenSchedule,
+            builder: (context, state) => const OvenScheduleScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.customOrders,
+            builder: (context, state) => const CustomOrderScreen(),
           ),
         ],
       ),
