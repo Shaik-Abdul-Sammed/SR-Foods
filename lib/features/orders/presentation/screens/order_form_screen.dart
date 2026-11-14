@@ -9,6 +9,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/domain/recipe.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/services/fefo_inventory_service.dart';
 import '../../../customers/presentation/screens/customers_screen.dart';
 import '../../../products/presentation/screens/products_screen.dart';
@@ -340,7 +341,56 @@ class _OrderFormScreenState extends ConsumerState<OrderFormScreen> {
               ]),
             ),
           )),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
+
+          // Vertical-specific advisories
+          if (_items.any((i) => i.product.category.toLowerCase().contains('bakery') || i.product.category.toLowerCase().contains('bread') || (i.product.freshnessWindowHours != null && i.product.freshnessWindowHours! <= 48))) ...[
+            Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.amber.shade50,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.amber.shade300),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.timer_outlined, color: Colors.brown, size: 20),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Bakery Freshness Alert: Order contains short-life items (<48h). Prioritize oven scheduling and same-day delivery.',
+                      style: AppTextStyles.bodySmall.copyWith(color: Colors.brown.shade900, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          if (_items.any((i) => i.product.category.toLowerCase().contains('dairy') || i.product.category.toLowerCase().contains('milk'))) ...[
+            Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.blue.shade200),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.ac_unit_rounded, color: Colors.blue, size: 20),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Dairy Cold-Chain Alert: Maintain 4°C active transit. Returnable milk crates and cans will be logged.',
+                      style: AppTextStyles.bodySmall.copyWith(color: Colors.blue.shade900, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: 4),
           // Notes
           TextField(
             controller: _notesCtrl,
