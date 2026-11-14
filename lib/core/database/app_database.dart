@@ -137,6 +137,11 @@ class AppDatabase extends _$AppDatabase {
             await m.addColumn(productionBatches, productionBatches.chillingCenterId);
             await m.addColumn(productionBatches, productionBatches.pasteurizationTempC);
             await m.addColumn(productionBatches, productionBatches.pasteurizationDurationSec);
+            await m.addColumn(productionBatches, productionBatches.bakedAt);
+            await m.addColumn(productionBatches, productionBatches.proofedAt);
+            await m.addColumn(productionBatches, productionBatches.ovenId);
+            await m.addColumn(productionBatches, productionBatches.freshnessUntil);
+            await m.addColumn(productionBatches, productionBatches.dayOldAppliedAt);
             await m.createTable(milkProcurements);
             await m.createTable(fatPricingRules);
             await customStatement(

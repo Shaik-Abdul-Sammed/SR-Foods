@@ -165,6 +165,11 @@ class ProductionBatches extends Table {
   TextColumn get chillingCenterId => text().nullable()();
   RealColumn get pasteurizationTempC => real().nullable()();
   IntColumn get pasteurizationDurationSec => integer().nullable()();
+  DateTimeColumn get bakedAt => dateTime().nullable()();
+  DateTimeColumn get proofedAt => dateTime().nullable()();
+  TextColumn get ovenId => text().nullable()();
+  DateTimeColumn get freshnessUntil => dateTime().nullable()();
+  DateTimeColumn get dayOldAppliedAt => dateTime().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
 
