@@ -11852,6 +11852,4719 @@ class HygieneLogsCompanion extends UpdateCompanion<HygieneLog> {
   }
 }
 
+class $EntitiesTable extends Entities with TableInfo<$EntitiesTable, Entity> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EntitiesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _countryCodeMeta = const VerificationMeta(
+    'countryCode',
+  );
+  @override
+  late final GeneratedColumn<String> countryCode = GeneratedColumn<String>(
+    'country_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _taxIdMeta = const VerificationMeta('taxId');
+  @override
+  late final GeneratedColumn<String> taxId = GeneratedColumn<String>(
+    'tax_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currencyMeta = const VerificationMeta(
+    'currency',
+  );
+  @override
+  late final GeneratedColumn<String> currency = GeneratedColumn<String>(
+    'currency',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _addressMeta = const VerificationMeta(
+    'address',
+  );
+  @override
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+    'address',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isDefaultMeta = const VerificationMeta(
+    'isDefault',
+  );
+  @override
+  late final GeneratedColumn<bool> isDefault = GeneratedColumn<bool>(
+    'is_default',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_default" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    countryCode,
+    taxId,
+    currency,
+    address,
+    isDefault,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'entities';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Entity> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('country_code')) {
+      context.handle(
+        _countryCodeMeta,
+        countryCode.isAcceptableOrUnknown(
+          data['country_code']!,
+          _countryCodeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_countryCodeMeta);
+    }
+    if (data.containsKey('tax_id')) {
+      context.handle(
+        _taxIdMeta,
+        taxId.isAcceptableOrUnknown(data['tax_id']!, _taxIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_taxIdMeta);
+    }
+    if (data.containsKey('currency')) {
+      context.handle(
+        _currencyMeta,
+        currency.isAcceptableOrUnknown(data['currency']!, _currencyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_currencyMeta);
+    }
+    if (data.containsKey('address')) {
+      context.handle(
+        _addressMeta,
+        address.isAcceptableOrUnknown(data['address']!, _addressMeta),
+      );
+    }
+    if (data.containsKey('is_default')) {
+      context.handle(
+        _isDefaultMeta,
+        isDefault.isAcceptableOrUnknown(data['is_default']!, _isDefaultMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Entity map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Entity(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      countryCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}country_code'],
+      )!,
+      taxId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tax_id'],
+      )!,
+      currency: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency'],
+      )!,
+      address: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}address'],
+      ),
+      isDefault: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_default'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $EntitiesTable createAlias(String alias) {
+    return $EntitiesTable(attachedDatabase, alias);
+  }
+}
+
+class Entity extends DataClass implements Insertable<Entity> {
+  final int id;
+  final String name;
+  final String countryCode;
+  final String taxId;
+  final String currency;
+  final String? address;
+  final bool isDefault;
+  final DateTime createdAt;
+  const Entity({
+    required this.id,
+    required this.name,
+    required this.countryCode,
+    required this.taxId,
+    required this.currency,
+    this.address,
+    required this.isDefault,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['country_code'] = Variable<String>(countryCode);
+    map['tax_id'] = Variable<String>(taxId);
+    map['currency'] = Variable<String>(currency);
+    if (!nullToAbsent || address != null) {
+      map['address'] = Variable<String>(address);
+    }
+    map['is_default'] = Variable<bool>(isDefault);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  EntitiesCompanion toCompanion(bool nullToAbsent) {
+    return EntitiesCompanion(
+      id: Value(id),
+      name: Value(name),
+      countryCode: Value(countryCode),
+      taxId: Value(taxId),
+      currency: Value(currency),
+      address: address == null && nullToAbsent
+          ? const Value.absent()
+          : Value(address),
+      isDefault: Value(isDefault),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory Entity.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Entity(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      countryCode: serializer.fromJson<String>(json['countryCode']),
+      taxId: serializer.fromJson<String>(json['taxId']),
+      currency: serializer.fromJson<String>(json['currency']),
+      address: serializer.fromJson<String?>(json['address']),
+      isDefault: serializer.fromJson<bool>(json['isDefault']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'countryCode': serializer.toJson<String>(countryCode),
+      'taxId': serializer.toJson<String>(taxId),
+      'currency': serializer.toJson<String>(currency),
+      'address': serializer.toJson<String?>(address),
+      'isDefault': serializer.toJson<bool>(isDefault),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  Entity copyWith({
+    int? id,
+    String? name,
+    String? countryCode,
+    String? taxId,
+    String? currency,
+    Value<String?> address = const Value.absent(),
+    bool? isDefault,
+    DateTime? createdAt,
+  }) => Entity(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    countryCode: countryCode ?? this.countryCode,
+    taxId: taxId ?? this.taxId,
+    currency: currency ?? this.currency,
+    address: address.present ? address.value : this.address,
+    isDefault: isDefault ?? this.isDefault,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  Entity copyWithCompanion(EntitiesCompanion data) {
+    return Entity(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      countryCode: data.countryCode.present
+          ? data.countryCode.value
+          : this.countryCode,
+      taxId: data.taxId.present ? data.taxId.value : this.taxId,
+      currency: data.currency.present ? data.currency.value : this.currency,
+      address: data.address.present ? data.address.value : this.address,
+      isDefault: data.isDefault.present ? data.isDefault.value : this.isDefault,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Entity(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('countryCode: $countryCode, ')
+          ..write('taxId: $taxId, ')
+          ..write('currency: $currency, ')
+          ..write('address: $address, ')
+          ..write('isDefault: $isDefault, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    countryCode,
+    taxId,
+    currency,
+    address,
+    isDefault,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Entity &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.countryCode == this.countryCode &&
+          other.taxId == this.taxId &&
+          other.currency == this.currency &&
+          other.address == this.address &&
+          other.isDefault == this.isDefault &&
+          other.createdAt == this.createdAt);
+}
+
+class EntitiesCompanion extends UpdateCompanion<Entity> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> countryCode;
+  final Value<String> taxId;
+  final Value<String> currency;
+  final Value<String?> address;
+  final Value<bool> isDefault;
+  final Value<DateTime> createdAt;
+  const EntitiesCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.countryCode = const Value.absent(),
+    this.taxId = const Value.absent(),
+    this.currency = const Value.absent(),
+    this.address = const Value.absent(),
+    this.isDefault = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  EntitiesCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String countryCode,
+    required String taxId,
+    required String currency,
+    this.address = const Value.absent(),
+    this.isDefault = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : name = Value(name),
+       countryCode = Value(countryCode),
+       taxId = Value(taxId),
+       currency = Value(currency);
+  static Insertable<Entity> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? countryCode,
+    Expression<String>? taxId,
+    Expression<String>? currency,
+    Expression<String>? address,
+    Expression<bool>? isDefault,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (countryCode != null) 'country_code': countryCode,
+      if (taxId != null) 'tax_id': taxId,
+      if (currency != null) 'currency': currency,
+      if (address != null) 'address': address,
+      if (isDefault != null) 'is_default': isDefault,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  EntitiesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? name,
+    Value<String>? countryCode,
+    Value<String>? taxId,
+    Value<String>? currency,
+    Value<String?>? address,
+    Value<bool>? isDefault,
+    Value<DateTime>? createdAt,
+  }) {
+    return EntitiesCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      countryCode: countryCode ?? this.countryCode,
+      taxId: taxId ?? this.taxId,
+      currency: currency ?? this.currency,
+      address: address ?? this.address,
+      isDefault: isDefault ?? this.isDefault,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (countryCode.present) {
+      map['country_code'] = Variable<String>(countryCode.value);
+    }
+    if (taxId.present) {
+      map['tax_id'] = Variable<String>(taxId.value);
+    }
+    if (currency.present) {
+      map['currency'] = Variable<String>(currency.value);
+    }
+    if (address.present) {
+      map['address'] = Variable<String>(address.value);
+    }
+    if (isDefault.present) {
+      map['is_default'] = Variable<bool>(isDefault.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EntitiesCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('countryCode: $countryCode, ')
+          ..write('taxId: $taxId, ')
+          ..write('currency: $currency, ')
+          ..write('address: $address, ')
+          ..write('isDefault: $isDefault, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DistributorsTable extends Distributors
+    with TableInfo<$DistributorsTable, Distributor> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DistributorsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _countryCodeMeta = const VerificationMeta(
+    'countryCode',
+  );
+  @override
+  late final GeneratedColumn<String> countryCode = GeneratedColumn<String>(
+    'country_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currencyMeta = const VerificationMeta(
+    'currency',
+  );
+  @override
+  late final GeneratedColumn<String> currency = GeneratedColumn<String>(
+    'currency',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _creditLimitMinorMeta = const VerificationMeta(
+    'creditLimitMinor',
+  );
+  @override
+  late final GeneratedColumn<int> creditLimitMinor = GeneratedColumn<int>(
+    'credit_limit_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _creditDaysMeta = const VerificationMeta(
+    'creditDays',
+  );
+  @override
+  late final GeneratedColumn<int> creditDays = GeneratedColumn<int>(
+    'credit_days',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(30),
+  );
+  static const VerificationMeta _taxIdMeta = const VerificationMeta('taxId');
+  @override
+  late final GeneratedColumn<String> taxId = GeneratedColumn<String>(
+    'tax_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _incotermsDefaultMeta = const VerificationMeta(
+    'incotermsDefault',
+  );
+  @override
+  late final GeneratedColumn<String> incotermsDefault = GeneratedColumn<String>(
+    'incoterms_default',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('FOB'),
+  );
+  static const VerificationMeta _paymentTermsMeta = const VerificationMeta(
+    'paymentTerms',
+  );
+  @override
+  late final GeneratedColumn<String> paymentTerms = GeneratedColumn<String>(
+    'payment_terms',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('Net 30'),
+  );
+  static const VerificationMeta _contactJsonMeta = const VerificationMeta(
+    'contactJson',
+  );
+  @override
+  late final GeneratedColumn<String> contactJson = GeneratedColumn<String>(
+    'contact_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    countryCode,
+    currency,
+    creditLimitMinor,
+    creditDays,
+    taxId,
+    incotermsDefault,
+    paymentTerms,
+    contactJson,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'distributors';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Distributor> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('country_code')) {
+      context.handle(
+        _countryCodeMeta,
+        countryCode.isAcceptableOrUnknown(
+          data['country_code']!,
+          _countryCodeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_countryCodeMeta);
+    }
+    if (data.containsKey('currency')) {
+      context.handle(
+        _currencyMeta,
+        currency.isAcceptableOrUnknown(data['currency']!, _currencyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_currencyMeta);
+    }
+    if (data.containsKey('credit_limit_minor')) {
+      context.handle(
+        _creditLimitMinorMeta,
+        creditLimitMinor.isAcceptableOrUnknown(
+          data['credit_limit_minor']!,
+          _creditLimitMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('credit_days')) {
+      context.handle(
+        _creditDaysMeta,
+        creditDays.isAcceptableOrUnknown(data['credit_days']!, _creditDaysMeta),
+      );
+    }
+    if (data.containsKey('tax_id')) {
+      context.handle(
+        _taxIdMeta,
+        taxId.isAcceptableOrUnknown(data['tax_id']!, _taxIdMeta),
+      );
+    }
+    if (data.containsKey('incoterms_default')) {
+      context.handle(
+        _incotermsDefaultMeta,
+        incotermsDefault.isAcceptableOrUnknown(
+          data['incoterms_default']!,
+          _incotermsDefaultMeta,
+        ),
+      );
+    }
+    if (data.containsKey('payment_terms')) {
+      context.handle(
+        _paymentTermsMeta,
+        paymentTerms.isAcceptableOrUnknown(
+          data['payment_terms']!,
+          _paymentTermsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('contact_json')) {
+      context.handle(
+        _contactJsonMeta,
+        contactJson.isAcceptableOrUnknown(
+          data['contact_json']!,
+          _contactJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Distributor map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Distributor(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      countryCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}country_code'],
+      )!,
+      currency: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency'],
+      )!,
+      creditLimitMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}credit_limit_minor'],
+      )!,
+      creditDays: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}credit_days'],
+      )!,
+      taxId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tax_id'],
+      ),
+      incotermsDefault: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}incoterms_default'],
+      )!,
+      paymentTerms: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payment_terms'],
+      )!,
+      contactJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}contact_json'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $DistributorsTable createAlias(String alias) {
+    return $DistributorsTable(attachedDatabase, alias);
+  }
+}
+
+class Distributor extends DataClass implements Insertable<Distributor> {
+  final int id;
+  final String name;
+  final String countryCode;
+  final String currency;
+  final int creditLimitMinor;
+  final int creditDays;
+  final String? taxId;
+  final String incotermsDefault;
+  final String paymentTerms;
+  final String? contactJson;
+  final DateTime createdAt;
+  const Distributor({
+    required this.id,
+    required this.name,
+    required this.countryCode,
+    required this.currency,
+    required this.creditLimitMinor,
+    required this.creditDays,
+    this.taxId,
+    required this.incotermsDefault,
+    required this.paymentTerms,
+    this.contactJson,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['country_code'] = Variable<String>(countryCode);
+    map['currency'] = Variable<String>(currency);
+    map['credit_limit_minor'] = Variable<int>(creditLimitMinor);
+    map['credit_days'] = Variable<int>(creditDays);
+    if (!nullToAbsent || taxId != null) {
+      map['tax_id'] = Variable<String>(taxId);
+    }
+    map['incoterms_default'] = Variable<String>(incotermsDefault);
+    map['payment_terms'] = Variable<String>(paymentTerms);
+    if (!nullToAbsent || contactJson != null) {
+      map['contact_json'] = Variable<String>(contactJson);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  DistributorsCompanion toCompanion(bool nullToAbsent) {
+    return DistributorsCompanion(
+      id: Value(id),
+      name: Value(name),
+      countryCode: Value(countryCode),
+      currency: Value(currency),
+      creditLimitMinor: Value(creditLimitMinor),
+      creditDays: Value(creditDays),
+      taxId: taxId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(taxId),
+      incotermsDefault: Value(incotermsDefault),
+      paymentTerms: Value(paymentTerms),
+      contactJson: contactJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(contactJson),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory Distributor.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Distributor(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      countryCode: serializer.fromJson<String>(json['countryCode']),
+      currency: serializer.fromJson<String>(json['currency']),
+      creditLimitMinor: serializer.fromJson<int>(json['creditLimitMinor']),
+      creditDays: serializer.fromJson<int>(json['creditDays']),
+      taxId: serializer.fromJson<String?>(json['taxId']),
+      incotermsDefault: serializer.fromJson<String>(json['incotermsDefault']),
+      paymentTerms: serializer.fromJson<String>(json['paymentTerms']),
+      contactJson: serializer.fromJson<String?>(json['contactJson']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'countryCode': serializer.toJson<String>(countryCode),
+      'currency': serializer.toJson<String>(currency),
+      'creditLimitMinor': serializer.toJson<int>(creditLimitMinor),
+      'creditDays': serializer.toJson<int>(creditDays),
+      'taxId': serializer.toJson<String?>(taxId),
+      'incotermsDefault': serializer.toJson<String>(incotermsDefault),
+      'paymentTerms': serializer.toJson<String>(paymentTerms),
+      'contactJson': serializer.toJson<String?>(contactJson),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  Distributor copyWith({
+    int? id,
+    String? name,
+    String? countryCode,
+    String? currency,
+    int? creditLimitMinor,
+    int? creditDays,
+    Value<String?> taxId = const Value.absent(),
+    String? incotermsDefault,
+    String? paymentTerms,
+    Value<String?> contactJson = const Value.absent(),
+    DateTime? createdAt,
+  }) => Distributor(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    countryCode: countryCode ?? this.countryCode,
+    currency: currency ?? this.currency,
+    creditLimitMinor: creditLimitMinor ?? this.creditLimitMinor,
+    creditDays: creditDays ?? this.creditDays,
+    taxId: taxId.present ? taxId.value : this.taxId,
+    incotermsDefault: incotermsDefault ?? this.incotermsDefault,
+    paymentTerms: paymentTerms ?? this.paymentTerms,
+    contactJson: contactJson.present ? contactJson.value : this.contactJson,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  Distributor copyWithCompanion(DistributorsCompanion data) {
+    return Distributor(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      countryCode: data.countryCode.present
+          ? data.countryCode.value
+          : this.countryCode,
+      currency: data.currency.present ? data.currency.value : this.currency,
+      creditLimitMinor: data.creditLimitMinor.present
+          ? data.creditLimitMinor.value
+          : this.creditLimitMinor,
+      creditDays: data.creditDays.present
+          ? data.creditDays.value
+          : this.creditDays,
+      taxId: data.taxId.present ? data.taxId.value : this.taxId,
+      incotermsDefault: data.incotermsDefault.present
+          ? data.incotermsDefault.value
+          : this.incotermsDefault,
+      paymentTerms: data.paymentTerms.present
+          ? data.paymentTerms.value
+          : this.paymentTerms,
+      contactJson: data.contactJson.present
+          ? data.contactJson.value
+          : this.contactJson,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Distributor(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('countryCode: $countryCode, ')
+          ..write('currency: $currency, ')
+          ..write('creditLimitMinor: $creditLimitMinor, ')
+          ..write('creditDays: $creditDays, ')
+          ..write('taxId: $taxId, ')
+          ..write('incotermsDefault: $incotermsDefault, ')
+          ..write('paymentTerms: $paymentTerms, ')
+          ..write('contactJson: $contactJson, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    countryCode,
+    currency,
+    creditLimitMinor,
+    creditDays,
+    taxId,
+    incotermsDefault,
+    paymentTerms,
+    contactJson,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Distributor &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.countryCode == this.countryCode &&
+          other.currency == this.currency &&
+          other.creditLimitMinor == this.creditLimitMinor &&
+          other.creditDays == this.creditDays &&
+          other.taxId == this.taxId &&
+          other.incotermsDefault == this.incotermsDefault &&
+          other.paymentTerms == this.paymentTerms &&
+          other.contactJson == this.contactJson &&
+          other.createdAt == this.createdAt);
+}
+
+class DistributorsCompanion extends UpdateCompanion<Distributor> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> countryCode;
+  final Value<String> currency;
+  final Value<int> creditLimitMinor;
+  final Value<int> creditDays;
+  final Value<String?> taxId;
+  final Value<String> incotermsDefault;
+  final Value<String> paymentTerms;
+  final Value<String?> contactJson;
+  final Value<DateTime> createdAt;
+  const DistributorsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.countryCode = const Value.absent(),
+    this.currency = const Value.absent(),
+    this.creditLimitMinor = const Value.absent(),
+    this.creditDays = const Value.absent(),
+    this.taxId = const Value.absent(),
+    this.incotermsDefault = const Value.absent(),
+    this.paymentTerms = const Value.absent(),
+    this.contactJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  DistributorsCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String countryCode,
+    required String currency,
+    this.creditLimitMinor = const Value.absent(),
+    this.creditDays = const Value.absent(),
+    this.taxId = const Value.absent(),
+    this.incotermsDefault = const Value.absent(),
+    this.paymentTerms = const Value.absent(),
+    this.contactJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : name = Value(name),
+       countryCode = Value(countryCode),
+       currency = Value(currency);
+  static Insertable<Distributor> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? countryCode,
+    Expression<String>? currency,
+    Expression<int>? creditLimitMinor,
+    Expression<int>? creditDays,
+    Expression<String>? taxId,
+    Expression<String>? incotermsDefault,
+    Expression<String>? paymentTerms,
+    Expression<String>? contactJson,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (countryCode != null) 'country_code': countryCode,
+      if (currency != null) 'currency': currency,
+      if (creditLimitMinor != null) 'credit_limit_minor': creditLimitMinor,
+      if (creditDays != null) 'credit_days': creditDays,
+      if (taxId != null) 'tax_id': taxId,
+      if (incotermsDefault != null) 'incoterms_default': incotermsDefault,
+      if (paymentTerms != null) 'payment_terms': paymentTerms,
+      if (contactJson != null) 'contact_json': contactJson,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  DistributorsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? name,
+    Value<String>? countryCode,
+    Value<String>? currency,
+    Value<int>? creditLimitMinor,
+    Value<int>? creditDays,
+    Value<String?>? taxId,
+    Value<String>? incotermsDefault,
+    Value<String>? paymentTerms,
+    Value<String?>? contactJson,
+    Value<DateTime>? createdAt,
+  }) {
+    return DistributorsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      countryCode: countryCode ?? this.countryCode,
+      currency: currency ?? this.currency,
+      creditLimitMinor: creditLimitMinor ?? this.creditLimitMinor,
+      creditDays: creditDays ?? this.creditDays,
+      taxId: taxId ?? this.taxId,
+      incotermsDefault: incotermsDefault ?? this.incotermsDefault,
+      paymentTerms: paymentTerms ?? this.paymentTerms,
+      contactJson: contactJson ?? this.contactJson,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (countryCode.present) {
+      map['country_code'] = Variable<String>(countryCode.value);
+    }
+    if (currency.present) {
+      map['currency'] = Variable<String>(currency.value);
+    }
+    if (creditLimitMinor.present) {
+      map['credit_limit_minor'] = Variable<int>(creditLimitMinor.value);
+    }
+    if (creditDays.present) {
+      map['credit_days'] = Variable<int>(creditDays.value);
+    }
+    if (taxId.present) {
+      map['tax_id'] = Variable<String>(taxId.value);
+    }
+    if (incotermsDefault.present) {
+      map['incoterms_default'] = Variable<String>(incotermsDefault.value);
+    }
+    if (paymentTerms.present) {
+      map['payment_terms'] = Variable<String>(paymentTerms.value);
+    }
+    if (contactJson.present) {
+      map['contact_json'] = Variable<String>(contactJson.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DistributorsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('countryCode: $countryCode, ')
+          ..write('currency: $currency, ')
+          ..write('creditLimitMinor: $creditLimitMinor, ')
+          ..write('creditDays: $creditDays, ')
+          ..write('taxId: $taxId, ')
+          ..write('incotermsDefault: $incotermsDefault, ')
+          ..write('paymentTerms: $paymentTerms, ')
+          ..write('contactJson: $contactJson, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ExportOrdersTable extends ExportOrders
+    with TableInfo<$ExportOrdersTable, ExportOrder> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ExportOrdersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _orderNumberMeta = const VerificationMeta(
+    'orderNumber',
+  );
+  @override
+  late final GeneratedColumn<String> orderNumber = GeneratedColumn<String>(
+    'order_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+  );
+  static const VerificationMeta _entityIdMeta = const VerificationMeta(
+    'entityId',
+  );
+  @override
+  late final GeneratedColumn<int> entityId = GeneratedColumn<int>(
+    'entity_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES entities (id)',
+    ),
+  );
+  static const VerificationMeta _distributorIdMeta = const VerificationMeta(
+    'distributorId',
+  );
+  @override
+  late final GeneratedColumn<int> distributorId = GeneratedColumn<int>(
+    'distributor_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES distributors (id)',
+    ),
+  );
+  static const VerificationMeta _destinationCountryMeta =
+      const VerificationMeta('destinationCountry');
+  @override
+  late final GeneratedColumn<String> destinationCountry =
+      GeneratedColumn<String>(
+        'destination_country',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _currencyMeta = const VerificationMeta(
+    'currency',
+  );
+  @override
+  late final GeneratedColumn<String> currency = GeneratedColumn<String>(
+    'currency',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fxRateToInrMeta = const VerificationMeta(
+    'fxRateToInr',
+  );
+  @override
+  late final GeneratedColumn<double> fxRateToInr = GeneratedColumn<double>(
+    'fx_rate_to_inr',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1.0),
+  );
+  static const VerificationMeta _incotermMeta = const VerificationMeta(
+    'incoterm',
+  );
+  @override
+  late final GeneratedColumn<String> incoterm = GeneratedColumn<String>(
+    'incoterm',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _portOfLoadingMeta = const VerificationMeta(
+    'portOfLoading',
+  );
+  @override
+  late final GeneratedColumn<String> portOfLoading = GeneratedColumn<String>(
+    'port_of_loading',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _portOfDischargeMeta = const VerificationMeta(
+    'portOfDischarge',
+  );
+  @override
+  late final GeneratedColumn<String> portOfDischarge = GeneratedColumn<String>(
+    'port_of_discharge',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('draft'),
+  );
+  static const VerificationMeta _subtotalMinorMeta = const VerificationMeta(
+    'subtotalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> subtotalMinor = GeneratedColumn<int>(
+    'subtotal_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _dutyMinorMeta = const VerificationMeta(
+    'dutyMinor',
+  );
+  @override
+  late final GeneratedColumn<int> dutyMinor = GeneratedColumn<int>(
+    'duty_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _freightMinorMeta = const VerificationMeta(
+    'freightMinor',
+  );
+  @override
+  late final GeneratedColumn<int> freightMinor = GeneratedColumn<int>(
+    'freight_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _insuranceMinorMeta = const VerificationMeta(
+    'insuranceMinor',
+  );
+  @override
+  late final GeneratedColumn<int> insuranceMinor = GeneratedColumn<int>(
+    'insurance_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _totalMinorMeta = const VerificationMeta(
+    'totalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> totalMinor = GeneratedColumn<int>(
+    'total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    orderNumber,
+    entityId,
+    distributorId,
+    destinationCountry,
+    currency,
+    fxRateToInr,
+    incoterm,
+    portOfLoading,
+    portOfDischarge,
+    status,
+    subtotalMinor,
+    dutyMinor,
+    freightMinor,
+    insuranceMinor,
+    totalMinor,
+    createdAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'export_orders';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ExportOrder> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('order_number')) {
+      context.handle(
+        _orderNumberMeta,
+        orderNumber.isAcceptableOrUnknown(
+          data['order_number']!,
+          _orderNumberMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_orderNumberMeta);
+    }
+    if (data.containsKey('entity_id')) {
+      context.handle(
+        _entityIdMeta,
+        entityId.isAcceptableOrUnknown(data['entity_id']!, _entityIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_entityIdMeta);
+    }
+    if (data.containsKey('distributor_id')) {
+      context.handle(
+        _distributorIdMeta,
+        distributorId.isAcceptableOrUnknown(
+          data['distributor_id']!,
+          _distributorIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_distributorIdMeta);
+    }
+    if (data.containsKey('destination_country')) {
+      context.handle(
+        _destinationCountryMeta,
+        destinationCountry.isAcceptableOrUnknown(
+          data['destination_country']!,
+          _destinationCountryMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_destinationCountryMeta);
+    }
+    if (data.containsKey('currency')) {
+      context.handle(
+        _currencyMeta,
+        currency.isAcceptableOrUnknown(data['currency']!, _currencyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_currencyMeta);
+    }
+    if (data.containsKey('fx_rate_to_inr')) {
+      context.handle(
+        _fxRateToInrMeta,
+        fxRateToInr.isAcceptableOrUnknown(
+          data['fx_rate_to_inr']!,
+          _fxRateToInrMeta,
+        ),
+      );
+    }
+    if (data.containsKey('incoterm')) {
+      context.handle(
+        _incotermMeta,
+        incoterm.isAcceptableOrUnknown(data['incoterm']!, _incotermMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_incotermMeta);
+    }
+    if (data.containsKey('port_of_loading')) {
+      context.handle(
+        _portOfLoadingMeta,
+        portOfLoading.isAcceptableOrUnknown(
+          data['port_of_loading']!,
+          _portOfLoadingMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_portOfLoadingMeta);
+    }
+    if (data.containsKey('port_of_discharge')) {
+      context.handle(
+        _portOfDischargeMeta,
+        portOfDischarge.isAcceptableOrUnknown(
+          data['port_of_discharge']!,
+          _portOfDischargeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_portOfDischargeMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('subtotal_minor')) {
+      context.handle(
+        _subtotalMinorMeta,
+        subtotalMinor.isAcceptableOrUnknown(
+          data['subtotal_minor']!,
+          _subtotalMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('duty_minor')) {
+      context.handle(
+        _dutyMinorMeta,
+        dutyMinor.isAcceptableOrUnknown(data['duty_minor']!, _dutyMinorMeta),
+      );
+    }
+    if (data.containsKey('freight_minor')) {
+      context.handle(
+        _freightMinorMeta,
+        freightMinor.isAcceptableOrUnknown(
+          data['freight_minor']!,
+          _freightMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('insurance_minor')) {
+      context.handle(
+        _insuranceMinorMeta,
+        insuranceMinor.isAcceptableOrUnknown(
+          data['insurance_minor']!,
+          _insuranceMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('total_minor')) {
+      context.handle(
+        _totalMinorMeta,
+        totalMinor.isAcceptableOrUnknown(data['total_minor']!, _totalMinorMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ExportOrder map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ExportOrder(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      orderNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}order_number'],
+      )!,
+      entityId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}entity_id'],
+      )!,
+      distributorId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}distributor_id'],
+      )!,
+      destinationCountry: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}destination_country'],
+      )!,
+      currency: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency'],
+      )!,
+      fxRateToInr: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}fx_rate_to_inr'],
+      )!,
+      incoterm: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}incoterm'],
+      )!,
+      portOfLoading: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}port_of_loading'],
+      )!,
+      portOfDischarge: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}port_of_discharge'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      subtotalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}subtotal_minor'],
+      )!,
+      dutyMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}duty_minor'],
+      )!,
+      freightMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}freight_minor'],
+      )!,
+      insuranceMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}insurance_minor'],
+      )!,
+      totalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_minor'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ExportOrdersTable createAlias(String alias) {
+    return $ExportOrdersTable(attachedDatabase, alias);
+  }
+}
+
+class ExportOrder extends DataClass implements Insertable<ExportOrder> {
+  final int id;
+  final String orderNumber;
+  final int entityId;
+  final int distributorId;
+  final String destinationCountry;
+  final String currency;
+  final double fxRateToInr;
+  final String incoterm;
+  final String portOfLoading;
+  final String portOfDischarge;
+  final String status;
+  final int subtotalMinor;
+  final int dutyMinor;
+  final int freightMinor;
+  final int insuranceMinor;
+  final int totalMinor;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const ExportOrder({
+    required this.id,
+    required this.orderNumber,
+    required this.entityId,
+    required this.distributorId,
+    required this.destinationCountry,
+    required this.currency,
+    required this.fxRateToInr,
+    required this.incoterm,
+    required this.portOfLoading,
+    required this.portOfDischarge,
+    required this.status,
+    required this.subtotalMinor,
+    required this.dutyMinor,
+    required this.freightMinor,
+    required this.insuranceMinor,
+    required this.totalMinor,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['order_number'] = Variable<String>(orderNumber);
+    map['entity_id'] = Variable<int>(entityId);
+    map['distributor_id'] = Variable<int>(distributorId);
+    map['destination_country'] = Variable<String>(destinationCountry);
+    map['currency'] = Variable<String>(currency);
+    map['fx_rate_to_inr'] = Variable<double>(fxRateToInr);
+    map['incoterm'] = Variable<String>(incoterm);
+    map['port_of_loading'] = Variable<String>(portOfLoading);
+    map['port_of_discharge'] = Variable<String>(portOfDischarge);
+    map['status'] = Variable<String>(status);
+    map['subtotal_minor'] = Variable<int>(subtotalMinor);
+    map['duty_minor'] = Variable<int>(dutyMinor);
+    map['freight_minor'] = Variable<int>(freightMinor);
+    map['insurance_minor'] = Variable<int>(insuranceMinor);
+    map['total_minor'] = Variable<int>(totalMinor);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  ExportOrdersCompanion toCompanion(bool nullToAbsent) {
+    return ExportOrdersCompanion(
+      id: Value(id),
+      orderNumber: Value(orderNumber),
+      entityId: Value(entityId),
+      distributorId: Value(distributorId),
+      destinationCountry: Value(destinationCountry),
+      currency: Value(currency),
+      fxRateToInr: Value(fxRateToInr),
+      incoterm: Value(incoterm),
+      portOfLoading: Value(portOfLoading),
+      portOfDischarge: Value(portOfDischarge),
+      status: Value(status),
+      subtotalMinor: Value(subtotalMinor),
+      dutyMinor: Value(dutyMinor),
+      freightMinor: Value(freightMinor),
+      insuranceMinor: Value(insuranceMinor),
+      totalMinor: Value(totalMinor),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory ExportOrder.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ExportOrder(
+      id: serializer.fromJson<int>(json['id']),
+      orderNumber: serializer.fromJson<String>(json['orderNumber']),
+      entityId: serializer.fromJson<int>(json['entityId']),
+      distributorId: serializer.fromJson<int>(json['distributorId']),
+      destinationCountry: serializer.fromJson<String>(
+        json['destinationCountry'],
+      ),
+      currency: serializer.fromJson<String>(json['currency']),
+      fxRateToInr: serializer.fromJson<double>(json['fxRateToInr']),
+      incoterm: serializer.fromJson<String>(json['incoterm']),
+      portOfLoading: serializer.fromJson<String>(json['portOfLoading']),
+      portOfDischarge: serializer.fromJson<String>(json['portOfDischarge']),
+      status: serializer.fromJson<String>(json['status']),
+      subtotalMinor: serializer.fromJson<int>(json['subtotalMinor']),
+      dutyMinor: serializer.fromJson<int>(json['dutyMinor']),
+      freightMinor: serializer.fromJson<int>(json['freightMinor']),
+      insuranceMinor: serializer.fromJson<int>(json['insuranceMinor']),
+      totalMinor: serializer.fromJson<int>(json['totalMinor']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'orderNumber': serializer.toJson<String>(orderNumber),
+      'entityId': serializer.toJson<int>(entityId),
+      'distributorId': serializer.toJson<int>(distributorId),
+      'destinationCountry': serializer.toJson<String>(destinationCountry),
+      'currency': serializer.toJson<String>(currency),
+      'fxRateToInr': serializer.toJson<double>(fxRateToInr),
+      'incoterm': serializer.toJson<String>(incoterm),
+      'portOfLoading': serializer.toJson<String>(portOfLoading),
+      'portOfDischarge': serializer.toJson<String>(portOfDischarge),
+      'status': serializer.toJson<String>(status),
+      'subtotalMinor': serializer.toJson<int>(subtotalMinor),
+      'dutyMinor': serializer.toJson<int>(dutyMinor),
+      'freightMinor': serializer.toJson<int>(freightMinor),
+      'insuranceMinor': serializer.toJson<int>(insuranceMinor),
+      'totalMinor': serializer.toJson<int>(totalMinor),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  ExportOrder copyWith({
+    int? id,
+    String? orderNumber,
+    int? entityId,
+    int? distributorId,
+    String? destinationCountry,
+    String? currency,
+    double? fxRateToInr,
+    String? incoterm,
+    String? portOfLoading,
+    String? portOfDischarge,
+    String? status,
+    int? subtotalMinor,
+    int? dutyMinor,
+    int? freightMinor,
+    int? insuranceMinor,
+    int? totalMinor,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => ExportOrder(
+    id: id ?? this.id,
+    orderNumber: orderNumber ?? this.orderNumber,
+    entityId: entityId ?? this.entityId,
+    distributorId: distributorId ?? this.distributorId,
+    destinationCountry: destinationCountry ?? this.destinationCountry,
+    currency: currency ?? this.currency,
+    fxRateToInr: fxRateToInr ?? this.fxRateToInr,
+    incoterm: incoterm ?? this.incoterm,
+    portOfLoading: portOfLoading ?? this.portOfLoading,
+    portOfDischarge: portOfDischarge ?? this.portOfDischarge,
+    status: status ?? this.status,
+    subtotalMinor: subtotalMinor ?? this.subtotalMinor,
+    dutyMinor: dutyMinor ?? this.dutyMinor,
+    freightMinor: freightMinor ?? this.freightMinor,
+    insuranceMinor: insuranceMinor ?? this.insuranceMinor,
+    totalMinor: totalMinor ?? this.totalMinor,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  ExportOrder copyWithCompanion(ExportOrdersCompanion data) {
+    return ExportOrder(
+      id: data.id.present ? data.id.value : this.id,
+      orderNumber: data.orderNumber.present
+          ? data.orderNumber.value
+          : this.orderNumber,
+      entityId: data.entityId.present ? data.entityId.value : this.entityId,
+      distributorId: data.distributorId.present
+          ? data.distributorId.value
+          : this.distributorId,
+      destinationCountry: data.destinationCountry.present
+          ? data.destinationCountry.value
+          : this.destinationCountry,
+      currency: data.currency.present ? data.currency.value : this.currency,
+      fxRateToInr: data.fxRateToInr.present
+          ? data.fxRateToInr.value
+          : this.fxRateToInr,
+      incoterm: data.incoterm.present ? data.incoterm.value : this.incoterm,
+      portOfLoading: data.portOfLoading.present
+          ? data.portOfLoading.value
+          : this.portOfLoading,
+      portOfDischarge: data.portOfDischarge.present
+          ? data.portOfDischarge.value
+          : this.portOfDischarge,
+      status: data.status.present ? data.status.value : this.status,
+      subtotalMinor: data.subtotalMinor.present
+          ? data.subtotalMinor.value
+          : this.subtotalMinor,
+      dutyMinor: data.dutyMinor.present ? data.dutyMinor.value : this.dutyMinor,
+      freightMinor: data.freightMinor.present
+          ? data.freightMinor.value
+          : this.freightMinor,
+      insuranceMinor: data.insuranceMinor.present
+          ? data.insuranceMinor.value
+          : this.insuranceMinor,
+      totalMinor: data.totalMinor.present
+          ? data.totalMinor.value
+          : this.totalMinor,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExportOrder(')
+          ..write('id: $id, ')
+          ..write('orderNumber: $orderNumber, ')
+          ..write('entityId: $entityId, ')
+          ..write('distributorId: $distributorId, ')
+          ..write('destinationCountry: $destinationCountry, ')
+          ..write('currency: $currency, ')
+          ..write('fxRateToInr: $fxRateToInr, ')
+          ..write('incoterm: $incoterm, ')
+          ..write('portOfLoading: $portOfLoading, ')
+          ..write('portOfDischarge: $portOfDischarge, ')
+          ..write('status: $status, ')
+          ..write('subtotalMinor: $subtotalMinor, ')
+          ..write('dutyMinor: $dutyMinor, ')
+          ..write('freightMinor: $freightMinor, ')
+          ..write('insuranceMinor: $insuranceMinor, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    orderNumber,
+    entityId,
+    distributorId,
+    destinationCountry,
+    currency,
+    fxRateToInr,
+    incoterm,
+    portOfLoading,
+    portOfDischarge,
+    status,
+    subtotalMinor,
+    dutyMinor,
+    freightMinor,
+    insuranceMinor,
+    totalMinor,
+    createdAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ExportOrder &&
+          other.id == this.id &&
+          other.orderNumber == this.orderNumber &&
+          other.entityId == this.entityId &&
+          other.distributorId == this.distributorId &&
+          other.destinationCountry == this.destinationCountry &&
+          other.currency == this.currency &&
+          other.fxRateToInr == this.fxRateToInr &&
+          other.incoterm == this.incoterm &&
+          other.portOfLoading == this.portOfLoading &&
+          other.portOfDischarge == this.portOfDischarge &&
+          other.status == this.status &&
+          other.subtotalMinor == this.subtotalMinor &&
+          other.dutyMinor == this.dutyMinor &&
+          other.freightMinor == this.freightMinor &&
+          other.insuranceMinor == this.insuranceMinor &&
+          other.totalMinor == this.totalMinor &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class ExportOrdersCompanion extends UpdateCompanion<ExportOrder> {
+  final Value<int> id;
+  final Value<String> orderNumber;
+  final Value<int> entityId;
+  final Value<int> distributorId;
+  final Value<String> destinationCountry;
+  final Value<String> currency;
+  final Value<double> fxRateToInr;
+  final Value<String> incoterm;
+  final Value<String> portOfLoading;
+  final Value<String> portOfDischarge;
+  final Value<String> status;
+  final Value<int> subtotalMinor;
+  final Value<int> dutyMinor;
+  final Value<int> freightMinor;
+  final Value<int> insuranceMinor;
+  final Value<int> totalMinor;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  const ExportOrdersCompanion({
+    this.id = const Value.absent(),
+    this.orderNumber = const Value.absent(),
+    this.entityId = const Value.absent(),
+    this.distributorId = const Value.absent(),
+    this.destinationCountry = const Value.absent(),
+    this.currency = const Value.absent(),
+    this.fxRateToInr = const Value.absent(),
+    this.incoterm = const Value.absent(),
+    this.portOfLoading = const Value.absent(),
+    this.portOfDischarge = const Value.absent(),
+    this.status = const Value.absent(),
+    this.subtotalMinor = const Value.absent(),
+    this.dutyMinor = const Value.absent(),
+    this.freightMinor = const Value.absent(),
+    this.insuranceMinor = const Value.absent(),
+    this.totalMinor = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  ExportOrdersCompanion.insert({
+    this.id = const Value.absent(),
+    required String orderNumber,
+    required int entityId,
+    required int distributorId,
+    required String destinationCountry,
+    required String currency,
+    this.fxRateToInr = const Value.absent(),
+    required String incoterm,
+    required String portOfLoading,
+    required String portOfDischarge,
+    this.status = const Value.absent(),
+    this.subtotalMinor = const Value.absent(),
+    this.dutyMinor = const Value.absent(),
+    this.freightMinor = const Value.absent(),
+    this.insuranceMinor = const Value.absent(),
+    this.totalMinor = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  }) : orderNumber = Value(orderNumber),
+       entityId = Value(entityId),
+       distributorId = Value(distributorId),
+       destinationCountry = Value(destinationCountry),
+       currency = Value(currency),
+       incoterm = Value(incoterm),
+       portOfLoading = Value(portOfLoading),
+       portOfDischarge = Value(portOfDischarge);
+  static Insertable<ExportOrder> custom({
+    Expression<int>? id,
+    Expression<String>? orderNumber,
+    Expression<int>? entityId,
+    Expression<int>? distributorId,
+    Expression<String>? destinationCountry,
+    Expression<String>? currency,
+    Expression<double>? fxRateToInr,
+    Expression<String>? incoterm,
+    Expression<String>? portOfLoading,
+    Expression<String>? portOfDischarge,
+    Expression<String>? status,
+    Expression<int>? subtotalMinor,
+    Expression<int>? dutyMinor,
+    Expression<int>? freightMinor,
+    Expression<int>? insuranceMinor,
+    Expression<int>? totalMinor,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (orderNumber != null) 'order_number': orderNumber,
+      if (entityId != null) 'entity_id': entityId,
+      if (distributorId != null) 'distributor_id': distributorId,
+      if (destinationCountry != null) 'destination_country': destinationCountry,
+      if (currency != null) 'currency': currency,
+      if (fxRateToInr != null) 'fx_rate_to_inr': fxRateToInr,
+      if (incoterm != null) 'incoterm': incoterm,
+      if (portOfLoading != null) 'port_of_loading': portOfLoading,
+      if (portOfDischarge != null) 'port_of_discharge': portOfDischarge,
+      if (status != null) 'status': status,
+      if (subtotalMinor != null) 'subtotal_minor': subtotalMinor,
+      if (dutyMinor != null) 'duty_minor': dutyMinor,
+      if (freightMinor != null) 'freight_minor': freightMinor,
+      if (insuranceMinor != null) 'insurance_minor': insuranceMinor,
+      if (totalMinor != null) 'total_minor': totalMinor,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  ExportOrdersCompanion copyWith({
+    Value<int>? id,
+    Value<String>? orderNumber,
+    Value<int>? entityId,
+    Value<int>? distributorId,
+    Value<String>? destinationCountry,
+    Value<String>? currency,
+    Value<double>? fxRateToInr,
+    Value<String>? incoterm,
+    Value<String>? portOfLoading,
+    Value<String>? portOfDischarge,
+    Value<String>? status,
+    Value<int>? subtotalMinor,
+    Value<int>? dutyMinor,
+    Value<int>? freightMinor,
+    Value<int>? insuranceMinor,
+    Value<int>? totalMinor,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+  }) {
+    return ExportOrdersCompanion(
+      id: id ?? this.id,
+      orderNumber: orderNumber ?? this.orderNumber,
+      entityId: entityId ?? this.entityId,
+      distributorId: distributorId ?? this.distributorId,
+      destinationCountry: destinationCountry ?? this.destinationCountry,
+      currency: currency ?? this.currency,
+      fxRateToInr: fxRateToInr ?? this.fxRateToInr,
+      incoterm: incoterm ?? this.incoterm,
+      portOfLoading: portOfLoading ?? this.portOfLoading,
+      portOfDischarge: portOfDischarge ?? this.portOfDischarge,
+      status: status ?? this.status,
+      subtotalMinor: subtotalMinor ?? this.subtotalMinor,
+      dutyMinor: dutyMinor ?? this.dutyMinor,
+      freightMinor: freightMinor ?? this.freightMinor,
+      insuranceMinor: insuranceMinor ?? this.insuranceMinor,
+      totalMinor: totalMinor ?? this.totalMinor,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (orderNumber.present) {
+      map['order_number'] = Variable<String>(orderNumber.value);
+    }
+    if (entityId.present) {
+      map['entity_id'] = Variable<int>(entityId.value);
+    }
+    if (distributorId.present) {
+      map['distributor_id'] = Variable<int>(distributorId.value);
+    }
+    if (destinationCountry.present) {
+      map['destination_country'] = Variable<String>(destinationCountry.value);
+    }
+    if (currency.present) {
+      map['currency'] = Variable<String>(currency.value);
+    }
+    if (fxRateToInr.present) {
+      map['fx_rate_to_inr'] = Variable<double>(fxRateToInr.value);
+    }
+    if (incoterm.present) {
+      map['incoterm'] = Variable<String>(incoterm.value);
+    }
+    if (portOfLoading.present) {
+      map['port_of_loading'] = Variable<String>(portOfLoading.value);
+    }
+    if (portOfDischarge.present) {
+      map['port_of_discharge'] = Variable<String>(portOfDischarge.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (subtotalMinor.present) {
+      map['subtotal_minor'] = Variable<int>(subtotalMinor.value);
+    }
+    if (dutyMinor.present) {
+      map['duty_minor'] = Variable<int>(dutyMinor.value);
+    }
+    if (freightMinor.present) {
+      map['freight_minor'] = Variable<int>(freightMinor.value);
+    }
+    if (insuranceMinor.present) {
+      map['insurance_minor'] = Variable<int>(insuranceMinor.value);
+    }
+    if (totalMinor.present) {
+      map['total_minor'] = Variable<int>(totalMinor.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExportOrdersCompanion(')
+          ..write('id: $id, ')
+          ..write('orderNumber: $orderNumber, ')
+          ..write('entityId: $entityId, ')
+          ..write('distributorId: $distributorId, ')
+          ..write('destinationCountry: $destinationCountry, ')
+          ..write('currency: $currency, ')
+          ..write('fxRateToInr: $fxRateToInr, ')
+          ..write('incoterm: $incoterm, ')
+          ..write('portOfLoading: $portOfLoading, ')
+          ..write('portOfDischarge: $portOfDischarge, ')
+          ..write('status: $status, ')
+          ..write('subtotalMinor: $subtotalMinor, ')
+          ..write('dutyMinor: $dutyMinor, ')
+          ..write('freightMinor: $freightMinor, ')
+          ..write('insuranceMinor: $insuranceMinor, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ExportLinesTable extends ExportLines
+    with TableInfo<$ExportLinesTable, ExportLine> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ExportLinesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _exportOrderIdMeta = const VerificationMeta(
+    'exportOrderId',
+  );
+  @override
+  late final GeneratedColumn<int> exportOrderId = GeneratedColumn<int>(
+    'export_order_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES export_orders (id)',
+    ),
+  );
+  static const VerificationMeta _productIdMeta = const VerificationMeta(
+    'productId',
+  );
+  @override
+  late final GeneratedColumn<int> productId = GeneratedColumn<int>(
+    'product_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES products (id)',
+    ),
+  );
+  static const VerificationMeta _skuMeta = const VerificationMeta('sku');
+  @override
+  late final GeneratedColumn<String> sku = GeneratedColumn<String>(
+    'sku',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _batchIdMeta = const VerificationMeta(
+    'batchId',
+  );
+  @override
+  late final GeneratedColumn<int> batchId = GeneratedColumn<int>(
+    'batch_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES production_batches (id)',
+    ),
+  );
+  static const VerificationMeta _hsCodeMeta = const VerificationMeta('hsCode');
+  @override
+  late final GeneratedColumn<String> hsCode = GeneratedColumn<String>(
+    'hs_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _quantityUnitsMeta = const VerificationMeta(
+    'quantityUnits',
+  );
+  @override
+  late final GeneratedColumn<double> quantityUnits = GeneratedColumn<double>(
+    'quantity_units',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _unitTypeMeta = const VerificationMeta(
+    'unitType',
+  );
+  @override
+  late final GeneratedColumn<String> unitType = GeneratedColumn<String>(
+    'unit_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('cartons'),
+  );
+  static const VerificationMeta _unitPriceMinorMeta = const VerificationMeta(
+    'unitPriceMinor',
+  );
+  @override
+  late final GeneratedColumn<int> unitPriceMinor = GeneratedColumn<int>(
+    'unit_price_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lineTotalMinorMeta = const VerificationMeta(
+    'lineTotalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> lineTotalMinor = GeneratedColumn<int>(
+    'line_total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    exportOrderId,
+    productId,
+    sku,
+    batchId,
+    hsCode,
+    quantityUnits,
+    unitType,
+    unitPriceMinor,
+    lineTotalMinor,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'export_lines';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ExportLine> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('export_order_id')) {
+      context.handle(
+        _exportOrderIdMeta,
+        exportOrderId.isAcceptableOrUnknown(
+          data['export_order_id']!,
+          _exportOrderIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_exportOrderIdMeta);
+    }
+    if (data.containsKey('product_id')) {
+      context.handle(
+        _productIdMeta,
+        productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_productIdMeta);
+    }
+    if (data.containsKey('sku')) {
+      context.handle(
+        _skuMeta,
+        sku.isAcceptableOrUnknown(data['sku']!, _skuMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_skuMeta);
+    }
+    if (data.containsKey('batch_id')) {
+      context.handle(
+        _batchIdMeta,
+        batchId.isAcceptableOrUnknown(data['batch_id']!, _batchIdMeta),
+      );
+    }
+    if (data.containsKey('hs_code')) {
+      context.handle(
+        _hsCodeMeta,
+        hsCode.isAcceptableOrUnknown(data['hs_code']!, _hsCodeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_hsCodeMeta);
+    }
+    if (data.containsKey('quantity_units')) {
+      context.handle(
+        _quantityUnitsMeta,
+        quantityUnits.isAcceptableOrUnknown(
+          data['quantity_units']!,
+          _quantityUnitsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_quantityUnitsMeta);
+    }
+    if (data.containsKey('unit_type')) {
+      context.handle(
+        _unitTypeMeta,
+        unitType.isAcceptableOrUnknown(data['unit_type']!, _unitTypeMeta),
+      );
+    }
+    if (data.containsKey('unit_price_minor')) {
+      context.handle(
+        _unitPriceMinorMeta,
+        unitPriceMinor.isAcceptableOrUnknown(
+          data['unit_price_minor']!,
+          _unitPriceMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_unitPriceMinorMeta);
+    }
+    if (data.containsKey('line_total_minor')) {
+      context.handle(
+        _lineTotalMinorMeta,
+        lineTotalMinor.isAcceptableOrUnknown(
+          data['line_total_minor']!,
+          _lineTotalMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lineTotalMinorMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ExportLine map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ExportLine(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      exportOrderId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}export_order_id'],
+      )!,
+      productId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}product_id'],
+      )!,
+      sku: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sku'],
+      )!,
+      batchId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}batch_id'],
+      ),
+      hsCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}hs_code'],
+      )!,
+      quantityUnits: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}quantity_units'],
+      )!,
+      unitType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unit_type'],
+      )!,
+      unitPriceMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unit_price_minor'],
+      )!,
+      lineTotalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}line_total_minor'],
+      )!,
+    );
+  }
+
+  @override
+  $ExportLinesTable createAlias(String alias) {
+    return $ExportLinesTable(attachedDatabase, alias);
+  }
+}
+
+class ExportLine extends DataClass implements Insertable<ExportLine> {
+  final int id;
+  final int exportOrderId;
+  final int productId;
+  final String sku;
+  final int? batchId;
+  final String hsCode;
+  final double quantityUnits;
+  final String unitType;
+  final int unitPriceMinor;
+  final int lineTotalMinor;
+  const ExportLine({
+    required this.id,
+    required this.exportOrderId,
+    required this.productId,
+    required this.sku,
+    this.batchId,
+    required this.hsCode,
+    required this.quantityUnits,
+    required this.unitType,
+    required this.unitPriceMinor,
+    required this.lineTotalMinor,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['export_order_id'] = Variable<int>(exportOrderId);
+    map['product_id'] = Variable<int>(productId);
+    map['sku'] = Variable<String>(sku);
+    if (!nullToAbsent || batchId != null) {
+      map['batch_id'] = Variable<int>(batchId);
+    }
+    map['hs_code'] = Variable<String>(hsCode);
+    map['quantity_units'] = Variable<double>(quantityUnits);
+    map['unit_type'] = Variable<String>(unitType);
+    map['unit_price_minor'] = Variable<int>(unitPriceMinor);
+    map['line_total_minor'] = Variable<int>(lineTotalMinor);
+    return map;
+  }
+
+  ExportLinesCompanion toCompanion(bool nullToAbsent) {
+    return ExportLinesCompanion(
+      id: Value(id),
+      exportOrderId: Value(exportOrderId),
+      productId: Value(productId),
+      sku: Value(sku),
+      batchId: batchId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(batchId),
+      hsCode: Value(hsCode),
+      quantityUnits: Value(quantityUnits),
+      unitType: Value(unitType),
+      unitPriceMinor: Value(unitPriceMinor),
+      lineTotalMinor: Value(lineTotalMinor),
+    );
+  }
+
+  factory ExportLine.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ExportLine(
+      id: serializer.fromJson<int>(json['id']),
+      exportOrderId: serializer.fromJson<int>(json['exportOrderId']),
+      productId: serializer.fromJson<int>(json['productId']),
+      sku: serializer.fromJson<String>(json['sku']),
+      batchId: serializer.fromJson<int?>(json['batchId']),
+      hsCode: serializer.fromJson<String>(json['hsCode']),
+      quantityUnits: serializer.fromJson<double>(json['quantityUnits']),
+      unitType: serializer.fromJson<String>(json['unitType']),
+      unitPriceMinor: serializer.fromJson<int>(json['unitPriceMinor']),
+      lineTotalMinor: serializer.fromJson<int>(json['lineTotalMinor']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'exportOrderId': serializer.toJson<int>(exportOrderId),
+      'productId': serializer.toJson<int>(productId),
+      'sku': serializer.toJson<String>(sku),
+      'batchId': serializer.toJson<int?>(batchId),
+      'hsCode': serializer.toJson<String>(hsCode),
+      'quantityUnits': serializer.toJson<double>(quantityUnits),
+      'unitType': serializer.toJson<String>(unitType),
+      'unitPriceMinor': serializer.toJson<int>(unitPriceMinor),
+      'lineTotalMinor': serializer.toJson<int>(lineTotalMinor),
+    };
+  }
+
+  ExportLine copyWith({
+    int? id,
+    int? exportOrderId,
+    int? productId,
+    String? sku,
+    Value<int?> batchId = const Value.absent(),
+    String? hsCode,
+    double? quantityUnits,
+    String? unitType,
+    int? unitPriceMinor,
+    int? lineTotalMinor,
+  }) => ExportLine(
+    id: id ?? this.id,
+    exportOrderId: exportOrderId ?? this.exportOrderId,
+    productId: productId ?? this.productId,
+    sku: sku ?? this.sku,
+    batchId: batchId.present ? batchId.value : this.batchId,
+    hsCode: hsCode ?? this.hsCode,
+    quantityUnits: quantityUnits ?? this.quantityUnits,
+    unitType: unitType ?? this.unitType,
+    unitPriceMinor: unitPriceMinor ?? this.unitPriceMinor,
+    lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+  );
+  ExportLine copyWithCompanion(ExportLinesCompanion data) {
+    return ExportLine(
+      id: data.id.present ? data.id.value : this.id,
+      exportOrderId: data.exportOrderId.present
+          ? data.exportOrderId.value
+          : this.exportOrderId,
+      productId: data.productId.present ? data.productId.value : this.productId,
+      sku: data.sku.present ? data.sku.value : this.sku,
+      batchId: data.batchId.present ? data.batchId.value : this.batchId,
+      hsCode: data.hsCode.present ? data.hsCode.value : this.hsCode,
+      quantityUnits: data.quantityUnits.present
+          ? data.quantityUnits.value
+          : this.quantityUnits,
+      unitType: data.unitType.present ? data.unitType.value : this.unitType,
+      unitPriceMinor: data.unitPriceMinor.present
+          ? data.unitPriceMinor.value
+          : this.unitPriceMinor,
+      lineTotalMinor: data.lineTotalMinor.present
+          ? data.lineTotalMinor.value
+          : this.lineTotalMinor,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExportLine(')
+          ..write('id: $id, ')
+          ..write('exportOrderId: $exportOrderId, ')
+          ..write('productId: $productId, ')
+          ..write('sku: $sku, ')
+          ..write('batchId: $batchId, ')
+          ..write('hsCode: $hsCode, ')
+          ..write('quantityUnits: $quantityUnits, ')
+          ..write('unitType: $unitType, ')
+          ..write('unitPriceMinor: $unitPriceMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    exportOrderId,
+    productId,
+    sku,
+    batchId,
+    hsCode,
+    quantityUnits,
+    unitType,
+    unitPriceMinor,
+    lineTotalMinor,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ExportLine &&
+          other.id == this.id &&
+          other.exportOrderId == this.exportOrderId &&
+          other.productId == this.productId &&
+          other.sku == this.sku &&
+          other.batchId == this.batchId &&
+          other.hsCode == this.hsCode &&
+          other.quantityUnits == this.quantityUnits &&
+          other.unitType == this.unitType &&
+          other.unitPriceMinor == this.unitPriceMinor &&
+          other.lineTotalMinor == this.lineTotalMinor);
+}
+
+class ExportLinesCompanion extends UpdateCompanion<ExportLine> {
+  final Value<int> id;
+  final Value<int> exportOrderId;
+  final Value<int> productId;
+  final Value<String> sku;
+  final Value<int?> batchId;
+  final Value<String> hsCode;
+  final Value<double> quantityUnits;
+  final Value<String> unitType;
+  final Value<int> unitPriceMinor;
+  final Value<int> lineTotalMinor;
+  const ExportLinesCompanion({
+    this.id = const Value.absent(),
+    this.exportOrderId = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.sku = const Value.absent(),
+    this.batchId = const Value.absent(),
+    this.hsCode = const Value.absent(),
+    this.quantityUnits = const Value.absent(),
+    this.unitType = const Value.absent(),
+    this.unitPriceMinor = const Value.absent(),
+    this.lineTotalMinor = const Value.absent(),
+  });
+  ExportLinesCompanion.insert({
+    this.id = const Value.absent(),
+    required int exportOrderId,
+    required int productId,
+    required String sku,
+    this.batchId = const Value.absent(),
+    required String hsCode,
+    required double quantityUnits,
+    this.unitType = const Value.absent(),
+    required int unitPriceMinor,
+    required int lineTotalMinor,
+  }) : exportOrderId = Value(exportOrderId),
+       productId = Value(productId),
+       sku = Value(sku),
+       hsCode = Value(hsCode),
+       quantityUnits = Value(quantityUnits),
+       unitPriceMinor = Value(unitPriceMinor),
+       lineTotalMinor = Value(lineTotalMinor);
+  static Insertable<ExportLine> custom({
+    Expression<int>? id,
+    Expression<int>? exportOrderId,
+    Expression<int>? productId,
+    Expression<String>? sku,
+    Expression<int>? batchId,
+    Expression<String>? hsCode,
+    Expression<double>? quantityUnits,
+    Expression<String>? unitType,
+    Expression<int>? unitPriceMinor,
+    Expression<int>? lineTotalMinor,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (exportOrderId != null) 'export_order_id': exportOrderId,
+      if (productId != null) 'product_id': productId,
+      if (sku != null) 'sku': sku,
+      if (batchId != null) 'batch_id': batchId,
+      if (hsCode != null) 'hs_code': hsCode,
+      if (quantityUnits != null) 'quantity_units': quantityUnits,
+      if (unitType != null) 'unit_type': unitType,
+      if (unitPriceMinor != null) 'unit_price_minor': unitPriceMinor,
+      if (lineTotalMinor != null) 'line_total_minor': lineTotalMinor,
+    });
+  }
+
+  ExportLinesCompanion copyWith({
+    Value<int>? id,
+    Value<int>? exportOrderId,
+    Value<int>? productId,
+    Value<String>? sku,
+    Value<int?>? batchId,
+    Value<String>? hsCode,
+    Value<double>? quantityUnits,
+    Value<String>? unitType,
+    Value<int>? unitPriceMinor,
+    Value<int>? lineTotalMinor,
+  }) {
+    return ExportLinesCompanion(
+      id: id ?? this.id,
+      exportOrderId: exportOrderId ?? this.exportOrderId,
+      productId: productId ?? this.productId,
+      sku: sku ?? this.sku,
+      batchId: batchId ?? this.batchId,
+      hsCode: hsCode ?? this.hsCode,
+      quantityUnits: quantityUnits ?? this.quantityUnits,
+      unitType: unitType ?? this.unitType,
+      unitPriceMinor: unitPriceMinor ?? this.unitPriceMinor,
+      lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (exportOrderId.present) {
+      map['export_order_id'] = Variable<int>(exportOrderId.value);
+    }
+    if (productId.present) {
+      map['product_id'] = Variable<int>(productId.value);
+    }
+    if (sku.present) {
+      map['sku'] = Variable<String>(sku.value);
+    }
+    if (batchId.present) {
+      map['batch_id'] = Variable<int>(batchId.value);
+    }
+    if (hsCode.present) {
+      map['hs_code'] = Variable<String>(hsCode.value);
+    }
+    if (quantityUnits.present) {
+      map['quantity_units'] = Variable<double>(quantityUnits.value);
+    }
+    if (unitType.present) {
+      map['unit_type'] = Variable<String>(unitType.value);
+    }
+    if (unitPriceMinor.present) {
+      map['unit_price_minor'] = Variable<int>(unitPriceMinor.value);
+    }
+    if (lineTotalMinor.present) {
+      map['line_total_minor'] = Variable<int>(lineTotalMinor.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExportLinesCompanion(')
+          ..write('id: $id, ')
+          ..write('exportOrderId: $exportOrderId, ')
+          ..write('productId: $productId, ')
+          ..write('sku: $sku, ')
+          ..write('batchId: $batchId, ')
+          ..write('hsCode: $hsCode, ')
+          ..write('quantityUnits: $quantityUnits, ')
+          ..write('unitType: $unitType, ')
+          ..write('unitPriceMinor: $unitPriceMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ExportShipmentsTable extends ExportShipments
+    with TableInfo<$ExportShipmentsTable, ExportShipment> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ExportShipmentsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _exportOrderIdMeta = const VerificationMeta(
+    'exportOrderId',
+  );
+  @override
+  late final GeneratedColumn<int> exportOrderId = GeneratedColumn<int>(
+    'export_order_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES export_orders (id)',
+    ),
+  );
+  static const VerificationMeta _containerNoMeta = const VerificationMeta(
+    'containerNo',
+  );
+  @override
+  late final GeneratedColumn<String> containerNo = GeneratedColumn<String>(
+    'container_no',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sealNoMeta = const VerificationMeta('sealNo');
+  @override
+  late final GeneratedColumn<String> sealNo = GeneratedColumn<String>(
+    'seal_no',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _blNumberMeta = const VerificationMeta(
+    'blNumber',
+  );
+  @override
+  late final GeneratedColumn<String> blNumber = GeneratedColumn<String>(
+    'bl_number',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _vesselNameMeta = const VerificationMeta(
+    'vesselName',
+  );
+  @override
+  late final GeneratedColumn<String> vesselName = GeneratedColumn<String>(
+    'vessel_name',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _voyageNoMeta = const VerificationMeta(
+    'voyageNo',
+  );
+  @override
+  late final GeneratedColumn<String> voyageNo = GeneratedColumn<String>(
+    'voyage_no',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _etaMeta = const VerificationMeta('eta');
+  @override
+  late final GeneratedColumn<DateTime> eta = GeneratedColumn<DateTime>(
+    'eta',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _etdMeta = const VerificationMeta('etd');
+  @override
+  late final GeneratedColumn<DateTime> etd = GeneratedColumn<DateTime>(
+    'etd',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _temperatureCelsiusTargetMeta =
+      const VerificationMeta('temperatureCelsiusTarget');
+  @override
+  late final GeneratedColumn<double> temperatureCelsiusTarget =
+      GeneratedColumn<double>(
+        'temperature_celsius_target',
+        aliasedName,
+        false,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        defaultValue: const Constant(-18.0),
+      );
+  static const VerificationMeta _temperatureLoggerIdMeta =
+      const VerificationMeta('temperatureLoggerId');
+  @override
+  late final GeneratedColumn<String> temperatureLoggerId =
+      GeneratedColumn<String>(
+        'temperature_logger_id',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    exportOrderId,
+    containerNo,
+    sealNo,
+    blNumber,
+    vesselName,
+    voyageNo,
+    eta,
+    etd,
+    temperatureCelsiusTarget,
+    temperatureLoggerId,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'export_shipments';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ExportShipment> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('export_order_id')) {
+      context.handle(
+        _exportOrderIdMeta,
+        exportOrderId.isAcceptableOrUnknown(
+          data['export_order_id']!,
+          _exportOrderIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_exportOrderIdMeta);
+    }
+    if (data.containsKey('container_no')) {
+      context.handle(
+        _containerNoMeta,
+        containerNo.isAcceptableOrUnknown(
+          data['container_no']!,
+          _containerNoMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_containerNoMeta);
+    }
+    if (data.containsKey('seal_no')) {
+      context.handle(
+        _sealNoMeta,
+        sealNo.isAcceptableOrUnknown(data['seal_no']!, _sealNoMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sealNoMeta);
+    }
+    if (data.containsKey('bl_number')) {
+      context.handle(
+        _blNumberMeta,
+        blNumber.isAcceptableOrUnknown(data['bl_number']!, _blNumberMeta),
+      );
+    }
+    if (data.containsKey('vessel_name')) {
+      context.handle(
+        _vesselNameMeta,
+        vesselName.isAcceptableOrUnknown(data['vessel_name']!, _vesselNameMeta),
+      );
+    }
+    if (data.containsKey('voyage_no')) {
+      context.handle(
+        _voyageNoMeta,
+        voyageNo.isAcceptableOrUnknown(data['voyage_no']!, _voyageNoMeta),
+      );
+    }
+    if (data.containsKey('eta')) {
+      context.handle(
+        _etaMeta,
+        eta.isAcceptableOrUnknown(data['eta']!, _etaMeta),
+      );
+    }
+    if (data.containsKey('etd')) {
+      context.handle(
+        _etdMeta,
+        etd.isAcceptableOrUnknown(data['etd']!, _etdMeta),
+      );
+    }
+    if (data.containsKey('temperature_celsius_target')) {
+      context.handle(
+        _temperatureCelsiusTargetMeta,
+        temperatureCelsiusTarget.isAcceptableOrUnknown(
+          data['temperature_celsius_target']!,
+          _temperatureCelsiusTargetMeta,
+        ),
+      );
+    }
+    if (data.containsKey('temperature_logger_id')) {
+      context.handle(
+        _temperatureLoggerIdMeta,
+        temperatureLoggerId.isAcceptableOrUnknown(
+          data['temperature_logger_id']!,
+          _temperatureLoggerIdMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ExportShipment map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ExportShipment(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      exportOrderId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}export_order_id'],
+      )!,
+      containerNo: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}container_no'],
+      )!,
+      sealNo: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}seal_no'],
+      )!,
+      blNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}bl_number'],
+      ),
+      vesselName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}vessel_name'],
+      ),
+      voyageNo: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}voyage_no'],
+      ),
+      eta: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}eta'],
+      ),
+      etd: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}etd'],
+      ),
+      temperatureCelsiusTarget: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}temperature_celsius_target'],
+      )!,
+      temperatureLoggerId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}temperature_logger_id'],
+      ),
+    );
+  }
+
+  @override
+  $ExportShipmentsTable createAlias(String alias) {
+    return $ExportShipmentsTable(attachedDatabase, alias);
+  }
+}
+
+class ExportShipment extends DataClass implements Insertable<ExportShipment> {
+  final int id;
+  final int exportOrderId;
+  final String containerNo;
+  final String sealNo;
+  final String? blNumber;
+  final String? vesselName;
+  final String? voyageNo;
+  final DateTime? eta;
+  final DateTime? etd;
+  final double temperatureCelsiusTarget;
+  final String? temperatureLoggerId;
+  const ExportShipment({
+    required this.id,
+    required this.exportOrderId,
+    required this.containerNo,
+    required this.sealNo,
+    this.blNumber,
+    this.vesselName,
+    this.voyageNo,
+    this.eta,
+    this.etd,
+    required this.temperatureCelsiusTarget,
+    this.temperatureLoggerId,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['export_order_id'] = Variable<int>(exportOrderId);
+    map['container_no'] = Variable<String>(containerNo);
+    map['seal_no'] = Variable<String>(sealNo);
+    if (!nullToAbsent || blNumber != null) {
+      map['bl_number'] = Variable<String>(blNumber);
+    }
+    if (!nullToAbsent || vesselName != null) {
+      map['vessel_name'] = Variable<String>(vesselName);
+    }
+    if (!nullToAbsent || voyageNo != null) {
+      map['voyage_no'] = Variable<String>(voyageNo);
+    }
+    if (!nullToAbsent || eta != null) {
+      map['eta'] = Variable<DateTime>(eta);
+    }
+    if (!nullToAbsent || etd != null) {
+      map['etd'] = Variable<DateTime>(etd);
+    }
+    map['temperature_celsius_target'] = Variable<double>(
+      temperatureCelsiusTarget,
+    );
+    if (!nullToAbsent || temperatureLoggerId != null) {
+      map['temperature_logger_id'] = Variable<String>(temperatureLoggerId);
+    }
+    return map;
+  }
+
+  ExportShipmentsCompanion toCompanion(bool nullToAbsent) {
+    return ExportShipmentsCompanion(
+      id: Value(id),
+      exportOrderId: Value(exportOrderId),
+      containerNo: Value(containerNo),
+      sealNo: Value(sealNo),
+      blNumber: blNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(blNumber),
+      vesselName: vesselName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(vesselName),
+      voyageNo: voyageNo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(voyageNo),
+      eta: eta == null && nullToAbsent ? const Value.absent() : Value(eta),
+      etd: etd == null && nullToAbsent ? const Value.absent() : Value(etd),
+      temperatureCelsiusTarget: Value(temperatureCelsiusTarget),
+      temperatureLoggerId: temperatureLoggerId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(temperatureLoggerId),
+    );
+  }
+
+  factory ExportShipment.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ExportShipment(
+      id: serializer.fromJson<int>(json['id']),
+      exportOrderId: serializer.fromJson<int>(json['exportOrderId']),
+      containerNo: serializer.fromJson<String>(json['containerNo']),
+      sealNo: serializer.fromJson<String>(json['sealNo']),
+      blNumber: serializer.fromJson<String?>(json['blNumber']),
+      vesselName: serializer.fromJson<String?>(json['vesselName']),
+      voyageNo: serializer.fromJson<String?>(json['voyageNo']),
+      eta: serializer.fromJson<DateTime?>(json['eta']),
+      etd: serializer.fromJson<DateTime?>(json['etd']),
+      temperatureCelsiusTarget: serializer.fromJson<double>(
+        json['temperatureCelsiusTarget'],
+      ),
+      temperatureLoggerId: serializer.fromJson<String?>(
+        json['temperatureLoggerId'],
+      ),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'exportOrderId': serializer.toJson<int>(exportOrderId),
+      'containerNo': serializer.toJson<String>(containerNo),
+      'sealNo': serializer.toJson<String>(sealNo),
+      'blNumber': serializer.toJson<String?>(blNumber),
+      'vesselName': serializer.toJson<String?>(vesselName),
+      'voyageNo': serializer.toJson<String?>(voyageNo),
+      'eta': serializer.toJson<DateTime?>(eta),
+      'etd': serializer.toJson<DateTime?>(etd),
+      'temperatureCelsiusTarget': serializer.toJson<double>(
+        temperatureCelsiusTarget,
+      ),
+      'temperatureLoggerId': serializer.toJson<String?>(temperatureLoggerId),
+    };
+  }
+
+  ExportShipment copyWith({
+    int? id,
+    int? exportOrderId,
+    String? containerNo,
+    String? sealNo,
+    Value<String?> blNumber = const Value.absent(),
+    Value<String?> vesselName = const Value.absent(),
+    Value<String?> voyageNo = const Value.absent(),
+    Value<DateTime?> eta = const Value.absent(),
+    Value<DateTime?> etd = const Value.absent(),
+    double? temperatureCelsiusTarget,
+    Value<String?> temperatureLoggerId = const Value.absent(),
+  }) => ExportShipment(
+    id: id ?? this.id,
+    exportOrderId: exportOrderId ?? this.exportOrderId,
+    containerNo: containerNo ?? this.containerNo,
+    sealNo: sealNo ?? this.sealNo,
+    blNumber: blNumber.present ? blNumber.value : this.blNumber,
+    vesselName: vesselName.present ? vesselName.value : this.vesselName,
+    voyageNo: voyageNo.present ? voyageNo.value : this.voyageNo,
+    eta: eta.present ? eta.value : this.eta,
+    etd: etd.present ? etd.value : this.etd,
+    temperatureCelsiusTarget:
+        temperatureCelsiusTarget ?? this.temperatureCelsiusTarget,
+    temperatureLoggerId: temperatureLoggerId.present
+        ? temperatureLoggerId.value
+        : this.temperatureLoggerId,
+  );
+  ExportShipment copyWithCompanion(ExportShipmentsCompanion data) {
+    return ExportShipment(
+      id: data.id.present ? data.id.value : this.id,
+      exportOrderId: data.exportOrderId.present
+          ? data.exportOrderId.value
+          : this.exportOrderId,
+      containerNo: data.containerNo.present
+          ? data.containerNo.value
+          : this.containerNo,
+      sealNo: data.sealNo.present ? data.sealNo.value : this.sealNo,
+      blNumber: data.blNumber.present ? data.blNumber.value : this.blNumber,
+      vesselName: data.vesselName.present
+          ? data.vesselName.value
+          : this.vesselName,
+      voyageNo: data.voyageNo.present ? data.voyageNo.value : this.voyageNo,
+      eta: data.eta.present ? data.eta.value : this.eta,
+      etd: data.etd.present ? data.etd.value : this.etd,
+      temperatureCelsiusTarget: data.temperatureCelsiusTarget.present
+          ? data.temperatureCelsiusTarget.value
+          : this.temperatureCelsiusTarget,
+      temperatureLoggerId: data.temperatureLoggerId.present
+          ? data.temperatureLoggerId.value
+          : this.temperatureLoggerId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExportShipment(')
+          ..write('id: $id, ')
+          ..write('exportOrderId: $exportOrderId, ')
+          ..write('containerNo: $containerNo, ')
+          ..write('sealNo: $sealNo, ')
+          ..write('blNumber: $blNumber, ')
+          ..write('vesselName: $vesselName, ')
+          ..write('voyageNo: $voyageNo, ')
+          ..write('eta: $eta, ')
+          ..write('etd: $etd, ')
+          ..write('temperatureCelsiusTarget: $temperatureCelsiusTarget, ')
+          ..write('temperatureLoggerId: $temperatureLoggerId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    exportOrderId,
+    containerNo,
+    sealNo,
+    blNumber,
+    vesselName,
+    voyageNo,
+    eta,
+    etd,
+    temperatureCelsiusTarget,
+    temperatureLoggerId,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ExportShipment &&
+          other.id == this.id &&
+          other.exportOrderId == this.exportOrderId &&
+          other.containerNo == this.containerNo &&
+          other.sealNo == this.sealNo &&
+          other.blNumber == this.blNumber &&
+          other.vesselName == this.vesselName &&
+          other.voyageNo == this.voyageNo &&
+          other.eta == this.eta &&
+          other.etd == this.etd &&
+          other.temperatureCelsiusTarget == this.temperatureCelsiusTarget &&
+          other.temperatureLoggerId == this.temperatureLoggerId);
+}
+
+class ExportShipmentsCompanion extends UpdateCompanion<ExportShipment> {
+  final Value<int> id;
+  final Value<int> exportOrderId;
+  final Value<String> containerNo;
+  final Value<String> sealNo;
+  final Value<String?> blNumber;
+  final Value<String?> vesselName;
+  final Value<String?> voyageNo;
+  final Value<DateTime?> eta;
+  final Value<DateTime?> etd;
+  final Value<double> temperatureCelsiusTarget;
+  final Value<String?> temperatureLoggerId;
+  const ExportShipmentsCompanion({
+    this.id = const Value.absent(),
+    this.exportOrderId = const Value.absent(),
+    this.containerNo = const Value.absent(),
+    this.sealNo = const Value.absent(),
+    this.blNumber = const Value.absent(),
+    this.vesselName = const Value.absent(),
+    this.voyageNo = const Value.absent(),
+    this.eta = const Value.absent(),
+    this.etd = const Value.absent(),
+    this.temperatureCelsiusTarget = const Value.absent(),
+    this.temperatureLoggerId = const Value.absent(),
+  });
+  ExportShipmentsCompanion.insert({
+    this.id = const Value.absent(),
+    required int exportOrderId,
+    required String containerNo,
+    required String sealNo,
+    this.blNumber = const Value.absent(),
+    this.vesselName = const Value.absent(),
+    this.voyageNo = const Value.absent(),
+    this.eta = const Value.absent(),
+    this.etd = const Value.absent(),
+    this.temperatureCelsiusTarget = const Value.absent(),
+    this.temperatureLoggerId = const Value.absent(),
+  }) : exportOrderId = Value(exportOrderId),
+       containerNo = Value(containerNo),
+       sealNo = Value(sealNo);
+  static Insertable<ExportShipment> custom({
+    Expression<int>? id,
+    Expression<int>? exportOrderId,
+    Expression<String>? containerNo,
+    Expression<String>? sealNo,
+    Expression<String>? blNumber,
+    Expression<String>? vesselName,
+    Expression<String>? voyageNo,
+    Expression<DateTime>? eta,
+    Expression<DateTime>? etd,
+    Expression<double>? temperatureCelsiusTarget,
+    Expression<String>? temperatureLoggerId,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (exportOrderId != null) 'export_order_id': exportOrderId,
+      if (containerNo != null) 'container_no': containerNo,
+      if (sealNo != null) 'seal_no': sealNo,
+      if (blNumber != null) 'bl_number': blNumber,
+      if (vesselName != null) 'vessel_name': vesselName,
+      if (voyageNo != null) 'voyage_no': voyageNo,
+      if (eta != null) 'eta': eta,
+      if (etd != null) 'etd': etd,
+      if (temperatureCelsiusTarget != null)
+        'temperature_celsius_target': temperatureCelsiusTarget,
+      if (temperatureLoggerId != null)
+        'temperature_logger_id': temperatureLoggerId,
+    });
+  }
+
+  ExportShipmentsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? exportOrderId,
+    Value<String>? containerNo,
+    Value<String>? sealNo,
+    Value<String?>? blNumber,
+    Value<String?>? vesselName,
+    Value<String?>? voyageNo,
+    Value<DateTime?>? eta,
+    Value<DateTime?>? etd,
+    Value<double>? temperatureCelsiusTarget,
+    Value<String?>? temperatureLoggerId,
+  }) {
+    return ExportShipmentsCompanion(
+      id: id ?? this.id,
+      exportOrderId: exportOrderId ?? this.exportOrderId,
+      containerNo: containerNo ?? this.containerNo,
+      sealNo: sealNo ?? this.sealNo,
+      blNumber: blNumber ?? this.blNumber,
+      vesselName: vesselName ?? this.vesselName,
+      voyageNo: voyageNo ?? this.voyageNo,
+      eta: eta ?? this.eta,
+      etd: etd ?? this.etd,
+      temperatureCelsiusTarget:
+          temperatureCelsiusTarget ?? this.temperatureCelsiusTarget,
+      temperatureLoggerId: temperatureLoggerId ?? this.temperatureLoggerId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (exportOrderId.present) {
+      map['export_order_id'] = Variable<int>(exportOrderId.value);
+    }
+    if (containerNo.present) {
+      map['container_no'] = Variable<String>(containerNo.value);
+    }
+    if (sealNo.present) {
+      map['seal_no'] = Variable<String>(sealNo.value);
+    }
+    if (blNumber.present) {
+      map['bl_number'] = Variable<String>(blNumber.value);
+    }
+    if (vesselName.present) {
+      map['vessel_name'] = Variable<String>(vesselName.value);
+    }
+    if (voyageNo.present) {
+      map['voyage_no'] = Variable<String>(voyageNo.value);
+    }
+    if (eta.present) {
+      map['eta'] = Variable<DateTime>(eta.value);
+    }
+    if (etd.present) {
+      map['etd'] = Variable<DateTime>(etd.value);
+    }
+    if (temperatureCelsiusTarget.present) {
+      map['temperature_celsius_target'] = Variable<double>(
+        temperatureCelsiusTarget.value,
+      );
+    }
+    if (temperatureLoggerId.present) {
+      map['temperature_logger_id'] = Variable<String>(
+        temperatureLoggerId.value,
+      );
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExportShipmentsCompanion(')
+          ..write('id: $id, ')
+          ..write('exportOrderId: $exportOrderId, ')
+          ..write('containerNo: $containerNo, ')
+          ..write('sealNo: $sealNo, ')
+          ..write('blNumber: $blNumber, ')
+          ..write('vesselName: $vesselName, ')
+          ..write('voyageNo: $voyageNo, ')
+          ..write('eta: $eta, ')
+          ..write('etd: $etd, ')
+          ..write('temperatureCelsiusTarget: $temperatureCelsiusTarget, ')
+          ..write('temperatureLoggerId: $temperatureLoggerId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ComplianceProfilesTable extends ComplianceProfiles
+    with TableInfo<$ComplianceProfilesTable, ComplianceProfile> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ComplianceProfilesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _countryCodeMeta = const VerificationMeta(
+    'countryCode',
+  );
+  @override
+  late final GeneratedColumn<String> countryCode = GeneratedColumn<String>(
+    'country_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _authorityMeta = const VerificationMeta(
+    'authority',
+  );
+  @override
+  late final GeneratedColumn<String> authority = GeneratedColumn<String>(
+    'authority',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _rulesJsonMeta = const VerificationMeta(
+    'rulesJson',
+  );
+  @override
+  late final GeneratedColumn<String> rulesJson = GeneratedColumn<String>(
+    'rules_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _labelTemplateIdMeta = const VerificationMeta(
+    'labelTemplateId',
+  );
+  @override
+  late final GeneratedColumn<String> labelTemplateId = GeneratedColumn<String>(
+    'label_template_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta(
+    'isActive',
+  );
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+    'is_active',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_active" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    countryCode,
+    authority,
+    rulesJson,
+    labelTemplateId,
+    isActive,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'compliance_profiles';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ComplianceProfile> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('country_code')) {
+      context.handle(
+        _countryCodeMeta,
+        countryCode.isAcceptableOrUnknown(
+          data['country_code']!,
+          _countryCodeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_countryCodeMeta);
+    }
+    if (data.containsKey('authority')) {
+      context.handle(
+        _authorityMeta,
+        authority.isAcceptableOrUnknown(data['authority']!, _authorityMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_authorityMeta);
+    }
+    if (data.containsKey('rules_json')) {
+      context.handle(
+        _rulesJsonMeta,
+        rulesJson.isAcceptableOrUnknown(data['rules_json']!, _rulesJsonMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_rulesJsonMeta);
+    }
+    if (data.containsKey('label_template_id')) {
+      context.handle(
+        _labelTemplateIdMeta,
+        labelTemplateId.isAcceptableOrUnknown(
+          data['label_template_id']!,
+          _labelTemplateIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_labelTemplateIdMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(
+        _isActiveMeta,
+        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ComplianceProfile map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ComplianceProfile(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      countryCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}country_code'],
+      )!,
+      authority: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}authority'],
+      )!,
+      rulesJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}rules_json'],
+      )!,
+      labelTemplateId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label_template_id'],
+      )!,
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
+    );
+  }
+
+  @override
+  $ComplianceProfilesTable createAlias(String alias) {
+    return $ComplianceProfilesTable(attachedDatabase, alias);
+  }
+}
+
+class ComplianceProfile extends DataClass
+    implements Insertable<ComplianceProfile> {
+  final int id;
+  final String countryCode;
+  final String authority;
+  final String rulesJson;
+  final String labelTemplateId;
+  final bool isActive;
+  const ComplianceProfile({
+    required this.id,
+    required this.countryCode,
+    required this.authority,
+    required this.rulesJson,
+    required this.labelTemplateId,
+    required this.isActive,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['country_code'] = Variable<String>(countryCode);
+    map['authority'] = Variable<String>(authority);
+    map['rules_json'] = Variable<String>(rulesJson);
+    map['label_template_id'] = Variable<String>(labelTemplateId);
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  ComplianceProfilesCompanion toCompanion(bool nullToAbsent) {
+    return ComplianceProfilesCompanion(
+      id: Value(id),
+      countryCode: Value(countryCode),
+      authority: Value(authority),
+      rulesJson: Value(rulesJson),
+      labelTemplateId: Value(labelTemplateId),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory ComplianceProfile.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ComplianceProfile(
+      id: serializer.fromJson<int>(json['id']),
+      countryCode: serializer.fromJson<String>(json['countryCode']),
+      authority: serializer.fromJson<String>(json['authority']),
+      rulesJson: serializer.fromJson<String>(json['rulesJson']),
+      labelTemplateId: serializer.fromJson<String>(json['labelTemplateId']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'countryCode': serializer.toJson<String>(countryCode),
+      'authority': serializer.toJson<String>(authority),
+      'rulesJson': serializer.toJson<String>(rulesJson),
+      'labelTemplateId': serializer.toJson<String>(labelTemplateId),
+      'isActive': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  ComplianceProfile copyWith({
+    int? id,
+    String? countryCode,
+    String? authority,
+    String? rulesJson,
+    String? labelTemplateId,
+    bool? isActive,
+  }) => ComplianceProfile(
+    id: id ?? this.id,
+    countryCode: countryCode ?? this.countryCode,
+    authority: authority ?? this.authority,
+    rulesJson: rulesJson ?? this.rulesJson,
+    labelTemplateId: labelTemplateId ?? this.labelTemplateId,
+    isActive: isActive ?? this.isActive,
+  );
+  ComplianceProfile copyWithCompanion(ComplianceProfilesCompanion data) {
+    return ComplianceProfile(
+      id: data.id.present ? data.id.value : this.id,
+      countryCode: data.countryCode.present
+          ? data.countryCode.value
+          : this.countryCode,
+      authority: data.authority.present ? data.authority.value : this.authority,
+      rulesJson: data.rulesJson.present ? data.rulesJson.value : this.rulesJson,
+      labelTemplateId: data.labelTemplateId.present
+          ? data.labelTemplateId.value
+          : this.labelTemplateId,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ComplianceProfile(')
+          ..write('id: $id, ')
+          ..write('countryCode: $countryCode, ')
+          ..write('authority: $authority, ')
+          ..write('rulesJson: $rulesJson, ')
+          ..write('labelTemplateId: $labelTemplateId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    countryCode,
+    authority,
+    rulesJson,
+    labelTemplateId,
+    isActive,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ComplianceProfile &&
+          other.id == this.id &&
+          other.countryCode == this.countryCode &&
+          other.authority == this.authority &&
+          other.rulesJson == this.rulesJson &&
+          other.labelTemplateId == this.labelTemplateId &&
+          other.isActive == this.isActive);
+}
+
+class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
+  final Value<int> id;
+  final Value<String> countryCode;
+  final Value<String> authority;
+  final Value<String> rulesJson;
+  final Value<String> labelTemplateId;
+  final Value<bool> isActive;
+  const ComplianceProfilesCompanion({
+    this.id = const Value.absent(),
+    this.countryCode = const Value.absent(),
+    this.authority = const Value.absent(),
+    this.rulesJson = const Value.absent(),
+    this.labelTemplateId = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  ComplianceProfilesCompanion.insert({
+    this.id = const Value.absent(),
+    required String countryCode,
+    required String authority,
+    required String rulesJson,
+    required String labelTemplateId,
+    this.isActive = const Value.absent(),
+  }) : countryCode = Value(countryCode),
+       authority = Value(authority),
+       rulesJson = Value(rulesJson),
+       labelTemplateId = Value(labelTemplateId);
+  static Insertable<ComplianceProfile> custom({
+    Expression<int>? id,
+    Expression<String>? countryCode,
+    Expression<String>? authority,
+    Expression<String>? rulesJson,
+    Expression<String>? labelTemplateId,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (countryCode != null) 'country_code': countryCode,
+      if (authority != null) 'authority': authority,
+      if (rulesJson != null) 'rules_json': rulesJson,
+      if (labelTemplateId != null) 'label_template_id': labelTemplateId,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  ComplianceProfilesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? countryCode,
+    Value<String>? authority,
+    Value<String>? rulesJson,
+    Value<String>? labelTemplateId,
+    Value<bool>? isActive,
+  }) {
+    return ComplianceProfilesCompanion(
+      id: id ?? this.id,
+      countryCode: countryCode ?? this.countryCode,
+      authority: authority ?? this.authority,
+      rulesJson: rulesJson ?? this.rulesJson,
+      labelTemplateId: labelTemplateId ?? this.labelTemplateId,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (countryCode.present) {
+      map['country_code'] = Variable<String>(countryCode.value);
+    }
+    if (authority.present) {
+      map['authority'] = Variable<String>(authority.value);
+    }
+    if (rulesJson.present) {
+      map['rules_json'] = Variable<String>(rulesJson.value);
+    }
+    if (labelTemplateId.present) {
+      map['label_template_id'] = Variable<String>(labelTemplateId.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ComplianceProfilesCompanion(')
+          ..write('id: $id, ')
+          ..write('countryCode: $countryCode, ')
+          ..write('authority: $authority, ')
+          ..write('rulesJson: $rulesJson, ')
+          ..write('labelTemplateId: $labelTemplateId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FxRatesTable extends FxRates with TableInfo<$FxRatesTable, FxRate> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FxRatesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _baseCurrencyMeta = const VerificationMeta(
+    'baseCurrency',
+  );
+  @override
+  late final GeneratedColumn<String> baseCurrency = GeneratedColumn<String>(
+    'base_currency',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _targetCurrencyMeta = const VerificationMeta(
+    'targetCurrency',
+  );
+  @override
+  late final GeneratedColumn<String> targetCurrency = GeneratedColumn<String>(
+    'target_currency',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _rateMeta = const VerificationMeta('rate');
+  @override
+  late final GeneratedColumn<double> rate = GeneratedColumn<double>(
+    'rate',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _asOfDateMeta = const VerificationMeta(
+    'asOfDate',
+  );
+  @override
+  late final GeneratedColumn<DateTime> asOfDate = GeneratedColumn<DateTime>(
+    'as_of_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _sourceMeta = const VerificationMeta('source');
+  @override
+  late final GeneratedColumn<String> source = GeneratedColumn<String>(
+    'source',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('manual'),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    baseCurrency,
+    targetCurrency,
+    rate,
+    asOfDate,
+    source,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'fx_rates';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FxRate> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('base_currency')) {
+      context.handle(
+        _baseCurrencyMeta,
+        baseCurrency.isAcceptableOrUnknown(
+          data['base_currency']!,
+          _baseCurrencyMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_baseCurrencyMeta);
+    }
+    if (data.containsKey('target_currency')) {
+      context.handle(
+        _targetCurrencyMeta,
+        targetCurrency.isAcceptableOrUnknown(
+          data['target_currency']!,
+          _targetCurrencyMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_targetCurrencyMeta);
+    }
+    if (data.containsKey('rate')) {
+      context.handle(
+        _rateMeta,
+        rate.isAcceptableOrUnknown(data['rate']!, _rateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_rateMeta);
+    }
+    if (data.containsKey('as_of_date')) {
+      context.handle(
+        _asOfDateMeta,
+        asOfDate.isAcceptableOrUnknown(data['as_of_date']!, _asOfDateMeta),
+      );
+    }
+    if (data.containsKey('source')) {
+      context.handle(
+        _sourceMeta,
+        source.isAcceptableOrUnknown(data['source']!, _sourceMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FxRate map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FxRate(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      baseCurrency: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}base_currency'],
+      )!,
+      targetCurrency: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}target_currency'],
+      )!,
+      rate: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}rate'],
+      )!,
+      asOfDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}as_of_date'],
+      )!,
+      source: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source'],
+      )!,
+    );
+  }
+
+  @override
+  $FxRatesTable createAlias(String alias) {
+    return $FxRatesTable(attachedDatabase, alias);
+  }
+}
+
+class FxRate extends DataClass implements Insertable<FxRate> {
+  final int id;
+  final String baseCurrency;
+  final String targetCurrency;
+  final double rate;
+  final DateTime asOfDate;
+  final String source;
+  const FxRate({
+    required this.id,
+    required this.baseCurrency,
+    required this.targetCurrency,
+    required this.rate,
+    required this.asOfDate,
+    required this.source,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['base_currency'] = Variable<String>(baseCurrency);
+    map['target_currency'] = Variable<String>(targetCurrency);
+    map['rate'] = Variable<double>(rate);
+    map['as_of_date'] = Variable<DateTime>(asOfDate);
+    map['source'] = Variable<String>(source);
+    return map;
+  }
+
+  FxRatesCompanion toCompanion(bool nullToAbsent) {
+    return FxRatesCompanion(
+      id: Value(id),
+      baseCurrency: Value(baseCurrency),
+      targetCurrency: Value(targetCurrency),
+      rate: Value(rate),
+      asOfDate: Value(asOfDate),
+      source: Value(source),
+    );
+  }
+
+  factory FxRate.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FxRate(
+      id: serializer.fromJson<int>(json['id']),
+      baseCurrency: serializer.fromJson<String>(json['baseCurrency']),
+      targetCurrency: serializer.fromJson<String>(json['targetCurrency']),
+      rate: serializer.fromJson<double>(json['rate']),
+      asOfDate: serializer.fromJson<DateTime>(json['asOfDate']),
+      source: serializer.fromJson<String>(json['source']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'baseCurrency': serializer.toJson<String>(baseCurrency),
+      'targetCurrency': serializer.toJson<String>(targetCurrency),
+      'rate': serializer.toJson<double>(rate),
+      'asOfDate': serializer.toJson<DateTime>(asOfDate),
+      'source': serializer.toJson<String>(source),
+    };
+  }
+
+  FxRate copyWith({
+    int? id,
+    String? baseCurrency,
+    String? targetCurrency,
+    double? rate,
+    DateTime? asOfDate,
+    String? source,
+  }) => FxRate(
+    id: id ?? this.id,
+    baseCurrency: baseCurrency ?? this.baseCurrency,
+    targetCurrency: targetCurrency ?? this.targetCurrency,
+    rate: rate ?? this.rate,
+    asOfDate: asOfDate ?? this.asOfDate,
+    source: source ?? this.source,
+  );
+  FxRate copyWithCompanion(FxRatesCompanion data) {
+    return FxRate(
+      id: data.id.present ? data.id.value : this.id,
+      baseCurrency: data.baseCurrency.present
+          ? data.baseCurrency.value
+          : this.baseCurrency,
+      targetCurrency: data.targetCurrency.present
+          ? data.targetCurrency.value
+          : this.targetCurrency,
+      rate: data.rate.present ? data.rate.value : this.rate,
+      asOfDate: data.asOfDate.present ? data.asOfDate.value : this.asOfDate,
+      source: data.source.present ? data.source.value : this.source,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FxRate(')
+          ..write('id: $id, ')
+          ..write('baseCurrency: $baseCurrency, ')
+          ..write('targetCurrency: $targetCurrency, ')
+          ..write('rate: $rate, ')
+          ..write('asOfDate: $asOfDate, ')
+          ..write('source: $source')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, baseCurrency, targetCurrency, rate, asOfDate, source);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FxRate &&
+          other.id == this.id &&
+          other.baseCurrency == this.baseCurrency &&
+          other.targetCurrency == this.targetCurrency &&
+          other.rate == this.rate &&
+          other.asOfDate == this.asOfDate &&
+          other.source == this.source);
+}
+
+class FxRatesCompanion extends UpdateCompanion<FxRate> {
+  final Value<int> id;
+  final Value<String> baseCurrency;
+  final Value<String> targetCurrency;
+  final Value<double> rate;
+  final Value<DateTime> asOfDate;
+  final Value<String> source;
+  const FxRatesCompanion({
+    this.id = const Value.absent(),
+    this.baseCurrency = const Value.absent(),
+    this.targetCurrency = const Value.absent(),
+    this.rate = const Value.absent(),
+    this.asOfDate = const Value.absent(),
+    this.source = const Value.absent(),
+  });
+  FxRatesCompanion.insert({
+    this.id = const Value.absent(),
+    required String baseCurrency,
+    required String targetCurrency,
+    required double rate,
+    this.asOfDate = const Value.absent(),
+    this.source = const Value.absent(),
+  }) : baseCurrency = Value(baseCurrency),
+       targetCurrency = Value(targetCurrency),
+       rate = Value(rate);
+  static Insertable<FxRate> custom({
+    Expression<int>? id,
+    Expression<String>? baseCurrency,
+    Expression<String>? targetCurrency,
+    Expression<double>? rate,
+    Expression<DateTime>? asOfDate,
+    Expression<String>? source,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (baseCurrency != null) 'base_currency': baseCurrency,
+      if (targetCurrency != null) 'target_currency': targetCurrency,
+      if (rate != null) 'rate': rate,
+      if (asOfDate != null) 'as_of_date': asOfDate,
+      if (source != null) 'source': source,
+    });
+  }
+
+  FxRatesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? baseCurrency,
+    Value<String>? targetCurrency,
+    Value<double>? rate,
+    Value<DateTime>? asOfDate,
+    Value<String>? source,
+  }) {
+    return FxRatesCompanion(
+      id: id ?? this.id,
+      baseCurrency: baseCurrency ?? this.baseCurrency,
+      targetCurrency: targetCurrency ?? this.targetCurrency,
+      rate: rate ?? this.rate,
+      asOfDate: asOfDate ?? this.asOfDate,
+      source: source ?? this.source,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (baseCurrency.present) {
+      map['base_currency'] = Variable<String>(baseCurrency.value);
+    }
+    if (targetCurrency.present) {
+      map['target_currency'] = Variable<String>(targetCurrency.value);
+    }
+    if (rate.present) {
+      map['rate'] = Variable<double>(rate.value);
+    }
+    if (asOfDate.present) {
+      map['as_of_date'] = Variable<DateTime>(asOfDate.value);
+    }
+    if (source.present) {
+      map['source'] = Variable<String>(source.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FxRatesCompanion(')
+          ..write('id: $id, ')
+          ..write('baseCurrency: $baseCurrency, ')
+          ..write('targetCurrency: $targetCurrency, ')
+          ..write('rate: $rate, ')
+          ..write('asOfDate: $asOfDate, ')
+          ..write('source: $source')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $HsCodesTable extends HsCodes with TableInfo<$HsCodesTable, HsCode> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $HsCodesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _codeMeta = const VerificationMeta('code');
+  @override
+  late final GeneratedColumn<String> code = GeneratedColumn<String>(
+    'code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _chapterMeta = const VerificationMeta(
+    'chapter',
+  );
+  @override
+  late final GeneratedColumn<String> chapter = GeneratedColumn<String>(
+    'chapter',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _headingMeta = const VerificationMeta(
+    'heading',
+  );
+  @override
+  late final GeneratedColumn<String> heading = GeneratedColumn<String>(
+    'heading',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _dutyRatesJsonMeta = const VerificationMeta(
+    'dutyRatesJson',
+  );
+  @override
+  late final GeneratedColumn<String> dutyRatesJson = GeneratedColumn<String>(
+    'duty_rates_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    code,
+    description,
+    chapter,
+    heading,
+    dutyRatesJson,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'hs_codes';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<HsCode> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('code')) {
+      context.handle(
+        _codeMeta,
+        code.isAcceptableOrUnknown(data['code']!, _codeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_codeMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('chapter')) {
+      context.handle(
+        _chapterMeta,
+        chapter.isAcceptableOrUnknown(data['chapter']!, _chapterMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_chapterMeta);
+    }
+    if (data.containsKey('heading')) {
+      context.handle(
+        _headingMeta,
+        heading.isAcceptableOrUnknown(data['heading']!, _headingMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_headingMeta);
+    }
+    if (data.containsKey('duty_rates_json')) {
+      context.handle(
+        _dutyRatesJsonMeta,
+        dutyRatesJson.isAcceptableOrUnknown(
+          data['duty_rates_json']!,
+          _dutyRatesJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_dutyRatesJsonMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  HsCode map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return HsCode(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      code: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}code'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      chapter: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}chapter'],
+      )!,
+      heading: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}heading'],
+      )!,
+      dutyRatesJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}duty_rates_json'],
+      )!,
+    );
+  }
+
+  @override
+  $HsCodesTable createAlias(String alias) {
+    return $HsCodesTable(attachedDatabase, alias);
+  }
+}
+
+class HsCode extends DataClass implements Insertable<HsCode> {
+  final int id;
+  final String code;
+  final String description;
+  final String chapter;
+  final String heading;
+  final String dutyRatesJson;
+  const HsCode({
+    required this.id,
+    required this.code,
+    required this.description,
+    required this.chapter,
+    required this.heading,
+    required this.dutyRatesJson,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['code'] = Variable<String>(code);
+    map['description'] = Variable<String>(description);
+    map['chapter'] = Variable<String>(chapter);
+    map['heading'] = Variable<String>(heading);
+    map['duty_rates_json'] = Variable<String>(dutyRatesJson);
+    return map;
+  }
+
+  HsCodesCompanion toCompanion(bool nullToAbsent) {
+    return HsCodesCompanion(
+      id: Value(id),
+      code: Value(code),
+      description: Value(description),
+      chapter: Value(chapter),
+      heading: Value(heading),
+      dutyRatesJson: Value(dutyRatesJson),
+    );
+  }
+
+  factory HsCode.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return HsCode(
+      id: serializer.fromJson<int>(json['id']),
+      code: serializer.fromJson<String>(json['code']),
+      description: serializer.fromJson<String>(json['description']),
+      chapter: serializer.fromJson<String>(json['chapter']),
+      heading: serializer.fromJson<String>(json['heading']),
+      dutyRatesJson: serializer.fromJson<String>(json['dutyRatesJson']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'code': serializer.toJson<String>(code),
+      'description': serializer.toJson<String>(description),
+      'chapter': serializer.toJson<String>(chapter),
+      'heading': serializer.toJson<String>(heading),
+      'dutyRatesJson': serializer.toJson<String>(dutyRatesJson),
+    };
+  }
+
+  HsCode copyWith({
+    int? id,
+    String? code,
+    String? description,
+    String? chapter,
+    String? heading,
+    String? dutyRatesJson,
+  }) => HsCode(
+    id: id ?? this.id,
+    code: code ?? this.code,
+    description: description ?? this.description,
+    chapter: chapter ?? this.chapter,
+    heading: heading ?? this.heading,
+    dutyRatesJson: dutyRatesJson ?? this.dutyRatesJson,
+  );
+  HsCode copyWithCompanion(HsCodesCompanion data) {
+    return HsCode(
+      id: data.id.present ? data.id.value : this.id,
+      code: data.code.present ? data.code.value : this.code,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      chapter: data.chapter.present ? data.chapter.value : this.chapter,
+      heading: data.heading.present ? data.heading.value : this.heading,
+      dutyRatesJson: data.dutyRatesJson.present
+          ? data.dutyRatesJson.value
+          : this.dutyRatesJson,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('HsCode(')
+          ..write('id: $id, ')
+          ..write('code: $code, ')
+          ..write('description: $description, ')
+          ..write('chapter: $chapter, ')
+          ..write('heading: $heading, ')
+          ..write('dutyRatesJson: $dutyRatesJson')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, code, description, chapter, heading, dutyRatesJson);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is HsCode &&
+          other.id == this.id &&
+          other.code == this.code &&
+          other.description == this.description &&
+          other.chapter == this.chapter &&
+          other.heading == this.heading &&
+          other.dutyRatesJson == this.dutyRatesJson);
+}
+
+class HsCodesCompanion extends UpdateCompanion<HsCode> {
+  final Value<int> id;
+  final Value<String> code;
+  final Value<String> description;
+  final Value<String> chapter;
+  final Value<String> heading;
+  final Value<String> dutyRatesJson;
+  const HsCodesCompanion({
+    this.id = const Value.absent(),
+    this.code = const Value.absent(),
+    this.description = const Value.absent(),
+    this.chapter = const Value.absent(),
+    this.heading = const Value.absent(),
+    this.dutyRatesJson = const Value.absent(),
+  });
+  HsCodesCompanion.insert({
+    this.id = const Value.absent(),
+    required String code,
+    required String description,
+    required String chapter,
+    required String heading,
+    required String dutyRatesJson,
+  }) : code = Value(code),
+       description = Value(description),
+       chapter = Value(chapter),
+       heading = Value(heading),
+       dutyRatesJson = Value(dutyRatesJson);
+  static Insertable<HsCode> custom({
+    Expression<int>? id,
+    Expression<String>? code,
+    Expression<String>? description,
+    Expression<String>? chapter,
+    Expression<String>? heading,
+    Expression<String>? dutyRatesJson,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (code != null) 'code': code,
+      if (description != null) 'description': description,
+      if (chapter != null) 'chapter': chapter,
+      if (heading != null) 'heading': heading,
+      if (dutyRatesJson != null) 'duty_rates_json': dutyRatesJson,
+    });
+  }
+
+  HsCodesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? code,
+    Value<String>? description,
+    Value<String>? chapter,
+    Value<String>? heading,
+    Value<String>? dutyRatesJson,
+  }) {
+    return HsCodesCompanion(
+      id: id ?? this.id,
+      code: code ?? this.code,
+      description: description ?? this.description,
+      chapter: chapter ?? this.chapter,
+      heading: heading ?? this.heading,
+      dutyRatesJson: dutyRatesJson ?? this.dutyRatesJson,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (code.present) {
+      map['code'] = Variable<String>(code.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (chapter.present) {
+      map['chapter'] = Variable<String>(chapter.value);
+    }
+    if (heading.present) {
+      map['heading'] = Variable<String>(heading.value);
+    }
+    if (dutyRatesJson.present) {
+      map['duty_rates_json'] = Variable<String>(dutyRatesJson.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('HsCodesCompanion(')
+          ..write('id: $id, ')
+          ..write('code: $code, ')
+          ..write('description: $description, ')
+          ..write('chapter: $chapter, ')
+          ..write('heading: $heading, ')
+          ..write('dutyRatesJson: $dutyRatesJson')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -11877,6 +16590,17 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $SyncQueueTable syncQueue = $SyncQueueTable(this);
   late final $RawMaterialsTable rawMaterials = $RawMaterialsTable(this);
   late final $HygieneLogsTable hygieneLogs = $HygieneLogsTable(this);
+  late final $EntitiesTable entities = $EntitiesTable(this);
+  late final $DistributorsTable distributors = $DistributorsTable(this);
+  late final $ExportOrdersTable exportOrders = $ExportOrdersTable(this);
+  late final $ExportLinesTable exportLines = $ExportLinesTable(this);
+  late final $ExportShipmentsTable exportShipments = $ExportShipmentsTable(
+    this,
+  );
+  late final $ComplianceProfilesTable complianceProfiles =
+      $ComplianceProfilesTable(this);
+  late final $FxRatesTable fxRates = $FxRatesTable(this);
+  late final $HsCodesTable hsCodes = $HsCodesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -11900,6 +16624,14 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     syncQueue,
     rawMaterials,
     hygieneLogs,
+    entities,
+    distributors,
+    exportOrders,
+    exportLines,
+    exportShipments,
+    complianceProfiles,
+    fxRates,
+    hsCodes,
   ];
 }
 
@@ -12031,6 +16763,24 @@ final class $$ProductsTableReferences
     final cache = $_typedResult.readTableOrNull(
       _inventoryTransactionsRefsTable($_db),
     );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$ExportLinesTable, List<ExportLine>>
+  _exportLinesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.exportLines,
+    aliasName: 'products__id__export_lines__product_id',
+  );
+
+  $$ExportLinesTableProcessedTableManager get exportLinesRefs {
+    final manager = $$ExportLinesTableTableManager(
+      $_db,
+      $_db.exportLines,
+    ).filter((f) => f.productId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_exportLinesRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -12244,6 +16994,31 @@ class $$ProductsTableFilterComposer
                     $removeJoinBuilderFromRootComposer,
               ),
         );
+    return f(composer);
+  }
+
+  Expression<bool> exportLinesRefs(
+    Expression<bool> Function($$ExportLinesTableFilterComposer f) f,
+  ) {
+    final $$ExportLinesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportLines,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportLinesTableFilterComposer(
+            $db: $db,
+            $table: $db.exportLines,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 }
@@ -12540,6 +17315,31 @@ class $$ProductsTableAnnotationComposer
         );
     return f(composer);
   }
+
+  Expression<T> exportLinesRefs<T extends Object>(
+    Expression<T> Function($$ExportLinesTableAnnotationComposer a) f,
+  ) {
+    final $$ExportLinesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportLines,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportLinesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.exportLines,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ProductsTableTableManager
@@ -12560,6 +17360,7 @@ class $$ProductsTableTableManager
             bool productionBatchesRefs,
             bool inventoryRefs,
             bool inventoryTransactionsRefs,
+            bool exportLinesRefs,
           })
         > {
   $$ProductsTableTableManager(_$AppDatabase db, $ProductsTable table)
@@ -12675,6 +17476,7 @@ class $$ProductsTableTableManager
                 productionBatchesRefs = false,
                 inventoryRefs = false,
                 inventoryTransactionsRefs = false,
+                exportLinesRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -12683,6 +17485,7 @@ class $$ProductsTableTableManager
                     if (productionBatchesRefs) db.productionBatches,
                     if (inventoryRefs) db.inventory,
                     if (inventoryTransactionsRefs) db.inventoryTransactions,
+                    if (exportLinesRefs) db.exportLines,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -12771,6 +17574,27 @@ class $$ProductsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (exportLinesRefs)
+                        await $_getPrefetchedData<
+                          Product,
+                          $ProductsTable,
+                          ExportLine
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductsTableReferences
+                              ._exportLinesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).exportLinesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.productId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -12796,6 +17620,7 @@ typedef $$ProductsTableProcessedTableManager =
         bool productionBatchesRefs,
         bool inventoryRefs,
         bool inventoryTransactionsRefs,
+        bool exportLinesRefs,
       })
     >;
 typedef $$CustomersTableCreateCompanionBuilder =
@@ -16354,6 +21179,24 @@ final class $$ProductionBatchesTableReferences
       manager.$state.copyWith(prefetchedData: [item]),
     );
   }
+
+  static MultiTypedResultKey<$ExportLinesTable, List<ExportLine>>
+  _exportLinesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.exportLines,
+    aliasName: 'production_batches__id__export_lines__batch_id',
+  );
+
+  $$ExportLinesTableProcessedTableManager get exportLinesRefs {
+    final manager = $$ExportLinesTableTableManager(
+      $_db,
+      $_db.exportLines,
+    ).filter((f) => f.batchId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_exportLinesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$ProductionBatchesTableFilterComposer
@@ -16436,6 +21279,31 @@ class $$ProductionBatchesTableFilterComposer
           ),
     );
     return composer;
+  }
+
+  Expression<bool> exportLinesRefs(
+    Expression<bool> Function($$ExportLinesTableFilterComposer f) f,
+  ) {
+    final $$ExportLinesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportLines,
+      getReferencedColumn: (t) => t.batchId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportLinesTableFilterComposer(
+            $db: $db,
+            $table: $db.exportLines,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
   }
 }
 
@@ -16595,6 +21463,31 @@ class $$ProductionBatchesTableAnnotationComposer
     );
     return composer;
   }
+
+  Expression<T> exportLinesRefs<T extends Object>(
+    Expression<T> Function($$ExportLinesTableAnnotationComposer a) f,
+  ) {
+    final $$ExportLinesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportLines,
+      getReferencedColumn: (t) => t.batchId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportLinesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.exportLines,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ProductionBatchesTableTableManager
@@ -16610,7 +21503,7 @@ class $$ProductionBatchesTableTableManager
           $$ProductionBatchesTableUpdateCompanionBuilder,
           (ProductionBatche, $$ProductionBatchesTableReferences),
           ProductionBatche,
-          PrefetchHooks Function({bool productId})
+          PrefetchHooks Function({bool productId, bool exportLinesRefs})
         > {
   $$ProductionBatchesTableTableManager(
     _$AppDatabase db,
@@ -16688,49 +21581,74 @@ class $$ProductionBatchesTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({productId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (productId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.productId,
-                                referencedTable:
-                                    $$ProductionBatchesTableReferences
-                                        ._productIdTable(db),
-                                referencedColumn:
-                                    $$ProductionBatchesTableReferences
-                                        ._productIdTable(db)
-                                        .id,
-                              )
-                              as T;
-                    }
+          prefetchHooksCallback:
+              ({productId = false, exportLinesRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (exportLinesRefs) db.exportLines,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (productId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.productId,
+                                    referencedTable:
+                                        $$ProductionBatchesTableReferences
+                                            ._productIdTable(db),
+                                    referencedColumn:
+                                        $$ProductionBatchesTableReferences
+                                            ._productIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
 
-                    return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (exportLinesRefs)
+                        await $_getPrefetchedData<
+                          ProductionBatche,
+                          $ProductionBatchesTable,
+                          ExportLine
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductionBatchesTableReferences
+                              ._exportLinesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductionBatchesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).exportLinesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.batchId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
                   },
-              getPrefetchedDataCallback: (items) async {
-                return [];
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -16747,7 +21665,7 @@ typedef $$ProductionBatchesTableProcessedTableManager =
       $$ProductionBatchesTableUpdateCompanionBuilder,
       (ProductionBatche, $$ProductionBatchesTableReferences),
       ProductionBatche,
-      PrefetchHooks Function({bool productId})
+      PrefetchHooks Function({bool productId, bool exportLinesRefs})
     >;
 typedef $$InventoryTableCreateCompanionBuilder =
     InventoryCompanion Function({
@@ -19880,6 +24798,3342 @@ typedef $$HygieneLogsTableProcessedTableManager =
       HygieneLog,
       PrefetchHooks Function()
     >;
+typedef $$EntitiesTableCreateCompanionBuilder =
+    EntitiesCompanion Function({
+      Value<int> id,
+      required String name,
+      required String countryCode,
+      required String taxId,
+      required String currency,
+      Value<String?> address,
+      Value<bool> isDefault,
+      Value<DateTime> createdAt,
+    });
+typedef $$EntitiesTableUpdateCompanionBuilder =
+    EntitiesCompanion Function({
+      Value<int> id,
+      Value<String> name,
+      Value<String> countryCode,
+      Value<String> taxId,
+      Value<String> currency,
+      Value<String?> address,
+      Value<bool> isDefault,
+      Value<DateTime> createdAt,
+    });
+
+final class $$EntitiesTableReferences
+    extends BaseReferences<_$AppDatabase, $EntitiesTable, Entity> {
+  $$EntitiesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$ExportOrdersTable, List<ExportOrder>>
+  _exportOrdersRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.exportOrders,
+    aliasName: 'entities__id__export_orders__entity_id',
+  );
+
+  $$ExportOrdersTableProcessedTableManager get exportOrdersRefs {
+    final manager = $$ExportOrdersTableTableManager(
+      $_db,
+      $_db.exportOrders,
+    ).filter((f) => f.entityId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_exportOrdersRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$EntitiesTableFilterComposer
+    extends Composer<_$AppDatabase, $EntitiesTable> {
+  $$EntitiesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get countryCode => $composableBuilder(
+    column: $table.countryCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get taxId => $composableBuilder(
+    column: $table.taxId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get currency => $composableBuilder(
+    column: $table.currency,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isDefault => $composableBuilder(
+    column: $table.isDefault,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> exportOrdersRefs(
+    Expression<bool> Function($$ExportOrdersTableFilterComposer f) f,
+  ) {
+    final $$ExportOrdersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.entityId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableFilterComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$EntitiesTableOrderingComposer
+    extends Composer<_$AppDatabase, $EntitiesTable> {
+  $$EntitiesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get countryCode => $composableBuilder(
+    column: $table.countryCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get taxId => $composableBuilder(
+    column: $table.taxId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get currency => $composableBuilder(
+    column: $table.currency,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isDefault => $composableBuilder(
+    column: $table.isDefault,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$EntitiesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $EntitiesTable> {
+  $$EntitiesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get countryCode => $composableBuilder(
+    column: $table.countryCode,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get taxId =>
+      $composableBuilder(column: $table.taxId, builder: (column) => column);
+
+  GeneratedColumn<String> get currency =>
+      $composableBuilder(column: $table.currency, builder: (column) => column);
+
+  GeneratedColumn<String> get address =>
+      $composableBuilder(column: $table.address, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDefault =>
+      $composableBuilder(column: $table.isDefault, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> exportOrdersRefs<T extends Object>(
+    Expression<T> Function($$ExportOrdersTableAnnotationComposer a) f,
+  ) {
+    final $$ExportOrdersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.entityId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$EntitiesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $EntitiesTable,
+          Entity,
+          $$EntitiesTableFilterComposer,
+          $$EntitiesTableOrderingComposer,
+          $$EntitiesTableAnnotationComposer,
+          $$EntitiesTableCreateCompanionBuilder,
+          $$EntitiesTableUpdateCompanionBuilder,
+          (Entity, $$EntitiesTableReferences),
+          Entity,
+          PrefetchHooks Function({bool exportOrdersRefs})
+        > {
+  $$EntitiesTableTableManager(_$AppDatabase db, $EntitiesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EntitiesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EntitiesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EntitiesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> countryCode = const Value.absent(),
+                Value<String> taxId = const Value.absent(),
+                Value<String> currency = const Value.absent(),
+                Value<String?> address = const Value.absent(),
+                Value<bool> isDefault = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => EntitiesCompanion(
+                id: id,
+                name: name,
+                countryCode: countryCode,
+                taxId: taxId,
+                currency: currency,
+                address: address,
+                isDefault: isDefault,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String name,
+                required String countryCode,
+                required String taxId,
+                required String currency,
+                Value<String?> address = const Value.absent(),
+                Value<bool> isDefault = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => EntitiesCompanion.insert(
+                id: id,
+                name: name,
+                countryCode: countryCode,
+                taxId: taxId,
+                currency: currency,
+                address: address,
+                isDefault: isDefault,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$EntitiesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({exportOrdersRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (exportOrdersRefs) db.exportOrders],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (exportOrdersRefs)
+                    await $_getPrefetchedData<
+                      Entity,
+                      $EntitiesTable,
+                      ExportOrder
+                    >(
+                      currentTable: table,
+                      referencedTable: $$EntitiesTableReferences
+                          ._exportOrdersRefsTable(db),
+                      managerFromTypedResult: (p0) => $$EntitiesTableReferences(
+                        db,
+                        table,
+                        p0,
+                      ).exportOrdersRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.entityId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$EntitiesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $EntitiesTable,
+      Entity,
+      $$EntitiesTableFilterComposer,
+      $$EntitiesTableOrderingComposer,
+      $$EntitiesTableAnnotationComposer,
+      $$EntitiesTableCreateCompanionBuilder,
+      $$EntitiesTableUpdateCompanionBuilder,
+      (Entity, $$EntitiesTableReferences),
+      Entity,
+      PrefetchHooks Function({bool exportOrdersRefs})
+    >;
+typedef $$DistributorsTableCreateCompanionBuilder =
+    DistributorsCompanion Function({
+      Value<int> id,
+      required String name,
+      required String countryCode,
+      required String currency,
+      Value<int> creditLimitMinor,
+      Value<int> creditDays,
+      Value<String?> taxId,
+      Value<String> incotermsDefault,
+      Value<String> paymentTerms,
+      Value<String?> contactJson,
+      Value<DateTime> createdAt,
+    });
+typedef $$DistributorsTableUpdateCompanionBuilder =
+    DistributorsCompanion Function({
+      Value<int> id,
+      Value<String> name,
+      Value<String> countryCode,
+      Value<String> currency,
+      Value<int> creditLimitMinor,
+      Value<int> creditDays,
+      Value<String?> taxId,
+      Value<String> incotermsDefault,
+      Value<String> paymentTerms,
+      Value<String?> contactJson,
+      Value<DateTime> createdAt,
+    });
+
+final class $$DistributorsTableReferences
+    extends BaseReferences<_$AppDatabase, $DistributorsTable, Distributor> {
+  $$DistributorsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$ExportOrdersTable, List<ExportOrder>>
+  _exportOrdersRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.exportOrders,
+    aliasName: 'distributors__id__export_orders__distributor_id',
+  );
+
+  $$ExportOrdersTableProcessedTableManager get exportOrdersRefs {
+    final manager = $$ExportOrdersTableTableManager(
+      $_db,
+      $_db.exportOrders,
+    ).filter((f) => f.distributorId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_exportOrdersRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$DistributorsTableFilterComposer
+    extends Composer<_$AppDatabase, $DistributorsTable> {
+  $$DistributorsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get countryCode => $composableBuilder(
+    column: $table.countryCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get currency => $composableBuilder(
+    column: $table.currency,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get creditLimitMinor => $composableBuilder(
+    column: $table.creditLimitMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get creditDays => $composableBuilder(
+    column: $table.creditDays,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get taxId => $composableBuilder(
+    column: $table.taxId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get incotermsDefault => $composableBuilder(
+    column: $table.incotermsDefault,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get paymentTerms => $composableBuilder(
+    column: $table.paymentTerms,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get contactJson => $composableBuilder(
+    column: $table.contactJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> exportOrdersRefs(
+    Expression<bool> Function($$ExportOrdersTableFilterComposer f) f,
+  ) {
+    final $$ExportOrdersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.distributorId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableFilterComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$DistributorsTableOrderingComposer
+    extends Composer<_$AppDatabase, $DistributorsTable> {
+  $$DistributorsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get countryCode => $composableBuilder(
+    column: $table.countryCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get currency => $composableBuilder(
+    column: $table.currency,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get creditLimitMinor => $composableBuilder(
+    column: $table.creditLimitMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get creditDays => $composableBuilder(
+    column: $table.creditDays,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get taxId => $composableBuilder(
+    column: $table.taxId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get incotermsDefault => $composableBuilder(
+    column: $table.incotermsDefault,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get paymentTerms => $composableBuilder(
+    column: $table.paymentTerms,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get contactJson => $composableBuilder(
+    column: $table.contactJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$DistributorsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DistributorsTable> {
+  $$DistributorsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get countryCode => $composableBuilder(
+    column: $table.countryCode,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get currency =>
+      $composableBuilder(column: $table.currency, builder: (column) => column);
+
+  GeneratedColumn<int> get creditLimitMinor => $composableBuilder(
+    column: $table.creditLimitMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get creditDays => $composableBuilder(
+    column: $table.creditDays,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get taxId =>
+      $composableBuilder(column: $table.taxId, builder: (column) => column);
+
+  GeneratedColumn<String> get incotermsDefault => $composableBuilder(
+    column: $table.incotermsDefault,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get paymentTerms => $composableBuilder(
+    column: $table.paymentTerms,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get contactJson => $composableBuilder(
+    column: $table.contactJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> exportOrdersRefs<T extends Object>(
+    Expression<T> Function($$ExportOrdersTableAnnotationComposer a) f,
+  ) {
+    final $$ExportOrdersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.distributorId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$DistributorsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $DistributorsTable,
+          Distributor,
+          $$DistributorsTableFilterComposer,
+          $$DistributorsTableOrderingComposer,
+          $$DistributorsTableAnnotationComposer,
+          $$DistributorsTableCreateCompanionBuilder,
+          $$DistributorsTableUpdateCompanionBuilder,
+          (Distributor, $$DistributorsTableReferences),
+          Distributor,
+          PrefetchHooks Function({bool exportOrdersRefs})
+        > {
+  $$DistributorsTableTableManager(_$AppDatabase db, $DistributorsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DistributorsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DistributorsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DistributorsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> countryCode = const Value.absent(),
+                Value<String> currency = const Value.absent(),
+                Value<int> creditLimitMinor = const Value.absent(),
+                Value<int> creditDays = const Value.absent(),
+                Value<String?> taxId = const Value.absent(),
+                Value<String> incotermsDefault = const Value.absent(),
+                Value<String> paymentTerms = const Value.absent(),
+                Value<String?> contactJson = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => DistributorsCompanion(
+                id: id,
+                name: name,
+                countryCode: countryCode,
+                currency: currency,
+                creditLimitMinor: creditLimitMinor,
+                creditDays: creditDays,
+                taxId: taxId,
+                incotermsDefault: incotermsDefault,
+                paymentTerms: paymentTerms,
+                contactJson: contactJson,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String name,
+                required String countryCode,
+                required String currency,
+                Value<int> creditLimitMinor = const Value.absent(),
+                Value<int> creditDays = const Value.absent(),
+                Value<String?> taxId = const Value.absent(),
+                Value<String> incotermsDefault = const Value.absent(),
+                Value<String> paymentTerms = const Value.absent(),
+                Value<String?> contactJson = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => DistributorsCompanion.insert(
+                id: id,
+                name: name,
+                countryCode: countryCode,
+                currency: currency,
+                creditLimitMinor: creditLimitMinor,
+                creditDays: creditDays,
+                taxId: taxId,
+                incotermsDefault: incotermsDefault,
+                paymentTerms: paymentTerms,
+                contactJson: contactJson,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$DistributorsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({exportOrdersRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (exportOrdersRefs) db.exportOrders],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (exportOrdersRefs)
+                    await $_getPrefetchedData<
+                      Distributor,
+                      $DistributorsTable,
+                      ExportOrder
+                    >(
+                      currentTable: table,
+                      referencedTable: $$DistributorsTableReferences
+                          ._exportOrdersRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$DistributorsTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).exportOrdersRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where(
+                            (e) => e.distributorId == item.id,
+                          ),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$DistributorsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $DistributorsTable,
+      Distributor,
+      $$DistributorsTableFilterComposer,
+      $$DistributorsTableOrderingComposer,
+      $$DistributorsTableAnnotationComposer,
+      $$DistributorsTableCreateCompanionBuilder,
+      $$DistributorsTableUpdateCompanionBuilder,
+      (Distributor, $$DistributorsTableReferences),
+      Distributor,
+      PrefetchHooks Function({bool exportOrdersRefs})
+    >;
+typedef $$ExportOrdersTableCreateCompanionBuilder =
+    ExportOrdersCompanion Function({
+      Value<int> id,
+      required String orderNumber,
+      required int entityId,
+      required int distributorId,
+      required String destinationCountry,
+      required String currency,
+      Value<double> fxRateToInr,
+      required String incoterm,
+      required String portOfLoading,
+      required String portOfDischarge,
+      Value<String> status,
+      Value<int> subtotalMinor,
+      Value<int> dutyMinor,
+      Value<int> freightMinor,
+      Value<int> insuranceMinor,
+      Value<int> totalMinor,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+    });
+typedef $$ExportOrdersTableUpdateCompanionBuilder =
+    ExportOrdersCompanion Function({
+      Value<int> id,
+      Value<String> orderNumber,
+      Value<int> entityId,
+      Value<int> distributorId,
+      Value<String> destinationCountry,
+      Value<String> currency,
+      Value<double> fxRateToInr,
+      Value<String> incoterm,
+      Value<String> portOfLoading,
+      Value<String> portOfDischarge,
+      Value<String> status,
+      Value<int> subtotalMinor,
+      Value<int> dutyMinor,
+      Value<int> freightMinor,
+      Value<int> insuranceMinor,
+      Value<int> totalMinor,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+    });
+
+final class $$ExportOrdersTableReferences
+    extends BaseReferences<_$AppDatabase, $ExportOrdersTable, ExportOrder> {
+  $$ExportOrdersTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $EntitiesTable _entityIdTable(_$AppDatabase db) =>
+      db.entities.createAlias('export_orders__entity_id__entities__id');
+
+  $$EntitiesTableProcessedTableManager get entityId {
+    final $_column = $_itemColumn<int>('entity_id')!;
+
+    final manager = $$EntitiesTableTableManager(
+      $_db,
+      $_db.entities,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_entityIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $DistributorsTable _distributorIdTable(_$AppDatabase db) => db
+      .distributors
+      .createAlias('export_orders__distributor_id__distributors__id');
+
+  $$DistributorsTableProcessedTableManager get distributorId {
+    final $_column = $_itemColumn<int>('distributor_id')!;
+
+    final manager = $$DistributorsTableTableManager(
+      $_db,
+      $_db.distributors,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_distributorIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$ExportLinesTable, List<ExportLine>>
+  _exportLinesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.exportLines,
+    aliasName: 'export_orders__id__export_lines__export_order_id',
+  );
+
+  $$ExportLinesTableProcessedTableManager get exportLinesRefs {
+    final manager = $$ExportLinesTableTableManager(
+      $_db,
+      $_db.exportLines,
+    ).filter((f) => f.exportOrderId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_exportLinesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$ExportShipmentsTable, List<ExportShipment>>
+  _exportShipmentsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.exportShipments,
+    aliasName: 'export_orders__id__export_shipments__export_order_id',
+  );
+
+  $$ExportShipmentsTableProcessedTableManager get exportShipmentsRefs {
+    final manager = $$ExportShipmentsTableTableManager(
+      $_db,
+      $_db.exportShipments,
+    ).filter((f) => f.exportOrderId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _exportShipmentsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$ExportOrdersTableFilterComposer
+    extends Composer<_$AppDatabase, $ExportOrdersTable> {
+  $$ExportOrdersTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get orderNumber => $composableBuilder(
+    column: $table.orderNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get destinationCountry => $composableBuilder(
+    column: $table.destinationCountry,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get currency => $composableBuilder(
+    column: $table.currency,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get fxRateToInr => $composableBuilder(
+    column: $table.fxRateToInr,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get incoterm => $composableBuilder(
+    column: $table.incoterm,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get portOfLoading => $composableBuilder(
+    column: $table.portOfLoading,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get portOfDischarge => $composableBuilder(
+    column: $table.portOfDischarge,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get subtotalMinor => $composableBuilder(
+    column: $table.subtotalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get dutyMinor => $composableBuilder(
+    column: $table.dutyMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get freightMinor => $composableBuilder(
+    column: $table.freightMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get insuranceMinor => $composableBuilder(
+    column: $table.insuranceMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$EntitiesTableFilterComposer get entityId {
+    final $$EntitiesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.entityId,
+      referencedTable: $db.entities,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EntitiesTableFilterComposer(
+            $db: $db,
+            $table: $db.entities,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$DistributorsTableFilterComposer get distributorId {
+    final $$DistributorsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.distributorId,
+      referencedTable: $db.distributors,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DistributorsTableFilterComposer(
+            $db: $db,
+            $table: $db.distributors,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> exportLinesRefs(
+    Expression<bool> Function($$ExportLinesTableFilterComposer f) f,
+  ) {
+    final $$ExportLinesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportLines,
+      getReferencedColumn: (t) => t.exportOrderId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportLinesTableFilterComposer(
+            $db: $db,
+            $table: $db.exportLines,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> exportShipmentsRefs(
+    Expression<bool> Function($$ExportShipmentsTableFilterComposer f) f,
+  ) {
+    final $$ExportShipmentsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportShipments,
+      getReferencedColumn: (t) => t.exportOrderId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportShipmentsTableFilterComposer(
+            $db: $db,
+            $table: $db.exportShipments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ExportOrdersTableOrderingComposer
+    extends Composer<_$AppDatabase, $ExportOrdersTable> {
+  $$ExportOrdersTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get orderNumber => $composableBuilder(
+    column: $table.orderNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get destinationCountry => $composableBuilder(
+    column: $table.destinationCountry,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get currency => $composableBuilder(
+    column: $table.currency,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get fxRateToInr => $composableBuilder(
+    column: $table.fxRateToInr,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get incoterm => $composableBuilder(
+    column: $table.incoterm,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get portOfLoading => $composableBuilder(
+    column: $table.portOfLoading,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get portOfDischarge => $composableBuilder(
+    column: $table.portOfDischarge,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get subtotalMinor => $composableBuilder(
+    column: $table.subtotalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get dutyMinor => $composableBuilder(
+    column: $table.dutyMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get freightMinor => $composableBuilder(
+    column: $table.freightMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get insuranceMinor => $composableBuilder(
+    column: $table.insuranceMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$EntitiesTableOrderingComposer get entityId {
+    final $$EntitiesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.entityId,
+      referencedTable: $db.entities,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EntitiesTableOrderingComposer(
+            $db: $db,
+            $table: $db.entities,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$DistributorsTableOrderingComposer get distributorId {
+    final $$DistributorsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.distributorId,
+      referencedTable: $db.distributors,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DistributorsTableOrderingComposer(
+            $db: $db,
+            $table: $db.distributors,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExportOrdersTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ExportOrdersTable> {
+  $$ExportOrdersTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get orderNumber => $composableBuilder(
+    column: $table.orderNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get destinationCountry => $composableBuilder(
+    column: $table.destinationCountry,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get currency =>
+      $composableBuilder(column: $table.currency, builder: (column) => column);
+
+  GeneratedColumn<double> get fxRateToInr => $composableBuilder(
+    column: $table.fxRateToInr,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get incoterm =>
+      $composableBuilder(column: $table.incoterm, builder: (column) => column);
+
+  GeneratedColumn<String> get portOfLoading => $composableBuilder(
+    column: $table.portOfLoading,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get portOfDischarge => $composableBuilder(
+    column: $table.portOfDischarge,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<int> get subtotalMinor => $composableBuilder(
+    column: $table.subtotalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get dutyMinor =>
+      $composableBuilder(column: $table.dutyMinor, builder: (column) => column);
+
+  GeneratedColumn<int> get freightMinor => $composableBuilder(
+    column: $table.freightMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get insuranceMinor => $composableBuilder(
+    column: $table.insuranceMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$EntitiesTableAnnotationComposer get entityId {
+    final $$EntitiesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.entityId,
+      referencedTable: $db.entities,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EntitiesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.entities,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$DistributorsTableAnnotationComposer get distributorId {
+    final $$DistributorsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.distributorId,
+      referencedTable: $db.distributors,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DistributorsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.distributors,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> exportLinesRefs<T extends Object>(
+    Expression<T> Function($$ExportLinesTableAnnotationComposer a) f,
+  ) {
+    final $$ExportLinesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportLines,
+      getReferencedColumn: (t) => t.exportOrderId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportLinesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.exportLines,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> exportShipmentsRefs<T extends Object>(
+    Expression<T> Function($$ExportShipmentsTableAnnotationComposer a) f,
+  ) {
+    final $$ExportShipmentsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.exportShipments,
+      getReferencedColumn: (t) => t.exportOrderId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportShipmentsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.exportShipments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ExportOrdersTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ExportOrdersTable,
+          ExportOrder,
+          $$ExportOrdersTableFilterComposer,
+          $$ExportOrdersTableOrderingComposer,
+          $$ExportOrdersTableAnnotationComposer,
+          $$ExportOrdersTableCreateCompanionBuilder,
+          $$ExportOrdersTableUpdateCompanionBuilder,
+          (ExportOrder, $$ExportOrdersTableReferences),
+          ExportOrder,
+          PrefetchHooks Function({
+            bool entityId,
+            bool distributorId,
+            bool exportLinesRefs,
+            bool exportShipmentsRefs,
+          })
+        > {
+  $$ExportOrdersTableTableManager(_$AppDatabase db, $ExportOrdersTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ExportOrdersTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExportOrdersTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExportOrdersTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> orderNumber = const Value.absent(),
+                Value<int> entityId = const Value.absent(),
+                Value<int> distributorId = const Value.absent(),
+                Value<String> destinationCountry = const Value.absent(),
+                Value<String> currency = const Value.absent(),
+                Value<double> fxRateToInr = const Value.absent(),
+                Value<String> incoterm = const Value.absent(),
+                Value<String> portOfLoading = const Value.absent(),
+                Value<String> portOfDischarge = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> subtotalMinor = const Value.absent(),
+                Value<int> dutyMinor = const Value.absent(),
+                Value<int> freightMinor = const Value.absent(),
+                Value<int> insuranceMinor = const Value.absent(),
+                Value<int> totalMinor = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => ExportOrdersCompanion(
+                id: id,
+                orderNumber: orderNumber,
+                entityId: entityId,
+                distributorId: distributorId,
+                destinationCountry: destinationCountry,
+                currency: currency,
+                fxRateToInr: fxRateToInr,
+                incoterm: incoterm,
+                portOfLoading: portOfLoading,
+                portOfDischarge: portOfDischarge,
+                status: status,
+                subtotalMinor: subtotalMinor,
+                dutyMinor: dutyMinor,
+                freightMinor: freightMinor,
+                insuranceMinor: insuranceMinor,
+                totalMinor: totalMinor,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String orderNumber,
+                required int entityId,
+                required int distributorId,
+                required String destinationCountry,
+                required String currency,
+                Value<double> fxRateToInr = const Value.absent(),
+                required String incoterm,
+                required String portOfLoading,
+                required String portOfDischarge,
+                Value<String> status = const Value.absent(),
+                Value<int> subtotalMinor = const Value.absent(),
+                Value<int> dutyMinor = const Value.absent(),
+                Value<int> freightMinor = const Value.absent(),
+                Value<int> insuranceMinor = const Value.absent(),
+                Value<int> totalMinor = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => ExportOrdersCompanion.insert(
+                id: id,
+                orderNumber: orderNumber,
+                entityId: entityId,
+                distributorId: distributorId,
+                destinationCountry: destinationCountry,
+                currency: currency,
+                fxRateToInr: fxRateToInr,
+                incoterm: incoterm,
+                portOfLoading: portOfLoading,
+                portOfDischarge: portOfDischarge,
+                status: status,
+                subtotalMinor: subtotalMinor,
+                dutyMinor: dutyMinor,
+                freightMinor: freightMinor,
+                insuranceMinor: insuranceMinor,
+                totalMinor: totalMinor,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ExportOrdersTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                entityId = false,
+                distributorId = false,
+                exportLinesRefs = false,
+                exportShipmentsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (exportLinesRefs) db.exportLines,
+                    if (exportShipmentsRefs) db.exportShipments,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (entityId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.entityId,
+                                    referencedTable:
+                                        $$ExportOrdersTableReferences
+                                            ._entityIdTable(db),
+                                    referencedColumn:
+                                        $$ExportOrdersTableReferences
+                                            ._entityIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (distributorId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.distributorId,
+                                    referencedTable:
+                                        $$ExportOrdersTableReferences
+                                            ._distributorIdTable(db),
+                                    referencedColumn:
+                                        $$ExportOrdersTableReferences
+                                            ._distributorIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (exportLinesRefs)
+                        await $_getPrefetchedData<
+                          ExportOrder,
+                          $ExportOrdersTable,
+                          ExportLine
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ExportOrdersTableReferences
+                              ._exportLinesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ExportOrdersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).exportLinesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.exportOrderId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (exportShipmentsRefs)
+                        await $_getPrefetchedData<
+                          ExportOrder,
+                          $ExportOrdersTable,
+                          ExportShipment
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ExportOrdersTableReferences
+                              ._exportShipmentsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ExportOrdersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).exportShipmentsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.exportOrderId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$ExportOrdersTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ExportOrdersTable,
+      ExportOrder,
+      $$ExportOrdersTableFilterComposer,
+      $$ExportOrdersTableOrderingComposer,
+      $$ExportOrdersTableAnnotationComposer,
+      $$ExportOrdersTableCreateCompanionBuilder,
+      $$ExportOrdersTableUpdateCompanionBuilder,
+      (ExportOrder, $$ExportOrdersTableReferences),
+      ExportOrder,
+      PrefetchHooks Function({
+        bool entityId,
+        bool distributorId,
+        bool exportLinesRefs,
+        bool exportShipmentsRefs,
+      })
+    >;
+typedef $$ExportLinesTableCreateCompanionBuilder =
+    ExportLinesCompanion Function({
+      Value<int> id,
+      required int exportOrderId,
+      required int productId,
+      required String sku,
+      Value<int?> batchId,
+      required String hsCode,
+      required double quantityUnits,
+      Value<String> unitType,
+      required int unitPriceMinor,
+      required int lineTotalMinor,
+    });
+typedef $$ExportLinesTableUpdateCompanionBuilder =
+    ExportLinesCompanion Function({
+      Value<int> id,
+      Value<int> exportOrderId,
+      Value<int> productId,
+      Value<String> sku,
+      Value<int?> batchId,
+      Value<String> hsCode,
+      Value<double> quantityUnits,
+      Value<String> unitType,
+      Value<int> unitPriceMinor,
+      Value<int> lineTotalMinor,
+    });
+
+final class $$ExportLinesTableReferences
+    extends BaseReferences<_$AppDatabase, $ExportLinesTable, ExportLine> {
+  $$ExportLinesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ExportOrdersTable _exportOrderIdTable(_$AppDatabase db) => db
+      .exportOrders
+      .createAlias('export_lines__export_order_id__export_orders__id');
+
+  $$ExportOrdersTableProcessedTableManager get exportOrderId {
+    final $_column = $_itemColumn<int>('export_order_id')!;
+
+    final manager = $$ExportOrdersTableTableManager(
+      $_db,
+      $_db.exportOrders,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_exportOrderIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ProductsTable _productIdTable(_$AppDatabase db) =>
+      db.products.createAlias('export_lines__product_id__products__id');
+
+  $$ProductsTableProcessedTableManager get productId {
+    final $_column = $_itemColumn<int>('product_id')!;
+
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_productIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ProductionBatchesTable _batchIdTable(_$AppDatabase db) => db
+      .productionBatches
+      .createAlias('export_lines__batch_id__production_batches__id');
+
+  $$ProductionBatchesTableProcessedTableManager? get batchId {
+    final $_column = $_itemColumn<int>('batch_id');
+    if ($_column == null) return null;
+    final manager = $$ProductionBatchesTableTableManager(
+      $_db,
+      $_db.productionBatches,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_batchIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$ExportLinesTableFilterComposer
+    extends Composer<_$AppDatabase, $ExportLinesTable> {
+  $$ExportLinesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sku => $composableBuilder(
+    column: $table.sku,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get hsCode => $composableBuilder(
+    column: $table.hsCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get quantityUnits => $composableBuilder(
+    column: $table.quantityUnits,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unitType => $composableBuilder(
+    column: $table.unitType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get unitPriceMinor => $composableBuilder(
+    column: $table.unitPriceMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ExportOrdersTableFilterComposer get exportOrderId {
+    final $$ExportOrdersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.exportOrderId,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableFilterComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableFilterComposer get productId {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductionBatchesTableFilterComposer get batchId {
+    final $$ProductionBatchesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.batchId,
+      referencedTable: $db.productionBatches,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductionBatchesTableFilterComposer(
+            $db: $db,
+            $table: $db.productionBatches,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExportLinesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ExportLinesTable> {
+  $$ExportLinesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sku => $composableBuilder(
+    column: $table.sku,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get hsCode => $composableBuilder(
+    column: $table.hsCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get quantityUnits => $composableBuilder(
+    column: $table.quantityUnits,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get unitType => $composableBuilder(
+    column: $table.unitType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get unitPriceMinor => $composableBuilder(
+    column: $table.unitPriceMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ExportOrdersTableOrderingComposer get exportOrderId {
+    final $$ExportOrdersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.exportOrderId,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableOrderingComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableOrderingComposer get productId {
+    final $$ProductsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableOrderingComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductionBatchesTableOrderingComposer get batchId {
+    final $$ProductionBatchesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.batchId,
+      referencedTable: $db.productionBatches,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductionBatchesTableOrderingComposer(
+            $db: $db,
+            $table: $db.productionBatches,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExportLinesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ExportLinesTable> {
+  $$ExportLinesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get sku =>
+      $composableBuilder(column: $table.sku, builder: (column) => column);
+
+  GeneratedColumn<String> get hsCode =>
+      $composableBuilder(column: $table.hsCode, builder: (column) => column);
+
+  GeneratedColumn<double> get quantityUnits => $composableBuilder(
+    column: $table.quantityUnits,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get unitType =>
+      $composableBuilder(column: $table.unitType, builder: (column) => column);
+
+  GeneratedColumn<int> get unitPriceMinor => $composableBuilder(
+    column: $table.unitPriceMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => column,
+  );
+
+  $$ExportOrdersTableAnnotationComposer get exportOrderId {
+    final $$ExportOrdersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.exportOrderId,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableAnnotationComposer get productId {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductionBatchesTableAnnotationComposer get batchId {
+    final $$ProductionBatchesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.batchId,
+          referencedTable: $db.productionBatches,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ProductionBatchesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.productionBatches,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
+}
+
+class $$ExportLinesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ExportLinesTable,
+          ExportLine,
+          $$ExportLinesTableFilterComposer,
+          $$ExportLinesTableOrderingComposer,
+          $$ExportLinesTableAnnotationComposer,
+          $$ExportLinesTableCreateCompanionBuilder,
+          $$ExportLinesTableUpdateCompanionBuilder,
+          (ExportLine, $$ExportLinesTableReferences),
+          ExportLine,
+          PrefetchHooks Function({
+            bool exportOrderId,
+            bool productId,
+            bool batchId,
+          })
+        > {
+  $$ExportLinesTableTableManager(_$AppDatabase db, $ExportLinesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ExportLinesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExportLinesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExportLinesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> exportOrderId = const Value.absent(),
+                Value<int> productId = const Value.absent(),
+                Value<String> sku = const Value.absent(),
+                Value<int?> batchId = const Value.absent(),
+                Value<String> hsCode = const Value.absent(),
+                Value<double> quantityUnits = const Value.absent(),
+                Value<String> unitType = const Value.absent(),
+                Value<int> unitPriceMinor = const Value.absent(),
+                Value<int> lineTotalMinor = const Value.absent(),
+              }) => ExportLinesCompanion(
+                id: id,
+                exportOrderId: exportOrderId,
+                productId: productId,
+                sku: sku,
+                batchId: batchId,
+                hsCode: hsCode,
+                quantityUnits: quantityUnits,
+                unitType: unitType,
+                unitPriceMinor: unitPriceMinor,
+                lineTotalMinor: lineTotalMinor,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int exportOrderId,
+                required int productId,
+                required String sku,
+                Value<int?> batchId = const Value.absent(),
+                required String hsCode,
+                required double quantityUnits,
+                Value<String> unitType = const Value.absent(),
+                required int unitPriceMinor,
+                required int lineTotalMinor,
+              }) => ExportLinesCompanion.insert(
+                id: id,
+                exportOrderId: exportOrderId,
+                productId: productId,
+                sku: sku,
+                batchId: batchId,
+                hsCode: hsCode,
+                quantityUnits: quantityUnits,
+                unitType: unitType,
+                unitPriceMinor: unitPriceMinor,
+                lineTotalMinor: lineTotalMinor,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ExportLinesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({exportOrderId = false, productId = false, batchId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (exportOrderId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.exportOrderId,
+                                    referencedTable:
+                                        $$ExportLinesTableReferences
+                                            ._exportOrderIdTable(db),
+                                    referencedColumn:
+                                        $$ExportLinesTableReferences
+                                            ._exportOrderIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (productId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.productId,
+                                    referencedTable:
+                                        $$ExportLinesTableReferences
+                                            ._productIdTable(db),
+                                    referencedColumn:
+                                        $$ExportLinesTableReferences
+                                            ._productIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (batchId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.batchId,
+                                    referencedTable:
+                                        $$ExportLinesTableReferences
+                                            ._batchIdTable(db),
+                                    referencedColumn:
+                                        $$ExportLinesTableReferences
+                                            ._batchIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$ExportLinesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ExportLinesTable,
+      ExportLine,
+      $$ExportLinesTableFilterComposer,
+      $$ExportLinesTableOrderingComposer,
+      $$ExportLinesTableAnnotationComposer,
+      $$ExportLinesTableCreateCompanionBuilder,
+      $$ExportLinesTableUpdateCompanionBuilder,
+      (ExportLine, $$ExportLinesTableReferences),
+      ExportLine,
+      PrefetchHooks Function({bool exportOrderId, bool productId, bool batchId})
+    >;
+typedef $$ExportShipmentsTableCreateCompanionBuilder =
+    ExportShipmentsCompanion Function({
+      Value<int> id,
+      required int exportOrderId,
+      required String containerNo,
+      required String sealNo,
+      Value<String?> blNumber,
+      Value<String?> vesselName,
+      Value<String?> voyageNo,
+      Value<DateTime?> eta,
+      Value<DateTime?> etd,
+      Value<double> temperatureCelsiusTarget,
+      Value<String?> temperatureLoggerId,
+    });
+typedef $$ExportShipmentsTableUpdateCompanionBuilder =
+    ExportShipmentsCompanion Function({
+      Value<int> id,
+      Value<int> exportOrderId,
+      Value<String> containerNo,
+      Value<String> sealNo,
+      Value<String?> blNumber,
+      Value<String?> vesselName,
+      Value<String?> voyageNo,
+      Value<DateTime?> eta,
+      Value<DateTime?> etd,
+      Value<double> temperatureCelsiusTarget,
+      Value<String?> temperatureLoggerId,
+    });
+
+final class $$ExportShipmentsTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $ExportShipmentsTable, ExportShipment> {
+  $$ExportShipmentsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ExportOrdersTable _exportOrderIdTable(_$AppDatabase db) => db
+      .exportOrders
+      .createAlias('export_shipments__export_order_id__export_orders__id');
+
+  $$ExportOrdersTableProcessedTableManager get exportOrderId {
+    final $_column = $_itemColumn<int>('export_order_id')!;
+
+    final manager = $$ExportOrdersTableTableManager(
+      $_db,
+      $_db.exportOrders,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_exportOrderIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$ExportShipmentsTableFilterComposer
+    extends Composer<_$AppDatabase, $ExportShipmentsTable> {
+  $$ExportShipmentsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get containerNo => $composableBuilder(
+    column: $table.containerNo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sealNo => $composableBuilder(
+    column: $table.sealNo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get blNumber => $composableBuilder(
+    column: $table.blNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get vesselName => $composableBuilder(
+    column: $table.vesselName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get voyageNo => $composableBuilder(
+    column: $table.voyageNo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get eta => $composableBuilder(
+    column: $table.eta,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get etd => $composableBuilder(
+    column: $table.etd,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get temperatureCelsiusTarget => $composableBuilder(
+    column: $table.temperatureCelsiusTarget,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get temperatureLoggerId => $composableBuilder(
+    column: $table.temperatureLoggerId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ExportOrdersTableFilterComposer get exportOrderId {
+    final $$ExportOrdersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.exportOrderId,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableFilterComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExportShipmentsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ExportShipmentsTable> {
+  $$ExportShipmentsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get containerNo => $composableBuilder(
+    column: $table.containerNo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sealNo => $composableBuilder(
+    column: $table.sealNo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get blNumber => $composableBuilder(
+    column: $table.blNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get vesselName => $composableBuilder(
+    column: $table.vesselName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get voyageNo => $composableBuilder(
+    column: $table.voyageNo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get eta => $composableBuilder(
+    column: $table.eta,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get etd => $composableBuilder(
+    column: $table.etd,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get temperatureCelsiusTarget => $composableBuilder(
+    column: $table.temperatureCelsiusTarget,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get temperatureLoggerId => $composableBuilder(
+    column: $table.temperatureLoggerId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ExportOrdersTableOrderingComposer get exportOrderId {
+    final $$ExportOrdersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.exportOrderId,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableOrderingComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExportShipmentsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ExportShipmentsTable> {
+  $$ExportShipmentsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get containerNo => $composableBuilder(
+    column: $table.containerNo,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get sealNo =>
+      $composableBuilder(column: $table.sealNo, builder: (column) => column);
+
+  GeneratedColumn<String> get blNumber =>
+      $composableBuilder(column: $table.blNumber, builder: (column) => column);
+
+  GeneratedColumn<String> get vesselName => $composableBuilder(
+    column: $table.vesselName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get voyageNo =>
+      $composableBuilder(column: $table.voyageNo, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get eta =>
+      $composableBuilder(column: $table.eta, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get etd =>
+      $composableBuilder(column: $table.etd, builder: (column) => column);
+
+  GeneratedColumn<double> get temperatureCelsiusTarget => $composableBuilder(
+    column: $table.temperatureCelsiusTarget,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get temperatureLoggerId => $composableBuilder(
+    column: $table.temperatureLoggerId,
+    builder: (column) => column,
+  );
+
+  $$ExportOrdersTableAnnotationComposer get exportOrderId {
+    final $$ExportOrdersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.exportOrderId,
+      referencedTable: $db.exportOrders,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExportOrdersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.exportOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExportShipmentsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ExportShipmentsTable,
+          ExportShipment,
+          $$ExportShipmentsTableFilterComposer,
+          $$ExportShipmentsTableOrderingComposer,
+          $$ExportShipmentsTableAnnotationComposer,
+          $$ExportShipmentsTableCreateCompanionBuilder,
+          $$ExportShipmentsTableUpdateCompanionBuilder,
+          (ExportShipment, $$ExportShipmentsTableReferences),
+          ExportShipment,
+          PrefetchHooks Function({bool exportOrderId})
+        > {
+  $$ExportShipmentsTableTableManager(
+    _$AppDatabase db,
+    $ExportShipmentsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ExportShipmentsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExportShipmentsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExportShipmentsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> exportOrderId = const Value.absent(),
+                Value<String> containerNo = const Value.absent(),
+                Value<String> sealNo = const Value.absent(),
+                Value<String?> blNumber = const Value.absent(),
+                Value<String?> vesselName = const Value.absent(),
+                Value<String?> voyageNo = const Value.absent(),
+                Value<DateTime?> eta = const Value.absent(),
+                Value<DateTime?> etd = const Value.absent(),
+                Value<double> temperatureCelsiusTarget = const Value.absent(),
+                Value<String?> temperatureLoggerId = const Value.absent(),
+              }) => ExportShipmentsCompanion(
+                id: id,
+                exportOrderId: exportOrderId,
+                containerNo: containerNo,
+                sealNo: sealNo,
+                blNumber: blNumber,
+                vesselName: vesselName,
+                voyageNo: voyageNo,
+                eta: eta,
+                etd: etd,
+                temperatureCelsiusTarget: temperatureCelsiusTarget,
+                temperatureLoggerId: temperatureLoggerId,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int exportOrderId,
+                required String containerNo,
+                required String sealNo,
+                Value<String?> blNumber = const Value.absent(),
+                Value<String?> vesselName = const Value.absent(),
+                Value<String?> voyageNo = const Value.absent(),
+                Value<DateTime?> eta = const Value.absent(),
+                Value<DateTime?> etd = const Value.absent(),
+                Value<double> temperatureCelsiusTarget = const Value.absent(),
+                Value<String?> temperatureLoggerId = const Value.absent(),
+              }) => ExportShipmentsCompanion.insert(
+                id: id,
+                exportOrderId: exportOrderId,
+                containerNo: containerNo,
+                sealNo: sealNo,
+                blNumber: blNumber,
+                vesselName: vesselName,
+                voyageNo: voyageNo,
+                eta: eta,
+                etd: etd,
+                temperatureCelsiusTarget: temperatureCelsiusTarget,
+                temperatureLoggerId: temperatureLoggerId,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ExportShipmentsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({exportOrderId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (exportOrderId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.exportOrderId,
+                                referencedTable:
+                                    $$ExportShipmentsTableReferences
+                                        ._exportOrderIdTable(db),
+                                referencedColumn:
+                                    $$ExportShipmentsTableReferences
+                                        ._exportOrderIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$ExportShipmentsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ExportShipmentsTable,
+      ExportShipment,
+      $$ExportShipmentsTableFilterComposer,
+      $$ExportShipmentsTableOrderingComposer,
+      $$ExportShipmentsTableAnnotationComposer,
+      $$ExportShipmentsTableCreateCompanionBuilder,
+      $$ExportShipmentsTableUpdateCompanionBuilder,
+      (ExportShipment, $$ExportShipmentsTableReferences),
+      ExportShipment,
+      PrefetchHooks Function({bool exportOrderId})
+    >;
+typedef $$ComplianceProfilesTableCreateCompanionBuilder =
+    ComplianceProfilesCompanion Function({
+      Value<int> id,
+      required String countryCode,
+      required String authority,
+      required String rulesJson,
+      required String labelTemplateId,
+      Value<bool> isActive,
+    });
+typedef $$ComplianceProfilesTableUpdateCompanionBuilder =
+    ComplianceProfilesCompanion Function({
+      Value<int> id,
+      Value<String> countryCode,
+      Value<String> authority,
+      Value<String> rulesJson,
+      Value<String> labelTemplateId,
+      Value<bool> isActive,
+    });
+
+class $$ComplianceProfilesTableFilterComposer
+    extends Composer<_$AppDatabase, $ComplianceProfilesTable> {
+  $$ComplianceProfilesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get countryCode => $composableBuilder(
+    column: $table.countryCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get authority => $composableBuilder(
+    column: $table.authority,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get rulesJson => $composableBuilder(
+    column: $table.rulesJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get labelTemplateId => $composableBuilder(
+    column: $table.labelTemplateId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ComplianceProfilesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ComplianceProfilesTable> {
+  $$ComplianceProfilesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get countryCode => $composableBuilder(
+    column: $table.countryCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get authority => $composableBuilder(
+    column: $table.authority,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get rulesJson => $composableBuilder(
+    column: $table.rulesJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get labelTemplateId => $composableBuilder(
+    column: $table.labelTemplateId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ComplianceProfilesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ComplianceProfilesTable> {
+  $$ComplianceProfilesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get countryCode => $composableBuilder(
+    column: $table.countryCode,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get authority =>
+      $composableBuilder(column: $table.authority, builder: (column) => column);
+
+  GeneratedColumn<String> get rulesJson =>
+      $composableBuilder(column: $table.rulesJson, builder: (column) => column);
+
+  GeneratedColumn<String> get labelTemplateId => $composableBuilder(
+    column: $table.labelTemplateId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+}
+
+class $$ComplianceProfilesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ComplianceProfilesTable,
+          ComplianceProfile,
+          $$ComplianceProfilesTableFilterComposer,
+          $$ComplianceProfilesTableOrderingComposer,
+          $$ComplianceProfilesTableAnnotationComposer,
+          $$ComplianceProfilesTableCreateCompanionBuilder,
+          $$ComplianceProfilesTableUpdateCompanionBuilder,
+          (
+            ComplianceProfile,
+            BaseReferences<
+              _$AppDatabase,
+              $ComplianceProfilesTable,
+              ComplianceProfile
+            >,
+          ),
+          ComplianceProfile,
+          PrefetchHooks Function()
+        > {
+  $$ComplianceProfilesTableTableManager(
+    _$AppDatabase db,
+    $ComplianceProfilesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ComplianceProfilesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ComplianceProfilesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ComplianceProfilesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> countryCode = const Value.absent(),
+                Value<String> authority = const Value.absent(),
+                Value<String> rulesJson = const Value.absent(),
+                Value<String> labelTemplateId = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+              }) => ComplianceProfilesCompanion(
+                id: id,
+                countryCode: countryCode,
+                authority: authority,
+                rulesJson: rulesJson,
+                labelTemplateId: labelTemplateId,
+                isActive: isActive,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String countryCode,
+                required String authority,
+                required String rulesJson,
+                required String labelTemplateId,
+                Value<bool> isActive = const Value.absent(),
+              }) => ComplianceProfilesCompanion.insert(
+                id: id,
+                countryCode: countryCode,
+                authority: authority,
+                rulesJson: rulesJson,
+                labelTemplateId: labelTemplateId,
+                isActive: isActive,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ComplianceProfilesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ComplianceProfilesTable,
+      ComplianceProfile,
+      $$ComplianceProfilesTableFilterComposer,
+      $$ComplianceProfilesTableOrderingComposer,
+      $$ComplianceProfilesTableAnnotationComposer,
+      $$ComplianceProfilesTableCreateCompanionBuilder,
+      $$ComplianceProfilesTableUpdateCompanionBuilder,
+      (
+        ComplianceProfile,
+        BaseReferences<
+          _$AppDatabase,
+          $ComplianceProfilesTable,
+          ComplianceProfile
+        >,
+      ),
+      ComplianceProfile,
+      PrefetchHooks Function()
+    >;
+typedef $$FxRatesTableCreateCompanionBuilder =
+    FxRatesCompanion Function({
+      Value<int> id,
+      required String baseCurrency,
+      required String targetCurrency,
+      required double rate,
+      Value<DateTime> asOfDate,
+      Value<String> source,
+    });
+typedef $$FxRatesTableUpdateCompanionBuilder =
+    FxRatesCompanion Function({
+      Value<int> id,
+      Value<String> baseCurrency,
+      Value<String> targetCurrency,
+      Value<double> rate,
+      Value<DateTime> asOfDate,
+      Value<String> source,
+    });
+
+class $$FxRatesTableFilterComposer
+    extends Composer<_$AppDatabase, $FxRatesTable> {
+  $$FxRatesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get baseCurrency => $composableBuilder(
+    column: $table.baseCurrency,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get targetCurrency => $composableBuilder(
+    column: $table.targetCurrency,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get rate => $composableBuilder(
+    column: $table.rate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get asOfDate => $composableBuilder(
+    column: $table.asOfDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$FxRatesTableOrderingComposer
+    extends Composer<_$AppDatabase, $FxRatesTable> {
+  $$FxRatesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get baseCurrency => $composableBuilder(
+    column: $table.baseCurrency,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get targetCurrency => $composableBuilder(
+    column: $table.targetCurrency,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get rate => $composableBuilder(
+    column: $table.rate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get asOfDate => $composableBuilder(
+    column: $table.asOfDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FxRatesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FxRatesTable> {
+  $$FxRatesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get baseCurrency => $composableBuilder(
+    column: $table.baseCurrency,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get targetCurrency => $composableBuilder(
+    column: $table.targetCurrency,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get rate =>
+      $composableBuilder(column: $table.rate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get asOfDate =>
+      $composableBuilder(column: $table.asOfDate, builder: (column) => column);
+
+  GeneratedColumn<String> get source =>
+      $composableBuilder(column: $table.source, builder: (column) => column);
+}
+
+class $$FxRatesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $FxRatesTable,
+          FxRate,
+          $$FxRatesTableFilterComposer,
+          $$FxRatesTableOrderingComposer,
+          $$FxRatesTableAnnotationComposer,
+          $$FxRatesTableCreateCompanionBuilder,
+          $$FxRatesTableUpdateCompanionBuilder,
+          (FxRate, BaseReferences<_$AppDatabase, $FxRatesTable, FxRate>),
+          FxRate,
+          PrefetchHooks Function()
+        > {
+  $$FxRatesTableTableManager(_$AppDatabase db, $FxRatesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FxRatesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FxRatesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FxRatesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> baseCurrency = const Value.absent(),
+                Value<String> targetCurrency = const Value.absent(),
+                Value<double> rate = const Value.absent(),
+                Value<DateTime> asOfDate = const Value.absent(),
+                Value<String> source = const Value.absent(),
+              }) => FxRatesCompanion(
+                id: id,
+                baseCurrency: baseCurrency,
+                targetCurrency: targetCurrency,
+                rate: rate,
+                asOfDate: asOfDate,
+                source: source,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String baseCurrency,
+                required String targetCurrency,
+                required double rate,
+                Value<DateTime> asOfDate = const Value.absent(),
+                Value<String> source = const Value.absent(),
+              }) => FxRatesCompanion.insert(
+                id: id,
+                baseCurrency: baseCurrency,
+                targetCurrency: targetCurrency,
+                rate: rate,
+                asOfDate: asOfDate,
+                source: source,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FxRatesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $FxRatesTable,
+      FxRate,
+      $$FxRatesTableFilterComposer,
+      $$FxRatesTableOrderingComposer,
+      $$FxRatesTableAnnotationComposer,
+      $$FxRatesTableCreateCompanionBuilder,
+      $$FxRatesTableUpdateCompanionBuilder,
+      (FxRate, BaseReferences<_$AppDatabase, $FxRatesTable, FxRate>),
+      FxRate,
+      PrefetchHooks Function()
+    >;
+typedef $$HsCodesTableCreateCompanionBuilder =
+    HsCodesCompanion Function({
+      Value<int> id,
+      required String code,
+      required String description,
+      required String chapter,
+      required String heading,
+      required String dutyRatesJson,
+    });
+typedef $$HsCodesTableUpdateCompanionBuilder =
+    HsCodesCompanion Function({
+      Value<int> id,
+      Value<String> code,
+      Value<String> description,
+      Value<String> chapter,
+      Value<String> heading,
+      Value<String> dutyRatesJson,
+    });
+
+class $$HsCodesTableFilterComposer
+    extends Composer<_$AppDatabase, $HsCodesTable> {
+  $$HsCodesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get chapter => $composableBuilder(
+    column: $table.chapter,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get heading => $composableBuilder(
+    column: $table.heading,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get dutyRatesJson => $composableBuilder(
+    column: $table.dutyRatesJson,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$HsCodesTableOrderingComposer
+    extends Composer<_$AppDatabase, $HsCodesTable> {
+  $$HsCodesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get chapter => $composableBuilder(
+    column: $table.chapter,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get heading => $composableBuilder(
+    column: $table.heading,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get dutyRatesJson => $composableBuilder(
+    column: $table.dutyRatesJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$HsCodesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $HsCodesTable> {
+  $$HsCodesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get code =>
+      $composableBuilder(column: $table.code, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get chapter =>
+      $composableBuilder(column: $table.chapter, builder: (column) => column);
+
+  GeneratedColumn<String> get heading =>
+      $composableBuilder(column: $table.heading, builder: (column) => column);
+
+  GeneratedColumn<String> get dutyRatesJson => $composableBuilder(
+    column: $table.dutyRatesJson,
+    builder: (column) => column,
+  );
+}
+
+class $$HsCodesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $HsCodesTable,
+          HsCode,
+          $$HsCodesTableFilterComposer,
+          $$HsCodesTableOrderingComposer,
+          $$HsCodesTableAnnotationComposer,
+          $$HsCodesTableCreateCompanionBuilder,
+          $$HsCodesTableUpdateCompanionBuilder,
+          (HsCode, BaseReferences<_$AppDatabase, $HsCodesTable, HsCode>),
+          HsCode,
+          PrefetchHooks Function()
+        > {
+  $$HsCodesTableTableManager(_$AppDatabase db, $HsCodesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$HsCodesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$HsCodesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$HsCodesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> code = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<String> chapter = const Value.absent(),
+                Value<String> heading = const Value.absent(),
+                Value<String> dutyRatesJson = const Value.absent(),
+              }) => HsCodesCompanion(
+                id: id,
+                code: code,
+                description: description,
+                chapter: chapter,
+                heading: heading,
+                dutyRatesJson: dutyRatesJson,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String code,
+                required String description,
+                required String chapter,
+                required String heading,
+                required String dutyRatesJson,
+              }) => HsCodesCompanion.insert(
+                id: id,
+                code: code,
+                description: description,
+                chapter: chapter,
+                heading: heading,
+                dutyRatesJson: dutyRatesJson,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$HsCodesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $HsCodesTable,
+      HsCode,
+      $$HsCodesTableFilterComposer,
+      $$HsCodesTableOrderingComposer,
+      $$HsCodesTableAnnotationComposer,
+      $$HsCodesTableCreateCompanionBuilder,
+      $$HsCodesTableUpdateCompanionBuilder,
+      (HsCode, BaseReferences<_$AppDatabase, $HsCodesTable, HsCode>),
+      HsCode,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -19920,4 +28174,20 @@ class $AppDatabaseManager {
       $$RawMaterialsTableTableManager(_db, _db.rawMaterials);
   $$HygieneLogsTableTableManager get hygieneLogs =>
       $$HygieneLogsTableTableManager(_db, _db.hygieneLogs);
+  $$EntitiesTableTableManager get entities =>
+      $$EntitiesTableTableManager(_db, _db.entities);
+  $$DistributorsTableTableManager get distributors =>
+      $$DistributorsTableTableManager(_db, _db.distributors);
+  $$ExportOrdersTableTableManager get exportOrders =>
+      $$ExportOrdersTableTableManager(_db, _db.exportOrders);
+  $$ExportLinesTableTableManager get exportLines =>
+      $$ExportLinesTableTableManager(_db, _db.exportLines);
+  $$ExportShipmentsTableTableManager get exportShipments =>
+      $$ExportShipmentsTableTableManager(_db, _db.exportShipments);
+  $$ComplianceProfilesTableTableManager get complianceProfiles =>
+      $$ComplianceProfilesTableTableManager(_db, _db.complianceProfiles);
+  $$FxRatesTableTableManager get fxRates =>
+      $$FxRatesTableTableManager(_db, _db.fxRates);
+  $$HsCodesTableTableManager get hsCodes =>
+      $$HsCodesTableTableManager(_db, _db.hsCodes);
 }

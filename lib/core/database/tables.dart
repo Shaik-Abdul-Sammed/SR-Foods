@@ -278,3 +278,111 @@ class HygieneLogs extends Table {
   TextColumn get notes => text().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
+
+/// Legal entities for multi-company & international holding/export operations
+class Entities extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text()();
+  TextColumn get countryCode => text()();
+  TextColumn get taxId => text()();
+  TextColumn get currency => text()();
+  TextColumn get address => text().nullable()();
+  BoolColumn get isDefault => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Overseas distributors with foreign credit limits and Incoterms
+class Distributors extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text()();
+  TextColumn get countryCode => text()();
+  TextColumn get currency => text()();
+  IntColumn get creditLimitMinor => integer().withDefault(const Constant(0))();
+  IntColumn get creditDays => integer().withDefault(const Constant(30))();
+  TextColumn get taxId => text().nullable()();
+  TextColumn get incotermsDefault => text().withDefault(const Constant('FOB'))();
+  TextColumn get paymentTerms => text().withDefault(const Constant('Net 30'))();
+  TextColumn get contactJson => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// International export orders with multi-currency & Incoterms 2020
+class ExportOrders extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get orderNumber => text().unique()();
+  IntColumn get entityId => integer().references(Entities, #id)();
+  IntColumn get distributorId => integer().references(Distributors, #id)();
+  TextColumn get destinationCountry => text()();
+  TextColumn get currency => text()();
+  RealColumn get fxRateToInr => real().withDefault(const Constant(1.0))();
+  TextColumn get incoterm => text()(); // FOB | CIF | DDP | EXW | CFR
+  TextColumn get portOfLoading => text()();
+  TextColumn get portOfDischarge => text()();
+  TextColumn get status => text().withDefault(const Constant('draft'))(); // draft | confirmed | in_transit | cleared | delivered
+  IntColumn get subtotalMinor => integer().withDefault(const Constant(0))();
+  IntColumn get dutyMinor => integer().withDefault(const Constant(0))();
+  IntColumn get freightMinor => integer().withDefault(const Constant(0))();
+  IntColumn get insuranceMinor => integer().withDefault(const Constant(0))();
+  IntColumn get totalMinor => integer().withDefault(const Constant(0))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Itemized export line items tied to product SKU, batch, and HS code
+class ExportLines extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get exportOrderId => integer().references(ExportOrders, #id)();
+  IntColumn get productId => integer().references(Products, #id)();
+  TextColumn get sku => text()();
+  IntColumn get batchId => integer().nullable().references(ProductionBatches, #id)();
+  TextColumn get hsCode => text()();
+  RealColumn get quantityUnits => real()();
+  TextColumn get unitType => text().withDefault(const Constant('cartons'))();
+  IntColumn get unitPriceMinor => integer()();
+  IntColumn get lineTotalMinor => integer()();
+}
+
+/// Ocean and air container freight shipments with reefer temperature monitoring
+class ExportShipments extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get exportOrderId => integer().references(ExportOrders, #id)();
+  TextColumn get containerNo => text()();
+  TextColumn get sealNo => text()();
+  TextColumn get blNumber => text().nullable()();
+  TextColumn get vesselName => text().nullable()();
+  TextColumn get voyageNo => text().nullable()();
+  DateTimeColumn get eta => dateTime().nullable()();
+  DateTimeColumn get etd => dateTime().nullable()();
+  RealColumn get temperatureCelsiusTarget => real().withDefault(const Constant(-18.0))();
+  TextColumn get temperatureLoggerId => text().nullable()();
+}
+
+/// Export destination food regulatory authority compliance profiles
+class ComplianceProfiles extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get countryCode => text()();
+  TextColumn get authority => text()(); // FDA | GSO_HALAL | CFIA | FSANZ | FSSAI
+  TextColumn get rulesJson => text()();
+  TextColumn get labelTemplateId => text()();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+}
+
+/// Foreign exchange rates cache and contract overrides
+class FxRates extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get baseCurrency => text()();
+  TextColumn get targetCurrency => text()();
+  RealColumn get rate => real()();
+  DateTimeColumn get asOfDate => dateTime().withDefault(currentDateAndTime)();
+  TextColumn get source => text().withDefault(const Constant('manual'))();
+}
+
+/// Harmonized System (HS) customs tariff classifications
+class HsCodes extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get code => text().unique()();
+  TextColumn get description => text()();
+  TextColumn get chapter => text()();
+  TextColumn get heading => text()();
+  TextColumn get dutyRatesJson => text()();
+}

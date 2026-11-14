@@ -29,6 +29,14 @@ part 'app_database.g.dart';
     SyncQueue,
     RawMaterials,
     HygieneLogs,
+    Entities,
+    Distributors,
+    ExportOrders,
+    ExportLines,
+    ExportShipments,
+    ComplianceProfiles,
+    FxRates,
+    HsCodes,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -36,7 +44,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -51,6 +59,16 @@ class AppDatabase extends _$AppDatabase {
           if (from < 3) {
             await m.createTable(rawMaterials);
             await m.createTable(hygieneLogs);
+          }
+          if (from < 4) {
+            await m.createTable(entities);
+            await m.createTable(distributors);
+            await m.createTable(exportOrders);
+            await m.createTable(exportLines);
+            await m.createTable(exportShipments);
+            await m.createTable(complianceProfiles);
+            await m.createTable(fxRates);
+            await m.createTable(hsCodes);
           }
         },
         beforeOpen: (details) async {
