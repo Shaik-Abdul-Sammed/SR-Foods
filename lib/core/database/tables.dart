@@ -531,3 +531,21 @@ class Complaints extends Table {
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get resolvedAt => dateTime().nullable()();
 }
+
+/// Dairy milk procurements from farmers and chilling centers
+class MilkProcurements extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get supplierId => text()();
+  DateTimeColumn get procurementDate => dateTime().withDefault(currentDateAndTime)();
+  TextColumn get slot => text().withDefault(const Constant('morning'))(); // morning | evening
+  RealColumn get quantityLiters => real()();
+  RealColumn get fatPercent => real()();
+  RealColumn get snfPercent => real()();
+  IntColumn get ratePerLiterMinor => integer()();
+  IntColumn get totalAmountMinor => integer()();
+  TextColumn get currencyCode => text().withDefault(const Constant('INR'))();
+  TextColumn get chillingCenterId => text().nullable()();
+  IntColumn get batchId => integer().nullable().references(ProductionBatches, #id)();
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}

@@ -46,6 +46,7 @@ part 'app_database.g.dart';
     WastageLogs,
     ReturnLogs,
     Complaints,
+    MilkProcurements,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -128,6 +129,7 @@ class AppDatabase extends _$AppDatabase {
             await m.addColumn(productionBatches, productionBatches.chillingCenterId);
             await m.addColumn(productionBatches, productionBatches.pasteurizationTempC);
             await m.addColumn(productionBatches, productionBatches.pasteurizationDurationSec);
+            await m.createTable(milkProcurements);
             await customStatement(
               'UPDATE app_settings SET '
               "active_verticals_json = '[\"frozen\"]', "
