@@ -589,3 +589,18 @@ class OvenSchedules extends Table {
   TextColumn get status => text().withDefault(const Constant('scheduled'))();
   TextColumn get notes => text().nullable()();
 }
+
+/// Made-to-order custom celebratory cakes and specialty pastry orders
+class CustomOrders extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get customerId => integer().references(Customers, #id)();
+  DateTimeColumn get orderDate => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get deliveryDate => dateTime()();
+  TextColumn get cakeType => text()();
+  TextColumn get decorationNotes => text().nullable()();
+  TextColumn get photoRef => text().nullable()();
+  IntColumn get advanceAmountMinor => integer().withDefault(const Constant(0))();
+  IntColumn get totalAmountMinor => integer()();
+  TextColumn get status => text().withDefault(const Constant('enquiry'))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
