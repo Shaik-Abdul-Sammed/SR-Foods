@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
 import 'tables.dart';
+import 'catalog_seed_100.dart';
 
 part 'app_database.g.dart';
 
@@ -37,6 +38,14 @@ part 'app_database.g.dart';
     ComplianceProfiles,
     FxRates,
     HsCodes,
+    CustomerPriceLists,
+    CreditNotes,
+    DebitNotes,
+    StandingOrders,
+    MachineEvents,
+    WastageLogs,
+    ReturnLogs,
+    Complaints,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -44,7 +53,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -70,6 +79,40 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(fxRates);
             await m.createTable(hsCodes);
           }
+          if (from < 5) {
+            await m.addColumn(products, products.storageType);
+            await m.addColumn(products, products.allergens);
+            await m.addColumn(products, products.hsnCode);
+            await m.addColumn(products, products.shelfLifeDays);
+            await m.addColumn(products, products.unitsPerInnerPack);
+            await m.addColumn(products, products.packsPerMasterCarton);
+            await m.addColumn(products, products.gtin);
+            await m.addColumn(products, products.fssaiCategoryCode);
+            await m.addColumn(products, products.nutritionPer100gJson);
+            await m.addColumn(products, products.primaryMarkets);
+            await m.addColumn(products, products.priceBandCurrency);
+            await m.createTable(customerPriceLists);
+            await m.createTable(creditNotes);
+            await m.createTable(debitNotes);
+            await m.createTable(standingOrders);
+            await m.createTable(machineEvents);
+            await m.createTable(wastageLogs);
+            await m.createTable(returnLogs);
+            await m.createTable(complaints);
+
+            // Backfill existing products with compliant baseline
+            await customStatement(
+              'UPDATE products SET '
+              "storage_type = 'chilled', "
+              "allergens = 'Wheat (Gluten)', "
+              "hsn_code = '1905.90.90', "
+              'shelf_life_days = 7, '
+              'units_per_inner_pack = 1, '
+              'packs_per_master_carton = 20, '
+              "price_band_currency = 'INR' "
+              "WHERE storage_type IS NULL OR storage_type = ''",
+            );
+          }
         },
         beforeOpen: (details) async {
           await customStatement('PRAGMA foreign_keys = ON');
@@ -82,66 +125,17 @@ class AppDatabase extends _$AppDatabase {
 
   /// Seed default products and owner user
   Future<void> _seedDefaultData() async {
-    // Insert default products
-    final defaultProducts = [
-      ProductsCompanion.insert(
-        sku: 'SRF-HBP-001',
-        name: 'Half Boiled Parota',
-        category: const Value('Parota'),
-        price: 100.0,
-        piecesPerPack: const Value(10),
-        weightGrams: const Value(800.0),
-        description: const Value('Soft half-boiled parota, 10 pieces per pack, 800g'),
-        isActive: const Value(true),
-        isAvailable: const Value(true),
-        minStock: const Value(10),
-      ),
-      ProductsCompanion.insert(
-        sku: 'SRF-TC-002',
-        name: 'Triangular Chapathi',
-        category: const Value('Chapathi'),
-        price: 80.0,
-        piecesPerPack: const Value(20),
-        weightGrams: const Value(800.0),
-        description: const Value('Triangular shaped chapathi, 20 pieces per pack, 800g'),
-        isActive: const Value(true),
-        isAvailable: const Value(true),
-        minStock: const Value(10),
-      ),
-      ProductsCompanion.insert(
-        sku: 'SRF-PUL-003',
-        name: 'Pulka',
-        category: const Value('Pulka'),
-        price: 50.0,
-        piecesPerPack: const Value(20),
-        weightGrams: const Value(800.0),
-        description: const Value('Soft pulka, 20 pieces per pack, 800g'),
-        isActive: const Value(true),
-        isAvailable: const Value(true),
-        minStock: const Value(10),
-      ),
-      ProductsCompanion.insert(
-        sku: 'SRF-PUR-004',
-        name: 'Puri',
-        category: const Value('Puri'),
-        price: 50.0,
-        piecesPerPack: const Value(20),
-        weightGrams: const Value(800.0),
-        description: const Value('Crispy puri, 20 pieces per pack, 800g'),
-        isActive: const Value(true),
-        isAvailable: const Value(true),
-        minStock: const Value(10),
-      ),
-    ];
+    // Insert 100-SKU master catalog
+    final catalog100 = get100CatalogSkus();
 
-    for (final product in defaultProducts) {
+    for (final product in catalog100) {
       final productId = await into(products).insert(product);
       // Create inventory entry for each product
       await into(inventory).insert(
         InventoryCompanion.insert(
           productId: productId,
-          openingStock: const Value(0),
-          currentStock: const Value(0),
+          openingStock: const Value(50),
+          currentStock: const Value(50),
         ),
       );
     }

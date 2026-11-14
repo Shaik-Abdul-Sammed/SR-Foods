@@ -20,6 +20,17 @@ class Products extends Table {
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();
   BoolColumn get isAvailable => boolean().withDefault(const Constant(true))();
   TextColumn get taxCategory => text().withDefault(const Constant('NONE'))();
+  TextColumn get storageType => text().withDefault(const Constant('chilled'))(); // ambient | chilled | frozen
+  TextColumn get allergens => text().withDefault(const Constant(''))();
+  TextColumn get hsnCode => text().withDefault(const Constant('1905'))();
+  IntColumn get shelfLifeDays => integer().withDefault(const Constant(7))();
+  IntColumn get unitsPerInnerPack => integer().withDefault(const Constant(1))();
+  IntColumn get packsPerMasterCarton => integer().withDefault(const Constant(20))();
+  TextColumn get gtin => text().nullable()();
+  TextColumn get fssaiCategoryCode => text().nullable()();
+  TextColumn get nutritionPer100gJson => text().nullable()();
+  TextColumn get primaryMarkets => text().nullable()();
+  TextColumn get priceBandCurrency => text().withDefault(const Constant('INR'))();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }
@@ -385,4 +396,124 @@ class HsCodes extends Table {
   TextColumn get chapter => text()();
   TextColumn get heading => text()();
   TextColumn get dutyRatesJson => text()();
+}
+
+/// Customer-specific contract price lists with validity dates
+class CustomerPriceLists extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get customerId => integer().references(Customers, #id)();
+  IntColumn get productId => integer().references(Products, #id)();
+  IntColumn get customPriceMinor => integer()();
+  TextColumn get currencyCode => text().withDefault(const Constant('INR'))();
+  DateTimeColumn get effectiveFrom => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get effectiveTo => dateTime().nullable()();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Credit notes issued for damages, returns, price corrections
+class CreditNotes extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get noteNumber => text().unique()();
+  IntColumn get originalInvoiceId => integer().references(Invoices, #id)();
+  IntColumn get customerId => integer().references(Customers, #id)();
+  TextColumn get reasonCode => text()(); // damage | expiry | price_diff | short_supply | cheque_bounce
+  IntColumn get amountMinor => integer()();
+  TextColumn get currencyCode => text().withDefault(const Constant('INR'))();
+  IntColumn get gstReversalMinor => integer().withDefault(const Constant(0))();
+  TextColumn get status => text().withDefault(const Constant('issued'))(); // draft | issued | settled
+  DateTimeColumn get issuedAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get settledAt => dateTime().nullable()();
+  TextColumn get notes => text().nullable()();
+  IntColumn get linkedPaymentId => integer().nullable().references(Payments, #id)();
+}
+
+/// Debit notes issued for undercharges, demurrage, price revisions
+class DebitNotes extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get noteNumber => text().unique()();
+  IntColumn get originalInvoiceId => integer().nullable().references(Invoices, #id)();
+  IntColumn get customerId => integer().references(Customers, #id)();
+  TextColumn get reasonCode => text()(); // undercharge | additional_charge | late_fee
+  IntColumn get amountMinor => integer()();
+  TextColumn get currencyCode => text().withDefault(const Constant('INR'))();
+  IntColumn get gstAmountMinor => integer().withDefault(const Constant(0))();
+  TextColumn get status => text().withDefault(const Constant('issued'))(); // draft | issued | settled
+  DateTimeColumn get issuedAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get settledAt => dateTime().nullable()();
+  TextColumn get notes => text().nullable()();
+  IntColumn get linkedPaymentId => integer().nullable().references(Payments, #id)();
+}
+
+/// Recurring standing orders (hotel subscriptions) with auto-invoicing
+class StandingOrders extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get customerId => integer().references(Customers, #id)();
+  TextColumn get recurringDaysJson => text().withDefault(const Constant('[1,2,3,4,5,6,7]'))();
+  TextColumn get defaultBasketJson => text()(); // [{"productId": 1, "quantity": 50}, ...]
+  BoolColumn get autoInvoiceOnDelivery => boolean().withDefault(const Constant(true))();
+  DateTimeColumn get activeFrom => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get activeTo => dateTime().nullable()();
+  DateTimeColumn get lastGeneratedAt => dateTime().nullable()();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+}
+
+/// Machine telemetry and maintenance logs for predictive maintenance
+class MachineEvents extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get machineId => text()(); // MIXER-01 | PRESS-01 | FREEZER-01
+  TextColumn get machineName => text()();
+  TextColumn get eventType => text()(); // maintenance | breakdown | cleaning | inspection | vibration_check
+  TextColumn get severity => text().withDefault(const Constant('info'))(); // info | warning | critical
+  RealColumn get vibrationMmS => real().nullable()();
+  RealColumn get temperatureCelsius => real().nullable()();
+  RealColumn get hoursRun => real().nullable()();
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get recordedAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Production and cold-chain wastage logs
+class WastageLogs extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get batchId => integer().nullable().references(ProductionBatches, #id)();
+  IntColumn get productId => integer().nullable().references(Products, #id)();
+  TextColumn get stage => text()(); // dough_mixing | pressing | baking | packing | cold_storage
+  TextColumn get reason => text()(); // burnt | torn | undercooked | overcooked | contaminated | expired
+  RealColumn get wastageKg => real()();
+  IntColumn get costEstimatedMinor => integer().withDefault(const Constant(0))();
+  TextColumn get currencyCode => text().withDefault(const Constant('INR'))();
+  TextColumn get loggedBy => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Delivery and quality customer return logs
+class ReturnLogs extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get orderId => integer().nullable().references(Orders, #id)();
+  IntColumn get customerId => integer().references(Customers, #id)();
+  IntColumn get productId => integer().references(Products, #id)();
+  IntColumn get quantity => integer()();
+  TextColumn get reason => text()(); // spoiled | damaged_transit | packaging_defect | refused
+  TextColumn get condition => text().withDefault(const Constant('discard'))(); // discard | salvage | restock
+  TextColumn get actionTaken => text().withDefault(const Constant('credit_note'))();
+  DateTimeColumn get reportedDate => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get resolvedDate => dateTime().nullable()();
+  TextColumn get notes => text().nullable()();
+}
+
+/// Customer complaints and support tickets
+class Complaints extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get ticketNumber => text().unique()();
+  IntColumn get customerId => integer().references(Customers, #id)();
+  IntColumn get orderId => integer().nullable().references(Orders, #id)();
+  IntColumn get productId => integer().nullable().references(Products, #id)();
+  TextColumn get batchNumber => text().nullable()();
+  TextColumn get category => text()(); // quality | delivery_delay | billing | driver_behavior | packaging
+  TextColumn get severity => text().withDefault(const Constant('medium'))(); // low | medium | high | critical
+  TextColumn get status => text().withDefault(const Constant('open'))(); // open | investigating | resolved | closed
+  TextColumn get description => text()();
+  TextColumn get resolutionNotes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get resolvedAt => dateTime().nullable()();
 }

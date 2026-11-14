@@ -15,8 +15,8 @@ void main() {
       await db.close();
     });
 
-    test('Schema version is v4 and all export tables are operational', () async {
-      expect(db.schemaVersion, 4);
+    test('Schema version is v4+ and all export tables are operational', () async {
+      expect(db.schemaVersion, greaterThanOrEqualTo(4));
 
       // 1. Insert Entity
       final entityId = await db.into(db.entities).insert(

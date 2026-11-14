@@ -23,6 +23,7 @@ class GstInvoiceService {
     required Invoice invoice,
     required Customer? customer,
     required List<OrderItem> items,
+    Map<int, String>? itemHsnMap,
     String? eWayBillNumber,
     String upiId = defaultUpiId,
   }) async {
@@ -132,7 +133,7 @@ class GstInvoiceService {
                   ['Item Description', 'HSN', 'Qty', 'Rate', 'Total'],
                   ...items.map((i) => [
                         i.productName,
-                        defaultHsnCode,
+                        itemHsnMap?[i.productId] ?? defaultHsnCode,
                         '${i.quantity} pkts',
                         CurrencyFormatter.format(i.price),
                         CurrencyFormatter.format(i.total),

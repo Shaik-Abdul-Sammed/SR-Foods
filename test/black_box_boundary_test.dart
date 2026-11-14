@@ -38,8 +38,10 @@ void main() {
     });
 
     test('FEFO Allocation Boundary: Requested stock exceeds available batches', () async {
-      // Fetch seeded product
-      final product = await (db.select(db.products)..where((p) => p.sku.equals('SRF-HBP-001'))).getSingle();
+      // Fetch seeded product (SRF-BRD-001 / SRF-HBP-001)
+      final product = await (db.select(db.products)
+            ..where((p) => p.sku.isIn(['SRF-BRD-001', 'SRF-HBP-001'])))
+          .getSingle();
       final productId = product.id;
 
       await db.into(db.productionBatches).insert(
