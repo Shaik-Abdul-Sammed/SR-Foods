@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:drift/drift.dart';
 import '../database/app_database.dart';
 import '../domain/recipe.dart';
+import 'gbdt_demand_forecaster.dart';
+
+export 'gbdt_demand_forecaster.dart';
 
 /// Depth Model: Production recommendation calculated via sales velocity, weekly seasonality, festival uplift & buffer horizon
 class ProductionRecommendation {
@@ -160,6 +163,8 @@ class BusinessOptimizationInsight {
 class AiExpertEngine {
   AiExpertEngine._();
   static final AiExpertEngine instance = AiExpertEngine._();
+
+  final GbdtDemandForecaster gbdtForecaster = GbdtDemandForecaster();
 
   /// --------------------------------------------------------------------------
   /// 1. AI PRODUCTION BATCH & DEMAND FORECASTING ALGORITHM
