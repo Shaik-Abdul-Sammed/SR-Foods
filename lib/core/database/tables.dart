@@ -549,3 +549,16 @@ class MilkProcurements extends Table {
   TextColumn get notes => text().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
+
+/// Fat-based milk pricing rules
+class FatPricingRules extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text()();
+  IntColumn get baseRatePerLiterMinor => integer()();
+  RealColumn get baseFatPercent => real()();
+  RealColumn get fatSlabStep => real().withDefault(const Constant(0.1))();
+  IntColumn get priceStepPerLiterMinor => integer().withDefault(const Constant(30))();
+  DateTimeColumn get effectiveFrom => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get effectiveTo => dateTime().nullable()();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+}

@@ -47,6 +47,7 @@ part 'app_database.g.dart';
     ReturnLogs,
     Complaints,
     MilkProcurements,
+    FatPricingRules,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -130,6 +131,12 @@ class AppDatabase extends _$AppDatabase {
             await m.addColumn(productionBatches, productionBatches.pasteurizationTempC);
             await m.addColumn(productionBatches, productionBatches.pasteurizationDurationSec);
             await m.createTable(milkProcurements);
+            await m.createTable(fatPricingRules);
+            await customStatement(
+              "INSERT OR IGNORE INTO fat_pricing_rules (id, name, base_rate_per_liter_minor, base_fat_percent, fat_slab_step, price_step_per_liter_minor, is_active) VALUES "
+              "(1, 'Standard Cow Milk Rule', 3800, 3.5, 0.1, 30, 1), "
+              "(2, 'Premium Buffalo Milk Rule', 5800, 6.0, 0.1, 40, 1)",
+            );
             await customStatement(
               'UPDATE app_settings SET '
               "active_verticals_json = '[\"frozen\"]', "
