@@ -151,6 +151,11 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(ovenSchedules);
             await m.createTable(customOrders);
             await m.createTable(returnableContainers);
+            await m.addColumn(complianceProfiles, complianceProfiles.fssaiDairyCategoryCode);
+            await m.addColumn(complianceProfiles, complianceProfiles.fssaiBakeryCategoryCode);
+            await m.addColumn(complianceProfiles, complianceProfiles.pasteurizationCertNumber);
+            await m.addColumn(complianceProfiles, complianceProfiles.containsEgg);
+            await m.addColumn(complianceProfiles, complianceProfiles.isVegan);
             await customStatement(
               "INSERT OR IGNORE INTO fat_pricing_rules (id, name, base_rate_per_liter_minor, base_fat_percent, fat_slab_step, price_step_per_liter_minor, is_active) VALUES "
               "(1, 'Standard Cow Milk Rule', 3800, 3.5, 0.1, 30, 1), "

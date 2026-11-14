@@ -401,6 +401,13 @@ class ComplianceProfiles extends Table {
   TextColumn get rulesJson => text()();
   TextColumn get labelTemplateId => text()();
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+
+  // Dairy & Bakery regulatory extensions
+  TextColumn get fssaiDairyCategoryCode => text().nullable()(); // FCS 01.x
+  TextColumn get fssaiBakeryCategoryCode => text().nullable()(); // FCS 07.x
+  TextColumn get pasteurizationCertNumber => text().nullable()();
+  BoolColumn get containsEgg => boolean().withDefault(const Constant(false))();
+  BoolColumn get isVegan => boolean().withDefault(const Constant(false))();
 }
 
 /// Foreign exchange rates cache and contract overrides
