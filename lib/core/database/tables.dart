@@ -604,3 +604,17 @@ class CustomOrders extends Table {
   TextColumn get status => text().withDefault(const Constant('enquiry'))();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
+
+/// Reusable asset tracking for milk cans, flatbread crates, bakery delivery trays, and insulated cooler bags
+class ReturnableContainers extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get containerType => text()();
+  TextColumn get containerCode => text().unique()();
+  IntColumn get customerId => integer().nullable().references(Customers, #id)();
+  IntColumn get driverId => integer().nullable()();
+  IntColumn get depositAmountMinor => integer().withDefault(const Constant(0))();
+  TextColumn get status => text().withDefault(const Constant('returned'))();
+  DateTimeColumn get lastScanAt => dateTime().withDefault(currentDateAndTime)();
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
