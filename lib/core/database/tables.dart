@@ -215,6 +215,8 @@ class AppSettings extends Table {
   TextColumn get value => text()();
   TextColumn get type => text().withDefault(const Constant('string'))();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+  TextColumn get activeVerticalsJson => text().nullable().withDefault(const Constant('["frozen"]'))();
+  TextColumn get primaryVertical => text().nullable().withDefault(const Constant('frozen'))();
 }
 
 /// Notifications table

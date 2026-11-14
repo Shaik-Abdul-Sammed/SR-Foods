@@ -53,7 +53,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -113,6 +113,22 @@ class AppDatabase extends _$AppDatabase {
               "WHERE storage_type IS NULL OR storage_type = ''",
             );
           }
+          if (from < 6) {
+            await m.addColumn(appSettings, appSettings.activeVerticalsJson);
+            await m.addColumn(appSettings, appSettings.primaryVertical);
+            await customStatement(
+              'UPDATE app_settings SET '
+              "active_verticals_json = '[\"frozen\"]', "
+              "primary_vertical = 'frozen' "
+              'WHERE active_verticals_json IS NULL',
+            );
+            await customStatement(
+              "INSERT OR IGNORE INTO app_settings (key, value, type) VALUES ('active_verticals', '[\"frozen\"]', 'json')",
+            );
+            await customStatement(
+              "INSERT OR IGNORE INTO app_settings (key, value, type) VALUES ('primary_vertical', 'frozen', 'string')",
+            );
+          }
         },
         beforeOpen: (details) async {
           await customStatement('PRAGMA foreign_keys = ON');
@@ -167,6 +183,8 @@ class AppDatabase extends _$AppDatabase {
       ('fssai_license_number', '10123999000123'),
       ('fssai_license_valid_till', '2027-12-31'),
       ('min_gross_margin_pct', '25.0'),
+      ('active_verticals', '["frozen"]'),
+      ('primary_vertical', 'frozen'),
     ];
 
     for (final (key, value) in defaultSettings) {
