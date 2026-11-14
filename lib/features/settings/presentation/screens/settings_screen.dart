@@ -67,6 +67,8 @@ class SettingsScreen extends ConsumerWidget {
               _tile(context, 'Production Batches', Icons.precision_manufacturing_rounded, () => context.go(AppRoutes.production), color: AppColors.accent),
               _tile(context, 'Delivery Van Routes', Icons.local_shipping_outlined, () => context.push(AppRoutes.driverRoutes), color: const Color(0xFF00897B)),
               _tile(context, 'Raw Materials & BOM', Icons.grain_rounded, () => context.push(AppRoutes.rawMaterials), color: const Color(0xFFE65100)),
+              if (ref.watch(verticalScopeProvider).isEnabled(Vertical.dairy))
+                _tile(context, 'Milk Procurement Intake', Icons.water_drop_outlined, () => context.push(AppRoutes.milkProcurement), color: const Color(0xFF00897B)),
               _tile(context, 'FSSAI Food Safety Audit', Icons.verified_user_rounded, () => context.push(AppRoutes.hygiene), color: const Color(0xFF2E7D32)),
               _tile(context, 'Inventory', Icons.warehouse_outlined, () => context.go(AppRoutes.inventory), color: const Color(0xFF0277BD)),
               _tile(context, 'Billing', Icons.receipt_long_outlined, () => context.go(AppRoutes.billing), color: AppColors.success),
