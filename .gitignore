@@ -9,6 +9,8 @@
 .history
 .svn/
 migrate_working_dir/
+*.tmp
+*.bak
 
 # IntelliJ related
 *.iml
@@ -36,6 +38,7 @@ build/
 android/build/
 **/android/build/
 untranslated_messages.json
+ephemeral/
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -80,8 +83,10 @@ output-metadata.json
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 
-# Coverage
+# Test & Coverage
 coverage/
+test-results/
+*.coverage
 
 # Symbols
 app.*.symbols
@@ -103,4 +108,7 @@ GoogleService-Info.plist
 *.db
 *.db-wal
 *.db-shm
+*.db-journal
+*.sqlite
+*.sqlite3
 sr_foods.db

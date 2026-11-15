@@ -15,8 +15,8 @@ void main() {
       await db.close();
     });
 
-    test('1. Schema version is exactly v6', () async {
-      expect(db.schemaVersion, equals(6));
+    test('1. Schema version is at least v6 (currently v7)', () async {
+      expect(db.schemaVersion, greaterThanOrEqualTo(6));
     });
 
     test('2. Default seeded fat pricing rules are populated in v6 migration', () async {
