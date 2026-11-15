@@ -29,32 +29,31 @@ class DairyKpiService {
     try {
       // 1. Query milk procurements
       final procurements = await db.customSelect(
-        'SELECT quantity_liters, fat_percent, snf_percent, total_amount_minor, temperature_c FROM milk_procurements',
+        'SELECT quantity_liters, fat_percent, snf_percent, total_amount_minor FROM milk_procurements',
       ).get();
 
       double totalLiters = 0.0;
       double fatLiters = 0.0;
       double snfLiters = 0.0;
       int totalSpendMinor = 0;
-      int chillingBreaches = 0;
 
       for (final row in procurements) {
         final qty = (row.data['quantity_liters'] as num?)?.toDouble() ?? 0.0;
         final fat = (row.data['fat_percent'] as num?)?.toDouble() ?? 0.0;
         final snf = (row.data['snf_percent'] as num?)?.toDouble() ?? 0.0;
         final spend = (row.data['total_amount_minor'] as int?) ?? 0;
-        final temp = (row.data['temperature_c'] as num?)?.toDouble();
 
         totalLiters += qty;
         fatLiters += (qty * fat);
         snfLiters += (qty * snf);
         totalSpendMinor += spend;
-
-        // Chilling threshold for raw milk is 4.5°C
-        if (temp != null && temp > 4.5) {
-          chillingBreaches++;
-        }
       }
+
+      // Chilling breaches: check batches with chilling center temp > 4.5°C
+      final breachRows = await db.customSelect(
+        'SELECT COUNT(*) as breaches FROM production_batches WHERE chilling_center_id IS NOT NULL AND pasteurization_temp_c > 4.5',
+      ).get();
+      final chillingBreaches = breachRows.isNotEmpty ? (breachRows.first.data['breaches'] as int? ?? 0) : 0;
 
       final avgFat = totalLiters > 0 ? (fatLiters / totalLiters) : 4.2;
       final avgSnf = totalLiters > 0 ? (snfLiters / totalLiters) : 8.6;

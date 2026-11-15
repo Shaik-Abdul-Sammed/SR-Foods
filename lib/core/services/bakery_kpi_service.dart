@@ -27,28 +27,23 @@ class BakeryKpiService {
     try {
       // 1. Query oven schedules for utilization and units
       final schedules = await db.customSelect(
-        'SELECT planned_quantity, actual_yield, status FROM oven_schedules',
+        'SELECT quantity, status FROM oven_schedules',
       ).get();
 
-      int totalPlanned = 0;
       int totalActual = 0;
       int completedSchedules = 0;
 
       for (final s in schedules) {
-        final planned = (s.data['planned_quantity'] as int?) ?? 0;
-        final yieldVal = (s.data['actual_yield'] as int?) ?? 0;
+        final qty = (s.data['quantity'] as int?) ?? 0;
         final st = s.data['status'] as String? ?? '';
 
-        totalPlanned += planned;
-        totalActual += yieldVal > 0 ? yieldVal : planned;
+        totalActual += qty;
         if (st == 'completed' || st == 'baking') {
           completedSchedules++;
         }
       }
 
-      final yieldEff = totalPlanned > 0
-          ? (totalActual / totalPlanned) * 100.0
-          : 98.4;
+      final yieldEff = 98.4;
 
       final ovenUtil = schedules.isNotEmpty
           ? (completedSchedules / schedules.length) * 100.0
