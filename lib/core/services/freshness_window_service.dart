@@ -1,4 +1,4 @@
-import 'package:drift/drift.dart' show Variable;
+import 'package:drift/drift.dart';
 import '../database/app_database.dart';
 import '../domain/money.dart';
 import '../i18n/locale_context.dart';
@@ -90,25 +90,18 @@ class FreshnessWindowService {
     DateTime? now,
   }) async {
     final currentTime = now ?? DateTime.now();
-    final isoNow = currentTime.toIso8601String();
 
-    final staleRows = await db.customSelect(
-      'SELECT pb.id, pb.batch_number, pb.product_id, pb.baked_at, pb.freshness_until '
-      'FROM production_batches pb '
-      'WHERE pb.freshness_until IS NOT NULL AND pb.freshness_until < ? AND pb.status = ?',
-      variables: [
-        Variable.withString(isoNow),
-        Variable.withString('completed'),
-      ],
-    ).get();
+    final staleBatches = await (db.select(db.productionBatches)
+          ..where((tbl) =>
+              tbl.freshnessUntil.isNotNull() &
+              tbl.freshnessUntil.isSmallerThanValue(currentTime) &
+              tbl.status.equals('completed')))
+        .get();
 
     final alerts = <StaleBatchAlert>[];
-    for (final row in staleRows) {
-      final id = row.read<int>('id');
-      final batchNo = row.read<String>('batch_number');
-      final pId = row.read<int>('product_id');
-      final baked = row.read<DateTime?>('baked_at') ?? currentTime.subtract(const Duration(hours: 24));
-      final freshUntil = row.read<DateTime>('freshness_until');
+    for (final batch in staleBatches) {
+      final baked = batch.bakedAt ?? currentTime.subtract(const Duration(hours: 24));
+      final freshUntil = batch.freshnessUntil!;
       final hoursPast = currentTime.difference(freshUntil).inHours;
 
       double discount = 25.0;
@@ -117,9 +110,9 @@ class FreshnessWindowService {
 
       alerts.add(
         StaleBatchAlert(
-          batchId: id,
-          batchNumber: batchNo,
-          productId: pId,
+          batchId: batch.id,
+          batchNumber: batch.batchNumber,
+          productId: batch.productId,
           bakedAt: baked,
           freshnessUntil: freshUntil,
           hoursPastFreshness: hoursPast,

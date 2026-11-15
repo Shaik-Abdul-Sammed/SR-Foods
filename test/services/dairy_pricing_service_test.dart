@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sr_foods/core/domain/money.dart';
 import 'package:sr_foods/core/i18n/locale_context.dart';
 import 'package:sr_foods/core/services/dairy_pricing_service.dart';
 

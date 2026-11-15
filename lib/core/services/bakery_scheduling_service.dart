@@ -1,4 +1,4 @@
-import 'package:drift/drift.dart' show Variable;
+import 'package:drift/drift.dart' show Value, Variable;
 import '../database/app_database.dart';
 
 class ScheduledSlot {
@@ -163,26 +163,19 @@ class BakerySchedulingService {
       end: bakeEnd,
     );
 
-    await db.customStatement(
-      'INSERT INTO oven_schedules ('
-      'oven_id, oven_type, batch_id, scheduled_start, scheduled_end, '
-      'product_id, quantity, status, notes'
-      ') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [
-        ovenId,
-        ovenType,
-        batchId,
-        bakeStart.toIso8601String(),
-        bakeEnd.toIso8601String(),
-        productId,
-        quantity,
-        'scheduled',
-        notes ?? 'Proofing start: ${proofingStart.toIso8601String()}',
-      ],
+    final id = await db.into(db.ovenSchedules).insert(
+      OvenSchedulesCompanion.insert(
+        ovenId: ovenId,
+        ovenType: Value(ovenType),
+        batchId: Value(batchId),
+        scheduledStart: bakeStart,
+        scheduledEnd: bakeEnd,
+        productId: productId,
+        quantity: quantity,
+        status: const Value('scheduled'),
+        notes: Value(notes ?? 'Proofing start: ${proofingStart.toIso8601String()}'),
+      ),
     );
-
-    final lastIdRow = await db.customSelect('SELECT last_insert_rowid() as id').getSingle();
-    final id = lastIdRow.read<int>('id');
 
     return OvenScheduleResult(
       scheduleId: id,

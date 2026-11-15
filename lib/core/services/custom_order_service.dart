@@ -1,4 +1,4 @@
-import 'package:drift/drift.dart' show Variable;
+import 'package:drift/drift.dart' show Value, Variable;
 import '../database/app_database.dart';
 import '../domain/money.dart';
 
@@ -56,27 +56,20 @@ class CustomOrderService {
   }) async {
     final now = DateTime.now();
 
-    await db.customStatement(
-      'INSERT INTO custom_orders ('
-      'customer_id, order_date, delivery_date, cake_type, decoration_notes, '
-      'photo_ref, advance_amount_minor, total_amount_minor, status, created_at'
-      ') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [
-        customerId,
-        now.toIso8601String(),
-        deliveryDate.toIso8601String(),
-        cakeType,
-        decorationNotes,
-        photoRef,
-        advanceAmountMinor,
-        totalAmountMinor,
-        status,
-        now.toIso8601String(),
-      ],
+    final id = await db.into(db.customOrders).insert(
+      CustomOrdersCompanion.insert(
+        customerId: customerId,
+        orderDate: Value(now),
+        deliveryDate: deliveryDate,
+        cakeType: cakeType,
+        decorationNotes: Value(decorationNotes),
+        photoRef: Value(photoRef),
+        advanceAmountMinor: Value(advanceAmountMinor),
+        totalAmountMinor: totalAmountMinor,
+        status: Value(status),
+        createdAt: Value(now),
+      ),
     );
-
-    final lastIdRow = await db.customSelect('SELECT last_insert_rowid() as id').getSingle();
-    final id = lastIdRow.read<int>('id');
     final balance = totalAmountMinor - advanceAmountMinor;
 
     return CustomOrderResult(

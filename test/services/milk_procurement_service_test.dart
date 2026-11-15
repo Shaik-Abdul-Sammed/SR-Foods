@@ -2,7 +2,6 @@ import 'package:drift/native.dart';
 import 'package:drift/drift.dart' show Variable;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sr_foods/core/database/app_database.dart';
-import 'package:sr_foods/core/services/dairy_pricing_service.dart';
 import 'package:sr_foods/core/services/milk_procurement_service.dart';
 
 void main() {
