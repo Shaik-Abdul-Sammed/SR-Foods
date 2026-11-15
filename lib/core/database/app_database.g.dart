@@ -342,6 +342,149 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
         requiredDuringInsert: false,
         defaultValue: const Constant('INR'),
       );
+  static const VerificationMeta _fatPercentExpectedMeta =
+      const VerificationMeta('fatPercentExpected');
+  @override
+  late final GeneratedColumn<double> fatPercentExpected =
+      GeneratedColumn<double>(
+        'fat_percent_expected',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _snfPercentExpectedMeta =
+      const VerificationMeta('snfPercentExpected');
+  @override
+  late final GeneratedColumn<double> snfPercentExpected =
+      GeneratedColumn<double>(
+        'snf_percent_expected',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _milkTypeMeta = const VerificationMeta(
+    'milkType',
+  );
+  @override
+  late final GeneratedColumn<String> milkType = GeneratedColumn<String>(
+    'milk_type',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _procurementSlotMeta = const VerificationMeta(
+    'procurementSlot',
+  );
+  @override
+  late final GeneratedColumn<String> procurementSlot = GeneratedColumn<String>(
+    'procurement_slot',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isPasteurizedMeta = const VerificationMeta(
+    'isPasteurized',
+  );
+  @override
+  late final GeneratedColumn<bool> isPasteurized = GeneratedColumn<bool>(
+    'is_pasteurized',
+    aliasedName,
+    true,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_pasteurized" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _isCulturedMeta = const VerificationMeta(
+    'isCultured',
+  );
+  @override
+  late final GeneratedColumn<bool> isCultured = GeneratedColumn<bool>(
+    'is_cultured',
+    aliasedName,
+    true,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_cultured" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _bakeDateRequiredMeta = const VerificationMeta(
+    'bakeDateRequired',
+  );
+  @override
+  late final GeneratedColumn<bool> bakeDateRequired = GeneratedColumn<bool>(
+    'bake_date_required',
+    aliasedName,
+    true,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("bake_date_required" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _proofingMinutesMeta = const VerificationMeta(
+    'proofingMinutes',
+  );
+  @override
+  late final GeneratedColumn<int> proofingMinutes = GeneratedColumn<int>(
+    'proofing_minutes',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _ovenTypeMeta = const VerificationMeta(
+    'ovenType',
+  );
+  @override
+  late final GeneratedColumn<String> ovenType = GeneratedColumn<String>(
+    'oven_type',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _freshnessWindowHoursMeta =
+      const VerificationMeta('freshnessWindowHours');
+  @override
+  late final GeneratedColumn<int> freshnessWindowHours = GeneratedColumn<int>(
+    'freshness_window_hours',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _dayOldDiscountPercentMeta =
+      const VerificationMeta('dayOldDiscountPercent');
+  @override
+  late final GeneratedColumn<double> dayOldDiscountPercent =
+      GeneratedColumn<double>(
+        'day_old_discount_percent',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _isCustomOrderMeta = const VerificationMeta(
+    'isCustomOrder',
+  );
+  @override
+  late final GeneratedColumn<bool> isCustomOrder = GeneratedColumn<bool>(
+    'is_custom_order',
+    aliasedName,
+    true,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_custom_order" IN (0, 1))',
+    ),
+  );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -397,6 +540,18 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
     nutritionPer100gJson,
     primaryMarkets,
     priceBandCurrency,
+    fatPercentExpected,
+    snfPercentExpected,
+    milkType,
+    procurementSlot,
+    isPasteurized,
+    isCultured,
+    bakeDateRequired,
+    proofingMinutes,
+    ovenType,
+    freshnessWindowHours,
+    dayOldDiscountPercent,
+    isCustomOrder,
     createdAt,
     updatedAt,
   ];
@@ -631,6 +786,105 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
         ),
       );
     }
+    if (data.containsKey('fat_percent_expected')) {
+      context.handle(
+        _fatPercentExpectedMeta,
+        fatPercentExpected.isAcceptableOrUnknown(
+          data['fat_percent_expected']!,
+          _fatPercentExpectedMeta,
+        ),
+      );
+    }
+    if (data.containsKey('snf_percent_expected')) {
+      context.handle(
+        _snfPercentExpectedMeta,
+        snfPercentExpected.isAcceptableOrUnknown(
+          data['snf_percent_expected']!,
+          _snfPercentExpectedMeta,
+        ),
+      );
+    }
+    if (data.containsKey('milk_type')) {
+      context.handle(
+        _milkTypeMeta,
+        milkType.isAcceptableOrUnknown(data['milk_type']!, _milkTypeMeta),
+      );
+    }
+    if (data.containsKey('procurement_slot')) {
+      context.handle(
+        _procurementSlotMeta,
+        procurementSlot.isAcceptableOrUnknown(
+          data['procurement_slot']!,
+          _procurementSlotMeta,
+        ),
+      );
+    }
+    if (data.containsKey('is_pasteurized')) {
+      context.handle(
+        _isPasteurizedMeta,
+        isPasteurized.isAcceptableOrUnknown(
+          data['is_pasteurized']!,
+          _isPasteurizedMeta,
+        ),
+      );
+    }
+    if (data.containsKey('is_cultured')) {
+      context.handle(
+        _isCulturedMeta,
+        isCultured.isAcceptableOrUnknown(data['is_cultured']!, _isCulturedMeta),
+      );
+    }
+    if (data.containsKey('bake_date_required')) {
+      context.handle(
+        _bakeDateRequiredMeta,
+        bakeDateRequired.isAcceptableOrUnknown(
+          data['bake_date_required']!,
+          _bakeDateRequiredMeta,
+        ),
+      );
+    }
+    if (data.containsKey('proofing_minutes')) {
+      context.handle(
+        _proofingMinutesMeta,
+        proofingMinutes.isAcceptableOrUnknown(
+          data['proofing_minutes']!,
+          _proofingMinutesMeta,
+        ),
+      );
+    }
+    if (data.containsKey('oven_type')) {
+      context.handle(
+        _ovenTypeMeta,
+        ovenType.isAcceptableOrUnknown(data['oven_type']!, _ovenTypeMeta),
+      );
+    }
+    if (data.containsKey('freshness_window_hours')) {
+      context.handle(
+        _freshnessWindowHoursMeta,
+        freshnessWindowHours.isAcceptableOrUnknown(
+          data['freshness_window_hours']!,
+          _freshnessWindowHoursMeta,
+        ),
+      );
+    }
+    if (data.containsKey('day_old_discount_percent')) {
+      context.handle(
+        _dayOldDiscountPercentMeta,
+        dayOldDiscountPercent.isAcceptableOrUnknown(
+          data['day_old_discount_percent']!,
+          _dayOldDiscountPercentMeta,
+        ),
+      );
+    }
+    if (data.containsKey('is_custom_order')) {
+      context.handle(
+        _isCustomOrderMeta,
+        isCustomOrder.isAcceptableOrUnknown(
+          data['is_custom_order']!,
+          _isCustomOrderMeta,
+        ),
+      );
+    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -768,6 +1022,54 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
         DriftSqlType.string,
         data['${effectivePrefix}price_band_currency'],
       )!,
+      fatPercentExpected: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}fat_percent_expected'],
+      ),
+      snfPercentExpected: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}snf_percent_expected'],
+      ),
+      milkType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}milk_type'],
+      ),
+      procurementSlot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}procurement_slot'],
+      ),
+      isPasteurized: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_pasteurized'],
+      ),
+      isCultured: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_cultured'],
+      ),
+      bakeDateRequired: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}bake_date_required'],
+      ),
+      proofingMinutes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}proofing_minutes'],
+      ),
+      ovenType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}oven_type'],
+      ),
+      freshnessWindowHours: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}freshness_window_hours'],
+      ),
+      dayOldDiscountPercent: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}day_old_discount_percent'],
+      ),
+      isCustomOrder: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_custom_order'],
+      ),
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
@@ -815,6 +1117,18 @@ class Product extends DataClass implements Insertable<Product> {
   final String? nutritionPer100gJson;
   final String? primaryMarkets;
   final String priceBandCurrency;
+  final double? fatPercentExpected;
+  final double? snfPercentExpected;
+  final String? milkType;
+  final String? procurementSlot;
+  final bool? isPasteurized;
+  final bool? isCultured;
+  final bool? bakeDateRequired;
+  final int? proofingMinutes;
+  final String? ovenType;
+  final int? freshnessWindowHours;
+  final double? dayOldDiscountPercent;
+  final bool? isCustomOrder;
   final DateTime createdAt;
   final DateTime updatedAt;
   const Product({
@@ -847,6 +1161,18 @@ class Product extends DataClass implements Insertable<Product> {
     this.nutritionPer100gJson,
     this.primaryMarkets,
     required this.priceBandCurrency,
+    this.fatPercentExpected,
+    this.snfPercentExpected,
+    this.milkType,
+    this.procurementSlot,
+    this.isPasteurized,
+    this.isCultured,
+    this.bakeDateRequired,
+    this.proofingMinutes,
+    this.ovenType,
+    this.freshnessWindowHours,
+    this.dayOldDiscountPercent,
+    this.isCustomOrder,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -898,6 +1224,42 @@ class Product extends DataClass implements Insertable<Product> {
       map['primary_markets'] = Variable<String>(primaryMarkets);
     }
     map['price_band_currency'] = Variable<String>(priceBandCurrency);
+    if (!nullToAbsent || fatPercentExpected != null) {
+      map['fat_percent_expected'] = Variable<double>(fatPercentExpected);
+    }
+    if (!nullToAbsent || snfPercentExpected != null) {
+      map['snf_percent_expected'] = Variable<double>(snfPercentExpected);
+    }
+    if (!nullToAbsent || milkType != null) {
+      map['milk_type'] = Variable<String>(milkType);
+    }
+    if (!nullToAbsent || procurementSlot != null) {
+      map['procurement_slot'] = Variable<String>(procurementSlot);
+    }
+    if (!nullToAbsent || isPasteurized != null) {
+      map['is_pasteurized'] = Variable<bool>(isPasteurized);
+    }
+    if (!nullToAbsent || isCultured != null) {
+      map['is_cultured'] = Variable<bool>(isCultured);
+    }
+    if (!nullToAbsent || bakeDateRequired != null) {
+      map['bake_date_required'] = Variable<bool>(bakeDateRequired);
+    }
+    if (!nullToAbsent || proofingMinutes != null) {
+      map['proofing_minutes'] = Variable<int>(proofingMinutes);
+    }
+    if (!nullToAbsent || ovenType != null) {
+      map['oven_type'] = Variable<String>(ovenType);
+    }
+    if (!nullToAbsent || freshnessWindowHours != null) {
+      map['freshness_window_hours'] = Variable<int>(freshnessWindowHours);
+    }
+    if (!nullToAbsent || dayOldDiscountPercent != null) {
+      map['day_old_discount_percent'] = Variable<double>(dayOldDiscountPercent);
+    }
+    if (!nullToAbsent || isCustomOrder != null) {
+      map['is_custom_order'] = Variable<bool>(isCustomOrder);
+    }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
@@ -948,6 +1310,42 @@ class Product extends DataClass implements Insertable<Product> {
           ? const Value.absent()
           : Value(primaryMarkets),
       priceBandCurrency: Value(priceBandCurrency),
+      fatPercentExpected: fatPercentExpected == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fatPercentExpected),
+      snfPercentExpected: snfPercentExpected == null && nullToAbsent
+          ? const Value.absent()
+          : Value(snfPercentExpected),
+      milkType: milkType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(milkType),
+      procurementSlot: procurementSlot == null && nullToAbsent
+          ? const Value.absent()
+          : Value(procurementSlot),
+      isPasteurized: isPasteurized == null && nullToAbsent
+          ? const Value.absent()
+          : Value(isPasteurized),
+      isCultured: isCultured == null && nullToAbsent
+          ? const Value.absent()
+          : Value(isCultured),
+      bakeDateRequired: bakeDateRequired == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bakeDateRequired),
+      proofingMinutes: proofingMinutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(proofingMinutes),
+      ovenType: ovenType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ovenType),
+      freshnessWindowHours: freshnessWindowHours == null && nullToAbsent
+          ? const Value.absent()
+          : Value(freshnessWindowHours),
+      dayOldDiscountPercent: dayOldDiscountPercent == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dayOldDiscountPercent),
+      isCustomOrder: isCustomOrder == null && nullToAbsent
+          ? const Value.absent()
+          : Value(isCustomOrder),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
@@ -994,6 +1392,26 @@ class Product extends DataClass implements Insertable<Product> {
       ),
       primaryMarkets: serializer.fromJson<String?>(json['primaryMarkets']),
       priceBandCurrency: serializer.fromJson<String>(json['priceBandCurrency']),
+      fatPercentExpected: serializer.fromJson<double?>(
+        json['fatPercentExpected'],
+      ),
+      snfPercentExpected: serializer.fromJson<double?>(
+        json['snfPercentExpected'],
+      ),
+      milkType: serializer.fromJson<String?>(json['milkType']),
+      procurementSlot: serializer.fromJson<String?>(json['procurementSlot']),
+      isPasteurized: serializer.fromJson<bool?>(json['isPasteurized']),
+      isCultured: serializer.fromJson<bool?>(json['isCultured']),
+      bakeDateRequired: serializer.fromJson<bool?>(json['bakeDateRequired']),
+      proofingMinutes: serializer.fromJson<int?>(json['proofingMinutes']),
+      ovenType: serializer.fromJson<String?>(json['ovenType']),
+      freshnessWindowHours: serializer.fromJson<int?>(
+        json['freshnessWindowHours'],
+      ),
+      dayOldDiscountPercent: serializer.fromJson<double?>(
+        json['dayOldDiscountPercent'],
+      ),
+      isCustomOrder: serializer.fromJson<bool?>(json['isCustomOrder']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -1031,6 +1449,20 @@ class Product extends DataClass implements Insertable<Product> {
       'nutritionPer100gJson': serializer.toJson<String?>(nutritionPer100gJson),
       'primaryMarkets': serializer.toJson<String?>(primaryMarkets),
       'priceBandCurrency': serializer.toJson<String>(priceBandCurrency),
+      'fatPercentExpected': serializer.toJson<double?>(fatPercentExpected),
+      'snfPercentExpected': serializer.toJson<double?>(snfPercentExpected),
+      'milkType': serializer.toJson<String?>(milkType),
+      'procurementSlot': serializer.toJson<String?>(procurementSlot),
+      'isPasteurized': serializer.toJson<bool?>(isPasteurized),
+      'isCultured': serializer.toJson<bool?>(isCultured),
+      'bakeDateRequired': serializer.toJson<bool?>(bakeDateRequired),
+      'proofingMinutes': serializer.toJson<int?>(proofingMinutes),
+      'ovenType': serializer.toJson<String?>(ovenType),
+      'freshnessWindowHours': serializer.toJson<int?>(freshnessWindowHours),
+      'dayOldDiscountPercent': serializer.toJson<double?>(
+        dayOldDiscountPercent,
+      ),
+      'isCustomOrder': serializer.toJson<bool?>(isCustomOrder),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
@@ -1066,6 +1498,18 @@ class Product extends DataClass implements Insertable<Product> {
     Value<String?> nutritionPer100gJson = const Value.absent(),
     Value<String?> primaryMarkets = const Value.absent(),
     String? priceBandCurrency,
+    Value<double?> fatPercentExpected = const Value.absent(),
+    Value<double?> snfPercentExpected = const Value.absent(),
+    Value<String?> milkType = const Value.absent(),
+    Value<String?> procurementSlot = const Value.absent(),
+    Value<bool?> isPasteurized = const Value.absent(),
+    Value<bool?> isCultured = const Value.absent(),
+    Value<bool?> bakeDateRequired = const Value.absent(),
+    Value<int?> proofingMinutes = const Value.absent(),
+    Value<String?> ovenType = const Value.absent(),
+    Value<int?> freshnessWindowHours = const Value.absent(),
+    Value<double?> dayOldDiscountPercent = const Value.absent(),
+    Value<bool?> isCustomOrder = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => Product(
@@ -1104,6 +1548,36 @@ class Product extends DataClass implements Insertable<Product> {
         ? primaryMarkets.value
         : this.primaryMarkets,
     priceBandCurrency: priceBandCurrency ?? this.priceBandCurrency,
+    fatPercentExpected: fatPercentExpected.present
+        ? fatPercentExpected.value
+        : this.fatPercentExpected,
+    snfPercentExpected: snfPercentExpected.present
+        ? snfPercentExpected.value
+        : this.snfPercentExpected,
+    milkType: milkType.present ? milkType.value : this.milkType,
+    procurementSlot: procurementSlot.present
+        ? procurementSlot.value
+        : this.procurementSlot,
+    isPasteurized: isPasteurized.present
+        ? isPasteurized.value
+        : this.isPasteurized,
+    isCultured: isCultured.present ? isCultured.value : this.isCultured,
+    bakeDateRequired: bakeDateRequired.present
+        ? bakeDateRequired.value
+        : this.bakeDateRequired,
+    proofingMinutes: proofingMinutes.present
+        ? proofingMinutes.value
+        : this.proofingMinutes,
+    ovenType: ovenType.present ? ovenType.value : this.ovenType,
+    freshnessWindowHours: freshnessWindowHours.present
+        ? freshnessWindowHours.value
+        : this.freshnessWindowHours,
+    dayOldDiscountPercent: dayOldDiscountPercent.present
+        ? dayOldDiscountPercent.value
+        : this.dayOldDiscountPercent,
+    isCustomOrder: isCustomOrder.present
+        ? isCustomOrder.value
+        : this.isCustomOrder,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
   );
@@ -1166,6 +1640,38 @@ class Product extends DataClass implements Insertable<Product> {
       priceBandCurrency: data.priceBandCurrency.present
           ? data.priceBandCurrency.value
           : this.priceBandCurrency,
+      fatPercentExpected: data.fatPercentExpected.present
+          ? data.fatPercentExpected.value
+          : this.fatPercentExpected,
+      snfPercentExpected: data.snfPercentExpected.present
+          ? data.snfPercentExpected.value
+          : this.snfPercentExpected,
+      milkType: data.milkType.present ? data.milkType.value : this.milkType,
+      procurementSlot: data.procurementSlot.present
+          ? data.procurementSlot.value
+          : this.procurementSlot,
+      isPasteurized: data.isPasteurized.present
+          ? data.isPasteurized.value
+          : this.isPasteurized,
+      isCultured: data.isCultured.present
+          ? data.isCultured.value
+          : this.isCultured,
+      bakeDateRequired: data.bakeDateRequired.present
+          ? data.bakeDateRequired.value
+          : this.bakeDateRequired,
+      proofingMinutes: data.proofingMinutes.present
+          ? data.proofingMinutes.value
+          : this.proofingMinutes,
+      ovenType: data.ovenType.present ? data.ovenType.value : this.ovenType,
+      freshnessWindowHours: data.freshnessWindowHours.present
+          ? data.freshnessWindowHours.value
+          : this.freshnessWindowHours,
+      dayOldDiscountPercent: data.dayOldDiscountPercent.present
+          ? data.dayOldDiscountPercent.value
+          : this.dayOldDiscountPercent,
+      isCustomOrder: data.isCustomOrder.present
+          ? data.isCustomOrder.value
+          : this.isCustomOrder,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -1203,6 +1709,18 @@ class Product extends DataClass implements Insertable<Product> {
           ..write('nutritionPer100gJson: $nutritionPer100gJson, ')
           ..write('primaryMarkets: $primaryMarkets, ')
           ..write('priceBandCurrency: $priceBandCurrency, ')
+          ..write('fatPercentExpected: $fatPercentExpected, ')
+          ..write('snfPercentExpected: $snfPercentExpected, ')
+          ..write('milkType: $milkType, ')
+          ..write('procurementSlot: $procurementSlot, ')
+          ..write('isPasteurized: $isPasteurized, ')
+          ..write('isCultured: $isCultured, ')
+          ..write('bakeDateRequired: $bakeDateRequired, ')
+          ..write('proofingMinutes: $proofingMinutes, ')
+          ..write('ovenType: $ovenType, ')
+          ..write('freshnessWindowHours: $freshnessWindowHours, ')
+          ..write('dayOldDiscountPercent: $dayOldDiscountPercent, ')
+          ..write('isCustomOrder: $isCustomOrder, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -1240,6 +1758,18 @@ class Product extends DataClass implements Insertable<Product> {
     nutritionPer100gJson,
     primaryMarkets,
     priceBandCurrency,
+    fatPercentExpected,
+    snfPercentExpected,
+    milkType,
+    procurementSlot,
+    isPasteurized,
+    isCultured,
+    bakeDateRequired,
+    proofingMinutes,
+    ovenType,
+    freshnessWindowHours,
+    dayOldDiscountPercent,
+    isCustomOrder,
     createdAt,
     updatedAt,
   ]);
@@ -1276,6 +1806,18 @@ class Product extends DataClass implements Insertable<Product> {
           other.nutritionPer100gJson == this.nutritionPer100gJson &&
           other.primaryMarkets == this.primaryMarkets &&
           other.priceBandCurrency == this.priceBandCurrency &&
+          other.fatPercentExpected == this.fatPercentExpected &&
+          other.snfPercentExpected == this.snfPercentExpected &&
+          other.milkType == this.milkType &&
+          other.procurementSlot == this.procurementSlot &&
+          other.isPasteurized == this.isPasteurized &&
+          other.isCultured == this.isCultured &&
+          other.bakeDateRequired == this.bakeDateRequired &&
+          other.proofingMinutes == this.proofingMinutes &&
+          other.ovenType == this.ovenType &&
+          other.freshnessWindowHours == this.freshnessWindowHours &&
+          other.dayOldDiscountPercent == this.dayOldDiscountPercent &&
+          other.isCustomOrder == this.isCustomOrder &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
@@ -1310,6 +1852,18 @@ class ProductsCompanion extends UpdateCompanion<Product> {
   final Value<String?> nutritionPer100gJson;
   final Value<String?> primaryMarkets;
   final Value<String> priceBandCurrency;
+  final Value<double?> fatPercentExpected;
+  final Value<double?> snfPercentExpected;
+  final Value<String?> milkType;
+  final Value<String?> procurementSlot;
+  final Value<bool?> isPasteurized;
+  final Value<bool?> isCultured;
+  final Value<bool?> bakeDateRequired;
+  final Value<int?> proofingMinutes;
+  final Value<String?> ovenType;
+  final Value<int?> freshnessWindowHours;
+  final Value<double?> dayOldDiscountPercent;
+  final Value<bool?> isCustomOrder;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   const ProductsCompanion({
@@ -1342,6 +1896,18 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     this.nutritionPer100gJson = const Value.absent(),
     this.primaryMarkets = const Value.absent(),
     this.priceBandCurrency = const Value.absent(),
+    this.fatPercentExpected = const Value.absent(),
+    this.snfPercentExpected = const Value.absent(),
+    this.milkType = const Value.absent(),
+    this.procurementSlot = const Value.absent(),
+    this.isPasteurized = const Value.absent(),
+    this.isCultured = const Value.absent(),
+    this.bakeDateRequired = const Value.absent(),
+    this.proofingMinutes = const Value.absent(),
+    this.ovenType = const Value.absent(),
+    this.freshnessWindowHours = const Value.absent(),
+    this.dayOldDiscountPercent = const Value.absent(),
+    this.isCustomOrder = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -1375,6 +1941,18 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     this.nutritionPer100gJson = const Value.absent(),
     this.primaryMarkets = const Value.absent(),
     this.priceBandCurrency = const Value.absent(),
+    this.fatPercentExpected = const Value.absent(),
+    this.snfPercentExpected = const Value.absent(),
+    this.milkType = const Value.absent(),
+    this.procurementSlot = const Value.absent(),
+    this.isPasteurized = const Value.absent(),
+    this.isCultured = const Value.absent(),
+    this.bakeDateRequired = const Value.absent(),
+    this.proofingMinutes = const Value.absent(),
+    this.ovenType = const Value.absent(),
+    this.freshnessWindowHours = const Value.absent(),
+    this.dayOldDiscountPercent = const Value.absent(),
+    this.isCustomOrder = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   }) : sku = Value(sku),
@@ -1410,6 +1988,18 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     Expression<String>? nutritionPer100gJson,
     Expression<String>? primaryMarkets,
     Expression<String>? priceBandCurrency,
+    Expression<double>? fatPercentExpected,
+    Expression<double>? snfPercentExpected,
+    Expression<String>? milkType,
+    Expression<String>? procurementSlot,
+    Expression<bool>? isPasteurized,
+    Expression<bool>? isCultured,
+    Expression<bool>? bakeDateRequired,
+    Expression<int>? proofingMinutes,
+    Expression<String>? ovenType,
+    Expression<int>? freshnessWindowHours,
+    Expression<double>? dayOldDiscountPercent,
+    Expression<bool>? isCustomOrder,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
   }) {
@@ -1445,6 +2035,22 @@ class ProductsCompanion extends UpdateCompanion<Product> {
         'nutrition_per100g_json': nutritionPer100gJson,
       if (primaryMarkets != null) 'primary_markets': primaryMarkets,
       if (priceBandCurrency != null) 'price_band_currency': priceBandCurrency,
+      if (fatPercentExpected != null)
+        'fat_percent_expected': fatPercentExpected,
+      if (snfPercentExpected != null)
+        'snf_percent_expected': snfPercentExpected,
+      if (milkType != null) 'milk_type': milkType,
+      if (procurementSlot != null) 'procurement_slot': procurementSlot,
+      if (isPasteurized != null) 'is_pasteurized': isPasteurized,
+      if (isCultured != null) 'is_cultured': isCultured,
+      if (bakeDateRequired != null) 'bake_date_required': bakeDateRequired,
+      if (proofingMinutes != null) 'proofing_minutes': proofingMinutes,
+      if (ovenType != null) 'oven_type': ovenType,
+      if (freshnessWindowHours != null)
+        'freshness_window_hours': freshnessWindowHours,
+      if (dayOldDiscountPercent != null)
+        'day_old_discount_percent': dayOldDiscountPercent,
+      if (isCustomOrder != null) 'is_custom_order': isCustomOrder,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
@@ -1480,6 +2086,18 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     Value<String?>? nutritionPer100gJson,
     Value<String?>? primaryMarkets,
     Value<String>? priceBandCurrency,
+    Value<double?>? fatPercentExpected,
+    Value<double?>? snfPercentExpected,
+    Value<String?>? milkType,
+    Value<String?>? procurementSlot,
+    Value<bool?>? isPasteurized,
+    Value<bool?>? isCultured,
+    Value<bool?>? bakeDateRequired,
+    Value<int?>? proofingMinutes,
+    Value<String?>? ovenType,
+    Value<int?>? freshnessWindowHours,
+    Value<double?>? dayOldDiscountPercent,
+    Value<bool?>? isCustomOrder,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
   }) {
@@ -1513,6 +2131,19 @@ class ProductsCompanion extends UpdateCompanion<Product> {
       nutritionPer100gJson: nutritionPer100gJson ?? this.nutritionPer100gJson,
       primaryMarkets: primaryMarkets ?? this.primaryMarkets,
       priceBandCurrency: priceBandCurrency ?? this.priceBandCurrency,
+      fatPercentExpected: fatPercentExpected ?? this.fatPercentExpected,
+      snfPercentExpected: snfPercentExpected ?? this.snfPercentExpected,
+      milkType: milkType ?? this.milkType,
+      procurementSlot: procurementSlot ?? this.procurementSlot,
+      isPasteurized: isPasteurized ?? this.isPasteurized,
+      isCultured: isCultured ?? this.isCultured,
+      bakeDateRequired: bakeDateRequired ?? this.bakeDateRequired,
+      proofingMinutes: proofingMinutes ?? this.proofingMinutes,
+      ovenType: ovenType ?? this.ovenType,
+      freshnessWindowHours: freshnessWindowHours ?? this.freshnessWindowHours,
+      dayOldDiscountPercent:
+          dayOldDiscountPercent ?? this.dayOldDiscountPercent,
+      isCustomOrder: isCustomOrder ?? this.isCustomOrder,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -1612,6 +2243,44 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     if (priceBandCurrency.present) {
       map['price_band_currency'] = Variable<String>(priceBandCurrency.value);
     }
+    if (fatPercentExpected.present) {
+      map['fat_percent_expected'] = Variable<double>(fatPercentExpected.value);
+    }
+    if (snfPercentExpected.present) {
+      map['snf_percent_expected'] = Variable<double>(snfPercentExpected.value);
+    }
+    if (milkType.present) {
+      map['milk_type'] = Variable<String>(milkType.value);
+    }
+    if (procurementSlot.present) {
+      map['procurement_slot'] = Variable<String>(procurementSlot.value);
+    }
+    if (isPasteurized.present) {
+      map['is_pasteurized'] = Variable<bool>(isPasteurized.value);
+    }
+    if (isCultured.present) {
+      map['is_cultured'] = Variable<bool>(isCultured.value);
+    }
+    if (bakeDateRequired.present) {
+      map['bake_date_required'] = Variable<bool>(bakeDateRequired.value);
+    }
+    if (proofingMinutes.present) {
+      map['proofing_minutes'] = Variable<int>(proofingMinutes.value);
+    }
+    if (ovenType.present) {
+      map['oven_type'] = Variable<String>(ovenType.value);
+    }
+    if (freshnessWindowHours.present) {
+      map['freshness_window_hours'] = Variable<int>(freshnessWindowHours.value);
+    }
+    if (dayOldDiscountPercent.present) {
+      map['day_old_discount_percent'] = Variable<double>(
+        dayOldDiscountPercent.value,
+      );
+    }
+    if (isCustomOrder.present) {
+      map['is_custom_order'] = Variable<bool>(isCustomOrder.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -1653,6 +2322,18 @@ class ProductsCompanion extends UpdateCompanion<Product> {
           ..write('nutritionPer100gJson: $nutritionPer100gJson, ')
           ..write('primaryMarkets: $primaryMarkets, ')
           ..write('priceBandCurrency: $priceBandCurrency, ')
+          ..write('fatPercentExpected: $fatPercentExpected, ')
+          ..write('snfPercentExpected: $snfPercentExpected, ')
+          ..write('milkType: $milkType, ')
+          ..write('procurementSlot: $procurementSlot, ')
+          ..write('isPasteurized: $isPasteurized, ')
+          ..write('isCultured: $isCultured, ')
+          ..write('bakeDateRequired: $bakeDateRequired, ')
+          ..write('proofingMinutes: $proofingMinutes, ')
+          ..write('ovenType: $ovenType, ')
+          ..write('freshnessWindowHours: $freshnessWindowHours, ')
+          ..write('dayOldDiscountPercent: $dayOldDiscountPercent, ')
+          ..write('isCustomOrder: $isCustomOrder, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -6137,6 +6818,127 @@ class $ProductionBatchesTable extends ProductionBatches
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _fatPercentActualMeta = const VerificationMeta(
+    'fatPercentActual',
+  );
+  @override
+  late final GeneratedColumn<double> fatPercentActual = GeneratedColumn<double>(
+    'fat_percent_actual',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _snfPercentActualMeta = const VerificationMeta(
+    'snfPercentActual',
+  );
+  @override
+  late final GeneratedColumn<double> snfPercentActual = GeneratedColumn<double>(
+    'snf_percent_actual',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _milkSupplierIdMeta = const VerificationMeta(
+    'milkSupplierId',
+  );
+  @override
+  late final GeneratedColumn<String> milkSupplierId = GeneratedColumn<String>(
+    'milk_supplier_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _chillingCenterIdMeta = const VerificationMeta(
+    'chillingCenterId',
+  );
+  @override
+  late final GeneratedColumn<String> chillingCenterId = GeneratedColumn<String>(
+    'chilling_center_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _pasteurizationTempCMeta =
+      const VerificationMeta('pasteurizationTempC');
+  @override
+  late final GeneratedColumn<double> pasteurizationTempC =
+      GeneratedColumn<double>(
+        'pasteurization_temp_c',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _pasteurizationDurationSecMeta =
+      const VerificationMeta('pasteurizationDurationSec');
+  @override
+  late final GeneratedColumn<int> pasteurizationDurationSec =
+      GeneratedColumn<int>(
+        'pasteurization_duration_sec',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _bakedAtMeta = const VerificationMeta(
+    'bakedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> bakedAt = GeneratedColumn<DateTime>(
+    'baked_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _proofedAtMeta = const VerificationMeta(
+    'proofedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> proofedAt = GeneratedColumn<DateTime>(
+    'proofed_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _ovenIdMeta = const VerificationMeta('ovenId');
+  @override
+  late final GeneratedColumn<String> ovenId = GeneratedColumn<String>(
+    'oven_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _freshnessUntilMeta = const VerificationMeta(
+    'freshnessUntil',
+  );
+  @override
+  late final GeneratedColumn<DateTime> freshnessUntil =
+      GeneratedColumn<DateTime>(
+        'freshness_until',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _dayOldAppliedAtMeta = const VerificationMeta(
+    'dayOldAppliedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> dayOldAppliedAt =
+      GeneratedColumn<DateTime>(
+        'day_old_applied_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -6161,6 +6963,17 @@ class $ProductionBatchesTable extends ProductionBatches
     status,
     manufacturingDate,
     expiryDate,
+    fatPercentActual,
+    snfPercentActual,
+    milkSupplierId,
+    chillingCenterId,
+    pasteurizationTempC,
+    pasteurizationDurationSec,
+    bakedAt,
+    proofedAt,
+    ovenId,
+    freshnessUntil,
+    dayOldAppliedAt,
     createdAt,
   ];
   @override
@@ -6257,6 +7070,96 @@ class $ProductionBatchesTable extends ProductionBatches
         expiryDate.isAcceptableOrUnknown(data['expiry_date']!, _expiryDateMeta),
       );
     }
+    if (data.containsKey('fat_percent_actual')) {
+      context.handle(
+        _fatPercentActualMeta,
+        fatPercentActual.isAcceptableOrUnknown(
+          data['fat_percent_actual']!,
+          _fatPercentActualMeta,
+        ),
+      );
+    }
+    if (data.containsKey('snf_percent_actual')) {
+      context.handle(
+        _snfPercentActualMeta,
+        snfPercentActual.isAcceptableOrUnknown(
+          data['snf_percent_actual']!,
+          _snfPercentActualMeta,
+        ),
+      );
+    }
+    if (data.containsKey('milk_supplier_id')) {
+      context.handle(
+        _milkSupplierIdMeta,
+        milkSupplierId.isAcceptableOrUnknown(
+          data['milk_supplier_id']!,
+          _milkSupplierIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('chilling_center_id')) {
+      context.handle(
+        _chillingCenterIdMeta,
+        chillingCenterId.isAcceptableOrUnknown(
+          data['chilling_center_id']!,
+          _chillingCenterIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('pasteurization_temp_c')) {
+      context.handle(
+        _pasteurizationTempCMeta,
+        pasteurizationTempC.isAcceptableOrUnknown(
+          data['pasteurization_temp_c']!,
+          _pasteurizationTempCMeta,
+        ),
+      );
+    }
+    if (data.containsKey('pasteurization_duration_sec')) {
+      context.handle(
+        _pasteurizationDurationSecMeta,
+        pasteurizationDurationSec.isAcceptableOrUnknown(
+          data['pasteurization_duration_sec']!,
+          _pasteurizationDurationSecMeta,
+        ),
+      );
+    }
+    if (data.containsKey('baked_at')) {
+      context.handle(
+        _bakedAtMeta,
+        bakedAt.isAcceptableOrUnknown(data['baked_at']!, _bakedAtMeta),
+      );
+    }
+    if (data.containsKey('proofed_at')) {
+      context.handle(
+        _proofedAtMeta,
+        proofedAt.isAcceptableOrUnknown(data['proofed_at']!, _proofedAtMeta),
+      );
+    }
+    if (data.containsKey('oven_id')) {
+      context.handle(
+        _ovenIdMeta,
+        ovenId.isAcceptableOrUnknown(data['oven_id']!, _ovenIdMeta),
+      );
+    }
+    if (data.containsKey('freshness_until')) {
+      context.handle(
+        _freshnessUntilMeta,
+        freshnessUntil.isAcceptableOrUnknown(
+          data['freshness_until']!,
+          _freshnessUntilMeta,
+        ),
+      );
+    }
+    if (data.containsKey('day_old_applied_at')) {
+      context.handle(
+        _dayOldAppliedAtMeta,
+        dayOldAppliedAt.isAcceptableOrUnknown(
+          data['day_old_applied_at']!,
+          _dayOldAppliedAtMeta,
+        ),
+      );
+    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -6312,6 +7215,50 @@ class $ProductionBatchesTable extends ProductionBatches
         DriftSqlType.dateTime,
         data['${effectivePrefix}expiry_date'],
       ),
+      fatPercentActual: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}fat_percent_actual'],
+      ),
+      snfPercentActual: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}snf_percent_actual'],
+      ),
+      milkSupplierId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}milk_supplier_id'],
+      ),
+      chillingCenterId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}chilling_center_id'],
+      ),
+      pasteurizationTempC: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}pasteurization_temp_c'],
+      ),
+      pasteurizationDurationSec: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}pasteurization_duration_sec'],
+      ),
+      bakedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}baked_at'],
+      ),
+      proofedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}proofed_at'],
+      ),
+      ovenId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}oven_id'],
+      ),
+      freshnessUntil: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}freshness_until'],
+      ),
+      dayOldAppliedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}day_old_applied_at'],
+      ),
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
@@ -6337,6 +7284,17 @@ class ProductionBatche extends DataClass
   final String status;
   final DateTime manufacturingDate;
   final DateTime? expiryDate;
+  final double? fatPercentActual;
+  final double? snfPercentActual;
+  final String? milkSupplierId;
+  final String? chillingCenterId;
+  final double? pasteurizationTempC;
+  final int? pasteurizationDurationSec;
+  final DateTime? bakedAt;
+  final DateTime? proofedAt;
+  final String? ovenId;
+  final DateTime? freshnessUntil;
+  final DateTime? dayOldAppliedAt;
   final DateTime createdAt;
   const ProductionBatche({
     required this.id,
@@ -6349,6 +7307,17 @@ class ProductionBatche extends DataClass
     required this.status,
     required this.manufacturingDate,
     this.expiryDate,
+    this.fatPercentActual,
+    this.snfPercentActual,
+    this.milkSupplierId,
+    this.chillingCenterId,
+    this.pasteurizationTempC,
+    this.pasteurizationDurationSec,
+    this.bakedAt,
+    this.proofedAt,
+    this.ovenId,
+    this.freshnessUntil,
+    this.dayOldAppliedAt,
     required this.createdAt,
   });
   @override
@@ -6369,6 +7338,41 @@ class ProductionBatche extends DataClass
     map['manufacturing_date'] = Variable<DateTime>(manufacturingDate);
     if (!nullToAbsent || expiryDate != null) {
       map['expiry_date'] = Variable<DateTime>(expiryDate);
+    }
+    if (!nullToAbsent || fatPercentActual != null) {
+      map['fat_percent_actual'] = Variable<double>(fatPercentActual);
+    }
+    if (!nullToAbsent || snfPercentActual != null) {
+      map['snf_percent_actual'] = Variable<double>(snfPercentActual);
+    }
+    if (!nullToAbsent || milkSupplierId != null) {
+      map['milk_supplier_id'] = Variable<String>(milkSupplierId);
+    }
+    if (!nullToAbsent || chillingCenterId != null) {
+      map['chilling_center_id'] = Variable<String>(chillingCenterId);
+    }
+    if (!nullToAbsent || pasteurizationTempC != null) {
+      map['pasteurization_temp_c'] = Variable<double>(pasteurizationTempC);
+    }
+    if (!nullToAbsent || pasteurizationDurationSec != null) {
+      map['pasteurization_duration_sec'] = Variable<int>(
+        pasteurizationDurationSec,
+      );
+    }
+    if (!nullToAbsent || bakedAt != null) {
+      map['baked_at'] = Variable<DateTime>(bakedAt);
+    }
+    if (!nullToAbsent || proofedAt != null) {
+      map['proofed_at'] = Variable<DateTime>(proofedAt);
+    }
+    if (!nullToAbsent || ovenId != null) {
+      map['oven_id'] = Variable<String>(ovenId);
+    }
+    if (!nullToAbsent || freshnessUntil != null) {
+      map['freshness_until'] = Variable<DateTime>(freshnessUntil);
+    }
+    if (!nullToAbsent || dayOldAppliedAt != null) {
+      map['day_old_applied_at'] = Variable<DateTime>(dayOldAppliedAt);
     }
     map['created_at'] = Variable<DateTime>(createdAt);
     return map;
@@ -6392,6 +7396,40 @@ class ProductionBatche extends DataClass
       expiryDate: expiryDate == null && nullToAbsent
           ? const Value.absent()
           : Value(expiryDate),
+      fatPercentActual: fatPercentActual == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fatPercentActual),
+      snfPercentActual: snfPercentActual == null && nullToAbsent
+          ? const Value.absent()
+          : Value(snfPercentActual),
+      milkSupplierId: milkSupplierId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(milkSupplierId),
+      chillingCenterId: chillingCenterId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(chillingCenterId),
+      pasteurizationTempC: pasteurizationTempC == null && nullToAbsent
+          ? const Value.absent()
+          : Value(pasteurizationTempC),
+      pasteurizationDurationSec:
+          pasteurizationDurationSec == null && nullToAbsent
+          ? const Value.absent()
+          : Value(pasteurizationDurationSec),
+      bakedAt: bakedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bakedAt),
+      proofedAt: proofedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(proofedAt),
+      ovenId: ovenId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ovenId),
+      freshnessUntil: freshnessUntil == null && nullToAbsent
+          ? const Value.absent()
+          : Value(freshnessUntil),
+      dayOldAppliedAt: dayOldAppliedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dayOldAppliedAt),
       createdAt: Value(createdAt),
     );
   }
@@ -6414,6 +7452,21 @@ class ProductionBatche extends DataClass
         json['manufacturingDate'],
       ),
       expiryDate: serializer.fromJson<DateTime?>(json['expiryDate']),
+      fatPercentActual: serializer.fromJson<double?>(json['fatPercentActual']),
+      snfPercentActual: serializer.fromJson<double?>(json['snfPercentActual']),
+      milkSupplierId: serializer.fromJson<String?>(json['milkSupplierId']),
+      chillingCenterId: serializer.fromJson<String?>(json['chillingCenterId']),
+      pasteurizationTempC: serializer.fromJson<double?>(
+        json['pasteurizationTempC'],
+      ),
+      pasteurizationDurationSec: serializer.fromJson<int?>(
+        json['pasteurizationDurationSec'],
+      ),
+      bakedAt: serializer.fromJson<DateTime?>(json['bakedAt']),
+      proofedAt: serializer.fromJson<DateTime?>(json['proofedAt']),
+      ovenId: serializer.fromJson<String?>(json['ovenId']),
+      freshnessUntil: serializer.fromJson<DateTime?>(json['freshnessUntil']),
+      dayOldAppliedAt: serializer.fromJson<DateTime?>(json['dayOldAppliedAt']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
@@ -6431,6 +7484,19 @@ class ProductionBatche extends DataClass
       'status': serializer.toJson<String>(status),
       'manufacturingDate': serializer.toJson<DateTime>(manufacturingDate),
       'expiryDate': serializer.toJson<DateTime?>(expiryDate),
+      'fatPercentActual': serializer.toJson<double?>(fatPercentActual),
+      'snfPercentActual': serializer.toJson<double?>(snfPercentActual),
+      'milkSupplierId': serializer.toJson<String?>(milkSupplierId),
+      'chillingCenterId': serializer.toJson<String?>(chillingCenterId),
+      'pasteurizationTempC': serializer.toJson<double?>(pasteurizationTempC),
+      'pasteurizationDurationSec': serializer.toJson<int?>(
+        pasteurizationDurationSec,
+      ),
+      'bakedAt': serializer.toJson<DateTime?>(bakedAt),
+      'proofedAt': serializer.toJson<DateTime?>(proofedAt),
+      'ovenId': serializer.toJson<String?>(ovenId),
+      'freshnessUntil': serializer.toJson<DateTime?>(freshnessUntil),
+      'dayOldAppliedAt': serializer.toJson<DateTime?>(dayOldAppliedAt),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
@@ -6446,6 +7512,17 @@ class ProductionBatche extends DataClass
     String? status,
     DateTime? manufacturingDate,
     Value<DateTime?> expiryDate = const Value.absent(),
+    Value<double?> fatPercentActual = const Value.absent(),
+    Value<double?> snfPercentActual = const Value.absent(),
+    Value<String?> milkSupplierId = const Value.absent(),
+    Value<String?> chillingCenterId = const Value.absent(),
+    Value<double?> pasteurizationTempC = const Value.absent(),
+    Value<int?> pasteurizationDurationSec = const Value.absent(),
+    Value<DateTime?> bakedAt = const Value.absent(),
+    Value<DateTime?> proofedAt = const Value.absent(),
+    Value<String?> ovenId = const Value.absent(),
+    Value<DateTime?> freshnessUntil = const Value.absent(),
+    Value<DateTime?> dayOldAppliedAt = const Value.absent(),
     DateTime? createdAt,
   }) => ProductionBatche(
     id: id ?? this.id,
@@ -6458,6 +7535,33 @@ class ProductionBatche extends DataClass
     status: status ?? this.status,
     manufacturingDate: manufacturingDate ?? this.manufacturingDate,
     expiryDate: expiryDate.present ? expiryDate.value : this.expiryDate,
+    fatPercentActual: fatPercentActual.present
+        ? fatPercentActual.value
+        : this.fatPercentActual,
+    snfPercentActual: snfPercentActual.present
+        ? snfPercentActual.value
+        : this.snfPercentActual,
+    milkSupplierId: milkSupplierId.present
+        ? milkSupplierId.value
+        : this.milkSupplierId,
+    chillingCenterId: chillingCenterId.present
+        ? chillingCenterId.value
+        : this.chillingCenterId,
+    pasteurizationTempC: pasteurizationTempC.present
+        ? pasteurizationTempC.value
+        : this.pasteurizationTempC,
+    pasteurizationDurationSec: pasteurizationDurationSec.present
+        ? pasteurizationDurationSec.value
+        : this.pasteurizationDurationSec,
+    bakedAt: bakedAt.present ? bakedAt.value : this.bakedAt,
+    proofedAt: proofedAt.present ? proofedAt.value : this.proofedAt,
+    ovenId: ovenId.present ? ovenId.value : this.ovenId,
+    freshnessUntil: freshnessUntil.present
+        ? freshnessUntil.value
+        : this.freshnessUntil,
+    dayOldAppliedAt: dayOldAppliedAt.present
+        ? dayOldAppliedAt.value
+        : this.dayOldAppliedAt,
     createdAt: createdAt ?? this.createdAt,
   );
   ProductionBatche copyWithCompanion(ProductionBatchesCompanion data) {
@@ -6484,6 +7588,33 @@ class ProductionBatche extends DataClass
       expiryDate: data.expiryDate.present
           ? data.expiryDate.value
           : this.expiryDate,
+      fatPercentActual: data.fatPercentActual.present
+          ? data.fatPercentActual.value
+          : this.fatPercentActual,
+      snfPercentActual: data.snfPercentActual.present
+          ? data.snfPercentActual.value
+          : this.snfPercentActual,
+      milkSupplierId: data.milkSupplierId.present
+          ? data.milkSupplierId.value
+          : this.milkSupplierId,
+      chillingCenterId: data.chillingCenterId.present
+          ? data.chillingCenterId.value
+          : this.chillingCenterId,
+      pasteurizationTempC: data.pasteurizationTempC.present
+          ? data.pasteurizationTempC.value
+          : this.pasteurizationTempC,
+      pasteurizationDurationSec: data.pasteurizationDurationSec.present
+          ? data.pasteurizationDurationSec.value
+          : this.pasteurizationDurationSec,
+      bakedAt: data.bakedAt.present ? data.bakedAt.value : this.bakedAt,
+      proofedAt: data.proofedAt.present ? data.proofedAt.value : this.proofedAt,
+      ovenId: data.ovenId.present ? data.ovenId.value : this.ovenId,
+      freshnessUntil: data.freshnessUntil.present
+          ? data.freshnessUntil.value
+          : this.freshnessUntil,
+      dayOldAppliedAt: data.dayOldAppliedAt.present
+          ? data.dayOldAppliedAt.value
+          : this.dayOldAppliedAt,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
   }
@@ -6501,13 +7632,24 @@ class ProductionBatche extends DataClass
           ..write('status: $status, ')
           ..write('manufacturingDate: $manufacturingDate, ')
           ..write('expiryDate: $expiryDate, ')
+          ..write('fatPercentActual: $fatPercentActual, ')
+          ..write('snfPercentActual: $snfPercentActual, ')
+          ..write('milkSupplierId: $milkSupplierId, ')
+          ..write('chillingCenterId: $chillingCenterId, ')
+          ..write('pasteurizationTempC: $pasteurizationTempC, ')
+          ..write('pasteurizationDurationSec: $pasteurizationDurationSec, ')
+          ..write('bakedAt: $bakedAt, ')
+          ..write('proofedAt: $proofedAt, ')
+          ..write('ovenId: $ovenId, ')
+          ..write('freshnessUntil: $freshnessUntil, ')
+          ..write('dayOldAppliedAt: $dayOldAppliedAt, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     id,
     batchNumber,
     productId,
@@ -6518,8 +7660,19 @@ class ProductionBatche extends DataClass
     status,
     manufacturingDate,
     expiryDate,
+    fatPercentActual,
+    snfPercentActual,
+    milkSupplierId,
+    chillingCenterId,
+    pasteurizationTempC,
+    pasteurizationDurationSec,
+    bakedAt,
+    proofedAt,
+    ovenId,
+    freshnessUntil,
+    dayOldAppliedAt,
     createdAt,
-  );
+  ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -6534,6 +7687,17 @@ class ProductionBatche extends DataClass
           other.status == this.status &&
           other.manufacturingDate == this.manufacturingDate &&
           other.expiryDate == this.expiryDate &&
+          other.fatPercentActual == this.fatPercentActual &&
+          other.snfPercentActual == this.snfPercentActual &&
+          other.milkSupplierId == this.milkSupplierId &&
+          other.chillingCenterId == this.chillingCenterId &&
+          other.pasteurizationTempC == this.pasteurizationTempC &&
+          other.pasteurizationDurationSec == this.pasteurizationDurationSec &&
+          other.bakedAt == this.bakedAt &&
+          other.proofedAt == this.proofedAt &&
+          other.ovenId == this.ovenId &&
+          other.freshnessUntil == this.freshnessUntil &&
+          other.dayOldAppliedAt == this.dayOldAppliedAt &&
           other.createdAt == this.createdAt);
 }
 
@@ -6548,6 +7712,17 @@ class ProductionBatchesCompanion extends UpdateCompanion<ProductionBatche> {
   final Value<String> status;
   final Value<DateTime> manufacturingDate;
   final Value<DateTime?> expiryDate;
+  final Value<double?> fatPercentActual;
+  final Value<double?> snfPercentActual;
+  final Value<String?> milkSupplierId;
+  final Value<String?> chillingCenterId;
+  final Value<double?> pasteurizationTempC;
+  final Value<int?> pasteurizationDurationSec;
+  final Value<DateTime?> bakedAt;
+  final Value<DateTime?> proofedAt;
+  final Value<String?> ovenId;
+  final Value<DateTime?> freshnessUntil;
+  final Value<DateTime?> dayOldAppliedAt;
   final Value<DateTime> createdAt;
   const ProductionBatchesCompanion({
     this.id = const Value.absent(),
@@ -6560,6 +7735,17 @@ class ProductionBatchesCompanion extends UpdateCompanion<ProductionBatche> {
     this.status = const Value.absent(),
     this.manufacturingDate = const Value.absent(),
     this.expiryDate = const Value.absent(),
+    this.fatPercentActual = const Value.absent(),
+    this.snfPercentActual = const Value.absent(),
+    this.milkSupplierId = const Value.absent(),
+    this.chillingCenterId = const Value.absent(),
+    this.pasteurizationTempC = const Value.absent(),
+    this.pasteurizationDurationSec = const Value.absent(),
+    this.bakedAt = const Value.absent(),
+    this.proofedAt = const Value.absent(),
+    this.ovenId = const Value.absent(),
+    this.freshnessUntil = const Value.absent(),
+    this.dayOldAppliedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
   ProductionBatchesCompanion.insert({
@@ -6573,6 +7759,17 @@ class ProductionBatchesCompanion extends UpdateCompanion<ProductionBatche> {
     this.status = const Value.absent(),
     required DateTime manufacturingDate,
     this.expiryDate = const Value.absent(),
+    this.fatPercentActual = const Value.absent(),
+    this.snfPercentActual = const Value.absent(),
+    this.milkSupplierId = const Value.absent(),
+    this.chillingCenterId = const Value.absent(),
+    this.pasteurizationTempC = const Value.absent(),
+    this.pasteurizationDurationSec = const Value.absent(),
+    this.bakedAt = const Value.absent(),
+    this.proofedAt = const Value.absent(),
+    this.ovenId = const Value.absent(),
+    this.freshnessUntil = const Value.absent(),
+    this.dayOldAppliedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
   }) : batchNumber = Value(batchNumber),
        productId = Value(productId),
@@ -6590,6 +7787,17 @@ class ProductionBatchesCompanion extends UpdateCompanion<ProductionBatche> {
     Expression<String>? status,
     Expression<DateTime>? manufacturingDate,
     Expression<DateTime>? expiryDate,
+    Expression<double>? fatPercentActual,
+    Expression<double>? snfPercentActual,
+    Expression<String>? milkSupplierId,
+    Expression<String>? chillingCenterId,
+    Expression<double>? pasteurizationTempC,
+    Expression<int>? pasteurizationDurationSec,
+    Expression<DateTime>? bakedAt,
+    Expression<DateTime>? proofedAt,
+    Expression<String>? ovenId,
+    Expression<DateTime>? freshnessUntil,
+    Expression<DateTime>? dayOldAppliedAt,
     Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
@@ -6603,6 +7811,19 @@ class ProductionBatchesCompanion extends UpdateCompanion<ProductionBatche> {
       if (status != null) 'status': status,
       if (manufacturingDate != null) 'manufacturing_date': manufacturingDate,
       if (expiryDate != null) 'expiry_date': expiryDate,
+      if (fatPercentActual != null) 'fat_percent_actual': fatPercentActual,
+      if (snfPercentActual != null) 'snf_percent_actual': snfPercentActual,
+      if (milkSupplierId != null) 'milk_supplier_id': milkSupplierId,
+      if (chillingCenterId != null) 'chilling_center_id': chillingCenterId,
+      if (pasteurizationTempC != null)
+        'pasteurization_temp_c': pasteurizationTempC,
+      if (pasteurizationDurationSec != null)
+        'pasteurization_duration_sec': pasteurizationDurationSec,
+      if (bakedAt != null) 'baked_at': bakedAt,
+      if (proofedAt != null) 'proofed_at': proofedAt,
+      if (ovenId != null) 'oven_id': ovenId,
+      if (freshnessUntil != null) 'freshness_until': freshnessUntil,
+      if (dayOldAppliedAt != null) 'day_old_applied_at': dayOldAppliedAt,
       if (createdAt != null) 'created_at': createdAt,
     });
   }
@@ -6618,6 +7839,17 @@ class ProductionBatchesCompanion extends UpdateCompanion<ProductionBatche> {
     Value<String>? status,
     Value<DateTime>? manufacturingDate,
     Value<DateTime?>? expiryDate,
+    Value<double?>? fatPercentActual,
+    Value<double?>? snfPercentActual,
+    Value<String?>? milkSupplierId,
+    Value<String?>? chillingCenterId,
+    Value<double?>? pasteurizationTempC,
+    Value<int?>? pasteurizationDurationSec,
+    Value<DateTime?>? bakedAt,
+    Value<DateTime?>? proofedAt,
+    Value<String?>? ovenId,
+    Value<DateTime?>? freshnessUntil,
+    Value<DateTime?>? dayOldAppliedAt,
     Value<DateTime>? createdAt,
   }) {
     return ProductionBatchesCompanion(
@@ -6631,6 +7863,18 @@ class ProductionBatchesCompanion extends UpdateCompanion<ProductionBatche> {
       status: status ?? this.status,
       manufacturingDate: manufacturingDate ?? this.manufacturingDate,
       expiryDate: expiryDate ?? this.expiryDate,
+      fatPercentActual: fatPercentActual ?? this.fatPercentActual,
+      snfPercentActual: snfPercentActual ?? this.snfPercentActual,
+      milkSupplierId: milkSupplierId ?? this.milkSupplierId,
+      chillingCenterId: chillingCenterId ?? this.chillingCenterId,
+      pasteurizationTempC: pasteurizationTempC ?? this.pasteurizationTempC,
+      pasteurizationDurationSec:
+          pasteurizationDurationSec ?? this.pasteurizationDurationSec,
+      bakedAt: bakedAt ?? this.bakedAt,
+      proofedAt: proofedAt ?? this.proofedAt,
+      ovenId: ovenId ?? this.ovenId,
+      freshnessUntil: freshnessUntil ?? this.freshnessUntil,
+      dayOldAppliedAt: dayOldAppliedAt ?? this.dayOldAppliedAt,
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -6668,6 +7912,43 @@ class ProductionBatchesCompanion extends UpdateCompanion<ProductionBatche> {
     if (expiryDate.present) {
       map['expiry_date'] = Variable<DateTime>(expiryDate.value);
     }
+    if (fatPercentActual.present) {
+      map['fat_percent_actual'] = Variable<double>(fatPercentActual.value);
+    }
+    if (snfPercentActual.present) {
+      map['snf_percent_actual'] = Variable<double>(snfPercentActual.value);
+    }
+    if (milkSupplierId.present) {
+      map['milk_supplier_id'] = Variable<String>(milkSupplierId.value);
+    }
+    if (chillingCenterId.present) {
+      map['chilling_center_id'] = Variable<String>(chillingCenterId.value);
+    }
+    if (pasteurizationTempC.present) {
+      map['pasteurization_temp_c'] = Variable<double>(
+        pasteurizationTempC.value,
+      );
+    }
+    if (pasteurizationDurationSec.present) {
+      map['pasteurization_duration_sec'] = Variable<int>(
+        pasteurizationDurationSec.value,
+      );
+    }
+    if (bakedAt.present) {
+      map['baked_at'] = Variable<DateTime>(bakedAt.value);
+    }
+    if (proofedAt.present) {
+      map['proofed_at'] = Variable<DateTime>(proofedAt.value);
+    }
+    if (ovenId.present) {
+      map['oven_id'] = Variable<String>(ovenId.value);
+    }
+    if (freshnessUntil.present) {
+      map['freshness_until'] = Variable<DateTime>(freshnessUntil.value);
+    }
+    if (dayOldAppliedAt.present) {
+      map['day_old_applied_at'] = Variable<DateTime>(dayOldAppliedAt.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -6687,6 +7968,17 @@ class ProductionBatchesCompanion extends UpdateCompanion<ProductionBatche> {
           ..write('status: $status, ')
           ..write('manufacturingDate: $manufacturingDate, ')
           ..write('expiryDate: $expiryDate, ')
+          ..write('fatPercentActual: $fatPercentActual, ')
+          ..write('snfPercentActual: $snfPercentActual, ')
+          ..write('milkSupplierId: $milkSupplierId, ')
+          ..write('chillingCenterId: $chillingCenterId, ')
+          ..write('pasteurizationTempC: $pasteurizationTempC, ')
+          ..write('pasteurizationDurationSec: $pasteurizationDurationSec, ')
+          ..write('bakedAt: $bakedAt, ')
+          ..write('proofedAt: $proofedAt, ')
+          ..write('ovenId: $ovenId, ')
+          ..write('freshnessUntil: $freshnessUntil, ')
+          ..write('dayOldAppliedAt: $dayOldAppliedAt, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -9126,8 +10418,40 @@ class $AppSettingsTable extends AppSettings
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
+  static const VerificationMeta _activeVerticalsJsonMeta =
+      const VerificationMeta('activeVerticalsJson');
   @override
-  List<GeneratedColumn> get $columns => [id, key, value, type, updatedAt];
+  late final GeneratedColumn<String> activeVerticalsJson =
+      GeneratedColumn<String>(
+        'active_verticals_json',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        defaultValue: const Constant('["frozen"]'),
+      );
+  static const VerificationMeta _primaryVerticalMeta = const VerificationMeta(
+    'primaryVertical',
+  );
+  @override
+  late final GeneratedColumn<String> primaryVertical = GeneratedColumn<String>(
+    'primary_vertical',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('frozen'),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    key,
+    value,
+    type,
+    updatedAt,
+    activeVerticalsJson,
+    primaryVertical,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -9171,6 +10495,24 @@ class $AppSettingsTable extends AppSettings
         updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
       );
     }
+    if (data.containsKey('active_verticals_json')) {
+      context.handle(
+        _activeVerticalsJsonMeta,
+        activeVerticalsJson.isAcceptableOrUnknown(
+          data['active_verticals_json']!,
+          _activeVerticalsJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('primary_vertical')) {
+      context.handle(
+        _primaryVerticalMeta,
+        primaryVertical.isAcceptableOrUnknown(
+          data['primary_vertical']!,
+          _primaryVerticalMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -9200,6 +10542,14 @@ class $AppSettingsTable extends AppSettings
         DriftSqlType.dateTime,
         data['${effectivePrefix}updated_at'],
       )!,
+      activeVerticalsJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}active_verticals_json'],
+      ),
+      primaryVertical: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}primary_vertical'],
+      ),
     );
   }
 
@@ -9215,12 +10565,16 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
   final String value;
   final String type;
   final DateTime updatedAt;
+  final String? activeVerticalsJson;
+  final String? primaryVertical;
   const AppSetting({
     required this.id,
     required this.key,
     required this.value,
     required this.type,
     required this.updatedAt,
+    this.activeVerticalsJson,
+    this.primaryVertical,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -9230,6 +10584,12 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     map['value'] = Variable<String>(value);
     map['type'] = Variable<String>(type);
     map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || activeVerticalsJson != null) {
+      map['active_verticals_json'] = Variable<String>(activeVerticalsJson);
+    }
+    if (!nullToAbsent || primaryVertical != null) {
+      map['primary_vertical'] = Variable<String>(primaryVertical);
+    }
     return map;
   }
 
@@ -9240,6 +10600,12 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       value: Value(value),
       type: Value(type),
       updatedAt: Value(updatedAt),
+      activeVerticalsJson: activeVerticalsJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(activeVerticalsJson),
+      primaryVertical: primaryVertical == null && nullToAbsent
+          ? const Value.absent()
+          : Value(primaryVertical),
     );
   }
 
@@ -9254,6 +10620,10 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       value: serializer.fromJson<String>(json['value']),
       type: serializer.fromJson<String>(json['type']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      activeVerticalsJson: serializer.fromJson<String?>(
+        json['activeVerticalsJson'],
+      ),
+      primaryVertical: serializer.fromJson<String?>(json['primaryVertical']),
     );
   }
   @override
@@ -9265,6 +10635,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       'value': serializer.toJson<String>(value),
       'type': serializer.toJson<String>(type),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'activeVerticalsJson': serializer.toJson<String?>(activeVerticalsJson),
+      'primaryVertical': serializer.toJson<String?>(primaryVertical),
     };
   }
 
@@ -9274,12 +10646,20 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     String? value,
     String? type,
     DateTime? updatedAt,
+    Value<String?> activeVerticalsJson = const Value.absent(),
+    Value<String?> primaryVertical = const Value.absent(),
   }) => AppSetting(
     id: id ?? this.id,
     key: key ?? this.key,
     value: value ?? this.value,
     type: type ?? this.type,
     updatedAt: updatedAt ?? this.updatedAt,
+    activeVerticalsJson: activeVerticalsJson.present
+        ? activeVerticalsJson.value
+        : this.activeVerticalsJson,
+    primaryVertical: primaryVertical.present
+        ? primaryVertical.value
+        : this.primaryVertical,
   );
   AppSetting copyWithCompanion(AppSettingsCompanion data) {
     return AppSetting(
@@ -9288,6 +10668,12 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       value: data.value.present ? data.value.value : this.value,
       type: data.type.present ? data.type.value : this.type,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      activeVerticalsJson: data.activeVerticalsJson.present
+          ? data.activeVerticalsJson.value
+          : this.activeVerticalsJson,
+      primaryVertical: data.primaryVertical.present
+          ? data.primaryVertical.value
+          : this.primaryVertical,
     );
   }
 
@@ -9298,13 +10684,23 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
           ..write('key: $key, ')
           ..write('value: $value, ')
           ..write('type: $type, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('activeVerticalsJson: $activeVerticalsJson, ')
+          ..write('primaryVertical: $primaryVertical')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, key, value, type, updatedAt);
+  int get hashCode => Object.hash(
+    id,
+    key,
+    value,
+    type,
+    updatedAt,
+    activeVerticalsJson,
+    primaryVertical,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -9313,7 +10709,9 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
           other.key == this.key &&
           other.value == this.value &&
           other.type == this.type &&
-          other.updatedAt == this.updatedAt);
+          other.updatedAt == this.updatedAt &&
+          other.activeVerticalsJson == this.activeVerticalsJson &&
+          other.primaryVertical == this.primaryVertical);
 }
 
 class AppSettingsCompanion extends UpdateCompanion<AppSetting> {
@@ -9322,12 +10720,16 @@ class AppSettingsCompanion extends UpdateCompanion<AppSetting> {
   final Value<String> value;
   final Value<String> type;
   final Value<DateTime> updatedAt;
+  final Value<String?> activeVerticalsJson;
+  final Value<String?> primaryVertical;
   const AppSettingsCompanion({
     this.id = const Value.absent(),
     this.key = const Value.absent(),
     this.value = const Value.absent(),
     this.type = const Value.absent(),
     this.updatedAt = const Value.absent(),
+    this.activeVerticalsJson = const Value.absent(),
+    this.primaryVertical = const Value.absent(),
   });
   AppSettingsCompanion.insert({
     this.id = const Value.absent(),
@@ -9335,6 +10737,8 @@ class AppSettingsCompanion extends UpdateCompanion<AppSetting> {
     required String value,
     this.type = const Value.absent(),
     this.updatedAt = const Value.absent(),
+    this.activeVerticalsJson = const Value.absent(),
+    this.primaryVertical = const Value.absent(),
   }) : key = Value(key),
        value = Value(value);
   static Insertable<AppSetting> custom({
@@ -9343,6 +10747,8 @@ class AppSettingsCompanion extends UpdateCompanion<AppSetting> {
     Expression<String>? value,
     Expression<String>? type,
     Expression<DateTime>? updatedAt,
+    Expression<String>? activeVerticalsJson,
+    Expression<String>? primaryVertical,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -9350,6 +10756,9 @@ class AppSettingsCompanion extends UpdateCompanion<AppSetting> {
       if (value != null) 'value': value,
       if (type != null) 'type': type,
       if (updatedAt != null) 'updated_at': updatedAt,
+      if (activeVerticalsJson != null)
+        'active_verticals_json': activeVerticalsJson,
+      if (primaryVertical != null) 'primary_vertical': primaryVertical,
     });
   }
 
@@ -9359,6 +10768,8 @@ class AppSettingsCompanion extends UpdateCompanion<AppSetting> {
     Value<String>? value,
     Value<String>? type,
     Value<DateTime>? updatedAt,
+    Value<String?>? activeVerticalsJson,
+    Value<String?>? primaryVertical,
   }) {
     return AppSettingsCompanion(
       id: id ?? this.id,
@@ -9366,6 +10777,8 @@ class AppSettingsCompanion extends UpdateCompanion<AppSetting> {
       value: value ?? this.value,
       type: type ?? this.type,
       updatedAt: updatedAt ?? this.updatedAt,
+      activeVerticalsJson: activeVerticalsJson ?? this.activeVerticalsJson,
+      primaryVertical: primaryVertical ?? this.primaryVertical,
     );
   }
 
@@ -9387,6 +10800,14 @@ class AppSettingsCompanion extends UpdateCompanion<AppSetting> {
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
+    if (activeVerticalsJson.present) {
+      map['active_verticals_json'] = Variable<String>(
+        activeVerticalsJson.value,
+      );
+    }
+    if (primaryVertical.present) {
+      map['primary_vertical'] = Variable<String>(primaryVertical.value);
+    }
     return map;
   }
 
@@ -9397,7 +10818,9 @@ class AppSettingsCompanion extends UpdateCompanion<AppSetting> {
           ..write('key: $key, ')
           ..write('value: $value, ')
           ..write('type: $type, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('activeVerticalsJson: $activeVerticalsJson, ')
+          ..write('primaryVertical: $primaryVertical')
           ..write(')'))
         .toString();
   }
@@ -15989,6 +17412,69 @@ class $ComplianceProfilesTable extends ComplianceProfiles
     ),
     defaultValue: const Constant(true),
   );
+  static const VerificationMeta _fssaiDairyCategoryCodeMeta =
+      const VerificationMeta('fssaiDairyCategoryCode');
+  @override
+  late final GeneratedColumn<String> fssaiDairyCategoryCode =
+      GeneratedColumn<String>(
+        'fssai_dairy_category_code',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _fssaiBakeryCategoryCodeMeta =
+      const VerificationMeta('fssaiBakeryCategoryCode');
+  @override
+  late final GeneratedColumn<String> fssaiBakeryCategoryCode =
+      GeneratedColumn<String>(
+        'fssai_bakery_category_code',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _pasteurizationCertNumberMeta =
+      const VerificationMeta('pasteurizationCertNumber');
+  @override
+  late final GeneratedColumn<String> pasteurizationCertNumber =
+      GeneratedColumn<String>(
+        'pasteurization_cert_number',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _containsEggMeta = const VerificationMeta(
+    'containsEgg',
+  );
+  @override
+  late final GeneratedColumn<bool> containsEgg = GeneratedColumn<bool>(
+    'contains_egg',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("contains_egg" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _isVeganMeta = const VerificationMeta(
+    'isVegan',
+  );
+  @override
+  late final GeneratedColumn<bool> isVegan = GeneratedColumn<bool>(
+    'is_vegan',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_vegan" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -15997,6 +17483,11 @@ class $ComplianceProfilesTable extends ComplianceProfiles
     rulesJson,
     labelTemplateId,
     isActive,
+    fssaiDairyCategoryCode,
+    fssaiBakeryCategoryCode,
+    pasteurizationCertNumber,
+    containsEgg,
+    isVegan,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -16057,6 +17548,48 @@ class $ComplianceProfilesTable extends ComplianceProfiles
         isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
       );
     }
+    if (data.containsKey('fssai_dairy_category_code')) {
+      context.handle(
+        _fssaiDairyCategoryCodeMeta,
+        fssaiDairyCategoryCode.isAcceptableOrUnknown(
+          data['fssai_dairy_category_code']!,
+          _fssaiDairyCategoryCodeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('fssai_bakery_category_code')) {
+      context.handle(
+        _fssaiBakeryCategoryCodeMeta,
+        fssaiBakeryCategoryCode.isAcceptableOrUnknown(
+          data['fssai_bakery_category_code']!,
+          _fssaiBakeryCategoryCodeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('pasteurization_cert_number')) {
+      context.handle(
+        _pasteurizationCertNumberMeta,
+        pasteurizationCertNumber.isAcceptableOrUnknown(
+          data['pasteurization_cert_number']!,
+          _pasteurizationCertNumberMeta,
+        ),
+      );
+    }
+    if (data.containsKey('contains_egg')) {
+      context.handle(
+        _containsEggMeta,
+        containsEgg.isAcceptableOrUnknown(
+          data['contains_egg']!,
+          _containsEggMeta,
+        ),
+      );
+    }
+    if (data.containsKey('is_vegan')) {
+      context.handle(
+        _isVeganMeta,
+        isVegan.isAcceptableOrUnknown(data['is_vegan']!, _isVeganMeta),
+      );
+    }
     return context;
   }
 
@@ -16090,6 +17623,26 @@ class $ComplianceProfilesTable extends ComplianceProfiles
         DriftSqlType.bool,
         data['${effectivePrefix}is_active'],
       )!,
+      fssaiDairyCategoryCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}fssai_dairy_category_code'],
+      ),
+      fssaiBakeryCategoryCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}fssai_bakery_category_code'],
+      ),
+      pasteurizationCertNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}pasteurization_cert_number'],
+      ),
+      containsEgg: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}contains_egg'],
+      )!,
+      isVegan: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_vegan'],
+      )!,
     );
   }
 
@@ -16107,6 +17660,11 @@ class ComplianceProfile extends DataClass
   final String rulesJson;
   final String labelTemplateId;
   final bool isActive;
+  final String? fssaiDairyCategoryCode;
+  final String? fssaiBakeryCategoryCode;
+  final String? pasteurizationCertNumber;
+  final bool containsEgg;
+  final bool isVegan;
   const ComplianceProfile({
     required this.id,
     required this.countryCode,
@@ -16114,6 +17672,11 @@ class ComplianceProfile extends DataClass
     required this.rulesJson,
     required this.labelTemplateId,
     required this.isActive,
+    this.fssaiDairyCategoryCode,
+    this.fssaiBakeryCategoryCode,
+    this.pasteurizationCertNumber,
+    required this.containsEgg,
+    required this.isVegan,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -16124,6 +17687,23 @@ class ComplianceProfile extends DataClass
     map['rules_json'] = Variable<String>(rulesJson);
     map['label_template_id'] = Variable<String>(labelTemplateId);
     map['is_active'] = Variable<bool>(isActive);
+    if (!nullToAbsent || fssaiDairyCategoryCode != null) {
+      map['fssai_dairy_category_code'] = Variable<String>(
+        fssaiDairyCategoryCode,
+      );
+    }
+    if (!nullToAbsent || fssaiBakeryCategoryCode != null) {
+      map['fssai_bakery_category_code'] = Variable<String>(
+        fssaiBakeryCategoryCode,
+      );
+    }
+    if (!nullToAbsent || pasteurizationCertNumber != null) {
+      map['pasteurization_cert_number'] = Variable<String>(
+        pasteurizationCertNumber,
+      );
+    }
+    map['contains_egg'] = Variable<bool>(containsEgg);
+    map['is_vegan'] = Variable<bool>(isVegan);
     return map;
   }
 
@@ -16135,6 +17715,17 @@ class ComplianceProfile extends DataClass
       rulesJson: Value(rulesJson),
       labelTemplateId: Value(labelTemplateId),
       isActive: Value(isActive),
+      fssaiDairyCategoryCode: fssaiDairyCategoryCode == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fssaiDairyCategoryCode),
+      fssaiBakeryCategoryCode: fssaiBakeryCategoryCode == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fssaiBakeryCategoryCode),
+      pasteurizationCertNumber: pasteurizationCertNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(pasteurizationCertNumber),
+      containsEgg: Value(containsEgg),
+      isVegan: Value(isVegan),
     );
   }
 
@@ -16150,6 +17741,17 @@ class ComplianceProfile extends DataClass
       rulesJson: serializer.fromJson<String>(json['rulesJson']),
       labelTemplateId: serializer.fromJson<String>(json['labelTemplateId']),
       isActive: serializer.fromJson<bool>(json['isActive']),
+      fssaiDairyCategoryCode: serializer.fromJson<String?>(
+        json['fssaiDairyCategoryCode'],
+      ),
+      fssaiBakeryCategoryCode: serializer.fromJson<String?>(
+        json['fssaiBakeryCategoryCode'],
+      ),
+      pasteurizationCertNumber: serializer.fromJson<String?>(
+        json['pasteurizationCertNumber'],
+      ),
+      containsEgg: serializer.fromJson<bool>(json['containsEgg']),
+      isVegan: serializer.fromJson<bool>(json['isVegan']),
     );
   }
   @override
@@ -16162,6 +17764,17 @@ class ComplianceProfile extends DataClass
       'rulesJson': serializer.toJson<String>(rulesJson),
       'labelTemplateId': serializer.toJson<String>(labelTemplateId),
       'isActive': serializer.toJson<bool>(isActive),
+      'fssaiDairyCategoryCode': serializer.toJson<String?>(
+        fssaiDairyCategoryCode,
+      ),
+      'fssaiBakeryCategoryCode': serializer.toJson<String?>(
+        fssaiBakeryCategoryCode,
+      ),
+      'pasteurizationCertNumber': serializer.toJson<String?>(
+        pasteurizationCertNumber,
+      ),
+      'containsEgg': serializer.toJson<bool>(containsEgg),
+      'isVegan': serializer.toJson<bool>(isVegan),
     };
   }
 
@@ -16172,6 +17785,11 @@ class ComplianceProfile extends DataClass
     String? rulesJson,
     String? labelTemplateId,
     bool? isActive,
+    Value<String?> fssaiDairyCategoryCode = const Value.absent(),
+    Value<String?> fssaiBakeryCategoryCode = const Value.absent(),
+    Value<String?> pasteurizationCertNumber = const Value.absent(),
+    bool? containsEgg,
+    bool? isVegan,
   }) => ComplianceProfile(
     id: id ?? this.id,
     countryCode: countryCode ?? this.countryCode,
@@ -16179,6 +17797,17 @@ class ComplianceProfile extends DataClass
     rulesJson: rulesJson ?? this.rulesJson,
     labelTemplateId: labelTemplateId ?? this.labelTemplateId,
     isActive: isActive ?? this.isActive,
+    fssaiDairyCategoryCode: fssaiDairyCategoryCode.present
+        ? fssaiDairyCategoryCode.value
+        : this.fssaiDairyCategoryCode,
+    fssaiBakeryCategoryCode: fssaiBakeryCategoryCode.present
+        ? fssaiBakeryCategoryCode.value
+        : this.fssaiBakeryCategoryCode,
+    pasteurizationCertNumber: pasteurizationCertNumber.present
+        ? pasteurizationCertNumber.value
+        : this.pasteurizationCertNumber,
+    containsEgg: containsEgg ?? this.containsEgg,
+    isVegan: isVegan ?? this.isVegan,
   );
   ComplianceProfile copyWithCompanion(ComplianceProfilesCompanion data) {
     return ComplianceProfile(
@@ -16192,6 +17821,19 @@ class ComplianceProfile extends DataClass
           ? data.labelTemplateId.value
           : this.labelTemplateId,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      fssaiDairyCategoryCode: data.fssaiDairyCategoryCode.present
+          ? data.fssaiDairyCategoryCode.value
+          : this.fssaiDairyCategoryCode,
+      fssaiBakeryCategoryCode: data.fssaiBakeryCategoryCode.present
+          ? data.fssaiBakeryCategoryCode.value
+          : this.fssaiBakeryCategoryCode,
+      pasteurizationCertNumber: data.pasteurizationCertNumber.present
+          ? data.pasteurizationCertNumber.value
+          : this.pasteurizationCertNumber,
+      containsEgg: data.containsEgg.present
+          ? data.containsEgg.value
+          : this.containsEgg,
+      isVegan: data.isVegan.present ? data.isVegan.value : this.isVegan,
     );
   }
 
@@ -16203,7 +17845,12 @@ class ComplianceProfile extends DataClass
           ..write('authority: $authority, ')
           ..write('rulesJson: $rulesJson, ')
           ..write('labelTemplateId: $labelTemplateId, ')
-          ..write('isActive: $isActive')
+          ..write('isActive: $isActive, ')
+          ..write('fssaiDairyCategoryCode: $fssaiDairyCategoryCode, ')
+          ..write('fssaiBakeryCategoryCode: $fssaiBakeryCategoryCode, ')
+          ..write('pasteurizationCertNumber: $pasteurizationCertNumber, ')
+          ..write('containsEgg: $containsEgg, ')
+          ..write('isVegan: $isVegan')
           ..write(')'))
         .toString();
   }
@@ -16216,6 +17863,11 @@ class ComplianceProfile extends DataClass
     rulesJson,
     labelTemplateId,
     isActive,
+    fssaiDairyCategoryCode,
+    fssaiBakeryCategoryCode,
+    pasteurizationCertNumber,
+    containsEgg,
+    isVegan,
   );
   @override
   bool operator ==(Object other) =>
@@ -16226,7 +17878,12 @@ class ComplianceProfile extends DataClass
           other.authority == this.authority &&
           other.rulesJson == this.rulesJson &&
           other.labelTemplateId == this.labelTemplateId &&
-          other.isActive == this.isActive);
+          other.isActive == this.isActive &&
+          other.fssaiDairyCategoryCode == this.fssaiDairyCategoryCode &&
+          other.fssaiBakeryCategoryCode == this.fssaiBakeryCategoryCode &&
+          other.pasteurizationCertNumber == this.pasteurizationCertNumber &&
+          other.containsEgg == this.containsEgg &&
+          other.isVegan == this.isVegan);
 }
 
 class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
@@ -16236,6 +17893,11 @@ class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
   final Value<String> rulesJson;
   final Value<String> labelTemplateId;
   final Value<bool> isActive;
+  final Value<String?> fssaiDairyCategoryCode;
+  final Value<String?> fssaiBakeryCategoryCode;
+  final Value<String?> pasteurizationCertNumber;
+  final Value<bool> containsEgg;
+  final Value<bool> isVegan;
   const ComplianceProfilesCompanion({
     this.id = const Value.absent(),
     this.countryCode = const Value.absent(),
@@ -16243,6 +17905,11 @@ class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
     this.rulesJson = const Value.absent(),
     this.labelTemplateId = const Value.absent(),
     this.isActive = const Value.absent(),
+    this.fssaiDairyCategoryCode = const Value.absent(),
+    this.fssaiBakeryCategoryCode = const Value.absent(),
+    this.pasteurizationCertNumber = const Value.absent(),
+    this.containsEgg = const Value.absent(),
+    this.isVegan = const Value.absent(),
   });
   ComplianceProfilesCompanion.insert({
     this.id = const Value.absent(),
@@ -16251,6 +17918,11 @@ class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
     required String rulesJson,
     required String labelTemplateId,
     this.isActive = const Value.absent(),
+    this.fssaiDairyCategoryCode = const Value.absent(),
+    this.fssaiBakeryCategoryCode = const Value.absent(),
+    this.pasteurizationCertNumber = const Value.absent(),
+    this.containsEgg = const Value.absent(),
+    this.isVegan = const Value.absent(),
   }) : countryCode = Value(countryCode),
        authority = Value(authority),
        rulesJson = Value(rulesJson),
@@ -16262,6 +17934,11 @@ class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
     Expression<String>? rulesJson,
     Expression<String>? labelTemplateId,
     Expression<bool>? isActive,
+    Expression<String>? fssaiDairyCategoryCode,
+    Expression<String>? fssaiBakeryCategoryCode,
+    Expression<String>? pasteurizationCertNumber,
+    Expression<bool>? containsEgg,
+    Expression<bool>? isVegan,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -16270,6 +17947,14 @@ class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
       if (rulesJson != null) 'rules_json': rulesJson,
       if (labelTemplateId != null) 'label_template_id': labelTemplateId,
       if (isActive != null) 'is_active': isActive,
+      if (fssaiDairyCategoryCode != null)
+        'fssai_dairy_category_code': fssaiDairyCategoryCode,
+      if (fssaiBakeryCategoryCode != null)
+        'fssai_bakery_category_code': fssaiBakeryCategoryCode,
+      if (pasteurizationCertNumber != null)
+        'pasteurization_cert_number': pasteurizationCertNumber,
+      if (containsEgg != null) 'contains_egg': containsEgg,
+      if (isVegan != null) 'is_vegan': isVegan,
     });
   }
 
@@ -16280,6 +17965,11 @@ class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
     Value<String>? rulesJson,
     Value<String>? labelTemplateId,
     Value<bool>? isActive,
+    Value<String?>? fssaiDairyCategoryCode,
+    Value<String?>? fssaiBakeryCategoryCode,
+    Value<String?>? pasteurizationCertNumber,
+    Value<bool>? containsEgg,
+    Value<bool>? isVegan,
   }) {
     return ComplianceProfilesCompanion(
       id: id ?? this.id,
@@ -16288,6 +17978,14 @@ class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
       rulesJson: rulesJson ?? this.rulesJson,
       labelTemplateId: labelTemplateId ?? this.labelTemplateId,
       isActive: isActive ?? this.isActive,
+      fssaiDairyCategoryCode:
+          fssaiDairyCategoryCode ?? this.fssaiDairyCategoryCode,
+      fssaiBakeryCategoryCode:
+          fssaiBakeryCategoryCode ?? this.fssaiBakeryCategoryCode,
+      pasteurizationCertNumber:
+          pasteurizationCertNumber ?? this.pasteurizationCertNumber,
+      containsEgg: containsEgg ?? this.containsEgg,
+      isVegan: isVegan ?? this.isVegan,
     );
   }
 
@@ -16312,6 +18010,27 @@ class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
     if (isActive.present) {
       map['is_active'] = Variable<bool>(isActive.value);
     }
+    if (fssaiDairyCategoryCode.present) {
+      map['fssai_dairy_category_code'] = Variable<String>(
+        fssaiDairyCategoryCode.value,
+      );
+    }
+    if (fssaiBakeryCategoryCode.present) {
+      map['fssai_bakery_category_code'] = Variable<String>(
+        fssaiBakeryCategoryCode.value,
+      );
+    }
+    if (pasteurizationCertNumber.present) {
+      map['pasteurization_cert_number'] = Variable<String>(
+        pasteurizationCertNumber.value,
+      );
+    }
+    if (containsEgg.present) {
+      map['contains_egg'] = Variable<bool>(containsEgg.value);
+    }
+    if (isVegan.present) {
+      map['is_vegan'] = Variable<bool>(isVegan.value);
+    }
     return map;
   }
 
@@ -16323,7 +18042,12 @@ class ComplianceProfilesCompanion extends UpdateCompanion<ComplianceProfile> {
           ..write('authority: $authority, ')
           ..write('rulesJson: $rulesJson, ')
           ..write('labelTemplateId: $labelTemplateId, ')
-          ..write('isActive: $isActive')
+          ..write('isActive: $isActive, ')
+          ..write('fssaiDairyCategoryCode: $fssaiDairyCategoryCode, ')
+          ..write('fssaiBakeryCategoryCode: $fssaiBakeryCategoryCode, ')
+          ..write('pasteurizationCertNumber: $pasteurizationCertNumber, ')
+          ..write('containsEgg: $containsEgg, ')
+          ..write('isVegan: $isVegan')
           ..write(')'))
         .toString();
   }
@@ -22521,6 +24245,3407 @@ class ComplaintsCompanion extends UpdateCompanion<Complaint> {
   }
 }
 
+class $MilkProcurementsTable extends MilkProcurements
+    with TableInfo<$MilkProcurementsTable, MilkProcurement> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MilkProcurementsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _supplierIdMeta = const VerificationMeta(
+    'supplierId',
+  );
+  @override
+  late final GeneratedColumn<String> supplierId = GeneratedColumn<String>(
+    'supplier_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _procurementDateMeta = const VerificationMeta(
+    'procurementDate',
+  );
+  @override
+  late final GeneratedColumn<DateTime> procurementDate =
+      GeneratedColumn<DateTime>(
+        'procurement_date',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+        defaultValue: currentDateAndTime,
+      );
+  static const VerificationMeta _slotMeta = const VerificationMeta('slot');
+  @override
+  late final GeneratedColumn<String> slot = GeneratedColumn<String>(
+    'slot',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('morning'),
+  );
+  static const VerificationMeta _quantityLitersMeta = const VerificationMeta(
+    'quantityLiters',
+  );
+  @override
+  late final GeneratedColumn<double> quantityLiters = GeneratedColumn<double>(
+    'quantity_liters',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fatPercentMeta = const VerificationMeta(
+    'fatPercent',
+  );
+  @override
+  late final GeneratedColumn<double> fatPercent = GeneratedColumn<double>(
+    'fat_percent',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _snfPercentMeta = const VerificationMeta(
+    'snfPercent',
+  );
+  @override
+  late final GeneratedColumn<double> snfPercent = GeneratedColumn<double>(
+    'snf_percent',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _ratePerLiterMinorMeta = const VerificationMeta(
+    'ratePerLiterMinor',
+  );
+  @override
+  late final GeneratedColumn<int> ratePerLiterMinor = GeneratedColumn<int>(
+    'rate_per_liter_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _totalAmountMinorMeta = const VerificationMeta(
+    'totalAmountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> totalAmountMinor = GeneratedColumn<int>(
+    'total_amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currencyCodeMeta = const VerificationMeta(
+    'currencyCode',
+  );
+  @override
+  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
+    'currency_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('INR'),
+  );
+  static const VerificationMeta _chillingCenterIdMeta = const VerificationMeta(
+    'chillingCenterId',
+  );
+  @override
+  late final GeneratedColumn<String> chillingCenterId = GeneratedColumn<String>(
+    'chilling_center_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _batchIdMeta = const VerificationMeta(
+    'batchId',
+  );
+  @override
+  late final GeneratedColumn<int> batchId = GeneratedColumn<int>(
+    'batch_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES production_batches (id)',
+    ),
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    supplierId,
+    procurementDate,
+    slot,
+    quantityLiters,
+    fatPercent,
+    snfPercent,
+    ratePerLiterMinor,
+    totalAmountMinor,
+    currencyCode,
+    chillingCenterId,
+    batchId,
+    notes,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'milk_procurements';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MilkProcurement> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('supplier_id')) {
+      context.handle(
+        _supplierIdMeta,
+        supplierId.isAcceptableOrUnknown(data['supplier_id']!, _supplierIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_supplierIdMeta);
+    }
+    if (data.containsKey('procurement_date')) {
+      context.handle(
+        _procurementDateMeta,
+        procurementDate.isAcceptableOrUnknown(
+          data['procurement_date']!,
+          _procurementDateMeta,
+        ),
+      );
+    }
+    if (data.containsKey('slot')) {
+      context.handle(
+        _slotMeta,
+        slot.isAcceptableOrUnknown(data['slot']!, _slotMeta),
+      );
+    }
+    if (data.containsKey('quantity_liters')) {
+      context.handle(
+        _quantityLitersMeta,
+        quantityLiters.isAcceptableOrUnknown(
+          data['quantity_liters']!,
+          _quantityLitersMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_quantityLitersMeta);
+    }
+    if (data.containsKey('fat_percent')) {
+      context.handle(
+        _fatPercentMeta,
+        fatPercent.isAcceptableOrUnknown(data['fat_percent']!, _fatPercentMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_fatPercentMeta);
+    }
+    if (data.containsKey('snf_percent')) {
+      context.handle(
+        _snfPercentMeta,
+        snfPercent.isAcceptableOrUnknown(data['snf_percent']!, _snfPercentMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_snfPercentMeta);
+    }
+    if (data.containsKey('rate_per_liter_minor')) {
+      context.handle(
+        _ratePerLiterMinorMeta,
+        ratePerLiterMinor.isAcceptableOrUnknown(
+          data['rate_per_liter_minor']!,
+          _ratePerLiterMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_ratePerLiterMinorMeta);
+    }
+    if (data.containsKey('total_amount_minor')) {
+      context.handle(
+        _totalAmountMinorMeta,
+        totalAmountMinor.isAcceptableOrUnknown(
+          data['total_amount_minor']!,
+          _totalAmountMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_totalAmountMinorMeta);
+    }
+    if (data.containsKey('currency_code')) {
+      context.handle(
+        _currencyCodeMeta,
+        currencyCode.isAcceptableOrUnknown(
+          data['currency_code']!,
+          _currencyCodeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('chilling_center_id')) {
+      context.handle(
+        _chillingCenterIdMeta,
+        chillingCenterId.isAcceptableOrUnknown(
+          data['chilling_center_id']!,
+          _chillingCenterIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('batch_id')) {
+      context.handle(
+        _batchIdMeta,
+        batchId.isAcceptableOrUnknown(data['batch_id']!, _batchIdMeta),
+      );
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MilkProcurement map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MilkProcurement(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      supplierId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}supplier_id'],
+      )!,
+      procurementDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}procurement_date'],
+      )!,
+      slot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}slot'],
+      )!,
+      quantityLiters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}quantity_liters'],
+      )!,
+      fatPercent: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}fat_percent'],
+      )!,
+      snfPercent: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}snf_percent'],
+      )!,
+      ratePerLiterMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}rate_per_liter_minor'],
+      )!,
+      totalAmountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_amount_minor'],
+      )!,
+      currencyCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency_code'],
+      )!,
+      chillingCenterId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}chilling_center_id'],
+      ),
+      batchId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}batch_id'],
+      ),
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $MilkProcurementsTable createAlias(String alias) {
+    return $MilkProcurementsTable(attachedDatabase, alias);
+  }
+}
+
+class MilkProcurement extends DataClass implements Insertable<MilkProcurement> {
+  final int id;
+  final String supplierId;
+  final DateTime procurementDate;
+  final String slot;
+  final double quantityLiters;
+  final double fatPercent;
+  final double snfPercent;
+  final int ratePerLiterMinor;
+  final int totalAmountMinor;
+  final String currencyCode;
+  final String? chillingCenterId;
+  final int? batchId;
+  final String? notes;
+  final DateTime createdAt;
+  const MilkProcurement({
+    required this.id,
+    required this.supplierId,
+    required this.procurementDate,
+    required this.slot,
+    required this.quantityLiters,
+    required this.fatPercent,
+    required this.snfPercent,
+    required this.ratePerLiterMinor,
+    required this.totalAmountMinor,
+    required this.currencyCode,
+    this.chillingCenterId,
+    this.batchId,
+    this.notes,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['supplier_id'] = Variable<String>(supplierId);
+    map['procurement_date'] = Variable<DateTime>(procurementDate);
+    map['slot'] = Variable<String>(slot);
+    map['quantity_liters'] = Variable<double>(quantityLiters);
+    map['fat_percent'] = Variable<double>(fatPercent);
+    map['snf_percent'] = Variable<double>(snfPercent);
+    map['rate_per_liter_minor'] = Variable<int>(ratePerLiterMinor);
+    map['total_amount_minor'] = Variable<int>(totalAmountMinor);
+    map['currency_code'] = Variable<String>(currencyCode);
+    if (!nullToAbsent || chillingCenterId != null) {
+      map['chilling_center_id'] = Variable<String>(chillingCenterId);
+    }
+    if (!nullToAbsent || batchId != null) {
+      map['batch_id'] = Variable<int>(batchId);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  MilkProcurementsCompanion toCompanion(bool nullToAbsent) {
+    return MilkProcurementsCompanion(
+      id: Value(id),
+      supplierId: Value(supplierId),
+      procurementDate: Value(procurementDate),
+      slot: Value(slot),
+      quantityLiters: Value(quantityLiters),
+      fatPercent: Value(fatPercent),
+      snfPercent: Value(snfPercent),
+      ratePerLiterMinor: Value(ratePerLiterMinor),
+      totalAmountMinor: Value(totalAmountMinor),
+      currencyCode: Value(currencyCode),
+      chillingCenterId: chillingCenterId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(chillingCenterId),
+      batchId: batchId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(batchId),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory MilkProcurement.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MilkProcurement(
+      id: serializer.fromJson<int>(json['id']),
+      supplierId: serializer.fromJson<String>(json['supplierId']),
+      procurementDate: serializer.fromJson<DateTime>(json['procurementDate']),
+      slot: serializer.fromJson<String>(json['slot']),
+      quantityLiters: serializer.fromJson<double>(json['quantityLiters']),
+      fatPercent: serializer.fromJson<double>(json['fatPercent']),
+      snfPercent: serializer.fromJson<double>(json['snfPercent']),
+      ratePerLiterMinor: serializer.fromJson<int>(json['ratePerLiterMinor']),
+      totalAmountMinor: serializer.fromJson<int>(json['totalAmountMinor']),
+      currencyCode: serializer.fromJson<String>(json['currencyCode']),
+      chillingCenterId: serializer.fromJson<String?>(json['chillingCenterId']),
+      batchId: serializer.fromJson<int?>(json['batchId']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'supplierId': serializer.toJson<String>(supplierId),
+      'procurementDate': serializer.toJson<DateTime>(procurementDate),
+      'slot': serializer.toJson<String>(slot),
+      'quantityLiters': serializer.toJson<double>(quantityLiters),
+      'fatPercent': serializer.toJson<double>(fatPercent),
+      'snfPercent': serializer.toJson<double>(snfPercent),
+      'ratePerLiterMinor': serializer.toJson<int>(ratePerLiterMinor),
+      'totalAmountMinor': serializer.toJson<int>(totalAmountMinor),
+      'currencyCode': serializer.toJson<String>(currencyCode),
+      'chillingCenterId': serializer.toJson<String?>(chillingCenterId),
+      'batchId': serializer.toJson<int?>(batchId),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  MilkProcurement copyWith({
+    int? id,
+    String? supplierId,
+    DateTime? procurementDate,
+    String? slot,
+    double? quantityLiters,
+    double? fatPercent,
+    double? snfPercent,
+    int? ratePerLiterMinor,
+    int? totalAmountMinor,
+    String? currencyCode,
+    Value<String?> chillingCenterId = const Value.absent(),
+    Value<int?> batchId = const Value.absent(),
+    Value<String?> notes = const Value.absent(),
+    DateTime? createdAt,
+  }) => MilkProcurement(
+    id: id ?? this.id,
+    supplierId: supplierId ?? this.supplierId,
+    procurementDate: procurementDate ?? this.procurementDate,
+    slot: slot ?? this.slot,
+    quantityLiters: quantityLiters ?? this.quantityLiters,
+    fatPercent: fatPercent ?? this.fatPercent,
+    snfPercent: snfPercent ?? this.snfPercent,
+    ratePerLiterMinor: ratePerLiterMinor ?? this.ratePerLiterMinor,
+    totalAmountMinor: totalAmountMinor ?? this.totalAmountMinor,
+    currencyCode: currencyCode ?? this.currencyCode,
+    chillingCenterId: chillingCenterId.present
+        ? chillingCenterId.value
+        : this.chillingCenterId,
+    batchId: batchId.present ? batchId.value : this.batchId,
+    notes: notes.present ? notes.value : this.notes,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  MilkProcurement copyWithCompanion(MilkProcurementsCompanion data) {
+    return MilkProcurement(
+      id: data.id.present ? data.id.value : this.id,
+      supplierId: data.supplierId.present
+          ? data.supplierId.value
+          : this.supplierId,
+      procurementDate: data.procurementDate.present
+          ? data.procurementDate.value
+          : this.procurementDate,
+      slot: data.slot.present ? data.slot.value : this.slot,
+      quantityLiters: data.quantityLiters.present
+          ? data.quantityLiters.value
+          : this.quantityLiters,
+      fatPercent: data.fatPercent.present
+          ? data.fatPercent.value
+          : this.fatPercent,
+      snfPercent: data.snfPercent.present
+          ? data.snfPercent.value
+          : this.snfPercent,
+      ratePerLiterMinor: data.ratePerLiterMinor.present
+          ? data.ratePerLiterMinor.value
+          : this.ratePerLiterMinor,
+      totalAmountMinor: data.totalAmountMinor.present
+          ? data.totalAmountMinor.value
+          : this.totalAmountMinor,
+      currencyCode: data.currencyCode.present
+          ? data.currencyCode.value
+          : this.currencyCode,
+      chillingCenterId: data.chillingCenterId.present
+          ? data.chillingCenterId.value
+          : this.chillingCenterId,
+      batchId: data.batchId.present ? data.batchId.value : this.batchId,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MilkProcurement(')
+          ..write('id: $id, ')
+          ..write('supplierId: $supplierId, ')
+          ..write('procurementDate: $procurementDate, ')
+          ..write('slot: $slot, ')
+          ..write('quantityLiters: $quantityLiters, ')
+          ..write('fatPercent: $fatPercent, ')
+          ..write('snfPercent: $snfPercent, ')
+          ..write('ratePerLiterMinor: $ratePerLiterMinor, ')
+          ..write('totalAmountMinor: $totalAmountMinor, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('chillingCenterId: $chillingCenterId, ')
+          ..write('batchId: $batchId, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    supplierId,
+    procurementDate,
+    slot,
+    quantityLiters,
+    fatPercent,
+    snfPercent,
+    ratePerLiterMinor,
+    totalAmountMinor,
+    currencyCode,
+    chillingCenterId,
+    batchId,
+    notes,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MilkProcurement &&
+          other.id == this.id &&
+          other.supplierId == this.supplierId &&
+          other.procurementDate == this.procurementDate &&
+          other.slot == this.slot &&
+          other.quantityLiters == this.quantityLiters &&
+          other.fatPercent == this.fatPercent &&
+          other.snfPercent == this.snfPercent &&
+          other.ratePerLiterMinor == this.ratePerLiterMinor &&
+          other.totalAmountMinor == this.totalAmountMinor &&
+          other.currencyCode == this.currencyCode &&
+          other.chillingCenterId == this.chillingCenterId &&
+          other.batchId == this.batchId &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt);
+}
+
+class MilkProcurementsCompanion extends UpdateCompanion<MilkProcurement> {
+  final Value<int> id;
+  final Value<String> supplierId;
+  final Value<DateTime> procurementDate;
+  final Value<String> slot;
+  final Value<double> quantityLiters;
+  final Value<double> fatPercent;
+  final Value<double> snfPercent;
+  final Value<int> ratePerLiterMinor;
+  final Value<int> totalAmountMinor;
+  final Value<String> currencyCode;
+  final Value<String?> chillingCenterId;
+  final Value<int?> batchId;
+  final Value<String?> notes;
+  final Value<DateTime> createdAt;
+  const MilkProcurementsCompanion({
+    this.id = const Value.absent(),
+    this.supplierId = const Value.absent(),
+    this.procurementDate = const Value.absent(),
+    this.slot = const Value.absent(),
+    this.quantityLiters = const Value.absent(),
+    this.fatPercent = const Value.absent(),
+    this.snfPercent = const Value.absent(),
+    this.ratePerLiterMinor = const Value.absent(),
+    this.totalAmountMinor = const Value.absent(),
+    this.currencyCode = const Value.absent(),
+    this.chillingCenterId = const Value.absent(),
+    this.batchId = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  MilkProcurementsCompanion.insert({
+    this.id = const Value.absent(),
+    required String supplierId,
+    this.procurementDate = const Value.absent(),
+    this.slot = const Value.absent(),
+    required double quantityLiters,
+    required double fatPercent,
+    required double snfPercent,
+    required int ratePerLiterMinor,
+    required int totalAmountMinor,
+    this.currencyCode = const Value.absent(),
+    this.chillingCenterId = const Value.absent(),
+    this.batchId = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : supplierId = Value(supplierId),
+       quantityLiters = Value(quantityLiters),
+       fatPercent = Value(fatPercent),
+       snfPercent = Value(snfPercent),
+       ratePerLiterMinor = Value(ratePerLiterMinor),
+       totalAmountMinor = Value(totalAmountMinor);
+  static Insertable<MilkProcurement> custom({
+    Expression<int>? id,
+    Expression<String>? supplierId,
+    Expression<DateTime>? procurementDate,
+    Expression<String>? slot,
+    Expression<double>? quantityLiters,
+    Expression<double>? fatPercent,
+    Expression<double>? snfPercent,
+    Expression<int>? ratePerLiterMinor,
+    Expression<int>? totalAmountMinor,
+    Expression<String>? currencyCode,
+    Expression<String>? chillingCenterId,
+    Expression<int>? batchId,
+    Expression<String>? notes,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (supplierId != null) 'supplier_id': supplierId,
+      if (procurementDate != null) 'procurement_date': procurementDate,
+      if (slot != null) 'slot': slot,
+      if (quantityLiters != null) 'quantity_liters': quantityLiters,
+      if (fatPercent != null) 'fat_percent': fatPercent,
+      if (snfPercent != null) 'snf_percent': snfPercent,
+      if (ratePerLiterMinor != null) 'rate_per_liter_minor': ratePerLiterMinor,
+      if (totalAmountMinor != null) 'total_amount_minor': totalAmountMinor,
+      if (currencyCode != null) 'currency_code': currencyCode,
+      if (chillingCenterId != null) 'chilling_center_id': chillingCenterId,
+      if (batchId != null) 'batch_id': batchId,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  MilkProcurementsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? supplierId,
+    Value<DateTime>? procurementDate,
+    Value<String>? slot,
+    Value<double>? quantityLiters,
+    Value<double>? fatPercent,
+    Value<double>? snfPercent,
+    Value<int>? ratePerLiterMinor,
+    Value<int>? totalAmountMinor,
+    Value<String>? currencyCode,
+    Value<String?>? chillingCenterId,
+    Value<int?>? batchId,
+    Value<String?>? notes,
+    Value<DateTime>? createdAt,
+  }) {
+    return MilkProcurementsCompanion(
+      id: id ?? this.id,
+      supplierId: supplierId ?? this.supplierId,
+      procurementDate: procurementDate ?? this.procurementDate,
+      slot: slot ?? this.slot,
+      quantityLiters: quantityLiters ?? this.quantityLiters,
+      fatPercent: fatPercent ?? this.fatPercent,
+      snfPercent: snfPercent ?? this.snfPercent,
+      ratePerLiterMinor: ratePerLiterMinor ?? this.ratePerLiterMinor,
+      totalAmountMinor: totalAmountMinor ?? this.totalAmountMinor,
+      currencyCode: currencyCode ?? this.currencyCode,
+      chillingCenterId: chillingCenterId ?? this.chillingCenterId,
+      batchId: batchId ?? this.batchId,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (supplierId.present) {
+      map['supplier_id'] = Variable<String>(supplierId.value);
+    }
+    if (procurementDate.present) {
+      map['procurement_date'] = Variable<DateTime>(procurementDate.value);
+    }
+    if (slot.present) {
+      map['slot'] = Variable<String>(slot.value);
+    }
+    if (quantityLiters.present) {
+      map['quantity_liters'] = Variable<double>(quantityLiters.value);
+    }
+    if (fatPercent.present) {
+      map['fat_percent'] = Variable<double>(fatPercent.value);
+    }
+    if (snfPercent.present) {
+      map['snf_percent'] = Variable<double>(snfPercent.value);
+    }
+    if (ratePerLiterMinor.present) {
+      map['rate_per_liter_minor'] = Variable<int>(ratePerLiterMinor.value);
+    }
+    if (totalAmountMinor.present) {
+      map['total_amount_minor'] = Variable<int>(totalAmountMinor.value);
+    }
+    if (currencyCode.present) {
+      map['currency_code'] = Variable<String>(currencyCode.value);
+    }
+    if (chillingCenterId.present) {
+      map['chilling_center_id'] = Variable<String>(chillingCenterId.value);
+    }
+    if (batchId.present) {
+      map['batch_id'] = Variable<int>(batchId.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MilkProcurementsCompanion(')
+          ..write('id: $id, ')
+          ..write('supplierId: $supplierId, ')
+          ..write('procurementDate: $procurementDate, ')
+          ..write('slot: $slot, ')
+          ..write('quantityLiters: $quantityLiters, ')
+          ..write('fatPercent: $fatPercent, ')
+          ..write('snfPercent: $snfPercent, ')
+          ..write('ratePerLiterMinor: $ratePerLiterMinor, ')
+          ..write('totalAmountMinor: $totalAmountMinor, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('chillingCenterId: $chillingCenterId, ')
+          ..write('batchId: $batchId, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FatPricingRulesTable extends FatPricingRules
+    with TableInfo<$FatPricingRulesTable, FatPricingRule> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FatPricingRulesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _baseRatePerLiterMinorMeta =
+      const VerificationMeta('baseRatePerLiterMinor');
+  @override
+  late final GeneratedColumn<int> baseRatePerLiterMinor = GeneratedColumn<int>(
+    'base_rate_per_liter_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _baseFatPercentMeta = const VerificationMeta(
+    'baseFatPercent',
+  );
+  @override
+  late final GeneratedColumn<double> baseFatPercent = GeneratedColumn<double>(
+    'base_fat_percent',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fatSlabStepMeta = const VerificationMeta(
+    'fatSlabStep',
+  );
+  @override
+  late final GeneratedColumn<double> fatSlabStep = GeneratedColumn<double>(
+    'fat_slab_step',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0.1),
+  );
+  static const VerificationMeta _priceStepPerLiterMinorMeta =
+      const VerificationMeta('priceStepPerLiterMinor');
+  @override
+  late final GeneratedColumn<int> priceStepPerLiterMinor = GeneratedColumn<int>(
+    'price_step_per_liter_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(30),
+  );
+  static const VerificationMeta _effectiveFromMeta = const VerificationMeta(
+    'effectiveFrom',
+  );
+  @override
+  late final GeneratedColumn<DateTime> effectiveFrom =
+      GeneratedColumn<DateTime>(
+        'effective_from',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+        defaultValue: currentDateAndTime,
+      );
+  static const VerificationMeta _effectiveToMeta = const VerificationMeta(
+    'effectiveTo',
+  );
+  @override
+  late final GeneratedColumn<DateTime> effectiveTo = GeneratedColumn<DateTime>(
+    'effective_to',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta(
+    'isActive',
+  );
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+    'is_active',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_active" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    baseRatePerLiterMinor,
+    baseFatPercent,
+    fatSlabStep,
+    priceStepPerLiterMinor,
+    effectiveFrom,
+    effectiveTo,
+    isActive,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'fat_pricing_rules';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FatPricingRule> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('base_rate_per_liter_minor')) {
+      context.handle(
+        _baseRatePerLiterMinorMeta,
+        baseRatePerLiterMinor.isAcceptableOrUnknown(
+          data['base_rate_per_liter_minor']!,
+          _baseRatePerLiterMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_baseRatePerLiterMinorMeta);
+    }
+    if (data.containsKey('base_fat_percent')) {
+      context.handle(
+        _baseFatPercentMeta,
+        baseFatPercent.isAcceptableOrUnknown(
+          data['base_fat_percent']!,
+          _baseFatPercentMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_baseFatPercentMeta);
+    }
+    if (data.containsKey('fat_slab_step')) {
+      context.handle(
+        _fatSlabStepMeta,
+        fatSlabStep.isAcceptableOrUnknown(
+          data['fat_slab_step']!,
+          _fatSlabStepMeta,
+        ),
+      );
+    }
+    if (data.containsKey('price_step_per_liter_minor')) {
+      context.handle(
+        _priceStepPerLiterMinorMeta,
+        priceStepPerLiterMinor.isAcceptableOrUnknown(
+          data['price_step_per_liter_minor']!,
+          _priceStepPerLiterMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('effective_from')) {
+      context.handle(
+        _effectiveFromMeta,
+        effectiveFrom.isAcceptableOrUnknown(
+          data['effective_from']!,
+          _effectiveFromMeta,
+        ),
+      );
+    }
+    if (data.containsKey('effective_to')) {
+      context.handle(
+        _effectiveToMeta,
+        effectiveTo.isAcceptableOrUnknown(
+          data['effective_to']!,
+          _effectiveToMeta,
+        ),
+      );
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(
+        _isActiveMeta,
+        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FatPricingRule map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FatPricingRule(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      baseRatePerLiterMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}base_rate_per_liter_minor'],
+      )!,
+      baseFatPercent: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}base_fat_percent'],
+      )!,
+      fatSlabStep: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}fat_slab_step'],
+      )!,
+      priceStepPerLiterMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}price_step_per_liter_minor'],
+      )!,
+      effectiveFrom: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}effective_from'],
+      )!,
+      effectiveTo: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}effective_to'],
+      ),
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
+    );
+  }
+
+  @override
+  $FatPricingRulesTable createAlias(String alias) {
+    return $FatPricingRulesTable(attachedDatabase, alias);
+  }
+}
+
+class FatPricingRule extends DataClass implements Insertable<FatPricingRule> {
+  final int id;
+  final String name;
+  final int baseRatePerLiterMinor;
+  final double baseFatPercent;
+  final double fatSlabStep;
+  final int priceStepPerLiterMinor;
+  final DateTime effectiveFrom;
+  final DateTime? effectiveTo;
+  final bool isActive;
+  const FatPricingRule({
+    required this.id,
+    required this.name,
+    required this.baseRatePerLiterMinor,
+    required this.baseFatPercent,
+    required this.fatSlabStep,
+    required this.priceStepPerLiterMinor,
+    required this.effectiveFrom,
+    this.effectiveTo,
+    required this.isActive,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['base_rate_per_liter_minor'] = Variable<int>(baseRatePerLiterMinor);
+    map['base_fat_percent'] = Variable<double>(baseFatPercent);
+    map['fat_slab_step'] = Variable<double>(fatSlabStep);
+    map['price_step_per_liter_minor'] = Variable<int>(priceStepPerLiterMinor);
+    map['effective_from'] = Variable<DateTime>(effectiveFrom);
+    if (!nullToAbsent || effectiveTo != null) {
+      map['effective_to'] = Variable<DateTime>(effectiveTo);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  FatPricingRulesCompanion toCompanion(bool nullToAbsent) {
+    return FatPricingRulesCompanion(
+      id: Value(id),
+      name: Value(name),
+      baseRatePerLiterMinor: Value(baseRatePerLiterMinor),
+      baseFatPercent: Value(baseFatPercent),
+      fatSlabStep: Value(fatSlabStep),
+      priceStepPerLiterMinor: Value(priceStepPerLiterMinor),
+      effectiveFrom: Value(effectiveFrom),
+      effectiveTo: effectiveTo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(effectiveTo),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory FatPricingRule.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FatPricingRule(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      baseRatePerLiterMinor: serializer.fromJson<int>(
+        json['baseRatePerLiterMinor'],
+      ),
+      baseFatPercent: serializer.fromJson<double>(json['baseFatPercent']),
+      fatSlabStep: serializer.fromJson<double>(json['fatSlabStep']),
+      priceStepPerLiterMinor: serializer.fromJson<int>(
+        json['priceStepPerLiterMinor'],
+      ),
+      effectiveFrom: serializer.fromJson<DateTime>(json['effectiveFrom']),
+      effectiveTo: serializer.fromJson<DateTime?>(json['effectiveTo']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'baseRatePerLiterMinor': serializer.toJson<int>(baseRatePerLiterMinor),
+      'baseFatPercent': serializer.toJson<double>(baseFatPercent),
+      'fatSlabStep': serializer.toJson<double>(fatSlabStep),
+      'priceStepPerLiterMinor': serializer.toJson<int>(priceStepPerLiterMinor),
+      'effectiveFrom': serializer.toJson<DateTime>(effectiveFrom),
+      'effectiveTo': serializer.toJson<DateTime?>(effectiveTo),
+      'isActive': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  FatPricingRule copyWith({
+    int? id,
+    String? name,
+    int? baseRatePerLiterMinor,
+    double? baseFatPercent,
+    double? fatSlabStep,
+    int? priceStepPerLiterMinor,
+    DateTime? effectiveFrom,
+    Value<DateTime?> effectiveTo = const Value.absent(),
+    bool? isActive,
+  }) => FatPricingRule(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    baseRatePerLiterMinor: baseRatePerLiterMinor ?? this.baseRatePerLiterMinor,
+    baseFatPercent: baseFatPercent ?? this.baseFatPercent,
+    fatSlabStep: fatSlabStep ?? this.fatSlabStep,
+    priceStepPerLiterMinor:
+        priceStepPerLiterMinor ?? this.priceStepPerLiterMinor,
+    effectiveFrom: effectiveFrom ?? this.effectiveFrom,
+    effectiveTo: effectiveTo.present ? effectiveTo.value : this.effectiveTo,
+    isActive: isActive ?? this.isActive,
+  );
+  FatPricingRule copyWithCompanion(FatPricingRulesCompanion data) {
+    return FatPricingRule(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      baseRatePerLiterMinor: data.baseRatePerLiterMinor.present
+          ? data.baseRatePerLiterMinor.value
+          : this.baseRatePerLiterMinor,
+      baseFatPercent: data.baseFatPercent.present
+          ? data.baseFatPercent.value
+          : this.baseFatPercent,
+      fatSlabStep: data.fatSlabStep.present
+          ? data.fatSlabStep.value
+          : this.fatSlabStep,
+      priceStepPerLiterMinor: data.priceStepPerLiterMinor.present
+          ? data.priceStepPerLiterMinor.value
+          : this.priceStepPerLiterMinor,
+      effectiveFrom: data.effectiveFrom.present
+          ? data.effectiveFrom.value
+          : this.effectiveFrom,
+      effectiveTo: data.effectiveTo.present
+          ? data.effectiveTo.value
+          : this.effectiveTo,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FatPricingRule(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('baseRatePerLiterMinor: $baseRatePerLiterMinor, ')
+          ..write('baseFatPercent: $baseFatPercent, ')
+          ..write('fatSlabStep: $fatSlabStep, ')
+          ..write('priceStepPerLiterMinor: $priceStepPerLiterMinor, ')
+          ..write('effectiveFrom: $effectiveFrom, ')
+          ..write('effectiveTo: $effectiveTo, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    baseRatePerLiterMinor,
+    baseFatPercent,
+    fatSlabStep,
+    priceStepPerLiterMinor,
+    effectiveFrom,
+    effectiveTo,
+    isActive,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FatPricingRule &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.baseRatePerLiterMinor == this.baseRatePerLiterMinor &&
+          other.baseFatPercent == this.baseFatPercent &&
+          other.fatSlabStep == this.fatSlabStep &&
+          other.priceStepPerLiterMinor == this.priceStepPerLiterMinor &&
+          other.effectiveFrom == this.effectiveFrom &&
+          other.effectiveTo == this.effectiveTo &&
+          other.isActive == this.isActive);
+}
+
+class FatPricingRulesCompanion extends UpdateCompanion<FatPricingRule> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<int> baseRatePerLiterMinor;
+  final Value<double> baseFatPercent;
+  final Value<double> fatSlabStep;
+  final Value<int> priceStepPerLiterMinor;
+  final Value<DateTime> effectiveFrom;
+  final Value<DateTime?> effectiveTo;
+  final Value<bool> isActive;
+  const FatPricingRulesCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.baseRatePerLiterMinor = const Value.absent(),
+    this.baseFatPercent = const Value.absent(),
+    this.fatSlabStep = const Value.absent(),
+    this.priceStepPerLiterMinor = const Value.absent(),
+    this.effectiveFrom = const Value.absent(),
+    this.effectiveTo = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  FatPricingRulesCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required int baseRatePerLiterMinor,
+    required double baseFatPercent,
+    this.fatSlabStep = const Value.absent(),
+    this.priceStepPerLiterMinor = const Value.absent(),
+    this.effectiveFrom = const Value.absent(),
+    this.effectiveTo = const Value.absent(),
+    this.isActive = const Value.absent(),
+  }) : name = Value(name),
+       baseRatePerLiterMinor = Value(baseRatePerLiterMinor),
+       baseFatPercent = Value(baseFatPercent);
+  static Insertable<FatPricingRule> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<int>? baseRatePerLiterMinor,
+    Expression<double>? baseFatPercent,
+    Expression<double>? fatSlabStep,
+    Expression<int>? priceStepPerLiterMinor,
+    Expression<DateTime>? effectiveFrom,
+    Expression<DateTime>? effectiveTo,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (baseRatePerLiterMinor != null)
+        'base_rate_per_liter_minor': baseRatePerLiterMinor,
+      if (baseFatPercent != null) 'base_fat_percent': baseFatPercent,
+      if (fatSlabStep != null) 'fat_slab_step': fatSlabStep,
+      if (priceStepPerLiterMinor != null)
+        'price_step_per_liter_minor': priceStepPerLiterMinor,
+      if (effectiveFrom != null) 'effective_from': effectiveFrom,
+      if (effectiveTo != null) 'effective_to': effectiveTo,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  FatPricingRulesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? name,
+    Value<int>? baseRatePerLiterMinor,
+    Value<double>? baseFatPercent,
+    Value<double>? fatSlabStep,
+    Value<int>? priceStepPerLiterMinor,
+    Value<DateTime>? effectiveFrom,
+    Value<DateTime?>? effectiveTo,
+    Value<bool>? isActive,
+  }) {
+    return FatPricingRulesCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      baseRatePerLiterMinor:
+          baseRatePerLiterMinor ?? this.baseRatePerLiterMinor,
+      baseFatPercent: baseFatPercent ?? this.baseFatPercent,
+      fatSlabStep: fatSlabStep ?? this.fatSlabStep,
+      priceStepPerLiterMinor:
+          priceStepPerLiterMinor ?? this.priceStepPerLiterMinor,
+      effectiveFrom: effectiveFrom ?? this.effectiveFrom,
+      effectiveTo: effectiveTo ?? this.effectiveTo,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (baseRatePerLiterMinor.present) {
+      map['base_rate_per_liter_minor'] = Variable<int>(
+        baseRatePerLiterMinor.value,
+      );
+    }
+    if (baseFatPercent.present) {
+      map['base_fat_percent'] = Variable<double>(baseFatPercent.value);
+    }
+    if (fatSlabStep.present) {
+      map['fat_slab_step'] = Variable<double>(fatSlabStep.value);
+    }
+    if (priceStepPerLiterMinor.present) {
+      map['price_step_per_liter_minor'] = Variable<int>(
+        priceStepPerLiterMinor.value,
+      );
+    }
+    if (effectiveFrom.present) {
+      map['effective_from'] = Variable<DateTime>(effectiveFrom.value);
+    }
+    if (effectiveTo.present) {
+      map['effective_to'] = Variable<DateTime>(effectiveTo.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FatPricingRulesCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('baseRatePerLiterMinor: $baseRatePerLiterMinor, ')
+          ..write('baseFatPercent: $baseFatPercent, ')
+          ..write('fatSlabStep: $fatSlabStep, ')
+          ..write('priceStepPerLiterMinor: $priceStepPerLiterMinor, ')
+          ..write('effectiveFrom: $effectiveFrom, ')
+          ..write('effectiveTo: $effectiveTo, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $OvenSchedulesTable extends OvenSchedules
+    with TableInfo<$OvenSchedulesTable, OvenSchedule> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $OvenSchedulesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _ovenIdMeta = const VerificationMeta('ovenId');
+  @override
+  late final GeneratedColumn<String> ovenId = GeneratedColumn<String>(
+    'oven_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _ovenTypeMeta = const VerificationMeta(
+    'ovenType',
+  );
+  @override
+  late final GeneratedColumn<String> ovenType = GeneratedColumn<String>(
+    'oven_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('rotary'),
+  );
+  static const VerificationMeta _batchIdMeta = const VerificationMeta(
+    'batchId',
+  );
+  @override
+  late final GeneratedColumn<int> batchId = GeneratedColumn<int>(
+    'batch_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES production_batches (id)',
+    ),
+  );
+  static const VerificationMeta _scheduledStartMeta = const VerificationMeta(
+    'scheduledStart',
+  );
+  @override
+  late final GeneratedColumn<DateTime> scheduledStart =
+      GeneratedColumn<DateTime>(
+        'scheduled_start',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _scheduledEndMeta = const VerificationMeta(
+    'scheduledEnd',
+  );
+  @override
+  late final GeneratedColumn<DateTime> scheduledEnd = GeneratedColumn<DateTime>(
+    'scheduled_end',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _actualStartMeta = const VerificationMeta(
+    'actualStart',
+  );
+  @override
+  late final GeneratedColumn<DateTime> actualStart = GeneratedColumn<DateTime>(
+    'actual_start',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _actualEndMeta = const VerificationMeta(
+    'actualEnd',
+  );
+  @override
+  late final GeneratedColumn<DateTime> actualEnd = GeneratedColumn<DateTime>(
+    'actual_end',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _productIdMeta = const VerificationMeta(
+    'productId',
+  );
+  @override
+  late final GeneratedColumn<int> productId = GeneratedColumn<int>(
+    'product_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES products (id)',
+    ),
+  );
+  static const VerificationMeta _quantityMeta = const VerificationMeta(
+    'quantity',
+  );
+  @override
+  late final GeneratedColumn<int> quantity = GeneratedColumn<int>(
+    'quantity',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('scheduled'),
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    ovenId,
+    ovenType,
+    batchId,
+    scheduledStart,
+    scheduledEnd,
+    actualStart,
+    actualEnd,
+    productId,
+    quantity,
+    status,
+    notes,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'oven_schedules';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<OvenSchedule> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('oven_id')) {
+      context.handle(
+        _ovenIdMeta,
+        ovenId.isAcceptableOrUnknown(data['oven_id']!, _ovenIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_ovenIdMeta);
+    }
+    if (data.containsKey('oven_type')) {
+      context.handle(
+        _ovenTypeMeta,
+        ovenType.isAcceptableOrUnknown(data['oven_type']!, _ovenTypeMeta),
+      );
+    }
+    if (data.containsKey('batch_id')) {
+      context.handle(
+        _batchIdMeta,
+        batchId.isAcceptableOrUnknown(data['batch_id']!, _batchIdMeta),
+      );
+    }
+    if (data.containsKey('scheduled_start')) {
+      context.handle(
+        _scheduledStartMeta,
+        scheduledStart.isAcceptableOrUnknown(
+          data['scheduled_start']!,
+          _scheduledStartMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_scheduledStartMeta);
+    }
+    if (data.containsKey('scheduled_end')) {
+      context.handle(
+        _scheduledEndMeta,
+        scheduledEnd.isAcceptableOrUnknown(
+          data['scheduled_end']!,
+          _scheduledEndMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_scheduledEndMeta);
+    }
+    if (data.containsKey('actual_start')) {
+      context.handle(
+        _actualStartMeta,
+        actualStart.isAcceptableOrUnknown(
+          data['actual_start']!,
+          _actualStartMeta,
+        ),
+      );
+    }
+    if (data.containsKey('actual_end')) {
+      context.handle(
+        _actualEndMeta,
+        actualEnd.isAcceptableOrUnknown(data['actual_end']!, _actualEndMeta),
+      );
+    }
+    if (data.containsKey('product_id')) {
+      context.handle(
+        _productIdMeta,
+        productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_productIdMeta);
+    }
+    if (data.containsKey('quantity')) {
+      context.handle(
+        _quantityMeta,
+        quantity.isAcceptableOrUnknown(data['quantity']!, _quantityMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_quantityMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  OvenSchedule map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return OvenSchedule(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      ovenId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}oven_id'],
+      )!,
+      ovenType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}oven_type'],
+      )!,
+      batchId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}batch_id'],
+      ),
+      scheduledStart: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}scheduled_start'],
+      )!,
+      scheduledEnd: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}scheduled_end'],
+      )!,
+      actualStart: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}actual_start'],
+      ),
+      actualEnd: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}actual_end'],
+      ),
+      productId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}product_id'],
+      )!,
+      quantity: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+    );
+  }
+
+  @override
+  $OvenSchedulesTable createAlias(String alias) {
+    return $OvenSchedulesTable(attachedDatabase, alias);
+  }
+}
+
+class OvenSchedule extends DataClass implements Insertable<OvenSchedule> {
+  final int id;
+  final String ovenId;
+  final String ovenType;
+  final int? batchId;
+  final DateTime scheduledStart;
+  final DateTime scheduledEnd;
+  final DateTime? actualStart;
+  final DateTime? actualEnd;
+  final int productId;
+  final int quantity;
+  final String status;
+  final String? notes;
+  const OvenSchedule({
+    required this.id,
+    required this.ovenId,
+    required this.ovenType,
+    this.batchId,
+    required this.scheduledStart,
+    required this.scheduledEnd,
+    this.actualStart,
+    this.actualEnd,
+    required this.productId,
+    required this.quantity,
+    required this.status,
+    this.notes,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['oven_id'] = Variable<String>(ovenId);
+    map['oven_type'] = Variable<String>(ovenType);
+    if (!nullToAbsent || batchId != null) {
+      map['batch_id'] = Variable<int>(batchId);
+    }
+    map['scheduled_start'] = Variable<DateTime>(scheduledStart);
+    map['scheduled_end'] = Variable<DateTime>(scheduledEnd);
+    if (!nullToAbsent || actualStart != null) {
+      map['actual_start'] = Variable<DateTime>(actualStart);
+    }
+    if (!nullToAbsent || actualEnd != null) {
+      map['actual_end'] = Variable<DateTime>(actualEnd);
+    }
+    map['product_id'] = Variable<int>(productId);
+    map['quantity'] = Variable<int>(quantity);
+    map['status'] = Variable<String>(status);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    return map;
+  }
+
+  OvenSchedulesCompanion toCompanion(bool nullToAbsent) {
+    return OvenSchedulesCompanion(
+      id: Value(id),
+      ovenId: Value(ovenId),
+      ovenType: Value(ovenType),
+      batchId: batchId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(batchId),
+      scheduledStart: Value(scheduledStart),
+      scheduledEnd: Value(scheduledEnd),
+      actualStart: actualStart == null && nullToAbsent
+          ? const Value.absent()
+          : Value(actualStart),
+      actualEnd: actualEnd == null && nullToAbsent
+          ? const Value.absent()
+          : Value(actualEnd),
+      productId: Value(productId),
+      quantity: Value(quantity),
+      status: Value(status),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+    );
+  }
+
+  factory OvenSchedule.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return OvenSchedule(
+      id: serializer.fromJson<int>(json['id']),
+      ovenId: serializer.fromJson<String>(json['ovenId']),
+      ovenType: serializer.fromJson<String>(json['ovenType']),
+      batchId: serializer.fromJson<int?>(json['batchId']),
+      scheduledStart: serializer.fromJson<DateTime>(json['scheduledStart']),
+      scheduledEnd: serializer.fromJson<DateTime>(json['scheduledEnd']),
+      actualStart: serializer.fromJson<DateTime?>(json['actualStart']),
+      actualEnd: serializer.fromJson<DateTime?>(json['actualEnd']),
+      productId: serializer.fromJson<int>(json['productId']),
+      quantity: serializer.fromJson<int>(json['quantity']),
+      status: serializer.fromJson<String>(json['status']),
+      notes: serializer.fromJson<String?>(json['notes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'ovenId': serializer.toJson<String>(ovenId),
+      'ovenType': serializer.toJson<String>(ovenType),
+      'batchId': serializer.toJson<int?>(batchId),
+      'scheduledStart': serializer.toJson<DateTime>(scheduledStart),
+      'scheduledEnd': serializer.toJson<DateTime>(scheduledEnd),
+      'actualStart': serializer.toJson<DateTime?>(actualStart),
+      'actualEnd': serializer.toJson<DateTime?>(actualEnd),
+      'productId': serializer.toJson<int>(productId),
+      'quantity': serializer.toJson<int>(quantity),
+      'status': serializer.toJson<String>(status),
+      'notes': serializer.toJson<String?>(notes),
+    };
+  }
+
+  OvenSchedule copyWith({
+    int? id,
+    String? ovenId,
+    String? ovenType,
+    Value<int?> batchId = const Value.absent(),
+    DateTime? scheduledStart,
+    DateTime? scheduledEnd,
+    Value<DateTime?> actualStart = const Value.absent(),
+    Value<DateTime?> actualEnd = const Value.absent(),
+    int? productId,
+    int? quantity,
+    String? status,
+    Value<String?> notes = const Value.absent(),
+  }) => OvenSchedule(
+    id: id ?? this.id,
+    ovenId: ovenId ?? this.ovenId,
+    ovenType: ovenType ?? this.ovenType,
+    batchId: batchId.present ? batchId.value : this.batchId,
+    scheduledStart: scheduledStart ?? this.scheduledStart,
+    scheduledEnd: scheduledEnd ?? this.scheduledEnd,
+    actualStart: actualStart.present ? actualStart.value : this.actualStart,
+    actualEnd: actualEnd.present ? actualEnd.value : this.actualEnd,
+    productId: productId ?? this.productId,
+    quantity: quantity ?? this.quantity,
+    status: status ?? this.status,
+    notes: notes.present ? notes.value : this.notes,
+  );
+  OvenSchedule copyWithCompanion(OvenSchedulesCompanion data) {
+    return OvenSchedule(
+      id: data.id.present ? data.id.value : this.id,
+      ovenId: data.ovenId.present ? data.ovenId.value : this.ovenId,
+      ovenType: data.ovenType.present ? data.ovenType.value : this.ovenType,
+      batchId: data.batchId.present ? data.batchId.value : this.batchId,
+      scheduledStart: data.scheduledStart.present
+          ? data.scheduledStart.value
+          : this.scheduledStart,
+      scheduledEnd: data.scheduledEnd.present
+          ? data.scheduledEnd.value
+          : this.scheduledEnd,
+      actualStart: data.actualStart.present
+          ? data.actualStart.value
+          : this.actualStart,
+      actualEnd: data.actualEnd.present ? data.actualEnd.value : this.actualEnd,
+      productId: data.productId.present ? data.productId.value : this.productId,
+      quantity: data.quantity.present ? data.quantity.value : this.quantity,
+      status: data.status.present ? data.status.value : this.status,
+      notes: data.notes.present ? data.notes.value : this.notes,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('OvenSchedule(')
+          ..write('id: $id, ')
+          ..write('ovenId: $ovenId, ')
+          ..write('ovenType: $ovenType, ')
+          ..write('batchId: $batchId, ')
+          ..write('scheduledStart: $scheduledStart, ')
+          ..write('scheduledEnd: $scheduledEnd, ')
+          ..write('actualStart: $actualStart, ')
+          ..write('actualEnd: $actualEnd, ')
+          ..write('productId: $productId, ')
+          ..write('quantity: $quantity, ')
+          ..write('status: $status, ')
+          ..write('notes: $notes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    ovenId,
+    ovenType,
+    batchId,
+    scheduledStart,
+    scheduledEnd,
+    actualStart,
+    actualEnd,
+    productId,
+    quantity,
+    status,
+    notes,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is OvenSchedule &&
+          other.id == this.id &&
+          other.ovenId == this.ovenId &&
+          other.ovenType == this.ovenType &&
+          other.batchId == this.batchId &&
+          other.scheduledStart == this.scheduledStart &&
+          other.scheduledEnd == this.scheduledEnd &&
+          other.actualStart == this.actualStart &&
+          other.actualEnd == this.actualEnd &&
+          other.productId == this.productId &&
+          other.quantity == this.quantity &&
+          other.status == this.status &&
+          other.notes == this.notes);
+}
+
+class OvenSchedulesCompanion extends UpdateCompanion<OvenSchedule> {
+  final Value<int> id;
+  final Value<String> ovenId;
+  final Value<String> ovenType;
+  final Value<int?> batchId;
+  final Value<DateTime> scheduledStart;
+  final Value<DateTime> scheduledEnd;
+  final Value<DateTime?> actualStart;
+  final Value<DateTime?> actualEnd;
+  final Value<int> productId;
+  final Value<int> quantity;
+  final Value<String> status;
+  final Value<String?> notes;
+  const OvenSchedulesCompanion({
+    this.id = const Value.absent(),
+    this.ovenId = const Value.absent(),
+    this.ovenType = const Value.absent(),
+    this.batchId = const Value.absent(),
+    this.scheduledStart = const Value.absent(),
+    this.scheduledEnd = const Value.absent(),
+    this.actualStart = const Value.absent(),
+    this.actualEnd = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.quantity = const Value.absent(),
+    this.status = const Value.absent(),
+    this.notes = const Value.absent(),
+  });
+  OvenSchedulesCompanion.insert({
+    this.id = const Value.absent(),
+    required String ovenId,
+    this.ovenType = const Value.absent(),
+    this.batchId = const Value.absent(),
+    required DateTime scheduledStart,
+    required DateTime scheduledEnd,
+    this.actualStart = const Value.absent(),
+    this.actualEnd = const Value.absent(),
+    required int productId,
+    required int quantity,
+    this.status = const Value.absent(),
+    this.notes = const Value.absent(),
+  }) : ovenId = Value(ovenId),
+       scheduledStart = Value(scheduledStart),
+       scheduledEnd = Value(scheduledEnd),
+       productId = Value(productId),
+       quantity = Value(quantity);
+  static Insertable<OvenSchedule> custom({
+    Expression<int>? id,
+    Expression<String>? ovenId,
+    Expression<String>? ovenType,
+    Expression<int>? batchId,
+    Expression<DateTime>? scheduledStart,
+    Expression<DateTime>? scheduledEnd,
+    Expression<DateTime>? actualStart,
+    Expression<DateTime>? actualEnd,
+    Expression<int>? productId,
+    Expression<int>? quantity,
+    Expression<String>? status,
+    Expression<String>? notes,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (ovenId != null) 'oven_id': ovenId,
+      if (ovenType != null) 'oven_type': ovenType,
+      if (batchId != null) 'batch_id': batchId,
+      if (scheduledStart != null) 'scheduled_start': scheduledStart,
+      if (scheduledEnd != null) 'scheduled_end': scheduledEnd,
+      if (actualStart != null) 'actual_start': actualStart,
+      if (actualEnd != null) 'actual_end': actualEnd,
+      if (productId != null) 'product_id': productId,
+      if (quantity != null) 'quantity': quantity,
+      if (status != null) 'status': status,
+      if (notes != null) 'notes': notes,
+    });
+  }
+
+  OvenSchedulesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? ovenId,
+    Value<String>? ovenType,
+    Value<int?>? batchId,
+    Value<DateTime>? scheduledStart,
+    Value<DateTime>? scheduledEnd,
+    Value<DateTime?>? actualStart,
+    Value<DateTime?>? actualEnd,
+    Value<int>? productId,
+    Value<int>? quantity,
+    Value<String>? status,
+    Value<String?>? notes,
+  }) {
+    return OvenSchedulesCompanion(
+      id: id ?? this.id,
+      ovenId: ovenId ?? this.ovenId,
+      ovenType: ovenType ?? this.ovenType,
+      batchId: batchId ?? this.batchId,
+      scheduledStart: scheduledStart ?? this.scheduledStart,
+      scheduledEnd: scheduledEnd ?? this.scheduledEnd,
+      actualStart: actualStart ?? this.actualStart,
+      actualEnd: actualEnd ?? this.actualEnd,
+      productId: productId ?? this.productId,
+      quantity: quantity ?? this.quantity,
+      status: status ?? this.status,
+      notes: notes ?? this.notes,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (ovenId.present) {
+      map['oven_id'] = Variable<String>(ovenId.value);
+    }
+    if (ovenType.present) {
+      map['oven_type'] = Variable<String>(ovenType.value);
+    }
+    if (batchId.present) {
+      map['batch_id'] = Variable<int>(batchId.value);
+    }
+    if (scheduledStart.present) {
+      map['scheduled_start'] = Variable<DateTime>(scheduledStart.value);
+    }
+    if (scheduledEnd.present) {
+      map['scheduled_end'] = Variable<DateTime>(scheduledEnd.value);
+    }
+    if (actualStart.present) {
+      map['actual_start'] = Variable<DateTime>(actualStart.value);
+    }
+    if (actualEnd.present) {
+      map['actual_end'] = Variable<DateTime>(actualEnd.value);
+    }
+    if (productId.present) {
+      map['product_id'] = Variable<int>(productId.value);
+    }
+    if (quantity.present) {
+      map['quantity'] = Variable<int>(quantity.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('OvenSchedulesCompanion(')
+          ..write('id: $id, ')
+          ..write('ovenId: $ovenId, ')
+          ..write('ovenType: $ovenType, ')
+          ..write('batchId: $batchId, ')
+          ..write('scheduledStart: $scheduledStart, ')
+          ..write('scheduledEnd: $scheduledEnd, ')
+          ..write('actualStart: $actualStart, ')
+          ..write('actualEnd: $actualEnd, ')
+          ..write('productId: $productId, ')
+          ..write('quantity: $quantity, ')
+          ..write('status: $status, ')
+          ..write('notes: $notes')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CustomOrdersTable extends CustomOrders
+    with TableInfo<$CustomOrdersTable, CustomOrder> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CustomOrdersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _customerIdMeta = const VerificationMeta(
+    'customerId',
+  );
+  @override
+  late final GeneratedColumn<int> customerId = GeneratedColumn<int>(
+    'customer_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES customers (id)',
+    ),
+  );
+  static const VerificationMeta _orderDateMeta = const VerificationMeta(
+    'orderDate',
+  );
+  @override
+  late final GeneratedColumn<DateTime> orderDate = GeneratedColumn<DateTime>(
+    'order_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _deliveryDateMeta = const VerificationMeta(
+    'deliveryDate',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deliveryDate = GeneratedColumn<DateTime>(
+    'delivery_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cakeTypeMeta = const VerificationMeta(
+    'cakeType',
+  );
+  @override
+  late final GeneratedColumn<String> cakeType = GeneratedColumn<String>(
+    'cake_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _decorationNotesMeta = const VerificationMeta(
+    'decorationNotes',
+  );
+  @override
+  late final GeneratedColumn<String> decorationNotes = GeneratedColumn<String>(
+    'decoration_notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _photoRefMeta = const VerificationMeta(
+    'photoRef',
+  );
+  @override
+  late final GeneratedColumn<String> photoRef = GeneratedColumn<String>(
+    'photo_ref',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _advanceAmountMinorMeta =
+      const VerificationMeta('advanceAmountMinor');
+  @override
+  late final GeneratedColumn<int> advanceAmountMinor = GeneratedColumn<int>(
+    'advance_amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _totalAmountMinorMeta = const VerificationMeta(
+    'totalAmountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> totalAmountMinor = GeneratedColumn<int>(
+    'total_amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('enquiry'),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    customerId,
+    orderDate,
+    deliveryDate,
+    cakeType,
+    decorationNotes,
+    photoRef,
+    advanceAmountMinor,
+    totalAmountMinor,
+    status,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'custom_orders';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<CustomOrder> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('customer_id')) {
+      context.handle(
+        _customerIdMeta,
+        customerId.isAcceptableOrUnknown(data['customer_id']!, _customerIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_customerIdMeta);
+    }
+    if (data.containsKey('order_date')) {
+      context.handle(
+        _orderDateMeta,
+        orderDate.isAcceptableOrUnknown(data['order_date']!, _orderDateMeta),
+      );
+    }
+    if (data.containsKey('delivery_date')) {
+      context.handle(
+        _deliveryDateMeta,
+        deliveryDate.isAcceptableOrUnknown(
+          data['delivery_date']!,
+          _deliveryDateMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_deliveryDateMeta);
+    }
+    if (data.containsKey('cake_type')) {
+      context.handle(
+        _cakeTypeMeta,
+        cakeType.isAcceptableOrUnknown(data['cake_type']!, _cakeTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cakeTypeMeta);
+    }
+    if (data.containsKey('decoration_notes')) {
+      context.handle(
+        _decorationNotesMeta,
+        decorationNotes.isAcceptableOrUnknown(
+          data['decoration_notes']!,
+          _decorationNotesMeta,
+        ),
+      );
+    }
+    if (data.containsKey('photo_ref')) {
+      context.handle(
+        _photoRefMeta,
+        photoRef.isAcceptableOrUnknown(data['photo_ref']!, _photoRefMeta),
+      );
+    }
+    if (data.containsKey('advance_amount_minor')) {
+      context.handle(
+        _advanceAmountMinorMeta,
+        advanceAmountMinor.isAcceptableOrUnknown(
+          data['advance_amount_minor']!,
+          _advanceAmountMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('total_amount_minor')) {
+      context.handle(
+        _totalAmountMinorMeta,
+        totalAmountMinor.isAcceptableOrUnknown(
+          data['total_amount_minor']!,
+          _totalAmountMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_totalAmountMinorMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CustomOrder map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CustomOrder(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      customerId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}customer_id'],
+      )!,
+      orderDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}order_date'],
+      )!,
+      deliveryDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}delivery_date'],
+      )!,
+      cakeType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cake_type'],
+      )!,
+      decorationNotes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}decoration_notes'],
+      ),
+      photoRef: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}photo_ref'],
+      ),
+      advanceAmountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}advance_amount_minor'],
+      )!,
+      totalAmountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_amount_minor'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $CustomOrdersTable createAlias(String alias) {
+    return $CustomOrdersTable(attachedDatabase, alias);
+  }
+}
+
+class CustomOrder extends DataClass implements Insertable<CustomOrder> {
+  final int id;
+  final int customerId;
+  final DateTime orderDate;
+  final DateTime deliveryDate;
+  final String cakeType;
+  final String? decorationNotes;
+  final String? photoRef;
+  final int advanceAmountMinor;
+  final int totalAmountMinor;
+  final String status;
+  final DateTime createdAt;
+  const CustomOrder({
+    required this.id,
+    required this.customerId,
+    required this.orderDate,
+    required this.deliveryDate,
+    required this.cakeType,
+    this.decorationNotes,
+    this.photoRef,
+    required this.advanceAmountMinor,
+    required this.totalAmountMinor,
+    required this.status,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['customer_id'] = Variable<int>(customerId);
+    map['order_date'] = Variable<DateTime>(orderDate);
+    map['delivery_date'] = Variable<DateTime>(deliveryDate);
+    map['cake_type'] = Variable<String>(cakeType);
+    if (!nullToAbsent || decorationNotes != null) {
+      map['decoration_notes'] = Variable<String>(decorationNotes);
+    }
+    if (!nullToAbsent || photoRef != null) {
+      map['photo_ref'] = Variable<String>(photoRef);
+    }
+    map['advance_amount_minor'] = Variable<int>(advanceAmountMinor);
+    map['total_amount_minor'] = Variable<int>(totalAmountMinor);
+    map['status'] = Variable<String>(status);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  CustomOrdersCompanion toCompanion(bool nullToAbsent) {
+    return CustomOrdersCompanion(
+      id: Value(id),
+      customerId: Value(customerId),
+      orderDate: Value(orderDate),
+      deliveryDate: Value(deliveryDate),
+      cakeType: Value(cakeType),
+      decorationNotes: decorationNotes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(decorationNotes),
+      photoRef: photoRef == null && nullToAbsent
+          ? const Value.absent()
+          : Value(photoRef),
+      advanceAmountMinor: Value(advanceAmountMinor),
+      totalAmountMinor: Value(totalAmountMinor),
+      status: Value(status),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory CustomOrder.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CustomOrder(
+      id: serializer.fromJson<int>(json['id']),
+      customerId: serializer.fromJson<int>(json['customerId']),
+      orderDate: serializer.fromJson<DateTime>(json['orderDate']),
+      deliveryDate: serializer.fromJson<DateTime>(json['deliveryDate']),
+      cakeType: serializer.fromJson<String>(json['cakeType']),
+      decorationNotes: serializer.fromJson<String?>(json['decorationNotes']),
+      photoRef: serializer.fromJson<String?>(json['photoRef']),
+      advanceAmountMinor: serializer.fromJson<int>(json['advanceAmountMinor']),
+      totalAmountMinor: serializer.fromJson<int>(json['totalAmountMinor']),
+      status: serializer.fromJson<String>(json['status']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'customerId': serializer.toJson<int>(customerId),
+      'orderDate': serializer.toJson<DateTime>(orderDate),
+      'deliveryDate': serializer.toJson<DateTime>(deliveryDate),
+      'cakeType': serializer.toJson<String>(cakeType),
+      'decorationNotes': serializer.toJson<String?>(decorationNotes),
+      'photoRef': serializer.toJson<String?>(photoRef),
+      'advanceAmountMinor': serializer.toJson<int>(advanceAmountMinor),
+      'totalAmountMinor': serializer.toJson<int>(totalAmountMinor),
+      'status': serializer.toJson<String>(status),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  CustomOrder copyWith({
+    int? id,
+    int? customerId,
+    DateTime? orderDate,
+    DateTime? deliveryDate,
+    String? cakeType,
+    Value<String?> decorationNotes = const Value.absent(),
+    Value<String?> photoRef = const Value.absent(),
+    int? advanceAmountMinor,
+    int? totalAmountMinor,
+    String? status,
+    DateTime? createdAt,
+  }) => CustomOrder(
+    id: id ?? this.id,
+    customerId: customerId ?? this.customerId,
+    orderDate: orderDate ?? this.orderDate,
+    deliveryDate: deliveryDate ?? this.deliveryDate,
+    cakeType: cakeType ?? this.cakeType,
+    decorationNotes: decorationNotes.present
+        ? decorationNotes.value
+        : this.decorationNotes,
+    photoRef: photoRef.present ? photoRef.value : this.photoRef,
+    advanceAmountMinor: advanceAmountMinor ?? this.advanceAmountMinor,
+    totalAmountMinor: totalAmountMinor ?? this.totalAmountMinor,
+    status: status ?? this.status,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  CustomOrder copyWithCompanion(CustomOrdersCompanion data) {
+    return CustomOrder(
+      id: data.id.present ? data.id.value : this.id,
+      customerId: data.customerId.present
+          ? data.customerId.value
+          : this.customerId,
+      orderDate: data.orderDate.present ? data.orderDate.value : this.orderDate,
+      deliveryDate: data.deliveryDate.present
+          ? data.deliveryDate.value
+          : this.deliveryDate,
+      cakeType: data.cakeType.present ? data.cakeType.value : this.cakeType,
+      decorationNotes: data.decorationNotes.present
+          ? data.decorationNotes.value
+          : this.decorationNotes,
+      photoRef: data.photoRef.present ? data.photoRef.value : this.photoRef,
+      advanceAmountMinor: data.advanceAmountMinor.present
+          ? data.advanceAmountMinor.value
+          : this.advanceAmountMinor,
+      totalAmountMinor: data.totalAmountMinor.present
+          ? data.totalAmountMinor.value
+          : this.totalAmountMinor,
+      status: data.status.present ? data.status.value : this.status,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomOrder(')
+          ..write('id: $id, ')
+          ..write('customerId: $customerId, ')
+          ..write('orderDate: $orderDate, ')
+          ..write('deliveryDate: $deliveryDate, ')
+          ..write('cakeType: $cakeType, ')
+          ..write('decorationNotes: $decorationNotes, ')
+          ..write('photoRef: $photoRef, ')
+          ..write('advanceAmountMinor: $advanceAmountMinor, ')
+          ..write('totalAmountMinor: $totalAmountMinor, ')
+          ..write('status: $status, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    customerId,
+    orderDate,
+    deliveryDate,
+    cakeType,
+    decorationNotes,
+    photoRef,
+    advanceAmountMinor,
+    totalAmountMinor,
+    status,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CustomOrder &&
+          other.id == this.id &&
+          other.customerId == this.customerId &&
+          other.orderDate == this.orderDate &&
+          other.deliveryDate == this.deliveryDate &&
+          other.cakeType == this.cakeType &&
+          other.decorationNotes == this.decorationNotes &&
+          other.photoRef == this.photoRef &&
+          other.advanceAmountMinor == this.advanceAmountMinor &&
+          other.totalAmountMinor == this.totalAmountMinor &&
+          other.status == this.status &&
+          other.createdAt == this.createdAt);
+}
+
+class CustomOrdersCompanion extends UpdateCompanion<CustomOrder> {
+  final Value<int> id;
+  final Value<int> customerId;
+  final Value<DateTime> orderDate;
+  final Value<DateTime> deliveryDate;
+  final Value<String> cakeType;
+  final Value<String?> decorationNotes;
+  final Value<String?> photoRef;
+  final Value<int> advanceAmountMinor;
+  final Value<int> totalAmountMinor;
+  final Value<String> status;
+  final Value<DateTime> createdAt;
+  const CustomOrdersCompanion({
+    this.id = const Value.absent(),
+    this.customerId = const Value.absent(),
+    this.orderDate = const Value.absent(),
+    this.deliveryDate = const Value.absent(),
+    this.cakeType = const Value.absent(),
+    this.decorationNotes = const Value.absent(),
+    this.photoRef = const Value.absent(),
+    this.advanceAmountMinor = const Value.absent(),
+    this.totalAmountMinor = const Value.absent(),
+    this.status = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  CustomOrdersCompanion.insert({
+    this.id = const Value.absent(),
+    required int customerId,
+    this.orderDate = const Value.absent(),
+    required DateTime deliveryDate,
+    required String cakeType,
+    this.decorationNotes = const Value.absent(),
+    this.photoRef = const Value.absent(),
+    this.advanceAmountMinor = const Value.absent(),
+    required int totalAmountMinor,
+    this.status = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : customerId = Value(customerId),
+       deliveryDate = Value(deliveryDate),
+       cakeType = Value(cakeType),
+       totalAmountMinor = Value(totalAmountMinor);
+  static Insertable<CustomOrder> custom({
+    Expression<int>? id,
+    Expression<int>? customerId,
+    Expression<DateTime>? orderDate,
+    Expression<DateTime>? deliveryDate,
+    Expression<String>? cakeType,
+    Expression<String>? decorationNotes,
+    Expression<String>? photoRef,
+    Expression<int>? advanceAmountMinor,
+    Expression<int>? totalAmountMinor,
+    Expression<String>? status,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (customerId != null) 'customer_id': customerId,
+      if (orderDate != null) 'order_date': orderDate,
+      if (deliveryDate != null) 'delivery_date': deliveryDate,
+      if (cakeType != null) 'cake_type': cakeType,
+      if (decorationNotes != null) 'decoration_notes': decorationNotes,
+      if (photoRef != null) 'photo_ref': photoRef,
+      if (advanceAmountMinor != null)
+        'advance_amount_minor': advanceAmountMinor,
+      if (totalAmountMinor != null) 'total_amount_minor': totalAmountMinor,
+      if (status != null) 'status': status,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  CustomOrdersCompanion copyWith({
+    Value<int>? id,
+    Value<int>? customerId,
+    Value<DateTime>? orderDate,
+    Value<DateTime>? deliveryDate,
+    Value<String>? cakeType,
+    Value<String?>? decorationNotes,
+    Value<String?>? photoRef,
+    Value<int>? advanceAmountMinor,
+    Value<int>? totalAmountMinor,
+    Value<String>? status,
+    Value<DateTime>? createdAt,
+  }) {
+    return CustomOrdersCompanion(
+      id: id ?? this.id,
+      customerId: customerId ?? this.customerId,
+      orderDate: orderDate ?? this.orderDate,
+      deliveryDate: deliveryDate ?? this.deliveryDate,
+      cakeType: cakeType ?? this.cakeType,
+      decorationNotes: decorationNotes ?? this.decorationNotes,
+      photoRef: photoRef ?? this.photoRef,
+      advanceAmountMinor: advanceAmountMinor ?? this.advanceAmountMinor,
+      totalAmountMinor: totalAmountMinor ?? this.totalAmountMinor,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (customerId.present) {
+      map['customer_id'] = Variable<int>(customerId.value);
+    }
+    if (orderDate.present) {
+      map['order_date'] = Variable<DateTime>(orderDate.value);
+    }
+    if (deliveryDate.present) {
+      map['delivery_date'] = Variable<DateTime>(deliveryDate.value);
+    }
+    if (cakeType.present) {
+      map['cake_type'] = Variable<String>(cakeType.value);
+    }
+    if (decorationNotes.present) {
+      map['decoration_notes'] = Variable<String>(decorationNotes.value);
+    }
+    if (photoRef.present) {
+      map['photo_ref'] = Variable<String>(photoRef.value);
+    }
+    if (advanceAmountMinor.present) {
+      map['advance_amount_minor'] = Variable<int>(advanceAmountMinor.value);
+    }
+    if (totalAmountMinor.present) {
+      map['total_amount_minor'] = Variable<int>(totalAmountMinor.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomOrdersCompanion(')
+          ..write('id: $id, ')
+          ..write('customerId: $customerId, ')
+          ..write('orderDate: $orderDate, ')
+          ..write('deliveryDate: $deliveryDate, ')
+          ..write('cakeType: $cakeType, ')
+          ..write('decorationNotes: $decorationNotes, ')
+          ..write('photoRef: $photoRef, ')
+          ..write('advanceAmountMinor: $advanceAmountMinor, ')
+          ..write('totalAmountMinor: $totalAmountMinor, ')
+          ..write('status: $status, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ReturnableContainersTable extends ReturnableContainers
+    with TableInfo<$ReturnableContainersTable, ReturnableContainer> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReturnableContainersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _containerTypeMeta = const VerificationMeta(
+    'containerType',
+  );
+  @override
+  late final GeneratedColumn<String> containerType = GeneratedColumn<String>(
+    'container_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _containerCodeMeta = const VerificationMeta(
+    'containerCode',
+  );
+  @override
+  late final GeneratedColumn<String> containerCode = GeneratedColumn<String>(
+    'container_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+  );
+  static const VerificationMeta _customerIdMeta = const VerificationMeta(
+    'customerId',
+  );
+  @override
+  late final GeneratedColumn<int> customerId = GeneratedColumn<int>(
+    'customer_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES customers (id)',
+    ),
+  );
+  static const VerificationMeta _driverIdMeta = const VerificationMeta(
+    'driverId',
+  );
+  @override
+  late final GeneratedColumn<int> driverId = GeneratedColumn<int>(
+    'driver_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _depositAmountMinorMeta =
+      const VerificationMeta('depositAmountMinor');
+  @override
+  late final GeneratedColumn<int> depositAmountMinor = GeneratedColumn<int>(
+    'deposit_amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('returned'),
+  );
+  static const VerificationMeta _lastScanAtMeta = const VerificationMeta(
+    'lastScanAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastScanAt = GeneratedColumn<DateTime>(
+    'last_scan_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    containerType,
+    containerCode,
+    customerId,
+    driverId,
+    depositAmountMinor,
+    status,
+    lastScanAt,
+    notes,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'returnable_containers';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ReturnableContainer> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('container_type')) {
+      context.handle(
+        _containerTypeMeta,
+        containerType.isAcceptableOrUnknown(
+          data['container_type']!,
+          _containerTypeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_containerTypeMeta);
+    }
+    if (data.containsKey('container_code')) {
+      context.handle(
+        _containerCodeMeta,
+        containerCode.isAcceptableOrUnknown(
+          data['container_code']!,
+          _containerCodeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_containerCodeMeta);
+    }
+    if (data.containsKey('customer_id')) {
+      context.handle(
+        _customerIdMeta,
+        customerId.isAcceptableOrUnknown(data['customer_id']!, _customerIdMeta),
+      );
+    }
+    if (data.containsKey('driver_id')) {
+      context.handle(
+        _driverIdMeta,
+        driverId.isAcceptableOrUnknown(data['driver_id']!, _driverIdMeta),
+      );
+    }
+    if (data.containsKey('deposit_amount_minor')) {
+      context.handle(
+        _depositAmountMinorMeta,
+        depositAmountMinor.isAcceptableOrUnknown(
+          data['deposit_amount_minor']!,
+          _depositAmountMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('last_scan_at')) {
+      context.handle(
+        _lastScanAtMeta,
+        lastScanAt.isAcceptableOrUnknown(
+          data['last_scan_at']!,
+          _lastScanAtMeta,
+        ),
+      );
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ReturnableContainer map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReturnableContainer(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      containerType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}container_type'],
+      )!,
+      containerCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}container_code'],
+      )!,
+      customerId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}customer_id'],
+      ),
+      driverId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}driver_id'],
+      ),
+      depositAmountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deposit_amount_minor'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      lastScanAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}last_scan_at'],
+      )!,
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ReturnableContainersTable createAlias(String alias) {
+    return $ReturnableContainersTable(attachedDatabase, alias);
+  }
+}
+
+class ReturnableContainer extends DataClass
+    implements Insertable<ReturnableContainer> {
+  final int id;
+  final String containerType;
+  final String containerCode;
+  final int? customerId;
+  final int? driverId;
+  final int depositAmountMinor;
+  final String status;
+  final DateTime lastScanAt;
+  final String? notes;
+  final DateTime createdAt;
+  const ReturnableContainer({
+    required this.id,
+    required this.containerType,
+    required this.containerCode,
+    this.customerId,
+    this.driverId,
+    required this.depositAmountMinor,
+    required this.status,
+    required this.lastScanAt,
+    this.notes,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['container_type'] = Variable<String>(containerType);
+    map['container_code'] = Variable<String>(containerCode);
+    if (!nullToAbsent || customerId != null) {
+      map['customer_id'] = Variable<int>(customerId);
+    }
+    if (!nullToAbsent || driverId != null) {
+      map['driver_id'] = Variable<int>(driverId);
+    }
+    map['deposit_amount_minor'] = Variable<int>(depositAmountMinor);
+    map['status'] = Variable<String>(status);
+    map['last_scan_at'] = Variable<DateTime>(lastScanAt);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  ReturnableContainersCompanion toCompanion(bool nullToAbsent) {
+    return ReturnableContainersCompanion(
+      id: Value(id),
+      containerType: Value(containerType),
+      containerCode: Value(containerCode),
+      customerId: customerId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(customerId),
+      driverId: driverId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(driverId),
+      depositAmountMinor: Value(depositAmountMinor),
+      status: Value(status),
+      lastScanAt: Value(lastScanAt),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory ReturnableContainer.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReturnableContainer(
+      id: serializer.fromJson<int>(json['id']),
+      containerType: serializer.fromJson<String>(json['containerType']),
+      containerCode: serializer.fromJson<String>(json['containerCode']),
+      customerId: serializer.fromJson<int?>(json['customerId']),
+      driverId: serializer.fromJson<int?>(json['driverId']),
+      depositAmountMinor: serializer.fromJson<int>(json['depositAmountMinor']),
+      status: serializer.fromJson<String>(json['status']),
+      lastScanAt: serializer.fromJson<DateTime>(json['lastScanAt']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'containerType': serializer.toJson<String>(containerType),
+      'containerCode': serializer.toJson<String>(containerCode),
+      'customerId': serializer.toJson<int?>(customerId),
+      'driverId': serializer.toJson<int?>(driverId),
+      'depositAmountMinor': serializer.toJson<int>(depositAmountMinor),
+      'status': serializer.toJson<String>(status),
+      'lastScanAt': serializer.toJson<DateTime>(lastScanAt),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  ReturnableContainer copyWith({
+    int? id,
+    String? containerType,
+    String? containerCode,
+    Value<int?> customerId = const Value.absent(),
+    Value<int?> driverId = const Value.absent(),
+    int? depositAmountMinor,
+    String? status,
+    DateTime? lastScanAt,
+    Value<String?> notes = const Value.absent(),
+    DateTime? createdAt,
+  }) => ReturnableContainer(
+    id: id ?? this.id,
+    containerType: containerType ?? this.containerType,
+    containerCode: containerCode ?? this.containerCode,
+    customerId: customerId.present ? customerId.value : this.customerId,
+    driverId: driverId.present ? driverId.value : this.driverId,
+    depositAmountMinor: depositAmountMinor ?? this.depositAmountMinor,
+    status: status ?? this.status,
+    lastScanAt: lastScanAt ?? this.lastScanAt,
+    notes: notes.present ? notes.value : this.notes,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  ReturnableContainer copyWithCompanion(ReturnableContainersCompanion data) {
+    return ReturnableContainer(
+      id: data.id.present ? data.id.value : this.id,
+      containerType: data.containerType.present
+          ? data.containerType.value
+          : this.containerType,
+      containerCode: data.containerCode.present
+          ? data.containerCode.value
+          : this.containerCode,
+      customerId: data.customerId.present
+          ? data.customerId.value
+          : this.customerId,
+      driverId: data.driverId.present ? data.driverId.value : this.driverId,
+      depositAmountMinor: data.depositAmountMinor.present
+          ? data.depositAmountMinor.value
+          : this.depositAmountMinor,
+      status: data.status.present ? data.status.value : this.status,
+      lastScanAt: data.lastScanAt.present
+          ? data.lastScanAt.value
+          : this.lastScanAt,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReturnableContainer(')
+          ..write('id: $id, ')
+          ..write('containerType: $containerType, ')
+          ..write('containerCode: $containerCode, ')
+          ..write('customerId: $customerId, ')
+          ..write('driverId: $driverId, ')
+          ..write('depositAmountMinor: $depositAmountMinor, ')
+          ..write('status: $status, ')
+          ..write('lastScanAt: $lastScanAt, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    containerType,
+    containerCode,
+    customerId,
+    driverId,
+    depositAmountMinor,
+    status,
+    lastScanAt,
+    notes,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReturnableContainer &&
+          other.id == this.id &&
+          other.containerType == this.containerType &&
+          other.containerCode == this.containerCode &&
+          other.customerId == this.customerId &&
+          other.driverId == this.driverId &&
+          other.depositAmountMinor == this.depositAmountMinor &&
+          other.status == this.status &&
+          other.lastScanAt == this.lastScanAt &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt);
+}
+
+class ReturnableContainersCompanion
+    extends UpdateCompanion<ReturnableContainer> {
+  final Value<int> id;
+  final Value<String> containerType;
+  final Value<String> containerCode;
+  final Value<int?> customerId;
+  final Value<int?> driverId;
+  final Value<int> depositAmountMinor;
+  final Value<String> status;
+  final Value<DateTime> lastScanAt;
+  final Value<String?> notes;
+  final Value<DateTime> createdAt;
+  const ReturnableContainersCompanion({
+    this.id = const Value.absent(),
+    this.containerType = const Value.absent(),
+    this.containerCode = const Value.absent(),
+    this.customerId = const Value.absent(),
+    this.driverId = const Value.absent(),
+    this.depositAmountMinor = const Value.absent(),
+    this.status = const Value.absent(),
+    this.lastScanAt = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  ReturnableContainersCompanion.insert({
+    this.id = const Value.absent(),
+    required String containerType,
+    required String containerCode,
+    this.customerId = const Value.absent(),
+    this.driverId = const Value.absent(),
+    this.depositAmountMinor = const Value.absent(),
+    this.status = const Value.absent(),
+    this.lastScanAt = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : containerType = Value(containerType),
+       containerCode = Value(containerCode);
+  static Insertable<ReturnableContainer> custom({
+    Expression<int>? id,
+    Expression<String>? containerType,
+    Expression<String>? containerCode,
+    Expression<int>? customerId,
+    Expression<int>? driverId,
+    Expression<int>? depositAmountMinor,
+    Expression<String>? status,
+    Expression<DateTime>? lastScanAt,
+    Expression<String>? notes,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (containerType != null) 'container_type': containerType,
+      if (containerCode != null) 'container_code': containerCode,
+      if (customerId != null) 'customer_id': customerId,
+      if (driverId != null) 'driver_id': driverId,
+      if (depositAmountMinor != null)
+        'deposit_amount_minor': depositAmountMinor,
+      if (status != null) 'status': status,
+      if (lastScanAt != null) 'last_scan_at': lastScanAt,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  ReturnableContainersCompanion copyWith({
+    Value<int>? id,
+    Value<String>? containerType,
+    Value<String>? containerCode,
+    Value<int?>? customerId,
+    Value<int?>? driverId,
+    Value<int>? depositAmountMinor,
+    Value<String>? status,
+    Value<DateTime>? lastScanAt,
+    Value<String?>? notes,
+    Value<DateTime>? createdAt,
+  }) {
+    return ReturnableContainersCompanion(
+      id: id ?? this.id,
+      containerType: containerType ?? this.containerType,
+      containerCode: containerCode ?? this.containerCode,
+      customerId: customerId ?? this.customerId,
+      driverId: driverId ?? this.driverId,
+      depositAmountMinor: depositAmountMinor ?? this.depositAmountMinor,
+      status: status ?? this.status,
+      lastScanAt: lastScanAt ?? this.lastScanAt,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (containerType.present) {
+      map['container_type'] = Variable<String>(containerType.value);
+    }
+    if (containerCode.present) {
+      map['container_code'] = Variable<String>(containerCode.value);
+    }
+    if (customerId.present) {
+      map['customer_id'] = Variable<int>(customerId.value);
+    }
+    if (driverId.present) {
+      map['driver_id'] = Variable<int>(driverId.value);
+    }
+    if (depositAmountMinor.present) {
+      map['deposit_amount_minor'] = Variable<int>(depositAmountMinor.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (lastScanAt.present) {
+      map['last_scan_at'] = Variable<DateTime>(lastScanAt.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReturnableContainersCompanion(')
+          ..write('id: $id, ')
+          ..write('containerType: $containerType, ')
+          ..write('containerCode: $containerCode, ')
+          ..write('customerId: $customerId, ')
+          ..write('driverId: $driverId, ')
+          ..write('depositAmountMinor: $depositAmountMinor, ')
+          ..write('status: $status, ')
+          ..write('lastScanAt: $lastScanAt, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -22566,6 +27691,16 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $WastageLogsTable wastageLogs = $WastageLogsTable(this);
   late final $ReturnLogsTable returnLogs = $ReturnLogsTable(this);
   late final $ComplaintsTable complaints = $ComplaintsTable(this);
+  late final $MilkProcurementsTable milkProcurements = $MilkProcurementsTable(
+    this,
+  );
+  late final $FatPricingRulesTable fatPricingRules = $FatPricingRulesTable(
+    this,
+  );
+  late final $OvenSchedulesTable ovenSchedules = $OvenSchedulesTable(this);
+  late final $CustomOrdersTable customOrders = $CustomOrdersTable(this);
+  late final $ReturnableContainersTable returnableContainers =
+      $ReturnableContainersTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -22605,6 +27740,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     wastageLogs,
     returnLogs,
     complaints,
+    milkProcurements,
+    fatPricingRules,
+    ovenSchedules,
+    customOrders,
+    returnableContainers,
   ];
 }
 
@@ -22639,6 +27779,18 @@ typedef $$ProductsTableCreateCompanionBuilder =
       Value<String?> nutritionPer100gJson,
       Value<String?> primaryMarkets,
       Value<String> priceBandCurrency,
+      Value<double?> fatPercentExpected,
+      Value<double?> snfPercentExpected,
+      Value<String?> milkType,
+      Value<String?> procurementSlot,
+      Value<bool?> isPasteurized,
+      Value<bool?> isCultured,
+      Value<bool?> bakeDateRequired,
+      Value<int?> proofingMinutes,
+      Value<String?> ovenType,
+      Value<int?> freshnessWindowHours,
+      Value<double?> dayOldDiscountPercent,
+      Value<bool?> isCustomOrder,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
@@ -22673,6 +27825,18 @@ typedef $$ProductsTableUpdateCompanionBuilder =
       Value<String?> nutritionPer100gJson,
       Value<String?> primaryMarkets,
       Value<String> priceBandCurrency,
+      Value<double?> fatPercentExpected,
+      Value<double?> snfPercentExpected,
+      Value<String?> milkType,
+      Value<String?> procurementSlot,
+      Value<bool?> isPasteurized,
+      Value<bool?> isCultured,
+      Value<bool?> bakeDateRequired,
+      Value<int?> proofingMinutes,
+      Value<String?> ovenType,
+      Value<int?> freshnessWindowHours,
+      Value<double?> dayOldDiscountPercent,
+      Value<bool?> isCustomOrder,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
@@ -22855,6 +28019,24 @@ final class $$ProductsTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$OvenSchedulesTable, List<OvenSchedule>>
+  _ovenSchedulesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.ovenSchedules,
+    aliasName: 'products__id__oven_schedules__product_id',
+  );
+
+  $$OvenSchedulesTableProcessedTableManager get ovenSchedulesRefs {
+    final manager = $$OvenSchedulesTableTableManager(
+      $_db,
+      $_db.ovenSchedules,
+    ).filter((f) => f.productId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_ovenSchedulesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$ProductsTableFilterComposer
@@ -23008,6 +28190,66 @@ class $$ProductsTableFilterComposer
 
   ColumnFilters<String> get priceBandCurrency => $composableBuilder(
     column: $table.priceBandCurrency,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get fatPercentExpected => $composableBuilder(
+    column: $table.fatPercentExpected,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get snfPercentExpected => $composableBuilder(
+    column: $table.snfPercentExpected,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get milkType => $composableBuilder(
+    column: $table.milkType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get procurementSlot => $composableBuilder(
+    column: $table.procurementSlot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isPasteurized => $composableBuilder(
+    column: $table.isPasteurized,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isCultured => $composableBuilder(
+    column: $table.isCultured,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get bakeDateRequired => $composableBuilder(
+    column: $table.bakeDateRequired,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get proofingMinutes => $composableBuilder(
+    column: $table.proofingMinutes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get ovenType => $composableBuilder(
+    column: $table.ovenType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get freshnessWindowHours => $composableBuilder(
+    column: $table.freshnessWindowHours,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get dayOldDiscountPercent => $composableBuilder(
+    column: $table.dayOldDiscountPercent,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isCustomOrder => $composableBuilder(
+    column: $table.isCustomOrder,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -23246,6 +28488,31 @@ class $$ProductsTableFilterComposer
     );
     return f(composer);
   }
+
+  Expression<bool> ovenSchedulesRefs(
+    Expression<bool> Function($$OvenSchedulesTableFilterComposer f) f,
+  ) {
+    final $$OvenSchedulesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.ovenSchedules,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$OvenSchedulesTableFilterComposer(
+            $db: $db,
+            $table: $db.ovenSchedules,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ProductsTableOrderingComposer
@@ -23402,6 +28669,66 @@ class $$ProductsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<double> get fatPercentExpected => $composableBuilder(
+    column: $table.fatPercentExpected,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get snfPercentExpected => $composableBuilder(
+    column: $table.snfPercentExpected,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get milkType => $composableBuilder(
+    column: $table.milkType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get procurementSlot => $composableBuilder(
+    column: $table.procurementSlot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isPasteurized => $composableBuilder(
+    column: $table.isPasteurized,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isCultured => $composableBuilder(
+    column: $table.isCultured,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get bakeDateRequired => $composableBuilder(
+    column: $table.bakeDateRequired,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get proofingMinutes => $composableBuilder(
+    column: $table.proofingMinutes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get ovenType => $composableBuilder(
+    column: $table.ovenType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get freshnessWindowHours => $composableBuilder(
+    column: $table.freshnessWindowHours,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get dayOldDiscountPercent => $composableBuilder(
+    column: $table.dayOldDiscountPercent,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isCustomOrder => $composableBuilder(
+    column: $table.isCustomOrder,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
@@ -23534,6 +28861,62 @@ class $$ProductsTableAnnotationComposer
 
   GeneratedColumn<String> get priceBandCurrency => $composableBuilder(
     column: $table.priceBandCurrency,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get fatPercentExpected => $composableBuilder(
+    column: $table.fatPercentExpected,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get snfPercentExpected => $composableBuilder(
+    column: $table.snfPercentExpected,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get milkType =>
+      $composableBuilder(column: $table.milkType, builder: (column) => column);
+
+  GeneratedColumn<String> get procurementSlot => $composableBuilder(
+    column: $table.procurementSlot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isPasteurized => $composableBuilder(
+    column: $table.isPasteurized,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isCultured => $composableBuilder(
+    column: $table.isCultured,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get bakeDateRequired => $composableBuilder(
+    column: $table.bakeDateRequired,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get proofingMinutes => $composableBuilder(
+    column: $table.proofingMinutes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get ovenType =>
+      $composableBuilder(column: $table.ovenType, builder: (column) => column);
+
+  GeneratedColumn<int> get freshnessWindowHours => $composableBuilder(
+    column: $table.freshnessWindowHours,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get dayOldDiscountPercent => $composableBuilder(
+    column: $table.dayOldDiscountPercent,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isCustomOrder => $composableBuilder(
+    column: $table.isCustomOrder,
     builder: (column) => column,
   );
 
@@ -23770,6 +29153,31 @@ class $$ProductsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> ovenSchedulesRefs<T extends Object>(
+    Expression<T> Function($$OvenSchedulesTableAnnotationComposer a) f,
+  ) {
+    final $$OvenSchedulesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.ovenSchedules,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$OvenSchedulesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.ovenSchedules,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ProductsTableTableManager
@@ -23795,6 +29203,7 @@ class $$ProductsTableTableManager
             bool wastageLogsRefs,
             bool returnLogsRefs,
             bool complaintsRefs,
+            bool ovenSchedulesRefs,
           })
         > {
   $$ProductsTableTableManager(_$AppDatabase db, $ProductsTable table)
@@ -23839,6 +29248,18 @@ class $$ProductsTableTableManager
                 Value<String?> nutritionPer100gJson = const Value.absent(),
                 Value<String?> primaryMarkets = const Value.absent(),
                 Value<String> priceBandCurrency = const Value.absent(),
+                Value<double?> fatPercentExpected = const Value.absent(),
+                Value<double?> snfPercentExpected = const Value.absent(),
+                Value<String?> milkType = const Value.absent(),
+                Value<String?> procurementSlot = const Value.absent(),
+                Value<bool?> isPasteurized = const Value.absent(),
+                Value<bool?> isCultured = const Value.absent(),
+                Value<bool?> bakeDateRequired = const Value.absent(),
+                Value<int?> proofingMinutes = const Value.absent(),
+                Value<String?> ovenType = const Value.absent(),
+                Value<int?> freshnessWindowHours = const Value.absent(),
+                Value<double?> dayOldDiscountPercent = const Value.absent(),
+                Value<bool?> isCustomOrder = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => ProductsCompanion(
@@ -23871,6 +29292,18 @@ class $$ProductsTableTableManager
                 nutritionPer100gJson: nutritionPer100gJson,
                 primaryMarkets: primaryMarkets,
                 priceBandCurrency: priceBandCurrency,
+                fatPercentExpected: fatPercentExpected,
+                snfPercentExpected: snfPercentExpected,
+                milkType: milkType,
+                procurementSlot: procurementSlot,
+                isPasteurized: isPasteurized,
+                isCultured: isCultured,
+                bakeDateRequired: bakeDateRequired,
+                proofingMinutes: proofingMinutes,
+                ovenType: ovenType,
+                freshnessWindowHours: freshnessWindowHours,
+                dayOldDiscountPercent: dayOldDiscountPercent,
+                isCustomOrder: isCustomOrder,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),
@@ -23905,6 +29338,18 @@ class $$ProductsTableTableManager
                 Value<String?> nutritionPer100gJson = const Value.absent(),
                 Value<String?> primaryMarkets = const Value.absent(),
                 Value<String> priceBandCurrency = const Value.absent(),
+                Value<double?> fatPercentExpected = const Value.absent(),
+                Value<double?> snfPercentExpected = const Value.absent(),
+                Value<String?> milkType = const Value.absent(),
+                Value<String?> procurementSlot = const Value.absent(),
+                Value<bool?> isPasteurized = const Value.absent(),
+                Value<bool?> isCultured = const Value.absent(),
+                Value<bool?> bakeDateRequired = const Value.absent(),
+                Value<int?> proofingMinutes = const Value.absent(),
+                Value<String?> ovenType = const Value.absent(),
+                Value<int?> freshnessWindowHours = const Value.absent(),
+                Value<double?> dayOldDiscountPercent = const Value.absent(),
+                Value<bool?> isCustomOrder = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => ProductsCompanion.insert(
@@ -23937,6 +29382,18 @@ class $$ProductsTableTableManager
                 nutritionPer100gJson: nutritionPer100gJson,
                 primaryMarkets: primaryMarkets,
                 priceBandCurrency: priceBandCurrency,
+                fatPercentExpected: fatPercentExpected,
+                snfPercentExpected: snfPercentExpected,
+                milkType: milkType,
+                procurementSlot: procurementSlot,
+                isPasteurized: isPasteurized,
+                isCultured: isCultured,
+                bakeDateRequired: bakeDateRequired,
+                proofingMinutes: proofingMinutes,
+                ovenType: ovenType,
+                freshnessWindowHours: freshnessWindowHours,
+                dayOldDiscountPercent: dayOldDiscountPercent,
+                isCustomOrder: isCustomOrder,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),
@@ -23959,6 +29416,7 @@ class $$ProductsTableTableManager
                 wastageLogsRefs = false,
                 returnLogsRefs = false,
                 complaintsRefs = false,
+                ovenSchedulesRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -23972,6 +29430,7 @@ class $$ProductsTableTableManager
                     if (wastageLogsRefs) db.wastageLogs,
                     if (returnLogsRefs) db.returnLogs,
                     if (complaintsRefs) db.complaints,
+                    if (ovenSchedulesRefs) db.ovenSchedules,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -24165,6 +29624,27 @@ class $$ProductsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (ovenSchedulesRefs)
+                        await $_getPrefetchedData<
+                          Product,
+                          $ProductsTable,
+                          OvenSchedule
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductsTableReferences
+                              ._ovenSchedulesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).ovenSchedulesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.productId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -24195,6 +29675,7 @@ typedef $$ProductsTableProcessedTableManager =
         bool wastageLogsRefs,
         bool returnLogsRefs,
         bool complaintsRefs,
+        bool ovenSchedulesRefs,
       })
     >;
 typedef $$CustomersTableCreateCompanionBuilder =
@@ -24411,6 +29892,49 @@ final class $$CustomersTableReferences
     ).filter((f) => f.customerId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_complaintsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$CustomOrdersTable, List<CustomOrder>>
+  _customOrdersRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.customOrders,
+    aliasName: 'customers__id__custom_orders__customer_id',
+  );
+
+  $$CustomOrdersTableProcessedTableManager get customOrdersRefs {
+    final manager = $$CustomOrdersTableTableManager(
+      $_db,
+      $_db.customOrders,
+    ).filter((f) => f.customerId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_customOrdersRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $ReturnableContainersTable,
+    List<ReturnableContainer>
+  >
+  _returnableContainersRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.returnableContainers,
+        aliasName: 'customers__id__returnable_containers__customer_id',
+      );
+
+  $$ReturnableContainersTableProcessedTableManager
+  get returnableContainersRefs {
+    final manager = $$ReturnableContainersTableTableManager(
+      $_db,
+      $_db.returnableContainers,
+    ).filter((f) => f.customerId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _returnableContainersRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -24742,6 +30266,56 @@ class $$CustomersTableFilterComposer
           }) => $$ComplaintsTableFilterComposer(
             $db: $db,
             $table: $db.complaints,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> customOrdersRefs(
+    Expression<bool> Function($$CustomOrdersTableFilterComposer f) f,
+  ) {
+    final $$CustomOrdersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.customOrders,
+      getReferencedColumn: (t) => t.customerId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomOrdersTableFilterComposer(
+            $db: $db,
+            $table: $db.customOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> returnableContainersRefs(
+    Expression<bool> Function($$ReturnableContainersTableFilterComposer f) f,
+  ) {
+    final $$ReturnableContainersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.returnableContainers,
+      getReferencedColumn: (t) => t.customerId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReturnableContainersTableFilterComposer(
+            $db: $db,
+            $table: $db.returnableContainers,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -25164,6 +30738,57 @@ class $$CustomersTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> customOrdersRefs<T extends Object>(
+    Expression<T> Function($$CustomOrdersTableAnnotationComposer a) f,
+  ) {
+    final $$CustomOrdersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.customOrders,
+      getReferencedColumn: (t) => t.customerId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomOrdersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.customOrders,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> returnableContainersRefs<T extends Object>(
+    Expression<T> Function($$ReturnableContainersTableAnnotationComposer a) f,
+  ) {
+    final $$ReturnableContainersTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.returnableContainers,
+          getReferencedColumn: (t) => t.customerId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ReturnableContainersTableAnnotationComposer(
+                $db: $db,
+                $table: $db.returnableContainers,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$CustomersTableTableManager
@@ -25189,6 +30814,8 @@ class $$CustomersTableTableManager
             bool standingOrdersRefs,
             bool returnLogsRefs,
             bool complaintsRefs,
+            bool customOrdersRefs,
+            bool returnableContainersRefs,
           })
         > {
   $$CustomersTableTableManager(_$AppDatabase db, $CustomersTable table)
@@ -25309,6 +30936,8 @@ class $$CustomersTableTableManager
                 standingOrdersRefs = false,
                 returnLogsRefs = false,
                 complaintsRefs = false,
+                customOrdersRefs = false,
+                returnableContainersRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -25322,6 +30951,8 @@ class $$CustomersTableTableManager
                     if (standingOrdersRefs) db.standingOrders,
                     if (returnLogsRefs) db.returnLogs,
                     if (complaintsRefs) db.complaints,
+                    if (customOrdersRefs) db.customOrders,
+                    if (returnableContainersRefs) db.returnableContainers,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -25515,6 +31146,48 @@ class $$CustomersTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (customOrdersRefs)
+                        await $_getPrefetchedData<
+                          Customer,
+                          $CustomersTable,
+                          CustomOrder
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CustomersTableReferences
+                              ._customOrdersRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CustomersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).customOrdersRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.customerId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (returnableContainersRefs)
+                        await $_getPrefetchedData<
+                          Customer,
+                          $CustomersTable,
+                          ReturnableContainer
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CustomersTableReferences
+                              ._returnableContainersRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CustomersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).returnableContainersRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.customerId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -25545,6 +31218,8 @@ typedef $$CustomersTableProcessedTableManager =
         bool standingOrdersRefs,
         bool returnLogsRefs,
         bool complaintsRefs,
+        bool customOrdersRefs,
+        bool returnableContainersRefs,
       })
     >;
 typedef $$OrdersTableCreateCompanionBuilder =
@@ -28847,6 +34522,17 @@ typedef $$ProductionBatchesTableCreateCompanionBuilder =
       Value<String> status,
       required DateTime manufacturingDate,
       Value<DateTime?> expiryDate,
+      Value<double?> fatPercentActual,
+      Value<double?> snfPercentActual,
+      Value<String?> milkSupplierId,
+      Value<String?> chillingCenterId,
+      Value<double?> pasteurizationTempC,
+      Value<int?> pasteurizationDurationSec,
+      Value<DateTime?> bakedAt,
+      Value<DateTime?> proofedAt,
+      Value<String?> ovenId,
+      Value<DateTime?> freshnessUntil,
+      Value<DateTime?> dayOldAppliedAt,
       Value<DateTime> createdAt,
     });
 typedef $$ProductionBatchesTableUpdateCompanionBuilder =
@@ -28861,6 +34547,17 @@ typedef $$ProductionBatchesTableUpdateCompanionBuilder =
       Value<String> status,
       Value<DateTime> manufacturingDate,
       Value<DateTime?> expiryDate,
+      Value<double?> fatPercentActual,
+      Value<double?> snfPercentActual,
+      Value<String?> milkSupplierId,
+      Value<String?> chillingCenterId,
+      Value<double?> pasteurizationTempC,
+      Value<int?> pasteurizationDurationSec,
+      Value<DateTime?> bakedAt,
+      Value<DateTime?> proofedAt,
+      Value<String?> ovenId,
+      Value<DateTime?> freshnessUntil,
+      Value<DateTime?> dayOldAppliedAt,
       Value<DateTime> createdAt,
     });
 
@@ -28929,6 +34626,44 @@ final class $$ProductionBatchesTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$MilkProcurementsTable, List<MilkProcurement>>
+  _milkProcurementsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.milkProcurements,
+    aliasName: 'production_batches__id__milk_procurements__batch_id',
+  );
+
+  $$MilkProcurementsTableProcessedTableManager get milkProcurementsRefs {
+    final manager = $$MilkProcurementsTableTableManager(
+      $_db,
+      $_db.milkProcurements,
+    ).filter((f) => f.batchId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _milkProcurementsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$OvenSchedulesTable, List<OvenSchedule>>
+  _ovenSchedulesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.ovenSchedules,
+    aliasName: 'production_batches__id__oven_schedules__batch_id',
+  );
+
+  $$OvenSchedulesTableProcessedTableManager get ovenSchedulesRefs {
+    final manager = $$OvenSchedulesTableTableManager(
+      $_db,
+      $_db.ovenSchedules,
+    ).filter((f) => f.batchId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_ovenSchedulesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$ProductionBatchesTableFilterComposer
@@ -28982,6 +34717,61 @@ class $$ProductionBatchesTableFilterComposer
 
   ColumnFilters<DateTime> get expiryDate => $composableBuilder(
     column: $table.expiryDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get fatPercentActual => $composableBuilder(
+    column: $table.fatPercentActual,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get snfPercentActual => $composableBuilder(
+    column: $table.snfPercentActual,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get milkSupplierId => $composableBuilder(
+    column: $table.milkSupplierId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get chillingCenterId => $composableBuilder(
+    column: $table.chillingCenterId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get pasteurizationTempC => $composableBuilder(
+    column: $table.pasteurizationTempC,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get pasteurizationDurationSec => $composableBuilder(
+    column: $table.pasteurizationDurationSec,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get bakedAt => $composableBuilder(
+    column: $table.bakedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get proofedAt => $composableBuilder(
+    column: $table.proofedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get ovenId => $composableBuilder(
+    column: $table.ovenId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get freshnessUntil => $composableBuilder(
+    column: $table.freshnessUntil,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get dayOldAppliedAt => $composableBuilder(
+    column: $table.dayOldAppliedAt,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -29062,6 +34852,56 @@ class $$ProductionBatchesTableFilterComposer
     );
     return f(composer);
   }
+
+  Expression<bool> milkProcurementsRefs(
+    Expression<bool> Function($$MilkProcurementsTableFilterComposer f) f,
+  ) {
+    final $$MilkProcurementsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.milkProcurements,
+      getReferencedColumn: (t) => t.batchId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MilkProcurementsTableFilterComposer(
+            $db: $db,
+            $table: $db.milkProcurements,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> ovenSchedulesRefs(
+    Expression<bool> Function($$OvenSchedulesTableFilterComposer f) f,
+  ) {
+    final $$OvenSchedulesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.ovenSchedules,
+      getReferencedColumn: (t) => t.batchId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$OvenSchedulesTableFilterComposer(
+            $db: $db,
+            $table: $db.ovenSchedules,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ProductionBatchesTableOrderingComposer
@@ -29115,6 +34955,61 @@ class $$ProductionBatchesTableOrderingComposer
 
   ColumnOrderings<DateTime> get expiryDate => $composableBuilder(
     column: $table.expiryDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get fatPercentActual => $composableBuilder(
+    column: $table.fatPercentActual,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get snfPercentActual => $composableBuilder(
+    column: $table.snfPercentActual,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get milkSupplierId => $composableBuilder(
+    column: $table.milkSupplierId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get chillingCenterId => $composableBuilder(
+    column: $table.chillingCenterId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get pasteurizationTempC => $composableBuilder(
+    column: $table.pasteurizationTempC,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get pasteurizationDurationSec => $composableBuilder(
+    column: $table.pasteurizationDurationSec,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get bakedAt => $composableBuilder(
+    column: $table.bakedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get proofedAt => $composableBuilder(
+    column: $table.proofedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get ovenId => $composableBuilder(
+    column: $table.ovenId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get freshnessUntil => $composableBuilder(
+    column: $table.freshnessUntil,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get dayOldAppliedAt => $composableBuilder(
+    column: $table.dayOldAppliedAt,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -29195,6 +35090,55 @@ class $$ProductionBatchesTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<double> get fatPercentActual => $composableBuilder(
+    column: $table.fatPercentActual,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get snfPercentActual => $composableBuilder(
+    column: $table.snfPercentActual,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get milkSupplierId => $composableBuilder(
+    column: $table.milkSupplierId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get chillingCenterId => $composableBuilder(
+    column: $table.chillingCenterId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get pasteurizationTempC => $composableBuilder(
+    column: $table.pasteurizationTempC,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get pasteurizationDurationSec => $composableBuilder(
+    column: $table.pasteurizationDurationSec,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get bakedAt =>
+      $composableBuilder(column: $table.bakedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get proofedAt =>
+      $composableBuilder(column: $table.proofedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get ovenId =>
+      $composableBuilder(column: $table.ovenId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get freshnessUntil => $composableBuilder(
+    column: $table.freshnessUntil,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get dayOldAppliedAt => $composableBuilder(
+    column: $table.dayOldAppliedAt,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
@@ -29270,6 +35214,56 @@ class $$ProductionBatchesTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> milkProcurementsRefs<T extends Object>(
+    Expression<T> Function($$MilkProcurementsTableAnnotationComposer a) f,
+  ) {
+    final $$MilkProcurementsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.milkProcurements,
+      getReferencedColumn: (t) => t.batchId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MilkProcurementsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.milkProcurements,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> ovenSchedulesRefs<T extends Object>(
+    Expression<T> Function($$OvenSchedulesTableAnnotationComposer a) f,
+  ) {
+    final $$OvenSchedulesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.ovenSchedules,
+      getReferencedColumn: (t) => t.batchId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$OvenSchedulesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.ovenSchedules,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ProductionBatchesTableTableManager
@@ -29289,6 +35283,8 @@ class $$ProductionBatchesTableTableManager
             bool productId,
             bool exportLinesRefs,
             bool wastageLogsRefs,
+            bool milkProcurementsRefs,
+            bool ovenSchedulesRefs,
           })
         > {
   $$ProductionBatchesTableTableManager(
@@ -29319,6 +35315,17 @@ class $$ProductionBatchesTableTableManager
                 Value<String> status = const Value.absent(),
                 Value<DateTime> manufacturingDate = const Value.absent(),
                 Value<DateTime?> expiryDate = const Value.absent(),
+                Value<double?> fatPercentActual = const Value.absent(),
+                Value<double?> snfPercentActual = const Value.absent(),
+                Value<String?> milkSupplierId = const Value.absent(),
+                Value<String?> chillingCenterId = const Value.absent(),
+                Value<double?> pasteurizationTempC = const Value.absent(),
+                Value<int?> pasteurizationDurationSec = const Value.absent(),
+                Value<DateTime?> bakedAt = const Value.absent(),
+                Value<DateTime?> proofedAt = const Value.absent(),
+                Value<String?> ovenId = const Value.absent(),
+                Value<DateTime?> freshnessUntil = const Value.absent(),
+                Value<DateTime?> dayOldAppliedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
               }) => ProductionBatchesCompanion(
                 id: id,
@@ -29331,6 +35338,17 @@ class $$ProductionBatchesTableTableManager
                 status: status,
                 manufacturingDate: manufacturingDate,
                 expiryDate: expiryDate,
+                fatPercentActual: fatPercentActual,
+                snfPercentActual: snfPercentActual,
+                milkSupplierId: milkSupplierId,
+                chillingCenterId: chillingCenterId,
+                pasteurizationTempC: pasteurizationTempC,
+                pasteurizationDurationSec: pasteurizationDurationSec,
+                bakedAt: bakedAt,
+                proofedAt: proofedAt,
+                ovenId: ovenId,
+                freshnessUntil: freshnessUntil,
+                dayOldAppliedAt: dayOldAppliedAt,
                 createdAt: createdAt,
               ),
           createCompanionCallback:
@@ -29345,6 +35363,17 @@ class $$ProductionBatchesTableTableManager
                 Value<String> status = const Value.absent(),
                 required DateTime manufacturingDate,
                 Value<DateTime?> expiryDate = const Value.absent(),
+                Value<double?> fatPercentActual = const Value.absent(),
+                Value<double?> snfPercentActual = const Value.absent(),
+                Value<String?> milkSupplierId = const Value.absent(),
+                Value<String?> chillingCenterId = const Value.absent(),
+                Value<double?> pasteurizationTempC = const Value.absent(),
+                Value<int?> pasteurizationDurationSec = const Value.absent(),
+                Value<DateTime?> bakedAt = const Value.absent(),
+                Value<DateTime?> proofedAt = const Value.absent(),
+                Value<String?> ovenId = const Value.absent(),
+                Value<DateTime?> freshnessUntil = const Value.absent(),
+                Value<DateTime?> dayOldAppliedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
               }) => ProductionBatchesCompanion.insert(
                 id: id,
@@ -29357,6 +35386,17 @@ class $$ProductionBatchesTableTableManager
                 status: status,
                 manufacturingDate: manufacturingDate,
                 expiryDate: expiryDate,
+                fatPercentActual: fatPercentActual,
+                snfPercentActual: snfPercentActual,
+                milkSupplierId: milkSupplierId,
+                chillingCenterId: chillingCenterId,
+                pasteurizationTempC: pasteurizationTempC,
+                pasteurizationDurationSec: pasteurizationDurationSec,
+                bakedAt: bakedAt,
+                proofedAt: proofedAt,
+                ovenId: ovenId,
+                freshnessUntil: freshnessUntil,
+                dayOldAppliedAt: dayOldAppliedAt,
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
@@ -29372,12 +35412,16 @@ class $$ProductionBatchesTableTableManager
                 productId = false,
                 exportLinesRefs = false,
                 wastageLogsRefs = false,
+                milkProcurementsRefs = false,
+                ovenSchedulesRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
                     if (exportLinesRefs) db.exportLines,
                     if (wastageLogsRefs) db.wastageLogs,
+                    if (milkProcurementsRefs) db.milkProcurements,
+                    if (ovenSchedulesRefs) db.ovenSchedules,
                   ],
                   addJoins:
                       <
@@ -29457,6 +35501,48 @@ class $$ProductionBatchesTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (milkProcurementsRefs)
+                        await $_getPrefetchedData<
+                          ProductionBatche,
+                          $ProductionBatchesTable,
+                          MilkProcurement
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductionBatchesTableReferences
+                              ._milkProcurementsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductionBatchesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).milkProcurementsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.batchId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (ovenSchedulesRefs)
+                        await $_getPrefetchedData<
+                          ProductionBatche,
+                          $ProductionBatchesTable,
+                          OvenSchedule
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductionBatchesTableReferences
+                              ._ovenSchedulesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductionBatchesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).ovenSchedulesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.batchId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -29481,6 +35567,8 @@ typedef $$ProductionBatchesTableProcessedTableManager =
         bool productId,
         bool exportLinesRefs,
         bool wastageLogsRefs,
+        bool milkProcurementsRefs,
+        bool ovenSchedulesRefs,
       })
     >;
 typedef $$InventoryTableCreateCompanionBuilder =
@@ -30883,6 +36971,8 @@ typedef $$AppSettingsTableCreateCompanionBuilder =
       required String value,
       Value<String> type,
       Value<DateTime> updatedAt,
+      Value<String?> activeVerticalsJson,
+      Value<String?> primaryVertical,
     });
 typedef $$AppSettingsTableUpdateCompanionBuilder =
     AppSettingsCompanion Function({
@@ -30891,6 +36981,8 @@ typedef $$AppSettingsTableUpdateCompanionBuilder =
       Value<String> value,
       Value<String> type,
       Value<DateTime> updatedAt,
+      Value<String?> activeVerticalsJson,
+      Value<String?> primaryVertical,
     });
 
 class $$AppSettingsTableFilterComposer
@@ -30924,6 +37016,16 @@ class $$AppSettingsTableFilterComposer
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get activeVerticalsJson => $composableBuilder(
+    column: $table.activeVerticalsJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get primaryVertical => $composableBuilder(
+    column: $table.primaryVertical,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -30961,6 +37063,16 @@ class $$AppSettingsTableOrderingComposer
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get activeVerticalsJson => $composableBuilder(
+    column: $table.activeVerticalsJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get primaryVertical => $composableBuilder(
+    column: $table.primaryVertical,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$AppSettingsTableAnnotationComposer
@@ -30986,6 +37098,16 @@ class $$AppSettingsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get activeVerticalsJson => $composableBuilder(
+    column: $table.activeVerticalsJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get primaryVertical => $composableBuilder(
+    column: $table.primaryVertical,
+    builder: (column) => column,
+  );
 }
 
 class $$AppSettingsTableTableManager
@@ -31024,12 +37146,16 @@ class $$AppSettingsTableTableManager
                 Value<String> value = const Value.absent(),
                 Value<String> type = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
+                Value<String?> activeVerticalsJson = const Value.absent(),
+                Value<String?> primaryVertical = const Value.absent(),
               }) => AppSettingsCompanion(
                 id: id,
                 key: key,
                 value: value,
                 type: type,
                 updatedAt: updatedAt,
+                activeVerticalsJson: activeVerticalsJson,
+                primaryVertical: primaryVertical,
               ),
           createCompanionCallback:
               ({
@@ -31038,12 +37164,16 @@ class $$AppSettingsTableTableManager
                 required String value,
                 Value<String> type = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
+                Value<String?> activeVerticalsJson = const Value.absent(),
+                Value<String?> primaryVertical = const Value.absent(),
               }) => AppSettingsCompanion.insert(
                 id: id,
                 key: key,
                 value: value,
                 type: type,
                 updatedAt: updatedAt,
+                activeVerticalsJson: activeVerticalsJson,
+                primaryVertical: primaryVertical,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
@@ -35306,6 +41436,11 @@ typedef $$ComplianceProfilesTableCreateCompanionBuilder =
       required String rulesJson,
       required String labelTemplateId,
       Value<bool> isActive,
+      Value<String?> fssaiDairyCategoryCode,
+      Value<String?> fssaiBakeryCategoryCode,
+      Value<String?> pasteurizationCertNumber,
+      Value<bool> containsEgg,
+      Value<bool> isVegan,
     });
 typedef $$ComplianceProfilesTableUpdateCompanionBuilder =
     ComplianceProfilesCompanion Function({
@@ -35315,6 +41450,11 @@ typedef $$ComplianceProfilesTableUpdateCompanionBuilder =
       Value<String> rulesJson,
       Value<String> labelTemplateId,
       Value<bool> isActive,
+      Value<String?> fssaiDairyCategoryCode,
+      Value<String?> fssaiBakeryCategoryCode,
+      Value<String?> pasteurizationCertNumber,
+      Value<bool> containsEgg,
+      Value<bool> isVegan,
     });
 
 class $$ComplianceProfilesTableFilterComposer
@@ -35353,6 +41493,31 @@ class $$ComplianceProfilesTableFilterComposer
 
   ColumnFilters<bool> get isActive => $composableBuilder(
     column: $table.isActive,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get fssaiDairyCategoryCode => $composableBuilder(
+    column: $table.fssaiDairyCategoryCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get fssaiBakeryCategoryCode => $composableBuilder(
+    column: $table.fssaiBakeryCategoryCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get pasteurizationCertNumber => $composableBuilder(
+    column: $table.pasteurizationCertNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get containsEgg => $composableBuilder(
+    column: $table.containsEgg,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isVegan => $composableBuilder(
+    column: $table.isVegan,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -35395,6 +41560,31 @@ class $$ComplianceProfilesTableOrderingComposer
     column: $table.isActive,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get fssaiDairyCategoryCode => $composableBuilder(
+    column: $table.fssaiDairyCategoryCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get fssaiBakeryCategoryCode => $composableBuilder(
+    column: $table.fssaiBakeryCategoryCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get pasteurizationCertNumber => $composableBuilder(
+    column: $table.pasteurizationCertNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get containsEgg => $composableBuilder(
+    column: $table.containsEgg,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isVegan => $composableBuilder(
+    column: $table.isVegan,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$ComplianceProfilesTableAnnotationComposer
@@ -35427,6 +41617,29 @@ class $$ComplianceProfilesTableAnnotationComposer
 
   GeneratedColumn<bool> get isActive =>
       $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<String> get fssaiDairyCategoryCode => $composableBuilder(
+    column: $table.fssaiDairyCategoryCode,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get fssaiBakeryCategoryCode => $composableBuilder(
+    column: $table.fssaiBakeryCategoryCode,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get pasteurizationCertNumber => $composableBuilder(
+    column: $table.pasteurizationCertNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get containsEgg => $composableBuilder(
+    column: $table.containsEgg,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isVegan =>
+      $composableBuilder(column: $table.isVegan, builder: (column) => column);
 }
 
 class $$ComplianceProfilesTableTableManager
@@ -35475,6 +41688,11 @@ class $$ComplianceProfilesTableTableManager
                 Value<String> rulesJson = const Value.absent(),
                 Value<String> labelTemplateId = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
+                Value<String?> fssaiDairyCategoryCode = const Value.absent(),
+                Value<String?> fssaiBakeryCategoryCode = const Value.absent(),
+                Value<String?> pasteurizationCertNumber = const Value.absent(),
+                Value<bool> containsEgg = const Value.absent(),
+                Value<bool> isVegan = const Value.absent(),
               }) => ComplianceProfilesCompanion(
                 id: id,
                 countryCode: countryCode,
@@ -35482,6 +41700,11 @@ class $$ComplianceProfilesTableTableManager
                 rulesJson: rulesJson,
                 labelTemplateId: labelTemplateId,
                 isActive: isActive,
+                fssaiDairyCategoryCode: fssaiDairyCategoryCode,
+                fssaiBakeryCategoryCode: fssaiBakeryCategoryCode,
+                pasteurizationCertNumber: pasteurizationCertNumber,
+                containsEgg: containsEgg,
+                isVegan: isVegan,
               ),
           createCompanionCallback:
               ({
@@ -35491,6 +41714,11 @@ class $$ComplianceProfilesTableTableManager
                 required String rulesJson,
                 required String labelTemplateId,
                 Value<bool> isActive = const Value.absent(),
+                Value<String?> fssaiDairyCategoryCode = const Value.absent(),
+                Value<String?> fssaiBakeryCategoryCode = const Value.absent(),
+                Value<String?> pasteurizationCertNumber = const Value.absent(),
+                Value<bool> containsEgg = const Value.absent(),
+                Value<bool> isVegan = const Value.absent(),
               }) => ComplianceProfilesCompanion.insert(
                 id: id,
                 countryCode: countryCode,
@@ -35498,6 +41726,11 @@ class $$ComplianceProfilesTableTableManager
                 rulesJson: rulesJson,
                 labelTemplateId: labelTemplateId,
                 isActive: isActive,
+                fssaiDairyCategoryCode: fssaiDairyCategoryCode,
+                fssaiBakeryCategoryCode: fssaiBakeryCategoryCode,
+                pasteurizationCertNumber: pasteurizationCertNumber,
+                containsEgg: containsEgg,
+                isVegan: isVegan,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
@@ -40237,6 +46470,2213 @@ typedef $$ComplaintsTableProcessedTableManager =
       Complaint,
       PrefetchHooks Function({bool customerId, bool orderId, bool productId})
     >;
+typedef $$MilkProcurementsTableCreateCompanionBuilder =
+    MilkProcurementsCompanion Function({
+      Value<int> id,
+      required String supplierId,
+      Value<DateTime> procurementDate,
+      Value<String> slot,
+      required double quantityLiters,
+      required double fatPercent,
+      required double snfPercent,
+      required int ratePerLiterMinor,
+      required int totalAmountMinor,
+      Value<String> currencyCode,
+      Value<String?> chillingCenterId,
+      Value<int?> batchId,
+      Value<String?> notes,
+      Value<DateTime> createdAt,
+    });
+typedef $$MilkProcurementsTableUpdateCompanionBuilder =
+    MilkProcurementsCompanion Function({
+      Value<int> id,
+      Value<String> supplierId,
+      Value<DateTime> procurementDate,
+      Value<String> slot,
+      Value<double> quantityLiters,
+      Value<double> fatPercent,
+      Value<double> snfPercent,
+      Value<int> ratePerLiterMinor,
+      Value<int> totalAmountMinor,
+      Value<String> currencyCode,
+      Value<String?> chillingCenterId,
+      Value<int?> batchId,
+      Value<String?> notes,
+      Value<DateTime> createdAt,
+    });
+
+final class $$MilkProcurementsTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $MilkProcurementsTable, MilkProcurement> {
+  $$MilkProcurementsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ProductionBatchesTable _batchIdTable(_$AppDatabase db) => db
+      .productionBatches
+      .createAlias('milk_procurements__batch_id__production_batches__id');
+
+  $$ProductionBatchesTableProcessedTableManager? get batchId {
+    final $_column = $_itemColumn<int>('batch_id');
+    if ($_column == null) return null;
+    final manager = $$ProductionBatchesTableTableManager(
+      $_db,
+      $_db.productionBatches,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_batchIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$MilkProcurementsTableFilterComposer
+    extends Composer<_$AppDatabase, $MilkProcurementsTable> {
+  $$MilkProcurementsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get supplierId => $composableBuilder(
+    column: $table.supplierId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get procurementDate => $composableBuilder(
+    column: $table.procurementDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get slot => $composableBuilder(
+    column: $table.slot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get quantityLiters => $composableBuilder(
+    column: $table.quantityLiters,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get fatPercent => $composableBuilder(
+    column: $table.fatPercent,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get snfPercent => $composableBuilder(
+    column: $table.snfPercent,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get ratePerLiterMinor => $composableBuilder(
+    column: $table.ratePerLiterMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalAmountMinor => $composableBuilder(
+    column: $table.totalAmountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get currencyCode => $composableBuilder(
+    column: $table.currencyCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get chillingCenterId => $composableBuilder(
+    column: $table.chillingCenterId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ProductionBatchesTableFilterComposer get batchId {
+    final $$ProductionBatchesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.batchId,
+      referencedTable: $db.productionBatches,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductionBatchesTableFilterComposer(
+            $db: $db,
+            $table: $db.productionBatches,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MilkProcurementsTableOrderingComposer
+    extends Composer<_$AppDatabase, $MilkProcurementsTable> {
+  $$MilkProcurementsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get supplierId => $composableBuilder(
+    column: $table.supplierId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get procurementDate => $composableBuilder(
+    column: $table.procurementDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get slot => $composableBuilder(
+    column: $table.slot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get quantityLiters => $composableBuilder(
+    column: $table.quantityLiters,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get fatPercent => $composableBuilder(
+    column: $table.fatPercent,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get snfPercent => $composableBuilder(
+    column: $table.snfPercent,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get ratePerLiterMinor => $composableBuilder(
+    column: $table.ratePerLiterMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalAmountMinor => $composableBuilder(
+    column: $table.totalAmountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get currencyCode => $composableBuilder(
+    column: $table.currencyCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get chillingCenterId => $composableBuilder(
+    column: $table.chillingCenterId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ProductionBatchesTableOrderingComposer get batchId {
+    final $$ProductionBatchesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.batchId,
+      referencedTable: $db.productionBatches,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductionBatchesTableOrderingComposer(
+            $db: $db,
+            $table: $db.productionBatches,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MilkProcurementsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MilkProcurementsTable> {
+  $$MilkProcurementsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get supplierId => $composableBuilder(
+    column: $table.supplierId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get procurementDate => $composableBuilder(
+    column: $table.procurementDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get slot =>
+      $composableBuilder(column: $table.slot, builder: (column) => column);
+
+  GeneratedColumn<double> get quantityLiters => $composableBuilder(
+    column: $table.quantityLiters,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get fatPercent => $composableBuilder(
+    column: $table.fatPercent,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get snfPercent => $composableBuilder(
+    column: $table.snfPercent,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get ratePerLiterMinor => $composableBuilder(
+    column: $table.ratePerLiterMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get totalAmountMinor => $composableBuilder(
+    column: $table.totalAmountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get currencyCode => $composableBuilder(
+    column: $table.currencyCode,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get chillingCenterId => $composableBuilder(
+    column: $table.chillingCenterId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$ProductionBatchesTableAnnotationComposer get batchId {
+    final $$ProductionBatchesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.batchId,
+          referencedTable: $db.productionBatches,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ProductionBatchesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.productionBatches,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
+}
+
+class $$MilkProcurementsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $MilkProcurementsTable,
+          MilkProcurement,
+          $$MilkProcurementsTableFilterComposer,
+          $$MilkProcurementsTableOrderingComposer,
+          $$MilkProcurementsTableAnnotationComposer,
+          $$MilkProcurementsTableCreateCompanionBuilder,
+          $$MilkProcurementsTableUpdateCompanionBuilder,
+          (MilkProcurement, $$MilkProcurementsTableReferences),
+          MilkProcurement,
+          PrefetchHooks Function({bool batchId})
+        > {
+  $$MilkProcurementsTableTableManager(
+    _$AppDatabase db,
+    $MilkProcurementsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MilkProcurementsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MilkProcurementsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MilkProcurementsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> supplierId = const Value.absent(),
+                Value<DateTime> procurementDate = const Value.absent(),
+                Value<String> slot = const Value.absent(),
+                Value<double> quantityLiters = const Value.absent(),
+                Value<double> fatPercent = const Value.absent(),
+                Value<double> snfPercent = const Value.absent(),
+                Value<int> ratePerLiterMinor = const Value.absent(),
+                Value<int> totalAmountMinor = const Value.absent(),
+                Value<String> currencyCode = const Value.absent(),
+                Value<String?> chillingCenterId = const Value.absent(),
+                Value<int?> batchId = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => MilkProcurementsCompanion(
+                id: id,
+                supplierId: supplierId,
+                procurementDate: procurementDate,
+                slot: slot,
+                quantityLiters: quantityLiters,
+                fatPercent: fatPercent,
+                snfPercent: snfPercent,
+                ratePerLiterMinor: ratePerLiterMinor,
+                totalAmountMinor: totalAmountMinor,
+                currencyCode: currencyCode,
+                chillingCenterId: chillingCenterId,
+                batchId: batchId,
+                notes: notes,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String supplierId,
+                Value<DateTime> procurementDate = const Value.absent(),
+                Value<String> slot = const Value.absent(),
+                required double quantityLiters,
+                required double fatPercent,
+                required double snfPercent,
+                required int ratePerLiterMinor,
+                required int totalAmountMinor,
+                Value<String> currencyCode = const Value.absent(),
+                Value<String?> chillingCenterId = const Value.absent(),
+                Value<int?> batchId = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => MilkProcurementsCompanion.insert(
+                id: id,
+                supplierId: supplierId,
+                procurementDate: procurementDate,
+                slot: slot,
+                quantityLiters: quantityLiters,
+                fatPercent: fatPercent,
+                snfPercent: snfPercent,
+                ratePerLiterMinor: ratePerLiterMinor,
+                totalAmountMinor: totalAmountMinor,
+                currencyCode: currencyCode,
+                chillingCenterId: chillingCenterId,
+                batchId: batchId,
+                notes: notes,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$MilkProcurementsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({batchId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (batchId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.batchId,
+                                referencedTable:
+                                    $$MilkProcurementsTableReferences
+                                        ._batchIdTable(db),
+                                referencedColumn:
+                                    $$MilkProcurementsTableReferences
+                                        ._batchIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$MilkProcurementsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $MilkProcurementsTable,
+      MilkProcurement,
+      $$MilkProcurementsTableFilterComposer,
+      $$MilkProcurementsTableOrderingComposer,
+      $$MilkProcurementsTableAnnotationComposer,
+      $$MilkProcurementsTableCreateCompanionBuilder,
+      $$MilkProcurementsTableUpdateCompanionBuilder,
+      (MilkProcurement, $$MilkProcurementsTableReferences),
+      MilkProcurement,
+      PrefetchHooks Function({bool batchId})
+    >;
+typedef $$FatPricingRulesTableCreateCompanionBuilder =
+    FatPricingRulesCompanion Function({
+      Value<int> id,
+      required String name,
+      required int baseRatePerLiterMinor,
+      required double baseFatPercent,
+      Value<double> fatSlabStep,
+      Value<int> priceStepPerLiterMinor,
+      Value<DateTime> effectiveFrom,
+      Value<DateTime?> effectiveTo,
+      Value<bool> isActive,
+    });
+typedef $$FatPricingRulesTableUpdateCompanionBuilder =
+    FatPricingRulesCompanion Function({
+      Value<int> id,
+      Value<String> name,
+      Value<int> baseRatePerLiterMinor,
+      Value<double> baseFatPercent,
+      Value<double> fatSlabStep,
+      Value<int> priceStepPerLiterMinor,
+      Value<DateTime> effectiveFrom,
+      Value<DateTime?> effectiveTo,
+      Value<bool> isActive,
+    });
+
+class $$FatPricingRulesTableFilterComposer
+    extends Composer<_$AppDatabase, $FatPricingRulesTable> {
+  $$FatPricingRulesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get baseRatePerLiterMinor => $composableBuilder(
+    column: $table.baseRatePerLiterMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get baseFatPercent => $composableBuilder(
+    column: $table.baseFatPercent,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get fatSlabStep => $composableBuilder(
+    column: $table.fatSlabStep,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get priceStepPerLiterMinor => $composableBuilder(
+    column: $table.priceStepPerLiterMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get effectiveFrom => $composableBuilder(
+    column: $table.effectiveFrom,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get effectiveTo => $composableBuilder(
+    column: $table.effectiveTo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$FatPricingRulesTableOrderingComposer
+    extends Composer<_$AppDatabase, $FatPricingRulesTable> {
+  $$FatPricingRulesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get baseRatePerLiterMinor => $composableBuilder(
+    column: $table.baseRatePerLiterMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get baseFatPercent => $composableBuilder(
+    column: $table.baseFatPercent,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get fatSlabStep => $composableBuilder(
+    column: $table.fatSlabStep,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get priceStepPerLiterMinor => $composableBuilder(
+    column: $table.priceStepPerLiterMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get effectiveFrom => $composableBuilder(
+    column: $table.effectiveFrom,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get effectiveTo => $composableBuilder(
+    column: $table.effectiveTo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FatPricingRulesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FatPricingRulesTable> {
+  $$FatPricingRulesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<int> get baseRatePerLiterMinor => $composableBuilder(
+    column: $table.baseRatePerLiterMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get baseFatPercent => $composableBuilder(
+    column: $table.baseFatPercent,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get fatSlabStep => $composableBuilder(
+    column: $table.fatSlabStep,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get priceStepPerLiterMinor => $composableBuilder(
+    column: $table.priceStepPerLiterMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get effectiveFrom => $composableBuilder(
+    column: $table.effectiveFrom,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get effectiveTo => $composableBuilder(
+    column: $table.effectiveTo,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+}
+
+class $$FatPricingRulesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $FatPricingRulesTable,
+          FatPricingRule,
+          $$FatPricingRulesTableFilterComposer,
+          $$FatPricingRulesTableOrderingComposer,
+          $$FatPricingRulesTableAnnotationComposer,
+          $$FatPricingRulesTableCreateCompanionBuilder,
+          $$FatPricingRulesTableUpdateCompanionBuilder,
+          (
+            FatPricingRule,
+            BaseReferences<
+              _$AppDatabase,
+              $FatPricingRulesTable,
+              FatPricingRule
+            >,
+          ),
+          FatPricingRule,
+          PrefetchHooks Function()
+        > {
+  $$FatPricingRulesTableTableManager(
+    _$AppDatabase db,
+    $FatPricingRulesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FatPricingRulesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FatPricingRulesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FatPricingRulesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<int> baseRatePerLiterMinor = const Value.absent(),
+                Value<double> baseFatPercent = const Value.absent(),
+                Value<double> fatSlabStep = const Value.absent(),
+                Value<int> priceStepPerLiterMinor = const Value.absent(),
+                Value<DateTime> effectiveFrom = const Value.absent(),
+                Value<DateTime?> effectiveTo = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+              }) => FatPricingRulesCompanion(
+                id: id,
+                name: name,
+                baseRatePerLiterMinor: baseRatePerLiterMinor,
+                baseFatPercent: baseFatPercent,
+                fatSlabStep: fatSlabStep,
+                priceStepPerLiterMinor: priceStepPerLiterMinor,
+                effectiveFrom: effectiveFrom,
+                effectiveTo: effectiveTo,
+                isActive: isActive,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String name,
+                required int baseRatePerLiterMinor,
+                required double baseFatPercent,
+                Value<double> fatSlabStep = const Value.absent(),
+                Value<int> priceStepPerLiterMinor = const Value.absent(),
+                Value<DateTime> effectiveFrom = const Value.absent(),
+                Value<DateTime?> effectiveTo = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+              }) => FatPricingRulesCompanion.insert(
+                id: id,
+                name: name,
+                baseRatePerLiterMinor: baseRatePerLiterMinor,
+                baseFatPercent: baseFatPercent,
+                fatSlabStep: fatSlabStep,
+                priceStepPerLiterMinor: priceStepPerLiterMinor,
+                effectiveFrom: effectiveFrom,
+                effectiveTo: effectiveTo,
+                isActive: isActive,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FatPricingRulesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $FatPricingRulesTable,
+      FatPricingRule,
+      $$FatPricingRulesTableFilterComposer,
+      $$FatPricingRulesTableOrderingComposer,
+      $$FatPricingRulesTableAnnotationComposer,
+      $$FatPricingRulesTableCreateCompanionBuilder,
+      $$FatPricingRulesTableUpdateCompanionBuilder,
+      (
+        FatPricingRule,
+        BaseReferences<_$AppDatabase, $FatPricingRulesTable, FatPricingRule>,
+      ),
+      FatPricingRule,
+      PrefetchHooks Function()
+    >;
+typedef $$OvenSchedulesTableCreateCompanionBuilder =
+    OvenSchedulesCompanion Function({
+      Value<int> id,
+      required String ovenId,
+      Value<String> ovenType,
+      Value<int?> batchId,
+      required DateTime scheduledStart,
+      required DateTime scheduledEnd,
+      Value<DateTime?> actualStart,
+      Value<DateTime?> actualEnd,
+      required int productId,
+      required int quantity,
+      Value<String> status,
+      Value<String?> notes,
+    });
+typedef $$OvenSchedulesTableUpdateCompanionBuilder =
+    OvenSchedulesCompanion Function({
+      Value<int> id,
+      Value<String> ovenId,
+      Value<String> ovenType,
+      Value<int?> batchId,
+      Value<DateTime> scheduledStart,
+      Value<DateTime> scheduledEnd,
+      Value<DateTime?> actualStart,
+      Value<DateTime?> actualEnd,
+      Value<int> productId,
+      Value<int> quantity,
+      Value<String> status,
+      Value<String?> notes,
+    });
+
+final class $$OvenSchedulesTableReferences
+    extends BaseReferences<_$AppDatabase, $OvenSchedulesTable, OvenSchedule> {
+  $$OvenSchedulesTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ProductionBatchesTable _batchIdTable(_$AppDatabase db) => db
+      .productionBatches
+      .createAlias('oven_schedules__batch_id__production_batches__id');
+
+  $$ProductionBatchesTableProcessedTableManager? get batchId {
+    final $_column = $_itemColumn<int>('batch_id');
+    if ($_column == null) return null;
+    final manager = $$ProductionBatchesTableTableManager(
+      $_db,
+      $_db.productionBatches,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_batchIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ProductsTable _productIdTable(_$AppDatabase db) =>
+      db.products.createAlias('oven_schedules__product_id__products__id');
+
+  $$ProductsTableProcessedTableManager get productId {
+    final $_column = $_itemColumn<int>('product_id')!;
+
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_productIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$OvenSchedulesTableFilterComposer
+    extends Composer<_$AppDatabase, $OvenSchedulesTable> {
+  $$OvenSchedulesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get ovenId => $composableBuilder(
+    column: $table.ovenId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get ovenType => $composableBuilder(
+    column: $table.ovenType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get scheduledStart => $composableBuilder(
+    column: $table.scheduledStart,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get scheduledEnd => $composableBuilder(
+    column: $table.scheduledEnd,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get actualStart => $composableBuilder(
+    column: $table.actualStart,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get actualEnd => $composableBuilder(
+    column: $table.actualEnd,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantity => $composableBuilder(
+    column: $table.quantity,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ProductionBatchesTableFilterComposer get batchId {
+    final $$ProductionBatchesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.batchId,
+      referencedTable: $db.productionBatches,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductionBatchesTableFilterComposer(
+            $db: $db,
+            $table: $db.productionBatches,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableFilterComposer get productId {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$OvenSchedulesTableOrderingComposer
+    extends Composer<_$AppDatabase, $OvenSchedulesTable> {
+  $$OvenSchedulesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get ovenId => $composableBuilder(
+    column: $table.ovenId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get ovenType => $composableBuilder(
+    column: $table.ovenType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get scheduledStart => $composableBuilder(
+    column: $table.scheduledStart,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get scheduledEnd => $composableBuilder(
+    column: $table.scheduledEnd,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get actualStart => $composableBuilder(
+    column: $table.actualStart,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get actualEnd => $composableBuilder(
+    column: $table.actualEnd,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantity => $composableBuilder(
+    column: $table.quantity,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ProductionBatchesTableOrderingComposer get batchId {
+    final $$ProductionBatchesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.batchId,
+      referencedTable: $db.productionBatches,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductionBatchesTableOrderingComposer(
+            $db: $db,
+            $table: $db.productionBatches,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableOrderingComposer get productId {
+    final $$ProductsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableOrderingComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$OvenSchedulesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $OvenSchedulesTable> {
+  $$OvenSchedulesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get ovenId =>
+      $composableBuilder(column: $table.ovenId, builder: (column) => column);
+
+  GeneratedColumn<String> get ovenType =>
+      $composableBuilder(column: $table.ovenType, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get scheduledStart => $composableBuilder(
+    column: $table.scheduledStart,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get scheduledEnd => $composableBuilder(
+    column: $table.scheduledEnd,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get actualStart => $composableBuilder(
+    column: $table.actualStart,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get actualEnd =>
+      $composableBuilder(column: $table.actualEnd, builder: (column) => column);
+
+  GeneratedColumn<int> get quantity =>
+      $composableBuilder(column: $table.quantity, builder: (column) => column);
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  $$ProductionBatchesTableAnnotationComposer get batchId {
+    final $$ProductionBatchesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.batchId,
+          referencedTable: $db.productionBatches,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ProductionBatchesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.productionBatches,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
+
+  $$ProductsTableAnnotationComposer get productId {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$OvenSchedulesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $OvenSchedulesTable,
+          OvenSchedule,
+          $$OvenSchedulesTableFilterComposer,
+          $$OvenSchedulesTableOrderingComposer,
+          $$OvenSchedulesTableAnnotationComposer,
+          $$OvenSchedulesTableCreateCompanionBuilder,
+          $$OvenSchedulesTableUpdateCompanionBuilder,
+          (OvenSchedule, $$OvenSchedulesTableReferences),
+          OvenSchedule,
+          PrefetchHooks Function({bool batchId, bool productId})
+        > {
+  $$OvenSchedulesTableTableManager(_$AppDatabase db, $OvenSchedulesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$OvenSchedulesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$OvenSchedulesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$OvenSchedulesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> ovenId = const Value.absent(),
+                Value<String> ovenType = const Value.absent(),
+                Value<int?> batchId = const Value.absent(),
+                Value<DateTime> scheduledStart = const Value.absent(),
+                Value<DateTime> scheduledEnd = const Value.absent(),
+                Value<DateTime?> actualStart = const Value.absent(),
+                Value<DateTime?> actualEnd = const Value.absent(),
+                Value<int> productId = const Value.absent(),
+                Value<int> quantity = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+              }) => OvenSchedulesCompanion(
+                id: id,
+                ovenId: ovenId,
+                ovenType: ovenType,
+                batchId: batchId,
+                scheduledStart: scheduledStart,
+                scheduledEnd: scheduledEnd,
+                actualStart: actualStart,
+                actualEnd: actualEnd,
+                productId: productId,
+                quantity: quantity,
+                status: status,
+                notes: notes,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String ovenId,
+                Value<String> ovenType = const Value.absent(),
+                Value<int?> batchId = const Value.absent(),
+                required DateTime scheduledStart,
+                required DateTime scheduledEnd,
+                Value<DateTime?> actualStart = const Value.absent(),
+                Value<DateTime?> actualEnd = const Value.absent(),
+                required int productId,
+                required int quantity,
+                Value<String> status = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+              }) => OvenSchedulesCompanion.insert(
+                id: id,
+                ovenId: ovenId,
+                ovenType: ovenType,
+                batchId: batchId,
+                scheduledStart: scheduledStart,
+                scheduledEnd: scheduledEnd,
+                actualStart: actualStart,
+                actualEnd: actualEnd,
+                productId: productId,
+                quantity: quantity,
+                status: status,
+                notes: notes,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$OvenSchedulesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({batchId = false, productId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (batchId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.batchId,
+                                referencedTable: $$OvenSchedulesTableReferences
+                                    ._batchIdTable(db),
+                                referencedColumn: $$OvenSchedulesTableReferences
+                                    ._batchIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+                    if (productId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.productId,
+                                referencedTable: $$OvenSchedulesTableReferences
+                                    ._productIdTable(db),
+                                referencedColumn: $$OvenSchedulesTableReferences
+                                    ._productIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$OvenSchedulesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $OvenSchedulesTable,
+      OvenSchedule,
+      $$OvenSchedulesTableFilterComposer,
+      $$OvenSchedulesTableOrderingComposer,
+      $$OvenSchedulesTableAnnotationComposer,
+      $$OvenSchedulesTableCreateCompanionBuilder,
+      $$OvenSchedulesTableUpdateCompanionBuilder,
+      (OvenSchedule, $$OvenSchedulesTableReferences),
+      OvenSchedule,
+      PrefetchHooks Function({bool batchId, bool productId})
+    >;
+typedef $$CustomOrdersTableCreateCompanionBuilder =
+    CustomOrdersCompanion Function({
+      Value<int> id,
+      required int customerId,
+      Value<DateTime> orderDate,
+      required DateTime deliveryDate,
+      required String cakeType,
+      Value<String?> decorationNotes,
+      Value<String?> photoRef,
+      Value<int> advanceAmountMinor,
+      required int totalAmountMinor,
+      Value<String> status,
+      Value<DateTime> createdAt,
+    });
+typedef $$CustomOrdersTableUpdateCompanionBuilder =
+    CustomOrdersCompanion Function({
+      Value<int> id,
+      Value<int> customerId,
+      Value<DateTime> orderDate,
+      Value<DateTime> deliveryDate,
+      Value<String> cakeType,
+      Value<String?> decorationNotes,
+      Value<String?> photoRef,
+      Value<int> advanceAmountMinor,
+      Value<int> totalAmountMinor,
+      Value<String> status,
+      Value<DateTime> createdAt,
+    });
+
+final class $$CustomOrdersTableReferences
+    extends BaseReferences<_$AppDatabase, $CustomOrdersTable, CustomOrder> {
+  $$CustomOrdersTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $CustomersTable _customerIdTable(_$AppDatabase db) =>
+      db.customers.createAlias('custom_orders__customer_id__customers__id');
+
+  $$CustomersTableProcessedTableManager get customerId {
+    final $_column = $_itemColumn<int>('customer_id')!;
+
+    final manager = $$CustomersTableTableManager(
+      $_db,
+      $_db.customers,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_customerIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$CustomOrdersTableFilterComposer
+    extends Composer<_$AppDatabase, $CustomOrdersTable> {
+  $$CustomOrdersTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get orderDate => $composableBuilder(
+    column: $table.orderDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deliveryDate => $composableBuilder(
+    column: $table.deliveryDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cakeType => $composableBuilder(
+    column: $table.cakeType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get decorationNotes => $composableBuilder(
+    column: $table.decorationNotes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get photoRef => $composableBuilder(
+    column: $table.photoRef,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get advanceAmountMinor => $composableBuilder(
+    column: $table.advanceAmountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalAmountMinor => $composableBuilder(
+    column: $table.totalAmountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CustomersTableFilterComposer get customerId {
+    final $$CustomersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableFilterComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CustomOrdersTableOrderingComposer
+    extends Composer<_$AppDatabase, $CustomOrdersTable> {
+  $$CustomOrdersTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get orderDate => $composableBuilder(
+    column: $table.orderDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deliveryDate => $composableBuilder(
+    column: $table.deliveryDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cakeType => $composableBuilder(
+    column: $table.cakeType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get decorationNotes => $composableBuilder(
+    column: $table.decorationNotes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get photoRef => $composableBuilder(
+    column: $table.photoRef,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get advanceAmountMinor => $composableBuilder(
+    column: $table.advanceAmountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalAmountMinor => $composableBuilder(
+    column: $table.totalAmountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CustomersTableOrderingComposer get customerId {
+    final $$CustomersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableOrderingComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CustomOrdersTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CustomOrdersTable> {
+  $$CustomOrdersTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get orderDate =>
+      $composableBuilder(column: $table.orderDate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deliveryDate => $composableBuilder(
+    column: $table.deliveryDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get cakeType =>
+      $composableBuilder(column: $table.cakeType, builder: (column) => column);
+
+  GeneratedColumn<String> get decorationNotes => $composableBuilder(
+    column: $table.decorationNotes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get photoRef =>
+      $composableBuilder(column: $table.photoRef, builder: (column) => column);
+
+  GeneratedColumn<int> get advanceAmountMinor => $composableBuilder(
+    column: $table.advanceAmountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get totalAmountMinor => $composableBuilder(
+    column: $table.totalAmountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$CustomersTableAnnotationComposer get customerId {
+    final $$CustomersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CustomOrdersTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $CustomOrdersTable,
+          CustomOrder,
+          $$CustomOrdersTableFilterComposer,
+          $$CustomOrdersTableOrderingComposer,
+          $$CustomOrdersTableAnnotationComposer,
+          $$CustomOrdersTableCreateCompanionBuilder,
+          $$CustomOrdersTableUpdateCompanionBuilder,
+          (CustomOrder, $$CustomOrdersTableReferences),
+          CustomOrder,
+          PrefetchHooks Function({bool customerId})
+        > {
+  $$CustomOrdersTableTableManager(_$AppDatabase db, $CustomOrdersTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CustomOrdersTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CustomOrdersTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CustomOrdersTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> customerId = const Value.absent(),
+                Value<DateTime> orderDate = const Value.absent(),
+                Value<DateTime> deliveryDate = const Value.absent(),
+                Value<String> cakeType = const Value.absent(),
+                Value<String?> decorationNotes = const Value.absent(),
+                Value<String?> photoRef = const Value.absent(),
+                Value<int> advanceAmountMinor = const Value.absent(),
+                Value<int> totalAmountMinor = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => CustomOrdersCompanion(
+                id: id,
+                customerId: customerId,
+                orderDate: orderDate,
+                deliveryDate: deliveryDate,
+                cakeType: cakeType,
+                decorationNotes: decorationNotes,
+                photoRef: photoRef,
+                advanceAmountMinor: advanceAmountMinor,
+                totalAmountMinor: totalAmountMinor,
+                status: status,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int customerId,
+                Value<DateTime> orderDate = const Value.absent(),
+                required DateTime deliveryDate,
+                required String cakeType,
+                Value<String?> decorationNotes = const Value.absent(),
+                Value<String?> photoRef = const Value.absent(),
+                Value<int> advanceAmountMinor = const Value.absent(),
+                required int totalAmountMinor,
+                Value<String> status = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => CustomOrdersCompanion.insert(
+                id: id,
+                customerId: customerId,
+                orderDate: orderDate,
+                deliveryDate: deliveryDate,
+                cakeType: cakeType,
+                decorationNotes: decorationNotes,
+                photoRef: photoRef,
+                advanceAmountMinor: advanceAmountMinor,
+                totalAmountMinor: totalAmountMinor,
+                status: status,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$CustomOrdersTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({customerId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (customerId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.customerId,
+                                referencedTable: $$CustomOrdersTableReferences
+                                    ._customerIdTable(db),
+                                referencedColumn: $$CustomOrdersTableReferences
+                                    ._customerIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$CustomOrdersTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $CustomOrdersTable,
+      CustomOrder,
+      $$CustomOrdersTableFilterComposer,
+      $$CustomOrdersTableOrderingComposer,
+      $$CustomOrdersTableAnnotationComposer,
+      $$CustomOrdersTableCreateCompanionBuilder,
+      $$CustomOrdersTableUpdateCompanionBuilder,
+      (CustomOrder, $$CustomOrdersTableReferences),
+      CustomOrder,
+      PrefetchHooks Function({bool customerId})
+    >;
+typedef $$ReturnableContainersTableCreateCompanionBuilder =
+    ReturnableContainersCompanion Function({
+      Value<int> id,
+      required String containerType,
+      required String containerCode,
+      Value<int?> customerId,
+      Value<int?> driverId,
+      Value<int> depositAmountMinor,
+      Value<String> status,
+      Value<DateTime> lastScanAt,
+      Value<String?> notes,
+      Value<DateTime> createdAt,
+    });
+typedef $$ReturnableContainersTableUpdateCompanionBuilder =
+    ReturnableContainersCompanion Function({
+      Value<int> id,
+      Value<String> containerType,
+      Value<String> containerCode,
+      Value<int?> customerId,
+      Value<int?> driverId,
+      Value<int> depositAmountMinor,
+      Value<String> status,
+      Value<DateTime> lastScanAt,
+      Value<String?> notes,
+      Value<DateTime> createdAt,
+    });
+
+final class $$ReturnableContainersTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $ReturnableContainersTable,
+          ReturnableContainer
+        > {
+  $$ReturnableContainersTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CustomersTable _customerIdTable(_$AppDatabase db) => db.customers
+      .createAlias('returnable_containers__customer_id__customers__id');
+
+  $$CustomersTableProcessedTableManager? get customerId {
+    final $_column = $_itemColumn<int>('customer_id');
+    if ($_column == null) return null;
+    final manager = $$CustomersTableTableManager(
+      $_db,
+      $_db.customers,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_customerIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$ReturnableContainersTableFilterComposer
+    extends Composer<_$AppDatabase, $ReturnableContainersTable> {
+  $$ReturnableContainersTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get containerType => $composableBuilder(
+    column: $table.containerType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get containerCode => $composableBuilder(
+    column: $table.containerCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get driverId => $composableBuilder(
+    column: $table.driverId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get depositAmountMinor => $composableBuilder(
+    column: $table.depositAmountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get lastScanAt => $composableBuilder(
+    column: $table.lastScanAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CustomersTableFilterComposer get customerId {
+    final $$CustomersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableFilterComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ReturnableContainersTableOrderingComposer
+    extends Composer<_$AppDatabase, $ReturnableContainersTable> {
+  $$ReturnableContainersTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get containerType => $composableBuilder(
+    column: $table.containerType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get containerCode => $composableBuilder(
+    column: $table.containerCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get driverId => $composableBuilder(
+    column: $table.driverId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get depositAmountMinor => $composableBuilder(
+    column: $table.depositAmountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastScanAt => $composableBuilder(
+    column: $table.lastScanAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CustomersTableOrderingComposer get customerId {
+    final $$CustomersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableOrderingComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ReturnableContainersTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ReturnableContainersTable> {
+  $$ReturnableContainersTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get containerType => $composableBuilder(
+    column: $table.containerType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get containerCode => $composableBuilder(
+    column: $table.containerCode,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get driverId =>
+      $composableBuilder(column: $table.driverId, builder: (column) => column);
+
+  GeneratedColumn<int> get depositAmountMinor => $composableBuilder(
+    column: $table.depositAmountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastScanAt => $composableBuilder(
+    column: $table.lastScanAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$CustomersTableAnnotationComposer get customerId {
+    final $$CustomersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ReturnableContainersTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ReturnableContainersTable,
+          ReturnableContainer,
+          $$ReturnableContainersTableFilterComposer,
+          $$ReturnableContainersTableOrderingComposer,
+          $$ReturnableContainersTableAnnotationComposer,
+          $$ReturnableContainersTableCreateCompanionBuilder,
+          $$ReturnableContainersTableUpdateCompanionBuilder,
+          (ReturnableContainer, $$ReturnableContainersTableReferences),
+          ReturnableContainer,
+          PrefetchHooks Function({bool customerId})
+        > {
+  $$ReturnableContainersTableTableManager(
+    _$AppDatabase db,
+    $ReturnableContainersTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ReturnableContainersTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReturnableContainersTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$ReturnableContainersTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> containerType = const Value.absent(),
+                Value<String> containerCode = const Value.absent(),
+                Value<int?> customerId = const Value.absent(),
+                Value<int?> driverId = const Value.absent(),
+                Value<int> depositAmountMinor = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<DateTime> lastScanAt = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => ReturnableContainersCompanion(
+                id: id,
+                containerType: containerType,
+                containerCode: containerCode,
+                customerId: customerId,
+                driverId: driverId,
+                depositAmountMinor: depositAmountMinor,
+                status: status,
+                lastScanAt: lastScanAt,
+                notes: notes,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String containerType,
+                required String containerCode,
+                Value<int?> customerId = const Value.absent(),
+                Value<int?> driverId = const Value.absent(),
+                Value<int> depositAmountMinor = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<DateTime> lastScanAt = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => ReturnableContainersCompanion.insert(
+                id: id,
+                containerType: containerType,
+                containerCode: containerCode,
+                customerId: customerId,
+                driverId: driverId,
+                depositAmountMinor: depositAmountMinor,
+                status: status,
+                lastScanAt: lastScanAt,
+                notes: notes,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ReturnableContainersTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({customerId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (customerId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.customerId,
+                                referencedTable:
+                                    $$ReturnableContainersTableReferences
+                                        ._customerIdTable(db),
+                                referencedColumn:
+                                    $$ReturnableContainersTableReferences
+                                        ._customerIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$ReturnableContainersTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ReturnableContainersTable,
+      ReturnableContainer,
+      $$ReturnableContainersTableFilterComposer,
+      $$ReturnableContainersTableOrderingComposer,
+      $$ReturnableContainersTableAnnotationComposer,
+      $$ReturnableContainersTableCreateCompanionBuilder,
+      $$ReturnableContainersTableUpdateCompanionBuilder,
+      (ReturnableContainer, $$ReturnableContainersTableReferences),
+      ReturnableContainer,
+      PrefetchHooks Function({bool customerId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -40309,4 +48749,14 @@ class $AppDatabaseManager {
       $$ReturnLogsTableTableManager(_db, _db.returnLogs);
   $$ComplaintsTableTableManager get complaints =>
       $$ComplaintsTableTableManager(_db, _db.complaints);
+  $$MilkProcurementsTableTableManager get milkProcurements =>
+      $$MilkProcurementsTableTableManager(_db, _db.milkProcurements);
+  $$FatPricingRulesTableTableManager get fatPricingRules =>
+      $$FatPricingRulesTableTableManager(_db, _db.fatPricingRules);
+  $$OvenSchedulesTableTableManager get ovenSchedules =>
+      $$OvenSchedulesTableTableManager(_db, _db.ovenSchedules);
+  $$CustomOrdersTableTableManager get customOrders =>
+      $$CustomOrdersTableTableManager(_db, _db.customOrders);
+  $$ReturnableContainersTableTableManager get returnableContainers =>
+      $$ReturnableContainersTableTableManager(_db, _db.returnableContainers);
 }
