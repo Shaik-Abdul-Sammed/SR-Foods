@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:drift/drift.dart' show DoUpdate, Value, Variable;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../database/app_database.dart';
 import '../database/database_provider.dart';
 
 /// Business verticals supported by SR Foods
@@ -194,16 +196,37 @@ class VerticalScopeNotifier extends Notifier<VerticalScope> {
       final list = verticals.map((v) => v.name).toList();
       final jsonStr = jsonEncode(list);
 
-      await db.customStatement(
-        "INSERT INTO app_settings (key, value, type) VALUES ('active_verticals', ?, 'json') "
-        'ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = CURRENT_TIMESTAMP',
-        [jsonStr],
+      final now = DateTime.now();
+      await db.into(db.appSettings).insert(
+        AppSettingsCompanion.insert(
+          key: 'active_verticals',
+          value: jsonStr,
+          type: const Value('json'),
+          updatedAt: Value(now),
+        ),
+        onConflict: DoUpdate(
+          (old) => AppSettingsCompanion.custom(
+            value: Variable<String>(jsonStr),
+            updatedAt: Variable<DateTime>(now),
+          ),
+          target: [db.appSettings.key],
+        ),
       );
 
-      await db.customStatement(
-        "INSERT INTO app_settings (key, value, type) VALUES ('primary_vertical', ?, 'string') "
-        'ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = CURRENT_TIMESTAMP',
-        [primaryV.name],
+      await db.into(db.appSettings).insert(
+        AppSettingsCompanion.insert(
+          key: 'primary_vertical',
+          value: primaryV.name,
+          type: const Value('string'),
+          updatedAt: Value(now),
+        ),
+        onConflict: DoUpdate(
+          (old) => AppSettingsCompanion.custom(
+            value: Variable<String>(primaryV.name),
+            updatedAt: Variable<DateTime>(now),
+          ),
+          target: [db.appSettings.key],
+        ),
       );
     } catch (_) {
       // Fallback in case of DB lock or in-memory testing
