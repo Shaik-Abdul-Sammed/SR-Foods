@@ -55,6 +55,17 @@ typedef ProductionBatch = ProductionBatche;
     OvenSchedules,
     CustomOrders,
     ReturnableContainers,
+    OutboxEvents,
+    IdempotencyKeys,
+    FeatureFlags,
+    Vehicles,
+    Drivers,
+    Hubs,
+    DeliverySlots,
+    RouteStops,
+    ColdChainReadings,
+    VehicleLogs,
+    WarehouseLocations,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -62,7 +73,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -175,6 +186,19 @@ class AppDatabase extends _$AppDatabase {
             await customStatement(
               "INSERT OR IGNORE INTO app_settings (key, value, type) VALUES ('primary_vertical', 'frozen', 'string')",
             );
+          }
+          if (from < 7) {
+            await m.createTable(outboxEvents);
+            await m.createTable(idempotencyKeys);
+            await m.createTable(featureFlags);
+            await m.createTable(vehicles);
+            await m.createTable(drivers);
+            await m.createTable(hubs);
+            await m.createTable(deliverySlots);
+            await m.createTable(routeStops);
+            await m.createTable(coldChainReadings);
+            await m.createTable(vehicleLogs);
+            await m.createTable(warehouseLocations);
           }
         },
         beforeOpen: (details) async {

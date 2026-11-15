@@ -625,3 +625,141 @@ class ReturnableContainers extends Table {
   TextColumn get notes => text().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
+
+/// Outbox events for transactional messaging and reliable background event dispatching
+class OutboxEvents extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get eventId => text().unique()();
+  TextColumn get eventType => text()();
+  TextColumn get payload => text()(); // JSON
+  TextColumn get status => text().withDefault(const Constant('pending'))(); // pending | dispatched | failed
+  IntColumn get retryCount => integer().withDefault(const Constant(0))();
+  TextColumn get lastError => text().nullable()();
+  DateTimeColumn get nextRetryAt => dateTime().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get dispatchedAt => dateTime().nullable()();
+}
+
+/// Idempotency keys preventing duplicate processing of write operations
+class IdempotencyKeys extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get key => text().unique()();
+  TextColumn get requestPath => text()();
+  TextColumn get responsePayload => text().nullable()(); // JSON cached response
+  IntColumn get statusCode => integer().withDefault(const Constant(200))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get expiresAt => dateTime()();
+}
+
+/// Dynamic Feature Flags for feature rollouts and canary testing
+class FeatureFlags extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get key => text().unique()();
+  BoolColumn get isEnabled => boolean().withDefault(const Constant(false))();
+  TextColumn get description => text().nullable()();
+  TextColumn get rolloutPercentage => text().nullable()();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Fleet delivery and refrigerated vehicles
+class Vehicles extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get vehicleNumber => text().unique()();
+  TextColumn get vehicleType => text()(); // van | reefer_truck | bike | pickup
+  RealColumn get capacityKg => real()();
+  RealColumn get capacityVolumeCbm => real().nullable()();
+  BoolColumn get hasReefer => boolean().withDefault(const Constant(false))();
+  RealColumn get minTemperatureC => real().nullable()();
+  RealColumn get maxTemperatureC => real().nullable()();
+  TextColumn get status => text().withDefault(const Constant('available'))(); // available | in_transit | maintenance
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Fleet drivers
+class Drivers extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text()();
+  TextColumn get phone => text().unique()();
+  TextColumn get licenseNumber => text().unique()();
+  TextColumn get status => text().withDefault(const Constant('active'))(); // active | off_duty | on_trip
+  IntColumn get assignedVehicleId => integer().nullable().references(Vehicles, #id)();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Distribution hubs and chilling centers
+class Hubs extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get code => text().unique()();
+  TextColumn get name => text()();
+  TextColumn get hubType => text()(); // main_warehouse | cross_dock | chilling_center
+  RealColumn get latitude => real()();
+  RealColumn get longitude => real()();
+  TextColumn get address => text().nullable()();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+/// Delivery slot booking windows
+class DeliverySlots extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get slotName => text()(); // morning | afternoon | evening
+  DateTimeColumn get slotDate => dateTime()();
+  DateTimeColumn get startTime => dateTime()();
+  DateTimeColumn get endTime => dateTime()();
+  IntColumn get maxCapacityOrders => integer().withDefault(const Constant(50))();
+  IntColumn get bookedOrdersCount => integer().withDefault(const Constant(0))();
+  TextColumn get status => text().withDefault(const Constant('open'))(); // open | full | closed
+}
+
+/// Planned route stops and execution sequence
+class RouteStops extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get routeId => text()();
+  IntColumn get vehicleId => integer().nullable().references(Vehicles, #id)();
+  IntColumn get driverId => integer().nullable().references(Drivers, #id)();
+  IntColumn get stopSequence => integer()();
+  IntColumn get customerId => integer().references(Customers, #id)();
+  IntColumn get orderId => integer().nullable().references(Orders, #id)();
+  DateTimeColumn get plannedArrivalTime => dateTime()();
+  DateTimeColumn get actualArrivalTime => dateTime().nullable()();
+  TextColumn get status => text().withDefault(const Constant('pending'))(); // pending | arrived | completed | skipped
+  TextColumn get proofOfDeliveryRef => text().nullable()();
+  TextColumn get notes => text().nullable()();
+}
+
+/// Time-series cold-chain logger readings and alerts
+class ColdChainReadings extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get sensorId => text()();
+  TextColumn get vehicleNumber => text().nullable()();
+  TextColumn get batchNumber => text().nullable()();
+  RealColumn get temperatureC => real()();
+  RealColumn get humidityPercent => real().nullable()();
+  DateTimeColumn get recordedAt => dateTime()();
+  BoolColumn get isBreach => boolean().withDefault(const Constant(false))();
+  TextColumn get notes => text().nullable()();
+}
+
+/// Vehicle operational and fuel logs
+class VehicleLogs extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get vehicleId => integer().references(Vehicles, #id)();
+  IntColumn get driverId => integer().nullable().references(Drivers, #id)();
+  DateTimeColumn get logDate => dateTime()();
+  RealColumn get odometerStartKm => real()();
+  RealColumn get odometerEndKm => real()();
+  RealColumn get fuelLiters => real().nullable()();
+  IntColumn get fuelCostMinor => integer().withDefault(const Constant(0))();
+  TextColumn get notes => text().nullable()();
+}
+
+/// Warehouse racking and slotting locations
+class WarehouseLocations extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get locationCode => text().unique()(); // e.g. A-01-02-03 (Aisle-Bay-Shelf-Bin)
+  TextColumn get zone => text()(); // frozen_vault | dry_ambient | cold_chilled
+  IntColumn get productId => integer().nullable().references(Products, #id)();
+  IntColumn get capacityUnits => integer().withDefault(const Constant(100))();
+  IntColumn get currentUnits => integer().withDefault(const Constant(0))();
+  IntColumn get pickPriority => integer().withDefault(const Constant(1))();
+}
