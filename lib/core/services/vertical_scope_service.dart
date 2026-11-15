@@ -196,13 +196,13 @@ class VerticalScopeNotifier extends Notifier<VerticalScope> {
 
       await db.customStatement(
         "INSERT INTO app_settings (key, value, type) VALUES ('active_verticals', ?, 'json') "
-        "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = CURRENT_TIMESTAMP",
+        'ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = CURRENT_TIMESTAMP',
         [jsonStr],
       );
 
       await db.customStatement(
         "INSERT INTO app_settings (key, value, type) VALUES ('primary_vertical', ?, 'string') "
-        "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = CURRENT_TIMESTAMP",
+        'ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = CURRENT_TIMESTAMP',
         [primaryV.name],
       );
     } catch (_) {

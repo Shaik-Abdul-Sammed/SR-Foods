@@ -394,7 +394,7 @@ class _ProductCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          if (product.shelfLifeDays != null) ...[
+                          if (product.shelfLifeDays > 0) ...[
                             const SizedBox(width: 6),
                             Text(
                               'Shelf: ${product.shelfLifeDays}d',

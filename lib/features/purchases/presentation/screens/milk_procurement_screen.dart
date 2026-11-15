@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/database/app_database.dart';
+import 'package:drift/drift.dart' show Variable;
 import '../../../../core/database/database_provider.dart';
 import '../../../../core/domain/money.dart';
 import '../../../../core/services/dairy_pricing_service.dart';
@@ -359,7 +359,7 @@ class _MilkProcurementScreenState extends ConsumerState<MilkProcurementScreen>
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Center(
                   child: Text(
-                    'No deliveries logged for this ${_currentSlot} slot yet.',
+                    'No deliveries logged for this $_currentSlot slot yet.',
                     style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
                   ),
                 ),
@@ -369,7 +369,7 @@ class _MilkProcurementScreenState extends ConsumerState<MilkProcurementScreen>
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: _recentProcurements.length,
-                separatorBuilder: (_, __) => const Divider(height: 1),
+                separatorBuilder: (_, _) => const Divider(height: 1),
                 itemBuilder: (ctx, i) {
                   final item = _recentProcurements[i];
                   final litersVal = item['quantity_liters'];
@@ -385,7 +385,7 @@ class _MilkProcurementScreenState extends ConsumerState<MilkProcurementScreen>
                       child: Icon(Icons.local_shipping, size: 18, color: Color(0xFF00897B)),
                     ),
                     title: Text(
-                      '${item['supplier_id']} — ${litersVal}L @ ${fatVal}% Fat',
+                      '${item['supplier_id']} — $litersVal L @ $fatVal% Fat',
                       style: AppTextStyles.titleSmall,
                     ),
                     subtitle: Text('SNF: ${item['snf_percent']}% | Slot: ${item['slot']}'),

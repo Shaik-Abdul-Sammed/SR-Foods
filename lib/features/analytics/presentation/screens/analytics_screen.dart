@@ -9,7 +9,6 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/services/dairy_kpi_service.dart';
 import '../../../../core/services/bakery_kpi_service.dart';
-import '../../../../core/services/vertical_scope_service.dart';
 import '../../../dashboard/presentation/screens/dashboard_screen.dart';
 
 final categoryExpensesProvider =
@@ -149,7 +148,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
             const SizedBox(height: 10),
             dairyKpiAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (_, __) => const Text('Unable to load dairy metrics'),
+              error: (_, _) => const Text('Unable to load dairy metrics'),
               data: (kpi) => _buildDairyGrid(kpi),
             ),
             const SizedBox(height: 20),
@@ -160,7 +159,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
             const SizedBox(height: 10),
             bakeryKpiAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (_, __) => const Text('Unable to load bakery metrics'),
+              error: (_, _) => const Text('Unable to load bakery metrics'),
               data: (kpi) => _buildBakeryGrid(kpi),
             ),
             const SizedBox(height: 20),

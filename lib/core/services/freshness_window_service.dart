@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' show Variable;
 import '../database/app_database.dart';
 import '../domain/money.dart';
 import '../i18n/locale_context.dart';

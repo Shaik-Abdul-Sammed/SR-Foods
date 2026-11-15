@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:drift/drift.dart' show Variable;
 import '../../../../core/database/database_provider.dart';
 import '../../../../core/domain/money.dart';
 import '../../../../core/services/custom_order_service.dart';
@@ -57,7 +58,7 @@ class _CustomOrderScreenState extends ConsumerState<CustomOrderScreen> {
     final advanceCtrl = TextEditingController(text: '1000');
     DateTime deliveryDate = DateTime.now().add(const Duration(days: 2));
 
-    await showDialog(
+    await showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('New Custom Cake Order'),
@@ -166,7 +167,7 @@ class _CustomOrderScreenState extends ConsumerState<CustomOrderScreen> {
       final ticketText = await _service.generateCustomOrderTicket(db: db, orderId: orderId);
 
       if (mounted) {
-        showDialog(
+        showDialog<void>(
           context: context,
           builder: (ctx) => AlertDialog(
             title: const Text('Kitchen Work Order Ticket'),
@@ -254,7 +255,7 @@ class _CustomOrderScreenState extends ConsumerState<CustomOrderScreen> {
                     : ListView.separated(
                         padding: const EdgeInsets.all(16),
                         itemCount: _orders.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        separatorBuilder: (_, _) => const SizedBox(height: 12),
                         itemBuilder: (ctx, i) {
                           final o = _orders[i];
                           final id = o['id'] as int;
@@ -264,7 +265,10 @@ class _CustomOrderScreenState extends ConsumerState<CustomOrderScreen> {
                           final totalMinor = o['total_amount_minor'] as int? ?? 0;
                           final advMinor = o['advance_amount_minor'] as int? ?? 0;
                           final balMinor = totalMinor - advMinor;
-                          final delDate = DateTime.tryParse(o['delivery_date'] ?? '') ?? DateTime.now();
+                          final rawDel = o['delivery_date'];
+                          final delDate = rawDel is int
+                              ? DateTime.fromMillisecondsSinceEpoch(rawDel * 1000)
+                              : DateTime.tryParse(rawDel?.toString() ?? '') ?? DateTime.now();
 
                           return Card(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),

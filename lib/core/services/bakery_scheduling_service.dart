@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' show Variable;
 import '../database/app_database.dart';
 
 class ScheduledSlot {

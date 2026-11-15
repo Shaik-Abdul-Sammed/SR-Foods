@@ -45,13 +45,13 @@ class LabelDispatcherService {
             sku: product.sku,
             productName: product.name,
             batchNumber: batch?.batchNumber ?? 'BAT-${now.millisecondsSinceEpoch.toString().substring(7)}',
-            mfgDate: batch?.mfgDate ?? now,
-            useByDate: batch?.expiryDate ?? now.add(Duration(days: product.shelfLifeDays ?? 3)),
-            netQuantity: '${product.weight} ${product.unit}',
+            mfgDate: batch?.manufacturingDate ?? now,
+            useByDate: batch?.expiryDate ?? now.add(Duration(days: product.shelfLifeDays)),
+            netQuantity: '${product.weightGrams.toInt()} ${product.unit}',
             fatPercent: product.fatPercentExpected ?? 4.5,
             snfPercent: product.snfPercentExpected ?? 8.5,
             milkType: product.milkType ?? 'Cow Milk',
-            pasteurizationStandard: product.isPasteurized
+            pasteurizationStandard: product.isPasteurized == true
                 ? 'HTST Pasteurised (72°C / 15s)'
                 : 'Raw Chilled Certified',
             fssaiCategoryCode: product.fssaiCategoryCode ?? 'FCS 01.1.2',
@@ -69,10 +69,10 @@ class LabelDispatcherService {
             batchNumber: batch?.batchNumber ?? 'BKB-${now.millisecondsSinceEpoch.toString().substring(7)}',
             bakedAt: bakedTime,
             freshnessUntil: batch?.freshnessUntil ?? bakedTime.add(Duration(hours: shelfHours)),
-            netWeight: '${product.weight} ${product.unit}',
-            containsEgg: (product.allergens ?? '').toLowerCase().contains('egg'),
-            allergens: (product.allergens != null && product.allergens!.isNotEmpty)
-                ? product.allergens!.split(',').map((e) => e.trim()).toList()
+            netWeight: '${product.weightGrams.toInt()} ${product.unit}',
+            containsEgg: product.allergens.toLowerCase().contains('egg'),
+            allergens: product.allergens.isNotEmpty
+                ? product.allergens.split(',').map((e) => e.trim()).toList()
                 : ['Wheat / Gluten'],
             ovenId: batch?.ovenId ?? 'OVEN-ROTARY-1',
             fssaiCategoryCode: product.fssaiCategoryCode ?? 'FCS 07.1',
@@ -86,12 +86,12 @@ class LabelDispatcherService {
             sku: product.sku,
             productName: product.name,
             batchNumber: batch?.batchNumber ?? 'FZN-${now.millisecondsSinceEpoch.toString().substring(7)}',
-            productionDate: batch?.mfgDate ?? now,
-            expiryDate: batch?.expiryDate ?? now.add(Duration(days: product.shelfLifeDays ?? 365)),
-            netWeightGrams: product.weight,
+            productionDate: batch?.manufacturingDate ?? now,
+            expiryDate: batch?.expiryDate ?? now.add(Duration(days: product.shelfLifeDays)),
+            netWeightGrams: product.weightGrams,
             ingredients: [product.description ?? product.name],
-            allergens: (product.allergens != null && product.allergens!.isNotEmpty)
-                ? product.allergens!.split(',').map((e) => e.trim()).toList()
+            allergens: product.allergens.isNotEmpty
+                ? product.allergens.split(',').map((e) => e.trim()).toList()
                 : const [],
             destinationCountry: destinationCountry,
             storageCondition: product.storageType == 'ambient'

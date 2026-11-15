@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:drift/drift.dart' show Variable;
 import '../../../../core/database/database_provider.dart';
 import '../../../../core/services/bakery_scheduling_service.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -15,7 +16,7 @@ class OvenScheduleScreen extends ConsumerStatefulWidget {
 class _OvenScheduleScreenState extends ConsumerState<OvenScheduleScreen> {
   final _service = const BakerySchedulingService();
   String _selectedOven = 'OVEN-01';
-  DateTime _selectedDate = DateTime.now();
+  final DateTime _selectedDate = DateTime.now();
   List<Map<String, dynamic>> _schedules = [];
   OvenCapacityResult? _capacity;
   bool _isLoading = false;
@@ -62,7 +63,7 @@ class _OvenScheduleScreenState extends ConsumerState<OvenScheduleScreen> {
     int selectedProduct = 1;
     final delivery = DateTime.now().add(const Duration(hours: 4));
 
-    await showDialog(
+    await showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Schedule Baking Batch'),
@@ -239,13 +240,19 @@ class _OvenScheduleScreenState extends ConsumerState<OvenScheduleScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: _schedules.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 8),
+                separatorBuilder: (_, _) => const SizedBox(height: 8),
                 itemBuilder: (ctx, i) {
                   final item = _schedules[i];
                   final pName = item['product_name'] ?? 'Bakery Batch #${item['id']}';
                   final qty = item['quantity'];
-                  final start = DateTime.tryParse(item['scheduled_start'] ?? '') ?? DateTime.now();
-                  final end = DateTime.tryParse(item['scheduled_end'] ?? '') ?? DateTime.now();
+                  final rawStart = item['scheduled_start'];
+                  final start = rawStart is int
+                      ? DateTime.fromMillisecondsSinceEpoch(rawStart * 1000)
+                      : DateTime.tryParse(rawStart?.toString() ?? '') ?? DateTime.now();
+                  final rawEnd = item['scheduled_end'];
+                  final end = rawEnd is int
+                      ? DateTime.fromMillisecondsSinceEpoch(rawEnd * 1000)
+                      : DateTime.tryParse(rawEnd?.toString() ?? '') ?? DateTime.now();
                   final status = item['status'] ?? 'scheduled';
 
                   return Card(

@@ -275,7 +275,7 @@ class CustomerDetailScreen extends ConsumerWidget {
     final codeCtrl = TextEditingController(text: defaultCode ?? '');
     String condition = 'good';
 
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Scan / Return Container'),
