@@ -20,11 +20,15 @@ void main() {
       // Trigger default seed
       final allProducts = await db.select(db.products).get();
 
-      // Assert 100 SKUs
-      expect(allProducts.length, 100);
+      // Assert total catalog reached 180 SKUs (100 frozen master + 40 dairy + 40 bakery)
+      expect(allProducts.length, 180);
+
+      // Assert frozen master catalog contains exactly 100 SKUs
+      final frozenProducts = allProducts.where((p) => !p.sku.startsWith('SRF-DAI-1') && !p.sku.startsWith('SRF-BKY-')).toList();
+      expect(frozenProducts.length, 100);
 
       // Assert 12 distinct categories
-      final distinctCategories = allProducts.map((p) => p.category).toSet();
+      final distinctCategories = frozenProducts.map((p) => p.category).toSet();
       expect(distinctCategories.length, 12);
       expect(distinctCategories, containsAll([
         'Indian Breads',
