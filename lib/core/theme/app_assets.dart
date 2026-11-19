@@ -6,8 +6,8 @@ class AppAssets {
 
   // Images
   static const String logo = '$_imagesPath/logo.png';
-  static const String owner = '$_imagesPath/dad.jpeg';
-  static const String placeholder = '$_imagesPath/placeholder.png';
+  static const String owner = '$_imagesPath/logo.png';
+  static const String placeholder = '$_imagesPath/logo.png';
 
   // Animations
   static const String success = '$_animationsPath/success.json';

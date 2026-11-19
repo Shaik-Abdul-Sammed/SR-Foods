@@ -346,43 +346,38 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
                             const SizedBox(height: 16),
 
-                            // Owner Avatar
+                            // Enterprise Brand Emblem
                             Stack(
                               children: [
                                 Container(
-                                  width: 72,
-                                  height: 72,
+                                  width: 76,
+                                  height: 76,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xFFFFB300),
-                                        Color(0xFF2E7D32),
-                                      ],
-                                    ),
-                                    border: Border.all(
-                                      color:
-                                          AppColors.accent.withValues(alpha: 0.5),
-                                      width: 2,
-                                    ),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withValues(alpha: 0.2),
+                                        blurRadius: 16,
+                                        offset: const Offset(0, 6),
+                                      ),
+                                    ],
                                   ),
-                                  child: const CircleAvatar(
-                                    radius: 34,
-                                    backgroundImage:
-                                        AssetImage(AppAssets.owner),
-                                  ),
+                                  padding: const EdgeInsets.all(12),
+                                  child: Image.asset(AppAssets.logo, fit: BoxFit.contain),
                                 ),
                                 Positioned(
                                   bottom: 0,
                                   right: 0,
                                   child: Container(
-                                    width: 22,
-                                    height: 22,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFF4CAF50),
+                                    width: 24,
+                                    height: 24,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primaryLight,
                                       shape: BoxShape.circle,
+                                      border: Border.all(color: Colors.white, width: 2),
                                     ),
-                                    child: const Icon(Icons.star_rounded,
+                                    child: const Icon(Icons.check_rounded,
                                         color: Colors.white, size: 14),
                                   ),
                                 ),
@@ -392,7 +387,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             const SizedBox(height: 12),
 
                             Text(
-                              'SM SUBHANI',
+                              'SR FOODS ENTERPRISE',
                               style: AppTextStyles.titleMedium.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w900,
@@ -402,7 +397,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'Founder & National Administrator',
+                              'Autonomous Food Distribution & Multi-Vertical ERP',
                               style: AppTextStyles.labelSmall.copyWith(
                                 color: AppColors.accent,
                                 fontWeight: FontWeight.w600,
@@ -424,7 +419,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                     size: 14),
                                 const SizedBox(width: 4),
                                 Text(
-                                  'Kondapeta, Dhone',
+                                  'Dhone Central Facility • Regional Hub',
                                   style: AppTextStyles.bodyMedium.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
@@ -436,13 +431,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.phone_rounded,
+                                Icon(Icons.verified_user_rounded,
                                     color:
                                         Colors.white.withValues(alpha: 0.7),
                                     size: 14),
                                 const SizedBox(width: 4),
                                 Text(
-                                  '9440067933',
+                                  'FSSAI Certified • Cold-Chain Monitored',
                                   style: AppTextStyles.bodyMedium.copyWith(
                                     color: Colors.white.withValues(alpha: 0.9),
                                   ),

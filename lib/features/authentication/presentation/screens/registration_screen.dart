@@ -7,6 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/theme/app_assets.dart';
 
 class RegistrationScreen extends ConsumerStatefulWidget {
   const RegistrationScreen({super.key});
@@ -102,8 +103,8 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
               Hero(
                 tag: 'app_logo',
                 child: Container(
-                  width: 64,
-                  height: 64,
+                  width: 72,
+                  height: 72,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
@@ -114,11 +115,9 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                         offset: const Offset(0, 4),
                       ),
                     ],
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/dad.jpeg'),
-                      fit: BoxFit.cover,
-                    ),
                   ),
+                  padding: const EdgeInsets.all(10),
+                  child: Image.asset(AppAssets.logo, fit: BoxFit.contain),
                 ),
               ),
               const SizedBox(height: 24),

@@ -196,6 +196,9 @@ class AppTheme {
       iconColor: AppColors.primary,
       titleTextStyle: AppTextStyles.titleSmall,
       subtitleTextStyle: AppTextStyles.bodySmall,
+      tileColor: Colors.transparent,
+      selectedTileColor: Color(0x1F059669),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
     ),
     dialogTheme: DialogThemeData(
       backgroundColor: AppColors.surface,
@@ -336,6 +339,15 @@ class AppTheme {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(UIConstants.radius2xl),
       ),
+    ),
+    listTileTheme: const ListTileThemeData(
+      contentPadding: EdgeInsets.symmetric(horizontal: UIConstants.spacingMd, vertical: UIConstants.spacingXs),
+      iconColor: AppColors.primaryLight,
+      titleTextStyle: AppTextStyles.titleSmall,
+      subtitleTextStyle: AppTextStyles.bodySmall,
+      tileColor: Colors.transparent,
+      selectedTileColor: Color(0x2610B981),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
     ),
   );
 }

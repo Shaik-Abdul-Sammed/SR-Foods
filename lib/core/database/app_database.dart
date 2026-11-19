@@ -256,7 +256,7 @@ class AppDatabase extends _$AppDatabase {
     // Insert default owner user
     await into(users).insert(
       UsersCompanion.insert(
-        name: 'SM Subhani',
+        name: 'Enterprise Administrator',
         role: const Value('owner'),
         isActive: const Value(true),
       ),
@@ -272,7 +272,7 @@ class AppDatabase extends _$AppDatabase {
     // Insert default settings
     final defaultSettings = [
       ('business_name', 'SR Foods'),
-      ('owner_name', 'SM Subhani'),
+      ('owner_name', 'Enterprise Administrator'),
       ('business_address', ''),
       ('business_phone', ''),
       ('invoice_prefix', 'SRF'),

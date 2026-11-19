@@ -25,7 +25,7 @@ class ProductionFormScreen extends ConsumerStatefulWidget {
 
 class _ProductionFormScreenState extends ConsumerState<ProductionFormScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _operatorCtrl = TextEditingController(text: 'SM Subhani');
+  final _operatorCtrl = TextEditingController(text: 'Shift Lead');
   final _quantityCtrl = TextEditingController();
   final _flourUsedCtrl = TextEditingController();
   final _notesCtrl = TextEditingController();

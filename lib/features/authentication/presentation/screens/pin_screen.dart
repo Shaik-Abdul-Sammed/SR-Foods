@@ -9,6 +9,7 @@ import '../../../../core/config/app_config.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/theme/app_assets.dart';
 
 class PinScreen extends ConsumerStatefulWidget {
   const PinScreen({super.key});
@@ -120,20 +121,21 @@ class _PinScreenState extends ConsumerState<PinScreen>
               Hero(
                 tag: 'app_logo',
                 child: Container(
-                  width: 80,
-                  height: 80,
+                  width: 84,
+                  height: 84,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.15),
+                    color: Colors.white,
                     shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.3),
-                      width: 2,
-                    ),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/dad.jpeg'),
-                      fit: BoxFit.cover,
-                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.25),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
                   ),
+                  padding: const EdgeInsets.all(12),
+                  child: Image.asset(AppAssets.logo, fit: BoxFit.contain),
                 ),
               ),
               const SizedBox(height: 24),

@@ -27,13 +27,18 @@ class SettingsScreen extends ConsumerWidget {
                 width: 64, 
                 height: 64, 
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2), 
+                  color: Colors.white, 
                   borderRadius: BorderRadius.circular(16),
-                  image: const DecorationImage(
-                    image: AssetImage(AppAssets.owner),
-                    fit: BoxFit.cover,
-                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.12),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
+                padding: const EdgeInsets.all(8),
+                child: Image.asset(AppAssets.logo, fit: BoxFit.contain),
               ),
               const SizedBox(width: 14),
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -127,63 +132,66 @@ class SettingsScreen extends ConsumerWidget {
   Widget _verticalSelectionCard(BuildContext context, WidgetRef ref) {
     final verticalScope = ref.watch(verticalScopeProvider);
 
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+    return Material(
+      color: Theme.of(context).colorScheme.surface,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.15)),
+        side: BorderSide(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.15)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.category_rounded, size: 18, color: AppColors.primary),
-              const SizedBox(width: 8),
-              Text(
-                'Active Specializations',
-                style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w700),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          Text(
-            'Select the operational food verticals deployed on this instance:',
-            style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
-          ),
-          const SizedBox(height: 8),
-          _verticalCheckbox(
-            context,
-            ref,
-            label: 'Frozen Food (Parota, Chapathi, Flatbreads)',
-            vertical: Vertical.frozen,
-            icon: Icons.ac_unit_rounded,
-            color: const Color(0xFF0288D1),
-            isSelected: verticalScope.isEnabled(Vertical.frozen),
-            currentSet: verticalScope.activeVerticals(),
-          ),
-          _verticalCheckbox(
-            context,
-            ref,
-            label: 'Dairy (Fresh Milk, Curd, Ghee, Paneer)',
-            vertical: Vertical.dairy,
-            icon: Icons.water_drop_rounded,
-            color: const Color(0xFF00897B),
-            isSelected: verticalScope.isEnabled(Vertical.dairy),
-            currentSet: verticalScope.activeVerticals(),
-          ),
-          _verticalCheckbox(
-            context,
-            ref,
-            label: 'Bakery (Breads, Buns, Cakes, Pastries)',
-            vertical: Vertical.bakery,
-            icon: Icons.bakery_dining_rounded,
-            color: const Color(0xFFE65100),
-            isSelected: verticalScope.isEnabled(Vertical.bakery),
-            currentSet: verticalScope.activeVerticals(),
-          ),
-        ],
+      clipBehavior: Clip.antiAlias,
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.category_rounded, size: 18, color: AppColors.primary),
+                const SizedBox(width: 8),
+                Text(
+                  'Active Specializations',
+                  style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(
+              'Select the operational food verticals deployed on this instance:',
+              style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
+            ),
+            const SizedBox(height: 8),
+            _verticalCheckbox(
+              context,
+              ref,
+              label: 'Frozen Food (Parota, Chapathi, Flatbreads)',
+              vertical: Vertical.frozen,
+              icon: Icons.ac_unit_rounded,
+              color: const Color(0xFF0288D1),
+              isSelected: verticalScope.isEnabled(Vertical.frozen),
+              currentSet: verticalScope.activeVerticals(),
+            ),
+            _verticalCheckbox(
+              context,
+              ref,
+              label: 'Dairy (Fresh Milk, Curd, Ghee, Paneer)',
+              vertical: Vertical.dairy,
+              icon: Icons.water_drop_rounded,
+              color: const Color(0xFF00897B),
+              isSelected: verticalScope.isEnabled(Vertical.dairy),
+              currentSet: verticalScope.activeVerticals(),
+            ),
+            _verticalCheckbox(
+              context,
+              ref,
+              label: 'Bakery (Breads, Buns, Cakes, Pastries)',
+              vertical: Vertical.bakery,
+              icon: Icons.bakery_dining_rounded,
+              color: const Color(0xFFE65100),
+              isSelected: verticalScope.isEnabled(Vertical.bakery),
+              currentSet: verticalScope.activeVerticals(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -198,11 +206,13 @@ class SettingsScreen extends ConsumerWidget {
     required bool isSelected,
     required Set<Vertical> currentSet,
   }) {
-    return CheckboxListTile(
-      contentPadding: EdgeInsets.zero,
-      dense: true,
-      activeColor: color,
-      value: isSelected,
+    return Material(
+      color: Colors.transparent,
+      child: CheckboxListTile(
+        contentPadding: EdgeInsets.zero,
+        dense: true,
+        activeColor: color,
+        value: isSelected,
       secondary: Container(
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
@@ -255,6 +265,7 @@ class SettingsScreen extends ConsumerWidget {
           }
         });
       },
-    );
-  }
+    ),
+  );
+}
 }

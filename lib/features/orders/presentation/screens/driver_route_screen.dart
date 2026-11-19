@@ -492,17 +492,19 @@ class _DriverRouteScreenState extends ConsumerState<DriverRouteScreen> {
                         final stop = displayStops[index];
                         return Container(
                           margin: const EdgeInsets.only(bottom: 12),
-                          decoration: BoxDecoration(
+                          child: Material(
                             color: Theme.of(context).colorScheme.surface,
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: stop.isDelivered
-                                  ? AppColors.success.withValues(alpha: 0.5)
-                                  : Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
-                              width: stop.isDelivered ? 1.5 : 1.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              side: BorderSide(
+                                color: stop.isDelivered
+                                    ? AppColors.success.withValues(alpha: 0.5)
+                                    : Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                                width: stop.isDelivered ? 1.5 : 1.0,
+                              ),
                             ),
-                          ),
-                      child: ListTile(
+                            clipBehavior: Clip.antiAlias,
+                            child: ListTile(
                         contentPadding: const EdgeInsets.all(14),
                         leading: CircleAvatar(
                           backgroundColor: stop.isDelivered
@@ -571,9 +573,10 @@ class _DriverRouteScreenState extends ConsumerState<DriverRouteScreen> {
                                   ),
                                 ],
                               ),
-                      ),
-                    );
-                  },
+                            ),
+                          ),
+                        );
+                      },
                 );
               },
             ),

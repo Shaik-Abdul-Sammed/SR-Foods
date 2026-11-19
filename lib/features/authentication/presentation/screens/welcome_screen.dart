@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/theme/app_assets.dart';
 
 class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
@@ -36,22 +37,21 @@ class WelcomeScreen extends ConsumerWidget {
                 Hero(
                   tag: 'app_logo',
                   child: Container(
-                    width: 72,
-                    height: 72,
+                    width: 76,
+                    height: 76,
                     decoration: BoxDecoration(
+                      color: Colors.white,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.5),
-                          blurRadius: 30,
-                          offset: const Offset(0, 10),
+                          color: AppColors.primaryLight.withValues(alpha: 0.4),
+                          blurRadius: 24,
+                          offset: const Offset(0, 8),
                         ),
                       ],
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/dad.jpeg'),
-                        fit: BoxFit.cover,
-                      ),
                     ),
+                    padding: const EdgeInsets.all(12),
+                    child: Image.asset(AppAssets.logo, fit: BoxFit.contain),
                   ),
                 ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack),
                 

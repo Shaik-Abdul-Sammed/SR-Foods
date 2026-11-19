@@ -27,7 +27,7 @@ class HygieneComplianceScreen extends ConsumerStatefulWidget {
 
 class _HygieneComplianceScreenState extends ConsumerState<HygieneComplianceScreen> {
   final _tempCtrl = TextEditingController(text: '3.2');
-  final _inspectorCtrl = TextEditingController(text: 'SM Subhani');
+  final _inspectorCtrl = TextEditingController(text: 'QA Inspector');
   final _notesCtrl = TextEditingController();
   bool _surfacesClean = true;
   bool _hygienePassed = true;

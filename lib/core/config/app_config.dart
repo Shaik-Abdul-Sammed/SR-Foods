@@ -10,7 +10,7 @@ class AppConfig {
   static const String appVersion = '1.0.0';
   static const int appBuildNumber = 1;
   static const String packageName = 'com.srfoods.app';
-  static const String ownerName = 'SM Subhani';
+  static const String ownerName = 'Enterprise Admin';
   static const String businessName = 'SR Foods';
 
   // Database

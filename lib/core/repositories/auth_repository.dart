@@ -44,7 +44,7 @@ class AuthRepository {
   AuthRepository({required this.prefs});
 
   String get currentUserRole => prefs.getString(_userRoleKey) ?? 'owner';
-  String get currentUserName => prefs.getString(_userNameKey) ?? 'SM Subhani';
+  String get currentUserName => prefs.getString(_userNameKey) ?? 'Enterprise Admin';
 
   Future<void> login(String role, {String? name}) async {
     await prefs.setString(_userRoleKey, role);
